@@ -662,6 +662,48 @@
   menuBtn.addEventListener('click', () => menu.classList.toggle('open'));
   menu.addEventListener('click', e => { if (e.target.tagName === 'A') menu.classList.remove('open'); });
 
+  // Hero floating icons react to the mouse — drift away from the cursor
+  (function interactiveFloats(){
+    const hero = document.getElementById('home');
+    if (!hero) return;
+    const icons = [...hero.querySelectorAll('.float')];
+    if (!icons.length) return;
+    const RADIUS = 150;   // how close the cursor must be to affect an icon
+    const PUSH   = 70;    // max push distance in px
+    let raf = null, mx = -9999, my = -9999;
+
+    function update(){
+      raf = null;
+      icons.forEach(ic => {
+        const r = ic.getBoundingClientRect();
+        const cx = r.left + r.width / 2;
+        const cy = r.top + r.height / 2;
+        const dx = cx - mx, dy = cy - my;
+        const dist = Math.hypot(dx, dy);
+        if (dist < RADIUS && dist > 0){
+          const force = (1 - dist / RADIUS) * PUSH;
+          ic.style.transition = 'transform .12s ease-out';
+          ic.style.transform = `translate(${dx / dist * force}px, ${dy / dist * force}px) scale(1.25)`;
+          ic.style.animationPlayState = 'paused';
+        } else {
+          ic.style.transition = 'transform .5s ease-out';
+          ic.style.transform = '';
+          ic.style.animationPlayState = '';
+        }
+      });
+    }
+    hero.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(update);
+    });
+    hero.addEventListener('mouseleave', () => {
+      mx = my = -9999;
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(update);
+    });
+  })();
+
   // LEGO Lab full-screen lightbox
   (function legoLightbox(){
     const modal = document.getElementById('legoModal');
