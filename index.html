@@ -111,7 +111,7 @@
   .chess-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
   .chess-links .btn{font-size:.92rem;padding:11px 16px}
   .hero-bricks{position:absolute;inset:0;opacity:.10;z-index:1}
-  .float{position:absolute;font-size:2.4rem;opacity:.6;will-change:transform;animation:drift 7s ease-in-out infinite}
+  .float{position:absolute;font-size:2.9rem;opacity:.6;will-change:transform;z-index:3;animation:drift 7s ease-in-out infinite}
   .float:hover{opacity:1}
   @keyframes drift{
     0%   {transform:translate(0,0) rotate(0deg)}
@@ -668,8 +668,8 @@
     if (!hero) return;
     const icons = [...hero.querySelectorAll('.float')];
     if (!icons.length) return;
-    const RADIUS = 150;   // how close the cursor must be to affect an icon
-    const PUSH   = 70;    // max push distance in px
+    const RADIUS = 220;   // how close the cursor must be to affect an icon
+    const PUSH   = 120;   // max push distance in px
     let raf = null, mx = -9999, my = -9999;
 
     function update(){
