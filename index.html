@@ -329,8 +329,8 @@
         </div>
         <div class="chess-links">
           <button type="button" id="lichessBtn" class="btn btn-blue">🌐 Load Live Lichess Data</button>
-          <a href="https://lichess.org/@/vihaan_67" target="_blank" rel="noopener" class="btn btn-blue go-link">🔗 Open Lichess Profile ↗</a>
-          <a href="https://ratings.uschess.org/player/32756659" target="_blank" rel="noopener" class="btn btn-red go-link">🏛️ Open US Chess Profile ↗</a>
+          <a href="https://lichess.org/@/vihaan_67" target="_blank" rel="noopener noreferrer" class="btn btn-blue">🔗 Open Lichess Profile ↗</a>
+          <a href="https://ratings.uschess.org/player/32756659" target="_blank" rel="noopener noreferrer" class="btn btn-red">🏛️ Open US Chess Profile ↗</a>
         </div>
       </div>
       <div>
@@ -506,20 +506,8 @@
     load();
   })();
 
-  // Profile link buttons — open the site; if a new tab is blocked, navigate in place
-  (function goLinks(){
-    document.querySelectorAll('a.go-link').forEach(a => {
-      a.addEventListener('click', (e) => {
-        e.preventDefault();
-        const url = a.href;
-        const win = window.open(url, '_blank', 'noopener');
-        if (!win || win.closed || typeof win.closed === 'undefined') {
-          // new tab blocked — go in the same tab instead
-          window.location.href = url;
-        }
-      });
-    });
-  })();
+  // Profile link buttons open in a new tab natively (plain target="_blank" anchors).
+  // No JS interception — that avoids accidentally navigating the current page.
 
   // Rating progress chart (inline SVG line chart, no libraries)
   (function drawChart(){
