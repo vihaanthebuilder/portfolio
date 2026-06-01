@@ -25,3 +25,7 @@ yarn-error.log*
 .idea/
 .vscode/
 *.swp
+
+# stray temp files
+.commitmsg.tmp
+*.bak
