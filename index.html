@@ -319,16 +319,16 @@
           <span>♟️ Regular <b>715</b></span>
           <span>⚡ Quick <b>717</b></span>
         </div>
-        <p class="chart-note" style="margin:14px 0 4px;font-weight:800;color:var(--ink)">🌐 Online ratings (Lichess)</p>
+        <p class="chart-note" style="margin:14px 0 4px;font-weight:800;color:var(--ink)">🌐 Online ratings (Lichess) <span id="lichessStatus" style="font-weight:600;color:var(--muted)"></span></p>
         <div class="meta" style="margin-top:0">
-          <span>♟️ Classical <b>1429</b></span>
-          <span>⚡ Rapid <b>1226</b></span>
-          <span>🔥 Blitz <b>1160</b></span>
-          <span>🚅 Bullet <b>1252</b></span>
-          <span>🧩 Puzzles <b>1687</b></span>
+          <span>♟️ Classical <b id="li-classical">1429</b></span>
+          <span>⚡ Rapid <b id="li-rapid">1226</b></span>
+          <span>🔥 Blitz <b id="li-blitz">1160</b></span>
+          <span>🚅 Bullet <b id="li-bullet">1252</b></span>
+          <span>🧩 Puzzles <b id="li-puzzle">1687</b></span>
         </div>
         <div class="chess-links">
-          <a href="https://lichess.org/@/vihaan_67" target="_blank" rel="noopener" class="btn btn-blue">🌐 Lichess Data</a>
+          <button type="button" id="lichessBtn" class="btn btn-blue">🌐 Load Live Lichess Data</button>
           <a href="https://ratings.uschess.org/player/32756659" target="_blank" rel="noopener" class="btn btn-red">🏛️ Over-the-Board (US Chess)</a>
         </div>
       </div>
@@ -451,6 +451,45 @@
   const menu = document.getElementById('menu');
   menuBtn.addEventListener('click', () => menu.classList.toggle('open'));
   menu.addEventListener('click', e => { if (e.target.tagName === 'A') menu.classList.remove('open'); });
+
+  // Live Lichess data — fetch current ratings from the public API
+  (function lichessLive(){
+    const btn = document.getElementById('lichessBtn');
+    const status = document.getElementById('lichessStatus');
+    if (!btn) return;
+    async function load(){
+      const original = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = '⏳ Loading…';
+      try {
+        const res = await fetch('https://lichess.org/api/user/vihaan_67');
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const d = await res.json();
+        const p = d.perfs || {};
+        const set = (id, perf) => {
+          const el = document.getElementById(id);
+          if (el && perf && perf.rating != null) el.textContent = perf.rating;
+        };
+        set('li-classical', p.classical);
+        set('li-rapid', p.rapid);
+        set('li-blitz', p.blitz);
+        set('li-bullet', p.bullet);
+        set('li-puzzle', p.puzzle);
+        status.textContent = '✓ live';
+        status.style.color = '#0a9e6e';
+        btn.textContent = '🔄 Refresh Lichess Data';
+      } catch (err) {
+        status.textContent = '(could not load — showing saved values)';
+        btn.textContent = '🌐 View Lichess Profile ↗';
+        btn.onclick = () => window.open('https://lichess.org/@/vihaan_67', '_blank', 'noopener');
+      } finally {
+        btn.disabled = false;
+      }
+    }
+    btn.addEventListener('click', load);
+    // auto-load on first view
+    load();
+  })();
 
   // Rating progress chart (inline SVG line chart, no libraries)
   (function drawChart(){
