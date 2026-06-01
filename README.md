@@ -1,7 +1,7 @@
-# portfolio
+# Portfolio
 
-Personal portfolio of vihaanthebuilder.
+Vihaan's personal portfolio website.
 
-## Getting started
+## Status
 
-_Project scaffolding coming soon._
+Initial setup. More to come.
