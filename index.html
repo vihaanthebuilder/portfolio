@@ -121,6 +121,7 @@
     background:var(--yellow);color:var(--ink);padding:6px 14px;border-radius:999px
   }
   .head h2 .ico{font-size:1.1em;vertical-align:-2px}
+  .head-logo{height:1.1em;width:auto;vertical-align:-3px;margin-right:4px}
 
   /* ---------- CARDS GRID ---------- */
   .grid{display:grid;gap:22px}
@@ -248,8 +249,18 @@
   @media(max-width:520px){.goal-grid{grid-template-columns:1fr}}
   .goal{background:rgba(255,255,255,.12);border:2px dashed rgba(255,255,255,.4);border-radius:18px;
     padding:20px 16px;text-align:center}
-  .goal .em{font-size:2.2rem}
+  .goal .em{font-size:2.2rem;height:54px;display:flex;align-items:center;justify-content:center}
   .goal b{display:block;font-family:'Baloo 2';margin-top:8px}
+  .goal-logo{height:48px;width:auto;max-width:90%;object-fit:contain;display:block}
+  .goal-logo.lichess-logo{background:#fff;border-radius:10px;padding:5px}
+  .goal-photo{height:54px;width:80px;object-fit:cover;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,.25)}
+  .contests{margin-top:26px;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 26px;text-align:center}
+  .contests h3{font-family:'Baloo 2';font-size:1.3rem;color:var(--ink);margin-bottom:14px}
+  .contest-chips{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+  .contest{background:var(--cream);border:2px solid #ffe9a8;color:#7a5b00;font-weight:800;
+    padding:10px 18px;border-radius:999px;font-size:1rem;transition:.15s}
+  .contest:hover{background:var(--yellow);transform:translateY(-2px)}
+  .contest small{font-weight:600;color:var(--muted)}
 
   /* ---------- FOOTER ---------- */
   footer{background:var(--ink);color:#fff;text-align:center;padding:50px 0 30px}
@@ -312,7 +323,7 @@
   <div class="wrap">
     <div class="head">
       <span class="chip">Build Zone</span>
-      <h2><span class="ico">🧱</span> LEGO Lab</h2>
+      <h2><img src="images/logos/lego.svg" alt="LEGO" class="head-logo"> LEGO Lab</h2>
     </div>
     <p class="lego-hint">👆 Tap a build to see it full screen</p>
     <div class="grid g3">
@@ -482,6 +493,14 @@
         </div>
       </article>
     </div>
+    <div class="contests">
+      <h3>🏆 Math Contests I'm Aiming For</h3>
+      <div class="contest-chips">
+        <a href="https://mathkangaroo.org" target="_blank" rel="noopener" class="contest">🦘 Math Kangaroo</a>
+        <a href="https://www.noeticlearning.com/mathcontest/" target="_blank" rel="noopener" class="contest">🧠 Noetic Math Contest</a>
+        <a href="https://moems.org" target="_blank" rel="noopener" class="contest">🏅 MOEMS <small>(when I'm in 4th grade!)</small></a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -510,13 +529,13 @@
       <h2><span class="ico">🎯</span> 2026 Goals</h2>
     </div>
     <div class="goal-grid">
-      <div class="goal"><div class="em">🌐</div><b>Reach 2000 Lichess Rating</b></div>
-      <div class="goal"><div class="em">♟️</div><b>Reach 1100 Over-the-Board Rating</b></div>
+      <div class="goal"><div class="em"><img src="images/logos/lichess.png" alt="Lichess" class="goal-logo lichess-logo"></div><b>Reach 2000 Lichess Rating</b></div>
+      <div class="goal"><div class="em"><img src="images/logos/uscf.svg" alt="US Chess" class="goal-logo"></div><b>Reach 1100 Over-the-Board Rating</b></div>
       <div class="goal"><div class="em">🏆</div><b>Go to Chess Nationals</b></div>
-      <div class="goal"><div class="em">🧱</div><b>Build 20 LEGO Projects</b></div>
+      <div class="goal"><div class="em"><img src="images/logos/lego.svg" alt="LEGO" class="goal-logo"></div><b>Build 20 LEGO Projects</b></div>
       <div class="goal"><div class="em">➗</div><b>Win a Math Contest</b></div>
-      <div class="goal"><div class="em">💻</div><b>Learn Claude</b></div>
-      <div class="goal"><div class="em">📱</div><b>Create First App</b></div>
+      <div class="goal"><div class="em"><img src="images/logos/claude.svg" alt="Claude" class="goal-logo"></div><b>Learn Claude</b></div>
+      <div class="goal"><div class="em"><img src="images/recipe-app.jpg" alt="Recipe app" class="goal-logo goal-photo"></div><b>Create First App</b><small style="display:block;color:rgba(255,255,255,.8);font-weight:600;margin-top:4px">My Recipe Swipe app!</small></div>
     </div>
   </div>
 </section>
