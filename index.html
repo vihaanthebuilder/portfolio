@@ -199,6 +199,12 @@
   }
 
   /* ---------- CHESS ---------- */
+  .chess-quote{
+    margin-top:24px;background:linear-gradient(135deg,var(--blue),var(--blue-deep));color:#fff;
+    border-radius:var(--radius);padding:26px 30px;text-align:center;box-shadow:var(--shadow);
+    font-family:'Baloo 2';font-size:clamp(1.15rem,2.6vw,1.6rem);line-height:1.4
+  }
+  .chess-quote cite{display:block;margin-top:10px;font-size:.85rem;font-style:normal;color:var(--yellow);font-weight:700}
   .chess-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:22px;align-items:stretch}
   @media(max-width:860px){.chess-grid{grid-template-columns:1fr}}
   .panel{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
@@ -417,6 +423,10 @@
         </div>
       </div>
     </div>
+    <blockquote class="chess-quote">
+      ♟️ "Every chess master was once a beginner."
+      <cite>— My favorite chess quote</cite>
+    </blockquote>
   </div>
 </section>
 
