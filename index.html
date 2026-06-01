@@ -88,18 +88,11 @@
     padding-block:clamp(64px,11vw,120px)
   }
   .hero .wrap{position:relative;z-index:2}
-  /* soft radial glow behind the title */
-  .hero .wrap::before{
-    content:"";position:absolute;left:50%;top:38%;transform:translate(-50%,-50%);
-    width:min(760px,90%);height:min(420px,60vw);z-index:-1;pointer-events:none;
-    background:radial-gradient(ellipse at center, rgba(255,213,0,.28) 0%, rgba(255,213,0,.10) 38%, transparent 70%);
-    filter:blur(8px)
-  }
   .hero h1{
     font-size:clamp(2.6rem,9vw,5.2rem);line-height:.98;letter-spacing:.5px;
     text-shadow:0 6px 0 rgba(0,0,0,.18)
   }
-  .hero h1 .pop{color:var(--yellow);text-shadow:0 6px 0 rgba(0,0,0,.22),0 0 28px rgba(255,213,0,.55)}
+  .hero h1 .pop{color:var(--yellow)}
   .hero .sub{
     font-family:'Baloo 2';font-size:clamp(1.05rem,3.2vw,1.6rem);margin-top:10px;
     color:#dce8ff
@@ -134,9 +127,14 @@
     filter:drop-shadow(0 6px 10px rgba(0,0,0,.30));
   }
   .float.hindi{font-family:'Baloo 2',sans-serif;font-size:1.7rem;font-weight:800;color:var(--yellow)}
-  .float .float-img{width:46px;height:64px;object-fit:contain;display:block;
-    filter:drop-shadow(0 4px 8px rgba(0,0,0,.4))}
   .float.bike-big{font-size:3.6rem}
+  /* tint the bike emoji red */
+  .float.f-bike{filter:drop-shadow(0 6px 10px rgba(0,0,0,.30)) sepia(1) saturate(7) hue-rotate(-30deg) brightness(.95)}
+  /* black rook */
+  .float.f-pawn{color:#10243f;text-shadow:0 2px 4px rgba(0,0,0,.3)}
+  /* multiplication sign — yellow, wiggles */
+  .float.f-mult{color:var(--yellow);font-weight:900;animation:wiggleX 3.4s ease-in-out infinite}
+  @keyframes wiggleX{0%,100%{transform:rotate(-12deg)}50%{transform:rotate(12deg)}}
   /* rocket — slow float up/down with slight rotation */
   .float.f-rocket{animation:floatUpDown 6s ease-in-out infinite}
   @keyframes floatUpDown{
@@ -427,11 +425,10 @@
 <section class="hero" id="home">
   <div class="hero-bricks"></div>
   <!-- intentional placement: kept clear of the title & buttons -->
-  <span class="float f-lego"   style="top:18%;left:4%"><img src="images/eiffel-tower.jpg" alt="LEGO Eiffel Tower" class="float-img"></span>
   <span class="float f-rocket" style="bottom:12%;left:5%">🚀</span>
   <span class="float f-math"   style="top:14%;right:5%">🧮</span>
   <span class="float f-pawn"   style="top:48%;right:4%">♜</span>
-  <span class="float f-star hide-mobile"  style="top:30%;right:15%">⭐</span>
+  <span class="float f-mult hide-mobile" style="top:24%;left:6%">✕</span>
   <span class="float f-trophy" style="bottom:12%;right:5%">🏆</span>
   <span class="float f-bike bike-big hide-mobile"  style="bottom:13%;left:18%">🚲</span>
   <span class="float hindi hide-mobile"   style="top:15%;left:17%">नमस्ते</span>
