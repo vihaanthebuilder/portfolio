@@ -312,34 +312,53 @@
     <div class="chess-grid">
       <div class="panel">
         <h3>📈 Rating Progress</h3>
-        <p class="chart-note">Real Classical rating from Lichess — climbed from 974 up to 1429, next stop 1600! 🎯</p>
+        <p class="chart-note">Official <b>US Chess</b> rating — up <b>+324 points</b> since my very first tournament. Now <b>1124</b>! 🚀</p>
         <svg class="chart" id="ratingChart" viewBox="0 0 600 320" role="img" aria-label="Chess rating progress chart"></svg>
-        <div class="meta" style="margin-top:16px">
+        <p class="chart-note" style="margin:16px 0 4px;font-weight:800;color:var(--ink)">🏛️ US Chess ratings (over-the-board)</p>
+        <div class="meta" style="margin-top:0">
+          <span>♟️ Regular <b>1124</b></span>
+          <span>⚡ Quick <b>1041</b></span>
+          <span>💨 Blitz <b>866</b></span>
+        </div>
+        <p class="chart-note" style="margin:14px 0 4px;font-weight:800;color:var(--ink)">🌐 Online ratings (Lichess)</p>
+        <div class="meta" style="margin-top:0">
           <span>♟️ Classical <b>1429</b></span>
           <span>⚡ Rapid <b>1226</b></span>
           <span>🔥 Blitz <b>1160</b></span>
           <span>🚅 Bullet <b>1252</b></span>
           <span>🧩 Puzzles <b>1687</b></span>
         </div>
-        <p class="chart-note" style="margin-top:10px">📊 Live from <a href="https://lichess.org/@/vihaan_67" target="_blank" rel="noopener" style="color:var(--blue);font-weight:800">lichess.org/@vihaan_67</a></p>
+        <p class="chart-note" style="margin-top:12px">📊 Sources: <a href="https://ratings.uschess.org/player/32756659" target="_blank" rel="noopener" style="color:var(--blue);font-weight:800">US Chess #32756659</a> · <a href="https://lichess.org/@/vihaan_67" target="_blank" rel="noopener" style="color:var(--blue);font-weight:800">lichess.org/@vihaan_67</a></p>
       </div>
       <div>
         <div class="panel" style="margin-bottom:22px">
           <h3>🏆 Tournament Results</h3>
           <div class="result">
-            <div class="badge gold">🥇</div>
-            <div><b>Joplin Open</b><small>Score 3 / 4 — strong finish!</small></div>
+            <div class="badge gold">⭐</div>
+            <div><b>2025 Oktoberfest G15</b><small>My first tournament! · 3/4 · 800→945 (+145)</small></div>
           </div>
           <div class="result">
-            <div class="badge">5th</div>
-            <div><b>Arkansas State</b><small>5th Place overall</small></div>
+            <div class="badge">♟️</div>
+            <div><b>2026 Winter J. G. Classic</b><small>4/5 · 945→1012 (+67)</small></div>
+          </div>
+          <div class="result">
+            <div class="badge">♟️</div>
+            <div><b>2026 Spring Scholastic Open</b><small>3.5/5 · 1012→1041 (+29)</small></div>
+          </div>
+          <div class="result">
+            <div class="badge gold">🥇</div>
+            <div><b>2026 Arkansas State Elementary</b><small>4.5/5 · 1041→1098 (+57)</small></div>
+          </div>
+          <div class="result">
+            <div class="badge">🏆</div>
+            <div><b>2026 Arkansas K-12 Grade Champs</b><small>4/5 · 1098→1124 (+26)</small></div>
           </div>
         </div>
         <div class="panel">
           <h3>🧩 Puzzle Milestones</h3>
           <ul class="milestones">
-            <li><span class="dot"></span> Solved 526 puzzles — rating 1687!</li>
-            <li><span class="dot"></span> 583 games played, 291 wins</li>
+            <li><span class="dot"></span> 5 US Chess tournaments played</li>
+            <li><span class="dot"></span> Solved 526 puzzles — Lichess 1687!</li>
             <li><span class="dot"></span> Learned key checkmate patterns</li>
           </ul>
         </div>
@@ -356,7 +375,7 @@
       <h2><span class="ico">🏅</span> Achievement Wall</h2>
     </div>
     <div class="badges">
-      <div class="badge-card"><div class="em">♟️</div><b>First Tournament</b><small>Took the leap and played!</small></div>
+      <div class="badge-card"><div class="em">♟️</div><b>First Tournament</b><small>2025 Oktoberfest — 3/4!</small></div>
       <div class="badge-card"><div class="em">🧱</div><b>10 LEGO Projects</b><small>Built and counting</small></div>
       <div class="badge-card"><div class="em">🧩</div><b>526 Puzzles Solved</b><small>Puzzle rating 1687!</small></div>
       <div class="badge-card"><div class="em">👑</div><b>Checkmate Patterns</b><small>Learned the classics</small></div>
@@ -432,29 +451,30 @@
 
   // Rating progress chart (inline SVG line chart, no libraries)
   (function drawChart(){
-    // Real Classical rating progression from lichess.org/@/vihaan_67 (monthly)
+    // Official US Chess (OTB) Regular rating, tournament by tournament
+    // Source: ratings.uschess.org/player/32756659
     const data = [
-      {label:'Dec', r:974},
-      {label:'Jan', r:1138},
-      {label:'Feb', r:1156},
-      {label:'Mar', r:1274},
-      {label:'Apr', r:1443},
-      {label:'Now', r:1429}
+      {label:'Start', r:800},
+      {label:'Oct ’25', r:945},
+      {label:'Jan ’26', r:1012},
+      {label:'Mar ’26', r:1041},
+      {label:'Apr ’26', r:1098},
+      {label:'Now', r:1124}
     ];
     const svg = document.getElementById('ratingChart');
     const W=600,H=320,padL=48,padR=20,padT=20,padB=46;
-    const min=700,max=1600;
+    const min=700,max=1300;
     const x=i=> padL + i*(W-padL-padR)/(data.length-1);
     const y=v=> padT + (max-v)*(H-padT-padB)/(max-min);
     let g='';
     // grid + y labels
-    for(let v=800; v<=1600; v+=200){
+    for(let v=800; v<=1300; v+=100){
       g+=`<line x1="${padL}" y1="${y(v)}" x2="${W-padR}" y2="${y(v)}" stroke="#e6ecf5" stroke-width="2"/>`;
       g+=`<text x="${padL-10}" y="${y(v)+4}" text-anchor="end" font-size="12" fill="#5b6b82" font-family="Nunito">${v}</text>`;
     }
-    // goal line at 1600
-    g+=`<line x1="${padL}" y1="${y(1600)}" x2="${W-padR}" y2="${y(1600)}" stroke="#E3000B" stroke-width="2" stroke-dasharray="6 6"/>`;
-    g+=`<text x="${W-padR}" y="${y(1600)-7}" text-anchor="end" font-size="12" font-weight="700" fill="#E3000B" font-family="Nunito">Goal 1600</text>`;
+    // next-milestone line at 1200
+    g+=`<line x1="${padL}" y1="${y(1200)}" x2="${W-padR}" y2="${y(1200)}" stroke="#E3000B" stroke-width="2" stroke-dasharray="6 6"/>`;
+    g+=`<text x="${W-padR}" y="${y(1200)-7}" text-anchor="end" font-size="12" font-weight="700" fill="#E3000B" font-family="Nunito">Next: 1200</text>`;
     // area + line
     let line=data.map((d,i)=>`${x(i)},${y(d.r)}`).join(' ');
     let area=`${padL},${y(min)} `+line+` ${x(data.length-1)},${y(min)}`;
