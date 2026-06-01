@@ -232,6 +232,52 @@
   .card:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
   .lego-hint{color:var(--muted);font-weight:700;margin:-6px 0 18px;font-size:.92rem}
 
+  /* ---------- PREMIUM LEGO CARDS ---------- */
+  .lego-card{
+    border:none;border-radius:24px;overflow:hidden;background:#fff;
+    box-shadow:0 1px 2px rgba(16,36,63,.06), 0 8px 24px rgba(16,36,63,.12), 0 24px 48px rgba(16,36,63,.10);
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .lego-card:hover{
+    transform:translateY(-8px) scale(1.02);
+    box-shadow:0 4px 8px rgba(16,36,63,.08), 0 18px 40px rgba(16,36,63,.20), 0 36px 70px rgba(16,36,63,.16);
+    border-color:transparent;
+  }
+  /* image-first: photo ~75% */
+  .lego-photo{position:relative;height:440px;overflow:hidden;background:linear-gradient(135deg,#eef1f6,#dfe5ee)}
+  .lego-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
+  .lego-photo img.contain{object-fit:contain;padding:8px}
+  .lego-card:hover .lego-photo img{transform:scale(1.06)}
+  /* glass status badge, top-left on image */
+  .glass-badge{
+    position:absolute;top:14px;left:14px;z-index:3;
+    background:rgba(16,36,63,.42);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    color:#fff;font-family:'Baloo 2';font-weight:700;font-size:.82rem;
+    padding:7px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.28);
+    box-shadow:0 4px 12px rgba(0,0,0,.25)
+  }
+  /* dark gradient overlay at bottom for readability */
+  .photo-fade{position:absolute;left:0;right:0;bottom:0;height:55%;z-index:2;pointer-events:none;
+    background:linear-gradient(to top, rgba(8,16,30,.82) 0%, rgba(8,16,30,.45) 40%, transparent 100%)}
+  /* premium title sitting over the fade */
+  .lego-title{position:absolute;left:20px;right:20px;bottom:16px;z-index:3;margin:0;
+    font-family:'Baloo 2';font-weight:800;font-size:1.7rem;color:#fff;letter-spacing:.4px;
+    text-shadow:0 2px 10px rgba(0,0,0,.4)}
+  /* content ~25% */
+  .lego-body{padding:18px 20px 20px}
+  .pills{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+  .pill{
+    display:inline-flex;align-items:center;gap:6px;
+    background:rgba(30,80,200,.08);border:1px solid rgba(30,80,200,.14);
+    color:var(--ink);font-weight:700;font-size:.85rem;padding:7px 13px;border-radius:999px
+  }
+  .why-label{font-family:'Baloo 2';font-weight:700;font-size:.8rem;letter-spacing:.5px;
+    text-transform:uppercase;color:var(--blue);margin-bottom:4px}
+  .why-text{font-size:1rem;color:var(--ink);font-style:italic;line-height:1.45;margin-bottom:14px}
+  .creator-footer{font-size:.78rem;color:var(--muted);font-weight:600;
+    padding-top:12px;border-top:1px solid #eef1f6}
+  @media(max-width:620px){.lego-photo{height:320px}}
+
   /* ---------- LEGO LIGHTBOX MODAL ---------- */
   .modal{
     position:fixed;inset:0;z-index:1000;display:none;
@@ -453,43 +499,58 @@
     </div>
     <p class="lego-hint">👆 Tap a build to see it full screen</p>
     <div class="grid g3">
-      <article class="card" tabindex="0" role="button" aria-label="Open Eiffel Tower full screen"
+      <article class="card lego-card" tabindex="0" role="button" aria-label="Open Eiffel Tower full screen"
         data-img="images/eiffel-tower.jpg" data-title="Eiffel Tower"
-        data-meta="🚀 Favorite Build · 🧩 472 pieces · ⏱️ ~3 hours"
-        data-fav="the base"
+        data-meta="⭐ Favorite Build · 🧩 472 Pieces · ⏱ 3 Hours"
+        data-fav="the base section"
         data-desc="A super-tall rainbow tower built from hundreds of colorful bricks, with a pointy spire reaching all the way to the top. Every layer uses a different color!">
-        <div class="badge-ribbon">🚀 Favorite Build</div>
-        <div class="ph tall"><img src="images/eiffel-tower.jpg" alt="Vihaan's colorful LEGO Eiffel Tower" class="contain" loading="lazy"></div>
-        <div class="body">
-          <h3>Eiffel Tower</h3>
-          <div class="meta"><span>🧩 472 pieces</span><span>⏱️ ~3 hours</span></div>
-          <p class="fav">Favorite part: <b>the base</b></p>
+        <div class="lego-photo">
+          <img src="images/eiffel-tower.jpg" alt="Vihaan's colorful LEGO Eiffel Tower" class="contain" loading="lazy">
+          <span class="glass-badge">⭐ Favorite Build</span>
+          <div class="photo-fade"></div>
+          <h3 class="lego-title">Eiffel Tower</h3>
+        </div>
+        <div class="lego-body">
+          <div class="pills"><span class="pill">🧩 472 Pieces</span><span class="pill">⏱ 3 Hours</span></div>
+          <p class="why-label">Why I Loved Building It</p>
+          <p class="why-text">"The base section was the most fun to build."</p>
+          <p class="creator-footer">Built by Vihaan, Age 7</p>
         </div>
       </article>
-      <article class="card" tabindex="0" role="button" aria-label="Open Temple full screen"
+      <article class="card lego-card" tabindex="0" role="button" aria-label="Open Temple full screen"
         data-img="images/taj-mahal.jpg" data-title="Temple"
-        data-meta="🏰 Latest Build · 🧩 672 pieces · ⏱️ ~4 hours"
+        data-meta="🆕 Latest Build · 🧩 672 Pieces · ⏱ 4 Hours"
         data-fav="the roof"
         data-desc="A colorful temple with a big central dome, four tall corner towers, and a wide brick base with a little yellow door. Packed with detail on every side!">
-        <div class="badge-ribbon">🏰 Latest Build</div>
-        <div class="ph alt big"><img src="images/taj-mahal.jpg" alt="Vihaan's colorful LEGO Temple" loading="lazy"></div>
-        <div class="body">
-          <h3>Temple</h3>
-          <div class="meta"><span>🧩 672 pieces</span><span>⏱️ ~4 hours</span></div>
-          <p class="fav">Favorite part: <b>the roof</b></p>
+        <div class="lego-photo">
+          <img src="images/taj-mahal.jpg" alt="Vihaan's colorful LEGO Temple" loading="lazy">
+          <span class="glass-badge">🆕 Latest Build</span>
+          <div class="photo-fade"></div>
+          <h3 class="lego-title">Temple</h3>
+        </div>
+        <div class="lego-body">
+          <div class="pills"><span class="pill">🧩 672 Pieces</span><span class="pill">⏱ 4 Hours</span></div>
+          <p class="why-label">Why I Loved Building It</p>
+          <p class="why-text">"The roof was my favorite part to figure out."</p>
+          <p class="creator-footer">Built by Vihaan, Age 7</p>
         </div>
       </article>
-      <article class="card" tabindex="0" role="button" aria-label="Open Hogwarts Castle full screen"
+      <article class="card lego-card" tabindex="0" role="button" aria-label="Open Hogwarts Castle full screen"
         data-img="images/hogwarts.jpg" data-title="Hogwarts Castle"
-        data-meta="🤖 Largest Build · 🧩 2,660 pieces · ⏱️ ~2 days"
+        data-meta="🏆 Largest Build · 🧩 2,660 Pieces · ⏱ 2 Days"
         data-fav="the decorations"
         data-desc="The magical Hogwarts Castle with lots of pointy towers, a rocky base, a tiny wizard figure, and a little boat on the water. A huge 2,660-piece build!">
-        <div class="badge-ribbon">🤖 Largest Build</div>
-        <div class="ph alt2 big"><img src="images/hogwarts.jpg" alt="Vihaan's LEGO Hogwarts Castle" loading="lazy"></div>
-        <div class="body">
-          <h3>Hogwarts Castle</h3>
-          <div class="meta"><span>🧩 2,660 pieces</span><span>⏱️ ~2 days</span></div>
-          <p class="fav">Favorite part: <b>the decorations</b></p>
+        <div class="lego-photo">
+          <img src="images/hogwarts.jpg" alt="Vihaan's LEGO Hogwarts Castle" loading="lazy">
+          <span class="glass-badge">🏆 Largest Build</span>
+          <div class="photo-fade"></div>
+          <h3 class="lego-title">Hogwarts Castle</h3>
+        </div>
+        <div class="lego-body">
+          <div class="pills"><span class="pill">🧩 2,660 Pieces</span><span class="pill">⏱ 2 Days</span></div>
+          <p class="why-label">Why I Loved Building It</p>
+          <p class="why-text">"All the tiny decorations made it feel magical."</p>
+          <p class="creator-footer">Built by Vihaan, Age 7</p>
         </div>
       </article>
     </div>
