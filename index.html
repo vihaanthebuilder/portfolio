@@ -156,6 +156,48 @@
     font-size:.78rem;padding:3px 10px;border-radius:999px}
   .fav{font-size:.92rem;color:var(--muted);margin-top:6px}
   .fav b{color:var(--red)}
+  .card{cursor:pointer}
+  .card:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+  .lego-hint{color:var(--muted);font-weight:700;margin:-6px 0 18px;font-size:.92rem}
+
+  /* ---------- LEGO LIGHTBOX MODAL ---------- */
+  .modal{
+    position:fixed;inset:0;z-index:1000;display:none;
+    background:rgba(8,16,30,.92);backdrop-filter:blur(6px);
+    padding:24px;overflow-y:auto;
+  }
+  .modal.open{display:flex;align-items:center;justify-content:center;animation:fadeIn .2s ease}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .modal-inner{
+    display:flex;gap:26px;max-width:1100px;width:100%;
+    background:#fff;border-radius:24px;overflow:hidden;box-shadow:var(--shadow-lg);
+    max-height:92vh
+  }
+  .modal-img{flex:1 1 56%;background:linear-gradient(135deg,#f3f4f6,#e2e6ec);display:grid;place-items:center;min-height:0}
+  .modal-img img{width:100%;height:100%;max-height:92vh;object-fit:contain;display:block;padding:10px}
+  .modal-info{flex:1 1 44%;padding:34px 30px;display:flex;flex-direction:column;justify-content:center}
+  .modal-info h3{font-family:'Baloo 2';font-size:2rem;color:var(--ink);margin-bottom:14px}
+  .modal-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+  .modal-meta span{background:var(--cream);border:1px solid #ffe9a8;color:#7a5b00;font-weight:700;
+    font-size:.9rem;padding:5px 12px;border-radius:999px}
+  .modal-fav{font-size:1.05rem;color:var(--ink);margin-bottom:14px}
+  .modal-fav b{color:var(--red)}
+  .modal-desc{font-size:1.05rem;line-height:1.7;color:var(--muted)}
+  .modal-close{
+    position:fixed;top:18px;right:20px;z-index:1001;
+    width:50px;height:50px;border-radius:50%;border:none;cursor:pointer;
+    background:var(--yellow);color:var(--ink);font-size:1.3rem;font-weight:800;
+    box-shadow:var(--shadow)
+  }
+  .modal-close:hover{transform:scale(1.08)}
+  @media(max-width:760px){
+    .modal{padding:0}
+    .modal-inner{flex-direction:column;border-radius:0;max-height:100vh;height:100%}
+    .modal-img{flex:0 0 auto;max-height:55vh}
+    .modal-img img{max-height:55vh}
+    .modal-info{padding:22px 20px 40px;overflow-y:auto}
+    .modal-info h3{font-size:1.6rem}
+  }
 
   /* ---------- CHESS ---------- */
   .chess-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:22px;align-items:stretch}
@@ -273,8 +315,13 @@
       <span class="chip">Build Zone</span>
       <h2><span class="ico">🧱</span> LEGO Lab</h2>
     </div>
+    <p class="lego-hint">👆 Tap a build to see it full screen</p>
     <div class="grid g3">
-      <article class="card">
+      <article class="card" tabindex="0" role="button" aria-label="Open Eiffel Tower full screen"
+        data-img="images/eiffel-tower.jpg" data-title="Eiffel Tower"
+        data-meta="🗼 Landmark build · 🧩 472 pieces · 🌈 Rainbow bricks"
+        data-fav="the tall pointy spire on top!"
+        data-desc="A super-tall rainbow tower built from hundreds of colorful bricks, with a pointy spire reaching all the way to the top. Every layer uses a different color!">
         <div class="ph tall"><span class="tag">★ Favorite</span><img src="images/eiffel-tower.jpg" alt="Vihaan's colorful LEGO Eiffel Tower" class="contain" loading="lazy"></div>
         <div class="body">
           <h3>Eiffel Tower</h3>
@@ -282,7 +329,11 @@
           <p class="fav">Favorite part: <b>the tall pointy spire on top!</b></p>
         </div>
       </article>
-      <article class="card">
+      <article class="card" tabindex="0" role="button" aria-label="Open Taj Mahal full screen"
+        data-img="images/taj-mahal.jpg" data-title="Taj Mahal"
+        data-meta="🕌 Landmark build · 🧩 672 pieces · 🧱 Big base"
+        data-fav="the giant dome and four towers"
+        data-desc="A colorful Taj Mahal with a big central dome, four tall corner towers, and a wide brick base with a little yellow door. Packed with detail on every side!">
         <div class="ph alt big"><img src="images/taj-mahal.jpg" alt="Vihaan's colorful LEGO Taj Mahal" loading="lazy"></div>
         <div class="body">
           <h3>Taj Mahal</h3>
@@ -290,7 +341,11 @@
           <p class="fav">Favorite part: <b>the giant dome and four towers</b></p>
         </div>
       </article>
-      <article class="card">
+      <article class="card" tabindex="0" role="button" aria-label="Open Hogwarts Castle full screen"
+        data-img="images/hogwarts.jpg" data-title="Hogwarts Castle"
+        data-meta="🏰 Set build · 🧩 2,660 pieces · 🪄 Lots of towers"
+        data-fav="the wizard and the little boat"
+        data-desc="The magical Hogwarts Castle with lots of pointy towers, a rocky base, a tiny wizard figure, and a little boat on the water. A huge 2,660-piece build!">
         <div class="ph alt2 big"><img src="images/hogwarts.jpg" alt="Vihaan's LEGO Hogwarts Castle" loading="lazy"></div>
         <div class="body">
           <h3>Hogwarts Castle</h3>
@@ -446,12 +501,73 @@
   </div>
 </footer>
 
+<!-- ================= LEGO LIGHTBOX MODAL ================= -->
+<div class="modal" id="legoModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="LEGO build details">
+  <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+  <div class="modal-inner">
+    <div class="modal-img"><img id="modalImg" src="" alt=""></div>
+    <div class="modal-info">
+      <h3 id="modalTitle"></h3>
+      <div class="modal-meta" id="modalMeta"></div>
+      <p class="modal-fav">⭐ Favorite part: <b id="modalFav"></b></p>
+      <p class="modal-desc" id="modalDesc"></p>
+    </div>
+  </div>
+</div>
+
 <script>
   // Mobile menu toggle
   const menuBtn = document.getElementById('menuBtn');
   const menu = document.getElementById('menu');
   menuBtn.addEventListener('click', () => menu.classList.toggle('open'));
   menu.addEventListener('click', e => { if (e.target.tagName === 'A') menu.classList.remove('open'); });
+
+  // LEGO Lab full-screen lightbox
+  (function legoLightbox(){
+    const modal = document.getElementById('legoModal');
+    if (!modal) return;
+    const img = document.getElementById('modalImg');
+    const titleEl = document.getElementById('modalTitle');
+    const metaEl = document.getElementById('modalMeta');
+    const favEl = document.getElementById('modalFav');
+    const descEl = document.getElementById('modalDesc');
+    const closeBtn = document.getElementById('modalClose');
+    let lastFocused = null;
+
+    function open(card){
+      lastFocused = card;
+      img.src = card.dataset.img;
+      img.alt = card.dataset.title;
+      titleEl.textContent = card.dataset.title;
+      metaEl.innerHTML = '';
+      (card.dataset.meta || '').split('·').forEach(m => {
+        const t = m.trim(); if (!t) return;
+        const s = document.createElement('span'); s.textContent = t; metaEl.appendChild(s);
+      });
+      favEl.textContent = card.dataset.fav || '';
+      descEl.textContent = card.dataset.desc || '';
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+      closeBtn.focus();
+    }
+    function close(){
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+      if (lastFocused) lastFocused.focus();
+    }
+
+    document.querySelectorAll('#lego .card').forEach(card => {
+      card.addEventListener('click', () => open(card));
+      card.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(card); }
+      });
+    });
+    closeBtn.addEventListener('click', close);
+    modal.addEventListener('click', e => { if (e.target === modal) close(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) close(); });
+  })();
 
   // Live Lichess data — fetch current ratings from the public API
   (function lichessLive(){
