@@ -312,8 +312,16 @@
     <div class="chess-grid">
       <div class="panel">
         <h3>📈 Rating Progress</h3>
-        <p class="chart-note">Climbing higher every season — next stop, 1600!</p>
+        <p class="chart-note">Real Classical rating from Lichess — climbed from 974 up to 1429, next stop 1600! 🎯</p>
         <svg class="chart" id="ratingChart" viewBox="0 0 600 320" role="img" aria-label="Chess rating progress chart"></svg>
+        <div class="meta" style="margin-top:16px">
+          <span>♟️ Classical <b>1429</b></span>
+          <span>⚡ Rapid <b>1226</b></span>
+          <span>🔥 Blitz <b>1160</b></span>
+          <span>🚅 Bullet <b>1252</b></span>
+          <span>🧩 Puzzles <b>1687</b></span>
+        </div>
+        <p class="chart-note" style="margin-top:10px">📊 Live from <a href="https://lichess.org/@/vihaan_67" target="_blank" rel="noopener" style="color:var(--blue);font-weight:800">lichess.org/@vihaan_67</a></p>
       </div>
       <div>
         <div class="panel" style="margin-bottom:22px">
@@ -330,9 +338,9 @@
         <div class="panel">
           <h3>🧩 Puzzle Milestones</h3>
           <ul class="milestones">
-            <li><span class="dot"></span> Solved 1,000 puzzles</li>
+            <li><span class="dot"></span> Solved 526 puzzles — rating 1687!</li>
+            <li><span class="dot"></span> 583 games played, 291 wins</li>
             <li><span class="dot"></span> Learned key checkmate patterns</li>
-            <li><span class="dot"></span> Daily puzzle streak champion</li>
           </ul>
         </div>
       </div>
@@ -350,7 +358,7 @@
     <div class="badges">
       <div class="badge-card"><div class="em">♟️</div><b>First Tournament</b><small>Took the leap and played!</small></div>
       <div class="badge-card"><div class="em">🧱</div><b>10 LEGO Projects</b><small>Built and counting</small></div>
-      <div class="badge-card"><div class="em">🧩</div><b>1,000 Puzzles Solved</b><small>Brain power unlocked</small></div>
+      <div class="badge-card"><div class="em">🧩</div><b>526 Puzzles Solved</b><small>Puzzle rating 1687!</small></div>
       <div class="badge-card"><div class="em">👑</div><b>Checkmate Patterns</b><small>Learned the classics</small></div>
     </div>
   </div>
@@ -424,13 +432,14 @@
 
   // Rating progress chart (inline SVG line chart, no libraries)
   (function drawChart(){
+    // Real Classical rating progression from lichess.org/@/vihaan_67 (monthly)
     const data = [
-      {label:'Start', r:800},
-      {label:'Spring', r:980},
-      {label:'Summer', r:1120},
-      {label:'Fall', r:1290},
-      {label:'Winter', r:1410},
-      {label:'Now', r:1500}
+      {label:'Dec', r:974},
+      {label:'Jan', r:1138},
+      {label:'Feb', r:1156},
+      {label:'Mar', r:1274},
+      {label:'Apr', r:1443},
+      {label:'Now', r:1429}
     ];
     const svg = document.getElementById('ratingChart');
     const W=600,H=320,padL=48,padR=20,padT=20,padB=46;
