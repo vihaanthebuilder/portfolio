@@ -129,7 +129,8 @@
 
   .card{
     background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;
-    transition:.18s;border:3px solid transparent
+    transition:.18s;border:3px solid transparent;
+    display:flex;flex-direction:column;height:100%
   }
   .card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:var(--yellow)}
   .ph{
@@ -138,14 +139,14 @@
   }
   .ph img{width:100%;height:100%;object-fit:cover;display:block}
   .ph img.contain{object-fit:contain;padding:6px}
-  .ph.tall{aspect-ratio:1/2;background:linear-gradient(135deg,#f3f4f6,#e2e6ec)}
-  .ph.big{aspect-ratio:1/1}
+  .ph.tall{aspect-ratio:auto;height:360px;background:linear-gradient(135deg,#f3f4f6,#e2e6ec)}
+  .ph.big{aspect-ratio:auto;height:360px}
   .ph.alt{background:linear-gradient(135deg,var(--red),#a3000a)}
   .ph.alt2{background:linear-gradient(135deg,#0a9e6e,#067a55)}
   .ph.alt3{background:linear-gradient(135deg,#8a4bd8,#5f2fa3)}
   .ph .tag{position:absolute;top:10px;left:10px;background:var(--yellow);color:var(--ink);
     font-weight:800;font-size:.72rem;padding:4px 10px;border-radius:999px}
-  .card .body{padding:22px 20px 56px;min-height:280px}
+  .card .body{padding:22px 20px 56px;flex:1 1 auto;min-height:240px}
   .card h3{font-size:1.25rem;margin-bottom:6px}
   .meta{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
   .meta span{background:var(--cream);border:1px solid #ffe9a8;color:#7a5b00;font-weight:700;
@@ -279,7 +280,7 @@
         </div>
       </article>
       <article class="card">
-        <div class="ph alt"><img src="images/taj-mahal.jpg" alt="Vihaan's colorful LEGO Taj Mahal" loading="lazy"></div>
+        <div class="ph alt big"><img src="images/taj-mahal.jpg" alt="Vihaan's colorful LEGO Taj Mahal" loading="lazy"></div>
         <div class="body">
           <h3>Taj Mahal</h3>
           <div class="meta"><span>🕌 Landmark build</span><span>🧩 672 pieces</span><span>🧱 Big base</span></div>
