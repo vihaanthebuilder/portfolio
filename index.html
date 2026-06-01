@@ -475,7 +475,21 @@
         set('li-blitz', p.blitz);
         set('li-bullet', p.bullet);
         set('li-puzzle', p.puzzle);
-        status.textContent = '✓ live';
+        // visible flash so a click obviously did something
+        ['li-classical','li-rapid','li-blitz','li-bullet','li-puzzle'].forEach(id => {
+          const el = document.getElementById(id);
+          if (!el) return;
+          el.style.transition = 'none';
+          el.style.background = '#FFD500';
+          el.style.borderRadius = '5px';
+          el.style.padding = '0 5px';
+          requestAnimationFrame(() => {
+            el.style.transition = 'background 1.1s ease';
+            el.style.background = 'transparent';
+          });
+        });
+        const t = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+        status.textContent = '✓ live · updated ' + t;
         status.style.color = '#0a9e6e';
         btn.textContent = '🔄 Refresh Lichess Data';
       } catch (err) {
