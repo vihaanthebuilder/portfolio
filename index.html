@@ -329,14 +329,9 @@
         </div>
         <div class="chess-links">
           <button type="button" id="lichessBtn" class="btn btn-blue">🌐 Load Live Lichess Data</button>
-          <button type="button" id="lichessCopyBtn" class="btn btn-blue" data-url="https://lichess.org/@/vihaan_67">🔗 Copy Lichess Link</button>
-          <button type="button" id="uscfBtn" class="btn btn-red" data-url="https://ratings.uschess.org/player/32756659">🏛️ Copy US Chess Link</button>
+          <a href="https://lichess.org/@/vihaan_67" target="_blank" rel="noopener" class="btn btn-blue go-link">🔗 Open Lichess Profile ↗</a>
+          <a href="https://ratings.uschess.org/player/32756659" target="_blank" rel="noopener" class="btn btn-red go-link">🏛️ Open US Chess Profile ↗</a>
         </div>
-        <p class="chart-note" style="margin-top:10px;font-size:.82rem">
-          Profiles (click to copy):
-          <a href="https://lichess.org/@/vihaan_67" target="_blank" rel="noopener" class="copy-link" data-url="https://lichess.org/@/vihaan_67" style="color:var(--blue);font-weight:700">lichess.org/@vihaan_67</a> ·
-          <a href="https://ratings.uschess.org/player/32756659" target="_blank" rel="noopener" class="copy-link" data-url="https://ratings.uschess.org/player/32756659" style="color:var(--blue);font-weight:700">US Chess #32756659</a>
-        </p>
       </div>
       <div>
         <div class="panel" style="margin-bottom:22px">
@@ -511,40 +506,17 @@
     load();
   })();
 
-  // Copy-to-clipboard helper — works even when opening new tabs is blocked
-  (function copyLinks(){
-    async function copy(url){
-      try { await navigator.clipboard.writeText(url); return true; }
-      catch (e) {
-        try {
-          const ta = document.createElement('textarea');
-          ta.value = url; ta.style.position='fixed'; ta.style.opacity='0';
-          document.body.appendChild(ta); ta.select();
-          const ok = document.execCommand('copy');
-          document.body.removeChild(ta);
-          return ok;
-        } catch (e2) { return false; }
-      }
-    }
-    // Copy-link buttons (US Chess + Lichess)
-    ['uscfBtn','lichessCopyBtn'].forEach(id => {
-      const btn = document.getElementById(id);
-      if (!btn) return;
-      const url = btn.getAttribute('data-url'), label = btn.textContent;
-      btn.addEventListener('click', async () => {
-        const ok = await copy(url);
-        btn.textContent = ok ? '✓ Link Copied!' : url;
-        setTimeout(() => { btn.textContent = label; }, ok ? 1800 : 4000);
-      });
-    });
-    // "Profiles" copy-links — copy instead of navigating (avoids blocked new tabs)
-    document.querySelectorAll('a.copy-link').forEach(a => {
-      const url = a.getAttribute('data-url'), label = a.textContent;
-      a.addEventListener('click', async (e) => {
+  // Profile link buttons — open the site; if a new tab is blocked, navigate in place
+  (function goLinks(){
+    document.querySelectorAll('a.go-link').forEach(a => {
+      a.addEventListener('click', (e) => {
         e.preventDefault();
-        const ok = await copy(url);
-        a.textContent = ok ? '✓ Copied!' : label;
-        setTimeout(() => { a.textContent = label; }, 1500);
+        const url = a.href;
+        const win = window.open(url, '_blank', 'noopener');
+        if (!win || win.closed || typeof win.closed === 'undefined') {
+          // new tab blocked — go in the same tab instead
+          window.location.href = url;
+        }
       });
     });
   })();
