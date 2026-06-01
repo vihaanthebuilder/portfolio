@@ -329,7 +329,7 @@
         </div>
         <div class="chess-links">
           <button type="button" id="lichessBtn" class="btn btn-blue">🌐 Load Live Lichess Data</button>
-          <a href="https://ratings.uschess.org/player/32756659" target="_blank" rel="noopener" class="btn btn-red">🏛️ Over-the-Board (US Chess)</a>
+          <button type="button" id="uscfBtn" class="btn btn-red" data-url="https://ratings.uschess.org/player/32756659">🏛️ Copy US Chess Link</button>
         </div>
         <p class="chart-note" style="margin-top:10px;font-size:.82rem">
           Profiles:
@@ -508,6 +508,32 @@
     btn.addEventListener('click', load);
     // auto-load on first view
     load();
+  })();
+
+  // US Chess button — copy profile link to clipboard (works even when new tabs are blocked)
+  (function uscfCopy(){
+    const btn = document.getElementById('uscfBtn');
+    if (!btn) return;
+    const url = btn.getAttribute('data-url');
+    const label = btn.textContent;
+    btn.addEventListener('click', async () => {
+      let copied = false;
+      try {
+        await navigator.clipboard.writeText(url);
+        copied = true;
+      } catch (e) {
+        // fallback for browsers/sandboxes without clipboard API
+        try {
+          const ta = document.createElement('textarea');
+          ta.value = url; ta.style.position='fixed'; ta.style.opacity='0';
+          document.body.appendChild(ta); ta.select();
+          copied = document.execCommand('copy');
+          document.body.removeChild(ta);
+        } catch (e2) { copied = false; }
+      }
+      btn.textContent = copied ? '✓ Link Copied!' : url;
+      setTimeout(() => { btn.textContent = label; }, copied ? 1800 : 4000);
+    });
   })();
 
   // Rating progress chart (inline SVG line chart, no libraries)
