@@ -107,6 +107,9 @@
   .btn-yellow{background:var(--yellow);color:var(--ink)}
   .btn-red{background:var(--red);color:#fff}
   .btn-white{background:#fff;color:var(--blue)}
+  .btn-blue{background:var(--blue);color:#fff}
+  .chess-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
+  .chess-links .btn{font-size:.92rem;padding:11px 16px}
   .hero-bricks{position:absolute;inset:0;opacity:.10;z-index:1}
   .float{position:absolute;font-size:2.4rem;opacity:.55;animation:bob 5s ease-in-out infinite}
   @keyframes bob{50%{transform:translateY(-18px) rotate(8deg)}}
@@ -324,7 +327,10 @@
           <span>🚅 Bullet <b>1252</b></span>
           <span>🧩 Puzzles <b>1687</b></span>
         </div>
-        <p class="chart-note" style="margin-top:12px">📊 Sources: <a href="https://ratings.uschess.org/player/32756659" target="_blank" rel="noopener" style="color:var(--blue);font-weight:800">US Chess #32756659</a> · <a href="https://lichess.org/@/vihaan_67" target="_blank" rel="noopener" style="color:var(--blue);font-weight:800">lichess.org/@vihaan_67</a></p>
+        <div class="chess-links">
+          <a href="https://lichess.org/@/vihaan_67" target="_blank" rel="noopener" class="btn btn-blue">🌐 Lichess Data</a>
+          <a href="https://ratings.uschess.org/player/32756659" target="_blank" rel="noopener" class="btn btn-red">🏛️ Over-the-Board (US Chess)</a>
+        </div>
       </div>
       <div>
         <div class="panel" style="margin-bottom:22px">
