@@ -207,8 +207,18 @@
   .game-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;
     font-family:'Baloo 2';color:#fff}
   .game-title{font-weight:800;font-size:1.1rem}
+  .game-head-right{display:flex;align-items:center;gap:12px}
   .game-score{font-size:.95rem;color:#dce8ff}
   .game-score b{color:var(--yellow)}
+  .game-full-btn{background:rgba(255,255,255,.16);color:#fff;border:none;border-radius:8px;
+    width:34px;height:30px;font-size:1rem;cursor:pointer;line-height:1}
+  .game-full-btn:hover{background:var(--yellow);color:var(--ink)}
+  /* fullscreen styling */
+  .game-wrap:fullscreen{width:100vw;height:100vh;max-width:none;border-radius:0;
+    display:flex;flex-direction:column;justify-content:center;align-items:center;padding:24px}
+  .game-wrap:fullscreen #pacCanvas{height:auto;max-height:82vh;width:auto;max-width:96vw}
+  .game-wrap:fullscreen .game-head{width:min(560px,96vw)}
+  .game-wrap:fullscreen .game-overlay{inset:auto;position:absolute}
   #pacCanvas{display:block;width:100%;height:auto;background:#0a1020;border-radius:12px}
   .game-overlay{position:absolute;left:16px;right:16px;bottom:16px;top:54px;border-radius:12px;
     background:rgba(8,16,30,.82);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;z-index:3}
@@ -861,7 +871,10 @@
     <div class="game-wrap">
       <div class="game-head">
         <span class="game-title">👾 Pac-Man</span>
-        <span class="game-score">Score: <b id="pacScore">0</b></span>
+        <span class="game-head-right">
+          <span class="game-score">Score: <b id="pacScore">0</b></span>
+          <button type="button" id="pacFull" class="game-full-btn" aria-label="Fullscreen" title="Fullscreen">⛶</button>
+        </span>
       </div>
       <canvas id="pacCanvas" width="380" height="420" aria-label="Pac-Man mini game"></canvas>
       <div class="game-overlay" id="pacOverlay">
@@ -1201,13 +1214,14 @@
         const c = MAP[y][x];
         if (c === '.') pellets++;
         if (c === 'P') pac = {x, y, dx:0, dy:0, ndx:0, ndy:0, mouth:0};
-        if (c === 'G') ghosts.push({x, y, dx:0, dy:0, color: ['#ff5b5b','#5bc8ff','#ffb85b'][ghosts.length%3], home:{x,y}});
+        if (c === 'G') ghosts.push({x, y, px:x, py:y, color: ['#ff5b5b','#5bc8ff','#ffb85b'][ghosts.length%3], type: ['chaser','ambush','flank'][ghosts.length%3], home:{x,y}});
       }
       // restore eaten pellets each game
       eaten = new Set();
-      score = 0; won = false;
+      score = 0; won = false; ghostTick = 0;
       scoreEl.textContent = '0';
     }
+    let ghostTick = 0;
     let eaten = new Set();
     const key = (x,y)=>x+','+y;
 
@@ -1219,6 +1233,32 @@
     function hasPellet(x,y){ return MAP[y][x]==='.' && !eaten.has(key(x,y)); }
 
     function setDir(dx,dy){ if(pac){ pac.ndx=dx; pac.ndy=dy; } }
+
+    // BFS: first step from (sx,sy) toward (tx,ty); returns [dx,dy] or null
+    function bfsStep(sx,sy,tx,ty){
+      if (sx===tx && sy===ty) return null;
+      const q=[[sx,sy]]; const prev=new Map(); prev.set(key(sx,sy),null);
+      while(q.length){
+        const [cx,cy]=q.shift();
+        if (cx===tx && cy===ty) break;
+        for (const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){
+          let nx=cx+dx, ny=cy+dy;
+          if (nx<0) nx=COLS-1; if (nx>=COLS) nx=0; // tunnel
+          if (isWall(nx,ny)) continue;
+          const k=key(nx,ny);
+          if (prev.has(k)) continue;
+          prev.set(k,[cx,cy]); q.push([nx,ny]);
+        }
+      }
+      if (!prev.has(key(tx,ty))) return null;
+      // walk back from target to the step adjacent to start
+      let cur=[tx,ty], p=prev.get(key(tx,ty));
+      while(p && !(p[0]===sx && p[1]===sy)){ cur=p; p=prev.get(key(p[0],p[1])); }
+      if (!p) return null;
+      let dx=cur[0]-sx, dy=cur[1]-sy;
+      if (dx>1) dx=-1; if (dx<-1) dx=1; // tunnel wrap correction
+      return [dx,dy];
+    }
 
     function step(){
       // Pac-Man: try queued direction, else continue
@@ -1232,25 +1272,62 @@
       // eat pellet
       if (hasPellet(pac.x,pac.y)){ eaten.add(key(pac.x,pac.y)); score+=10; scoreEl.textContent=score;
         if (eaten.size>=pellets){ endGame(true); return; } }
-      // Ghosts: greedy move toward pac, avoid reversing into walls
+      if (ghosts.some(g=>g.x===pac.x && g.y===pac.y)){ endGame(false); return; }
+      // Ghosts move slightly slower than Pac-Man (every ~3rd tick they skip) → fair but smart
+      ghostTick++;
+      if (ghostTick % 3 === 0) return; // skip ghost movement 1 in 3 ticks
+      // Ghosts: smart pathfinding with distinct personalities
+      const clamp=(v,hi)=>Math.max(0,Math.min(hi,v));
       ghosts.forEach(g=>{
-        const opts=[[1,0],[-1,0],[0,1],[0,-1]].filter(([dx,dy])=>!isWall(g.x+dx,g.y+dy));
-        if(opts.length){
-          // 65% chase, else random
-          let pick;
-          if (Math.abs(((g.x*7+g.y*13+score)%10)) < 6.5){
-            pick = opts.reduce((a,b)=>{
-              const da=Math.hypot(g.x+a[0]-pac.x, g.y+a[1]-pac.y);
-              const db=Math.hypot(g.x+b[0]-pac.x, g.y+b[1]-pac.y);
-              return db<da?b:a;
-            });
-          } else {
-            pick = opts[(g.x+g.y+score)%opts.length];
-          }
-          g.x+=pick[0]; g.y+=pick[1];
+        // pick a target tile based on personality
+        let tx=pac.x, ty=pac.y;
+        if (g.type==='ambush'){            // aim 4 tiles ahead of Pac-Man's heading
+          tx=clamp(pac.x+pac.dx*4, COLS-1); ty=clamp(pac.y+pac.dy*4, ROWS-1);
+        } else if (g.type==='flank'){      // mirror/cut-off: target opposite side of Pac
+          tx=clamp(pac.x + (pac.x<COLS/2?3:-3), COLS-1); ty=clamp(pac.y+pac.dy*2, ROWS-1);
         }
-        if (g.x===pac.x && g.y===pac.y) endGame(false);
+        // walls can land target on a wall — nudge to nearest open
+        if (isWall(tx,ty)){ tx=pac.x; ty=pac.y; }
+        let mv = bfsStep(g.x, g.y, tx, ty);
+        // avoid immediate reversal unless it's the only option
+        if (mv){
+          const wouldReverse = (g.x+mv[0]===g.px && g.y+mv[1]===g.py);
+          if (wouldReverse){
+            const alts=[[1,0],[-1,0],[0,1],[0,-1]].filter(([dx,dy])=>!isWall(g.x+dx,g.y+dy) && !(g.x+dx===g.px && g.y+dy===g.py));
+            if (alts.length){ // re-path via best alt by BFS distance
+              mv = alts.reduce((a,b)=>{
+                const sa=bfsStepDist(g.x+a[0],g.y+a[1],tx,ty), sb=bfsStepDist(g.x+b[0],g.y+b[1],tx,ty);
+                return sb<sa?b:a;
+              });
+            }
+          }
+        }
+        if (!mv){ // fallback: any non-reversing legal move
+          const opts=[[1,0],[-1,0],[0,1],[0,-1]].filter(([dx,dy])=>!isWall(g.x+dx,g.y+dy));
+          if (opts.length) mv=opts[(g.x+g.y+score)%opts.length];
+        }
+        if (mv){
+          g.px=g.x; g.py=g.y;
+          g.x+=mv[0]; g.y+=mv[1];
+          if (g.x<0) g.x=COLS-1; if (g.x>=COLS) g.x=0;
+        }
       });
+      if (ghosts.some(g=>g.x===pac.x && g.y===pac.y)){ endGame(false); return; }
+    }
+    // BFS distance only (for tie-breaking)
+    function bfsStepDist(sx,sy,tx,ty){
+      if (isWall(sx,sy)) return 1e9;
+      const q=[[sx,sy,0]]; const seen=new Set([key(sx,sy)]);
+      while(q.length){
+        const [cx,cy,d]=q.shift();
+        if (cx===tx && cy===ty) return d;
+        for (const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){
+          let nx=cx+dx, ny=cy+dy; if(nx<0)nx=COLS-1; if(nx>=COLS)nx=0;
+          if (isWall(nx,ny)||seen.has(key(nx,ny))) continue;
+          seen.add(key(nx,ny)); q.push([nx,ny,d+1]);
+        }
+      }
+      return 1e9;
     }
 
     function draw(){
@@ -1321,6 +1398,20 @@
       const dir=e.target.getAttribute('data-dir'); if(!dir) return;
       const m={up:[0,-1],down:[0,1],left:[-1,0],right:[1,0]};
       setDir(m[dir][0], m[dir][1]);
+    });
+    // Fullscreen toggle
+    const fullBtn=document.getElementById('pacFull');
+    const wrap=document.querySelector('.game-wrap');
+    fullBtn.addEventListener('click', ()=>{
+      if (!document.fullscreenElement){
+        (wrap.requestFullscreen||wrap.webkitRequestFullscreen||(()=>{})).call(wrap);
+      } else {
+        (document.exitFullscreen||document.webkitExitFullscreen||(()=>{})).call(document);
+      }
+    });
+    document.addEventListener('fullscreenchange', ()=>{
+      fullBtn.textContent = document.fullscreenElement ? '✕' : '⛶';
+      draw();
     });
     // draw an initial static frame behind the overlay
     reset(); draw();
