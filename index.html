@@ -244,7 +244,12 @@
   .soc-aim button{border:none;border-radius:10px;cursor:pointer;padding:8px 14px;font-weight:800;
     background:rgba(255,255,255,.16);color:#fff;font-family:'Baloo 2'}
   .soc-aim button.sel{background:var(--yellow);color:var(--ink)}
-  #socShoot{min-height:46px;padding:0 28px}
+  #socShoot{min-height:46px;padding:0 28px;touch-action:none;user-select:none}
+  .power-bar{width:220px;max-width:80%;height:16px;border-radius:999px;background:rgba(255,255,255,.18);
+    overflow:hidden;border:2px solid rgba(255,255,255,.3)}
+  .power-bar i{display:block;height:100%;width:0%;border-radius:999px;
+    background:linear-gradient(90deg,#3ad17a,#ffd500,#E3000B)}
+  .game-full-btn.on{background:var(--yellow);color:var(--ink)}
   .game-wrap:fullscreen #socCanvas{height:78vh;width:auto;max-width:94vw}
   .game-wrap:-webkit-full-screen #socCanvas{height:78vh;width:auto;max-width:94vw}
 
@@ -940,7 +945,8 @@
       <div class="game-head">
         <span class="game-title">👾 Pac-Man</span>
         <span class="game-head-right">
-          <span class="game-score">Score: <b id="pacScore">0</b></span>
+          <span class="game-score">Score: <b id="pacScore">0</b> &nbsp; 🏆 <b id="pacHigh">0</b></span>
+          <button type="button" id="pacMusic" class="game-full-btn" aria-label="Toggle music" title="Music">🔇</button>
           <button type="button" id="pacFull" class="game-full-btn" aria-label="Fullscreen" title="Fullscreen">⛶</button>
         </span>
       </div>
@@ -960,20 +966,21 @@
     </div>
 
     <!-- Penalty Soccer game -->
-    <h3 class="games-subhead">⚽ Penalty Shootout</h3>
-    <p class="games-sub-note">Aim your shot and beat the keeper — score 5 goals to win!</p>
+    <h3 class="games-subhead">⚽ Champions League Final</h3>
+    <p class="games-sub-note">🔴 <b>Arsenal</b> vs 🔵 <b>PSG</b> — take the penalty and win the trophy! Score 5 to win.</p>
     <div class="game-wrap">
       <div class="game-head">
-        <span class="game-title">⚽ Penalty Shootout</span>
+        <span class="game-title">🏆 UCL Final Penalty</span>
         <span class="game-head-right">
           <span class="game-score">⚽ <b id="socGoals">0</b> &nbsp; 🧤 <b id="socSaves">0</b></span>
+          <button type="button" id="socMusic" class="game-full-btn" aria-label="Toggle music" title="Music">🔇</button>
           <button type="button" id="socFull" class="game-full-btn" aria-label="Fullscreen" title="Fullscreen">⛶</button>
         </span>
       </div>
       <canvas id="socCanvas" width="380" height="320" aria-label="Penalty shootout mini game"></canvas>
       <div class="game-overlay" id="socOverlay">
-        <button type="button" id="socStart" class="btn btn-yellow">▶ Start Kicking</button>
-        <p class="game-hint">Pick a target with the buttons, then set power and SHOOT!</p>
+        <button type="button" id="socStart" class="btn btn-yellow">▶ Take the Penalty</button>
+        <p class="game-hint">1. Pick a target &nbsp; 2. Hold SHOOT to charge power &nbsp; 3. Release to kick!</p>
       </div>
       <div class="soc-controls" id="socControls">
         <div class="soc-aim">
@@ -981,7 +988,8 @@
           <button data-aim="1">⬆ Center</button>
           <button data-aim="2">↗ Right</button>
         </div>
-        <button type="button" id="socShoot" class="btn btn-red">⚽ SHOOT!</button>
+        <div class="power-bar" id="socPowerBar"><i id="socPowerFill"></i></div>
+        <button type="button" id="socShoot" class="btn btn-red">⚽ HOLD to Charge</button>
       </div>
     </div>
 
@@ -1278,7 +1286,38 @@
     svg.innerHTML=g;
   })();
 
-  // ---- Hero Pac-Man mini game ----
+  // ---- Simple WebAudio music player (toggleable, no files) ----
+  function makeMusic(notes, tempo){
+    let ctx, gain, timer, on=false, idx=0;
+    function ensure(){
+      if (!ctx){ const AC=window.AudioContext||window.webkitAudioContext; if(!AC) return false;
+        ctx=new AC(); gain=ctx.createGain(); gain.gain.value=0.06; gain.connect(ctx.destination); }
+      if (ctx.state==='suspended') ctx.resume();
+      return true;
+    }
+    function playNote(freq){
+      if (!freq) return;
+      const o=ctx.createOscillator(), g=ctx.createGain();
+      o.type='square'; o.frequency.value=freq;
+      g.gain.setValueAtTime(0.0001, ctx.currentTime);
+      g.gain.linearRampToValueAtTime(1, ctx.currentTime+0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + (60/tempo)*0.9);
+      o.connect(g); g.connect(gain); o.start(); o.stop(ctx.currentTime + (60/tempo));
+    }
+    return {
+      toggle(){ if(on){ this.stop(); } else { this.start(); } return on; },
+      start(){ if(!ensure()) return; on=true;
+        timer=setInterval(()=>{ playNote(notes[idx%notes.length]); idx++; }, 60000/tempo); },
+      stop(){ on=false; clearInterval(timer); },
+      isOn(){ return on; }
+    };
+  }
+  // cheerful pac-man-ish loop & a triumphant anthem-ish loop
+  const N={C:262,D:294,E:330,F:349,G:392,A:440,B:494,C5:523,D5:587,E5:659,G5:784,0:0};
+  const pacMusic = makeMusic([N.C5,N.G,N.E,N.G,N.A,N.C5,N.A,N.G, N.B,N.D5,N.B,N.D5,N.C5,0], 320);
+  const socMusic = makeMusic([N.C,N.E,N.G,N.C5,N.G,N.E, N.F,N.A,N.C5,N.A, N.G,N.B,N.D5,N.G5,0,0], 200);
+
+  // ---- Pac-Man mini game ----
   (function pacman(){
     const canvas = document.getElementById('pacCanvas');
     if (!canvas) return;
@@ -1286,7 +1325,11 @@
     const overlay = document.getElementById('pacOverlay');
     const startBtn = document.getElementById('pacStart');
     const scoreEl = document.getElementById('pacScore');
+    const highEl = document.getElementById('pacHigh');
+    const musicBtn = document.getElementById('pacMusic');
     const pad = document.getElementById('pacPad');
+    let highScore = parseInt(localStorage.getItem('pacHighScore')||'0',10) || 0;
+    highEl.textContent = highScore;
 
     // 19 cols x 21 rows maze. # wall, . pellet, space empty, P pac start, G ghost
     const MAP = [
@@ -1382,6 +1425,7 @@
       pac.mouth = (pac.mouth+1)%2;
       // eat pellet
       if (hasPellet(pac.x,pac.y)){ eaten.add(key(pac.x,pac.y)); score+=10; scoreEl.textContent=score;
+        if (score>highScore){ highScore=score; highEl.textContent=highScore; localStorage.setItem('pacHighScore', highScore); }
         if (eaten.size>=pellets){ endGame(true); return; } }
       if (ghosts.some(g=>g.x===pac.x && g.y===pac.y)){ endGame(false); return; }
       // Ghosts move slightly slower than Pac-Man (every ~3rd tick they skip) → fair but smart
@@ -1483,10 +1527,12 @@
 
     function endGame(win){
       running=false; cancelAnimationFrame(raf);
+      if (pacMusic.isOn()) pacMusic.stop();
+      const best = (score>=highScore) ? '<br><span style="color:#ffd500;font-size:.9rem">⭐ New High Score!</span>' : '';
       overlay.classList.remove('hidden');
       overlay.innerHTML = win
-        ? '<p style="color:#ffd500;font-family:\'Baloo 2\';font-size:1.4rem">🏆 You Won! '+score+' pts</p>'
-        : '<p style="color:#fff;font-family:\'Baloo 2\';font-size:1.3rem">👻 Caught! '+score+' pts</p>';
+        ? '<p style="color:#ffd500;font-family:\'Baloo 2\';font-size:1.4rem">🏆 You Won! '+score+' pts'+best+'</p>'
+        : '<p style="color:#fff;font-family:\'Baloo 2\';font-size:1.3rem">👻 Caught! '+score+' pts'+best+'</p>';
       const b=document.createElement('button'); b.className='btn btn-yellow'; b.textContent='▶ Play Again';
       b.onclick=start; overlay.appendChild(b);
     }
@@ -1494,9 +1540,15 @@
     function start(){
       reset(); overlay.classList.add('hidden');
       running=true; tickAcc=0; lastT=0;
+      if (musicOn) pacMusic.start();
       cancelAnimationFrame(raf); raf=requestAnimationFrame(loop);
     }
 
+    let musicOn=false;
+    musicBtn.addEventListener('click', ()=>{
+      musicOn=!musicOn; musicBtn.textContent=musicOn?'🔊':'🔇'; musicBtn.classList.toggle('on',musicOn);
+      if (musicOn && running) pacMusic.start(); else pacMusic.stop();
+    });
     startBtn.addEventListener('click', start);
     // controls — only capture arrows while playing, don't block page scroll otherwise
     window.addEventListener('keydown', e=>{
@@ -1597,7 +1649,7 @@
     render();
   })();
 
-  // ---- Penalty Shootout ----
+  // ---- Champions League Final Penalty (Arsenal vs PSG) ----
   (function soccer(){
     const canvas = document.getElementById('socCanvas');
     if (!canvas) return;
@@ -1609,102 +1661,173 @@
     const goalsEl = document.getElementById('socGoals');
     const savesEl = document.getElementById('socSaves');
     const aimBtns = [...document.querySelectorAll('.soc-aim button')];
+    const powerBar = document.getElementById('socPowerBar');
+    const powerFill = document.getElementById('socPowerFill');
+    const musicBtn = document.getElementById('socMusic');
+    const ARSENAL='#E3000B', PSG_BLUE='#11224f', PSG_RED='#d80a2a';
 
-    // goal geometry
-    const goal = {x: W*0.18, y: 40, w: W*0.64, h: 110};
-    const slots = [goal.x + goal.w*0.18, goal.x + goal.w*0.5, goal.x + goal.w*0.82]; // L,C,R target x
-    let aim = 1, goals, saves, animating, msg, msgColor, won, running;
+    const goal = {x: W*0.16, y: 36, w: W*0.68, h: 112};
+    const slots = [goal.x + goal.w*0.16, goal.x + goal.w*0.5, goal.x + goal.w*0.84];
+    let aim = 1, goals, saves, animating, msg, msgColor, running;
+    let charging=false, power=0, powerDir=1, powerRAF=null, musicOn=false;
 
-    function reset(){ goals=0; saves=0; aim=1; animating=false; msg=''; won=false;
-      goalsEl.textContent='0'; savesEl.textContent='0'; selectAim(1); draw(); }
+    function reset(){ goals=0; saves=0; aim=1; animating=false; msg='';
+      goalsEl.textContent='0'; savesEl.textContent='0'; power=0; setPower(0); selectAim(1); draw(); }
     function selectAim(i){ aim=i; aimBtns.forEach((b,k)=>b.classList.toggle('sel', k===i)); }
+    function setPower(p){ power=p; powerFill.style.width=(p*100).toFixed(0)+'%'; }
 
-    function draw(ball, keeper){
+    // draw a little goalkeeper figure (PSG kit). dive: -1 left, 0 center, 1 right
+    function drawKeeper(cx, cy, dive){
+      ctx.save(); ctx.translate(cx, cy);
+      const arm = dive*16;
+      // body (PSG navy shirt with red stripe)
+      ctx.fillStyle=PSG_BLUE; ctx.fillRect(-9,-14,18,22);
+      ctx.fillStyle=PSG_RED; ctx.fillRect(-2,-14,4,22);
+      // shorts
+      ctx.fillStyle='#0a1733'; ctx.fillRect(-9,8,18,8);
+      // legs
+      ctx.fillStyle='#f1c9a5'; ctx.fillRect(-7,16,5,9); ctx.fillRect(2,16,5,9);
+      // head
+      ctx.fillStyle='#f1c9a5'; ctx.beginPath(); ctx.arc(0,-20,7,0,7); ctx.fill();
+      // gloves/arms (dive direction)
+      ctx.strokeStyle=PSG_BLUE; ctx.lineWidth=5; ctx.lineCap='round';
+      ctx.beginPath(); ctx.moveTo(-7,-8); ctx.lineTo(-14-arm*0.4, -16 - Math.abs(arm)*0.3); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(7,-8); ctx.lineTo(14+ (dive>0?arm:Math.abs(arm))*0.4, -16 - Math.abs(arm)*0.3); ctx.stroke();
+      ctx.fillStyle='#ffd500';
+      ctx.beginPath(); ctx.arc(-14-arm*0.4,-16-Math.abs(arm)*0.3,3.5,0,7); ctx.fill();
+      ctx.beginPath(); ctx.arc(14+(dive>0?arm:Math.abs(arm))*0.4,-16-Math.abs(arm)*0.3,3.5,0,7); ctx.fill();
+      ctx.restore();
+    }
+    // draw the kicker (Arsenal kit) standing by the ball
+    function drawKicker(cx, cy){
+      ctx.save(); ctx.translate(cx, cy);
+      ctx.fillStyle=ARSENAL; ctx.fillRect(-7,-12,14,16);   // red shirt
+      ctx.fillStyle='#fff'; ctx.fillRect(-7,-12,14,3);      // white trim
+      ctx.fillStyle='#fff'; ctx.fillRect(-7,4,14,6);        // white shorts
+      ctx.fillStyle='#f1c9a5'; ctx.fillRect(-6,10,4,7); ctx.fillRect(2,10,4,7);
+      ctx.fillStyle='#3a2417'; ctx.beginPath(); ctx.arc(0,-16,6,0,7); ctx.fill(); // head
+      ctx.restore();
+    }
+
+    function draw(ball, keeperX, dive){
       ctx.clearRect(0,0,W,H);
       // grass stripes
       for(let i=0;i<8;i++){ ctx.fillStyle = i%2? '#2a7d2e':'#2f8a33'; ctx.fillRect(0, i*H/8, W, H/8); }
+      // CL final banner behind goal
+      ctx.fillStyle='rgba(8,16,40,.55)'; ctx.fillRect(0,0,W,goal.y-4);
+      ctx.fillStyle='#ffd500'; ctx.font='bold 11px Baloo 2, sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.fillText('★ UEFA CHAMPIONS LEAGUE FINAL ★', W/2, (goal.y-4)/2);
       // goal frame
-      ctx.strokeStyle='#fff'; ctx.lineWidth=6;
-      ctx.strokeRect(goal.x, goal.y, goal.w, goal.h);
-      // net
+      ctx.strokeStyle='#fff'; ctx.lineWidth=6; ctx.strokeRect(goal.x, goal.y, goal.w, goal.h);
       ctx.strokeStyle='rgba(255,255,255,.4)'; ctx.lineWidth=1;
       for(let gx=goal.x; gx<=goal.x+goal.w; gx+=14){ ctx.beginPath(); ctx.moveTo(gx,goal.y); ctx.lineTo(gx,goal.y+goal.h); ctx.stroke(); }
       for(let gy=goal.y; gy<=goal.y+goal.h; gy+=14){ ctx.beginPath(); ctx.moveTo(goal.x,gy); ctx.lineTo(goal.x+goal.w,gy); ctx.stroke(); }
       // penalty spot
-      ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(W/2, H-40, 3, 0, 7); ctx.fill();
+      ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(W/2, H-46, 3, 0, 7); ctx.fill();
       // keeper
-      const kx = keeper!==undefined ? keeper : W/2;
-      ctx.font='34px serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
-      ctx.fillText('🧤', kx, goal.y+goal.h-16);
+      drawKeeper(keeperX!==undefined?keeperX:W/2, goal.y+goal.h-6, dive||0);
+      // kicker (hide once ball is moving)
+      const b = ball || {x:W/2, y:H-44};
+      if (!ball) drawKicker(W/2-22, H-30);
       // ball
-      const b = ball || {x:W/2, y:H-40};
-      ctx.font='26px serif'; ctx.fillText('⚽', b.x, b.y);
+      ctx.font='24px serif'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('⚽', b.x, b.y);
       // aim arrow when idle
       if (!animating && running){
         ctx.strokeStyle='#ffd500'; ctx.lineWidth=3; ctx.setLineDash([6,5]);
-        ctx.beginPath(); ctx.moveTo(W/2,H-40); ctx.lineTo(slots[aim], goal.y+goal.h-20); ctx.stroke(); ctx.setLineDash([]);
+        ctx.beginPath(); ctx.moveTo(W/2,H-44); ctx.lineTo(slots[aim], goal.y+goal.h-24); ctx.stroke(); ctx.setLineDash([]);
       }
-      // message
-      if (msg){ ctx.fillStyle=msgColor; ctx.font='bold 30px Baloo 2, sans-serif';
-        ctx.fillText(msg, W/2, H*0.42); }
+      if (msg){ ctx.fillStyle=msgColor; ctx.font='bold 30px Baloo 2, sans-serif'; ctx.textAlign='center'; ctx.fillText(msg, W/2, H*0.5); }
     }
 
-    function shoot(){
+    // power gauge: oscillates while held (setInterval = reliable even off-paint)
+    function startCharge(){
+      if (animating || !running || charging) return;
+      charging=true; power=0; powerDir=1;
+      powerRAF=setInterval(()=>{ if(!charging) return;
+        power += powerDir*0.04; if(power>=1){power=1;powerDir=-1;} if(power<=0){power=0;powerDir=1;}
+        setPower(power); }, 28);
+    }
+    function releaseCharge(){
+      if (!charging) return;
+      charging=false; clearInterval(powerRAF);
+      const p = power; setPower(0);
+      shoot(p);
+    }
+
+    function shoot(pwr){
       if (animating || !running) return;
       animating=true; msg='';
-      // keeper picks a slot — chance of guessing right rises a little as you score
-      const difficulty = Math.min(0.6, 0.3 + goals*0.05);
+      // keeper guesses; harder as you score. Higher power = a bit harder for keeper to react,
+      // but too-low power can be saved even if keeper guesses wrong.
+      const difficulty = Math.min(0.62, 0.32 + goals*0.05);
       let kPick;
-      if (Math.random() < difficulty){ kPick = aim; }            // guessed your direction
-      else { const others=[0,1,2].filter(s=>s!==aim); kPick = others[Math.floor(Math.random()*others.length)]; }
-      const targetX = slots[aim], targetY = goal.y + goal.h*0.4;
-      const keeperX = slots[kPick];
-      const start={x:W/2,y:H-40}; let t=0;
+      if (Math.random() < difficulty) kPick = aim;
+      else { const o=[0,1,2].filter(s=>s!==aim); kPick=o[Math.floor(Math.random()*o.length)]; }
+      const dive = kPick===0?-1:kPick===2?1:0;
+      const targetX = slots[aim], targetY = goal.y + goal.h*0.42;
+      const start={x:W/2,y:H-44}; let t=0;
+      const speed = 0.035 + pwr*0.05;
       function frame(){
-        t += 0.045;
+        t += speed;
         const bx = start.x + (targetX-start.x)*t;
         const by = start.y + (targetY-start.y)*t;
-        // keeper dives toward its pick as ball travels
-        const kx = W/2 + (keeperX - W/2)*Math.min(1,t*1.2);
-        draw({x:bx,y:by}, kx);
+        const kx = W/2 + (slots[kPick] - W/2)*Math.min(1,t*1.25);
+        draw({x:bx,y:by}, kx, dive*Math.min(1,t*1.25));
         if (t<1){ requestAnimationFrame(frame); }
         else {
-          const saved = (kPick===aim);
-          if (saved){ saves++; savesEl.textContent=saves; msg='🧤 SAVED!'; msgColor='#ff5b5b'; }
-          else { goals++; goalsEl.textContent=goals; msg='⚽ GOAL!'; msgColor='#ffd500'; }
-          draw({x:targetX,y:targetY}, kx);
+          // weak shots (low power) can be saved even if keeper went the wrong way
+          const keeperRight = (kPick===aim);
+          const weakMiss = pwr<0.25 && Math.random()<0.5;
+          const saved = keeperRight || weakMiss;
+          if (saved){ saves++; savesEl.textContent=saves; msg=weakMiss&&!keeperRight?'🧤 Too soft!':'🧤 SAVED!'; msgColor='#ff5b5b'; beep(180); }
+          else { goals++; goalsEl.textContent=goals; msg='⚽ GOAL!'; msgColor='#ffd500'; beep(520); }
+          draw({x:targetX,y:targetY}, kx, dive);
           if (goals>=5){ end(true); return; }
           if (saves>=5){ end(false); return; }
-          setTimeout(()=>{ animating=false; msg=''; draw(); }, 700);
+          setTimeout(()=>{ animating=false; msg=''; draw(); }, 800);
         }
       }
       frame();
     }
+    function beep(f){ if(!musicOn) return; try{ const AC=window.AudioContext||window.webkitAudioContext; const c=new AC();
+      const o=c.createOscillator(),g=c.createGain(); o.frequency.value=f; o.connect(g); g.connect(c.destination);
+      g.gain.setValueAtTime(0.08,c.currentTime); g.gain.exponentialRampToValueAtTime(0.0001,c.currentTime+0.25);
+      o.start(); o.stop(c.currentTime+0.25);}catch(e){} }
 
     function end(win){
-      running=false; animating=false;
+      running=false; animating=false; charging=false;
+      if (socMusic.isOn()) socMusic.stop();
       overlay.classList.remove('hidden');
       overlay.innerHTML = win
-        ? '<p style="color:#ffd500;font-family:\'Baloo 2\';font-size:1.4rem">🏆 You Win! '+goals+' goals</p>'
-        : '<p style="color:#fff;font-family:\'Baloo 2\';font-size:1.3rem">🧤 Keeper Wins! Try again</p>';
+        ? '<p style="color:#ffd500;font-family:\'Baloo 2\';font-size:1.35rem">🏆 Arsenal Win the Champions League! '+goals+' goals</p>'
+        : '<p style="color:#fff;font-family:\'Baloo 2\';font-size:1.25rem">🧤 PSG keeper saves the day! Try again</p>';
       const b=document.createElement('button'); b.className='btn btn-yellow'; b.textContent='▶ Play Again';
       b.onclick=start; overlay.appendChild(b);
     }
-    function start(){ reset(); overlay.classList.add('hidden'); running=true; draw(); }
+    function start(){ reset(); overlay.classList.add('hidden'); running=true; if(musicOn) socMusic.start(); draw(); }
 
     startBtn.addEventListener('click', start);
-    shootBtn.addEventListener('click', shoot);
+    // hold-to-charge on the SHOOT button (mouse + touch)
+    shootBtn.addEventListener('mousedown', startCharge);
+    shootBtn.addEventListener('mouseup', releaseCharge);
+    shootBtn.addEventListener('mouseleave', ()=>{ if(charging) releaseCharge(); });
+    shootBtn.addEventListener('touchstart', e=>{ e.preventDefault(); startCharge(); }, {passive:false});
+    shootBtn.addEventListener('touchend', e=>{ e.preventDefault(); releaseCharge(); }, {passive:false});
     aimBtns.forEach((b,i)=> b.addEventListener('click', ()=>{ if(!animating){ selectAim(i); draw(); } }));
-    // keyboard: arrows aim, space shoots (only when section in view & running)
+    // keyboard: arrows aim, hold space to charge
     window.addEventListener('keydown', e=>{
       if (!running || animating) return;
-      // only when soccer canvas is roughly in view
-      const r=canvas.getBoundingClientRect();
-      if (r.bottom<0 || r.top>innerHeight) return;
+      const r=canvas.getBoundingClientRect(); if (r.bottom<0 || r.top>innerHeight) return;
       if (e.key==='ArrowLeft'){ selectAim(0); draw(); }
       else if (e.key==='ArrowRight'){ selectAim(2); draw(); }
       else if (e.key==='ArrowUp'){ selectAim(1); draw(); }
-      else if (e.key===' '){ e.preventDefault(); shoot(); }
+      else if (e.key===' '){ e.preventDefault(); if(!e.repeat) startCharge(); }
+    });
+    window.addEventListener('keyup', e=>{ if(e.key===' ') releaseCharge(); });
+    // music toggle
+    musicBtn.addEventListener('click', ()=>{
+      musicOn=!musicOn; musicBtn.textContent=musicOn?'🔊':'🔇'; musicBtn.classList.toggle('on',musicOn);
+      if (musicOn && running) socMusic.start(); else socMusic.stop();
     });
     // fullscreen
     const fullBtn=document.getElementById('socFull');
