@@ -231,6 +231,39 @@
   .game-dpad button:active{background:var(--yellow);color:var(--ink)}
   @media(max-width:680px){.game-dpad{display:flex}}
 
+  /* ---- Comic Creator ---- */
+  .games-subhead{font-family:'Baloo 2';font-size:1.4rem;color:var(--ink);text-align:center;margin:40px 0 6px}
+  .games-sub-note{text-align:center;color:var(--muted);margin-bottom:18px}
+  .comic-maker{max-width:680px;margin:0 auto;background:#fff;border-radius:20px;
+    box-shadow:var(--shadow);padding:20px}
+  .comic-title-input{width:100%;font-family:'Baloo 2';font-weight:800;font-size:1.2rem;
+    text-align:center;border:2px dashed #ccd6e6;border-radius:12px;padding:12px;margin-bottom:16px;color:var(--ink)}
+  .comic-title-input:focus{outline:none;border-color:var(--blue)}
+  .comic-panels{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:520px){.comic-panels{grid-template-columns:1fr}}
+  .c-panel{border:3px solid var(--ink);border-radius:14px;overflow:hidden;background:#f7f9fc;display:flex;flex-direction:column}
+  .c-stage{aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:3.4rem;
+    background:radial-gradient(circle at 50% 40%,#fff,#e9eefa)}
+  .c-stickers{display:flex;flex-wrap:wrap;gap:3px;padding:6px;background:#eef2f9;justify-content:center}
+  .c-stickers button{border:none;background:#fff;border-radius:7px;width:30px;height:30px;font-size:1.05rem;cursor:pointer;line-height:1}
+  .c-stickers button:hover{background:var(--yellow)}
+  .c-caption{border:none;border-top:2px solid var(--ink);padding:8px;font-family:'Baloo 2';font-weight:600;
+    font-size:.85rem;text-align:center;width:100%;resize:none;color:var(--ink)}
+  .c-caption:focus{outline:none;background:#fffdf2}
+  .comic-actions{display:flex;gap:12px;justify-content:center;margin-top:18px}
+  /* published comics */
+  .comics-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:900px;margin:0 auto}
+  .comic-card{background:#fff;border:4px solid var(--ink);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+  .comic-card h4{font-family:'Baloo 2';font-size:1.2rem;text-align:center;padding:12px;
+    background:var(--yellow);color:var(--ink);border-bottom:4px solid var(--ink)}
+  .comic-card .cc-panels{display:grid;grid-template-columns:1fr 1fr;gap:0}
+  .comic-card .cc-panel{border:2px solid var(--ink);aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    background:radial-gradient(circle at 50% 40%,#fff,#eef2fb);padding:6px}
+  .comic-card .cc-emoji{font-size:2.6rem;line-height:1}
+  .comic-card .cc-cap{font-family:'Baloo 2';font-weight:600;font-size:.78rem;text-align:center;margin-top:4px;color:var(--ink)}
+  .comic-card .cc-foot{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;font-size:.78rem;color:var(--muted)}
+  .comic-card .cc-del{border:none;background:none;color:var(--red);cursor:pointer;font-weight:800}
+
   /* ---------- SECTION HEADINGS ---------- */
   .head{display:flex;align-items:center;gap:14px;margin-bottom:26px;flex-wrap:wrap}
   .head .chip{
@@ -890,6 +923,23 @@
         </div>
       </div>
     </div>
+
+    <!-- Comic Creator -->
+    <h3 class="games-subhead">✏️ Write Your Own Comic</h3>
+    <p class="games-sub-note">Pick a sticker and write a line for each panel, then publish your one-page comic!</p>
+    <div class="comic-maker">
+      <input type="text" id="comicTitle" class="comic-title-input" maxlength="40" placeholder="Comic title… (e.g. Super Vihaan!)">
+      <div class="comic-panels" id="comicPanels">
+        <!-- 4 panels injected by JS -->
+      </div>
+      <div class="comic-actions">
+        <button type="button" id="comicPublish" class="btn btn-yellow">📚 Publish Comic</button>
+        <button type="button" id="comicClear" class="btn btn-white">🗑 Clear</button>
+      </div>
+    </div>
+
+    <h3 class="games-subhead" id="comicsHead" style="display:none">📚 My Comics</h3>
+    <div class="comics-gallery" id="comicsGallery"></div>
   </div>
 </section>
 
@@ -1415,6 +1465,75 @@
     });
     // draw an initial static frame behind the overlay
     reset(); draw();
+  })();
+
+  // ---- Comic Creator ----
+  (function comicMaker(){
+    const panelsEl = document.getElementById('comicPanels');
+    if (!panelsEl) return;
+    const titleEl = document.getElementById('comicTitle');
+    const galleryEl = document.getElementById('comicsGallery');
+    const comicsHead = document.getElementById('comicsHead');
+    const STICKERS = ['🦸','🦖','🚀','⚡','🐱','🤖','👾','🌟','💥','🏰','⚔️','🧙','🐉','🎈','❤️','😂'];
+    const NUM = 4;
+    const state = Array.from({length:NUM}, ()=>({emoji:'⭐', cap:''}));
+
+    // build editor panels
+    state.forEach((p,idx)=>{
+      const panel=document.createElement('div'); panel.className='c-panel';
+      const stage=document.createElement('div'); stage.className='c-stage'; stage.textContent=p.emoji;
+      const stickers=document.createElement('div'); stickers.className='c-stickers';
+      STICKERS.forEach(s=>{ const b=document.createElement('button'); b.type='button'; b.textContent=s;
+        b.onclick=()=>{ state[idx].emoji=s; stage.textContent=s; }; stickers.appendChild(b); });
+      const cap=document.createElement('input'); cap.className='c-caption'; cap.maxLength=40;
+      cap.placeholder='Panel '+(idx+1)+' caption…';
+      cap.oninput=()=>{ state[idx].cap=cap.value; };
+      panel.appendChild(stage); panel.appendChild(stickers); panel.appendChild(cap);
+      panelsEl.appendChild(panel);
+    });
+
+    function load(){ try{ return JSON.parse(localStorage.getItem('vihaanComics')||'[]'); }catch(e){ return []; } }
+    function save(list){ try{ localStorage.setItem('vihaanComics', JSON.stringify(list)); }catch(e){} }
+
+    function render(){
+      const list=load();
+      galleryEl.innerHTML='';
+      comicsHead.style.display = list.length ? '' : 'none';
+      list.forEach((c,i)=>{
+        const card=document.createElement('div'); card.className='comic-card';
+        const h=document.createElement('h4'); h.textContent=c.title||'My Comic'; card.appendChild(h);
+        const pg=document.createElement('div'); pg.className='cc-panels';
+        c.panels.forEach(p=>{
+          const cp=document.createElement('div'); cp.className='cc-panel';
+          const em=document.createElement('div'); em.className='cc-emoji'; em.textContent=p.emoji;
+          const cc=document.createElement('div'); cc.className='cc-cap'; cc.textContent=p.cap;
+          cp.appendChild(em); cp.appendChild(cc); pg.appendChild(cp);
+        });
+        card.appendChild(pg);
+        const foot=document.createElement('div'); foot.className='cc-foot';
+        foot.innerHTML='<span>By Vihaan</span>';
+        const del=document.createElement('button'); del.className='cc-del'; del.textContent='Delete';
+        del.onclick=()=>{ const l=load(); l.splice(i,1); save(l); render(); };
+        foot.appendChild(del); card.appendChild(foot);
+        galleryEl.appendChild(card);
+      });
+    }
+
+    document.getElementById('comicPublish').addEventListener('click', ()=>{
+      const comic={ title: titleEl.value.trim() || 'My Comic',
+        panels: state.map(p=>({emoji:p.emoji, cap:p.cap})) };
+      const list=load(); list.unshift(comic); save(list); render();
+      comicsHead.scrollIntoView({behavior:'smooth'});
+    });
+    document.getElementById('comicClear').addEventListener('click', ()=>{
+      titleEl.value='';
+      state.forEach((p,idx)=>{ p.emoji='⭐'; p.cap=''; });
+      panelsEl.querySelectorAll('.c-panel').forEach(panel=>{
+        panel.querySelector('.c-stage').textContent='⭐';
+        panel.querySelector('.c-caption').value='';
+      });
+    });
+    render();
   })();
 </script>
 </body>
