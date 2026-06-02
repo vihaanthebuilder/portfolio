@@ -292,6 +292,7 @@
   .creator-footer{font-size:.78rem;color:var(--muted);font-weight:600;
     padding-top:12px;border-top:1px solid #eef1f6}
   @media(max-width:620px){.lego-photo{height:320px}}
+  .lego-grid{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
 
   /* ---------- LEGO LIGHTBOX MODAL ---------- */
   .modal{
@@ -513,7 +514,7 @@
       <h2><img src="images/logos/lego.svg" alt="LEGO" class="head-logo"> LEGO Lab</h2>
     </div>
     <p class="lego-hint">👆 Tap a build to see it full screen</p>
-    <div class="grid g3">
+    <div class="grid lego-grid">
       <article class="card lego-card" tabindex="0" role="button" aria-label="Open Eiffel Tower full screen"
         data-img="images/eiffel-tower.jpg" data-title="Eiffel Tower"
         data-meta="⭐ Favorite Build · 🧩 472 Pieces · ⏱ 3 Hours"
@@ -565,6 +566,24 @@
           <div class="pills"><span class="pill">🧩 2,660 Pieces</span><span class="pill">⏱ 2 Days</span></div>
           <p class="why-label">Why I Loved Building It</p>
           <p class="why-text">"All the tiny decorations made it feel magical."</p>
+          <p class="creator-footer">Built by Vihaan, Age 7</p>
+        </div>
+      </article>
+      <article class="card lego-card" tabindex="0" role="button" aria-label="Open Empire State Building full screen"
+        data-img="images/empire-state.jpg" data-title="Empire State Building"
+        data-meta="🏙️ Landmark Build · 🧩 ~600 Pieces · ⏱ 3 Hours"
+        data-fav="the tall antenna spire"
+        data-desc="A tan brick model of the Empire State Building — a tall stepped tower with a pointed top and a thin antenna spire reaching for the sky.">
+        <div class="lego-photo">
+          <img src="images/empire-state.jpg" alt="Vihaan's LEGO Empire State Building" class="contain" loading="lazy">
+          <span class="glass-badge">🏙️ Landmark Build</span>
+          <div class="photo-fade"></div>
+          <h3 class="lego-title">Empire State Building</h3>
+        </div>
+        <div class="lego-body">
+          <div class="pills"><span class="pill">🧩 ~600 Pieces</span><span class="pill">⏱ 3 Hours</span></div>
+          <p class="why-label">Why I Loved Building It</p>
+          <p class="why-text">"Making it tall and balanced with the spire on top."</p>
           <p class="creator-footer">Built by Vihaan, Age 7</p>
         </div>
       </article>
