@@ -252,6 +252,9 @@
   .game-full-btn.on{background:var(--yellow);color:var(--ink)}
   .game-wrap:fullscreen #socCanvas{height:78vh;width:auto;max-width:94vw}
   .game-wrap:-webkit-full-screen #socCanvas{height:78vh;width:auto;max-width:94vw}
+  #gdCanvas{display:block;width:100%;height:auto;background:#10243f;border-radius:12px;cursor:pointer}
+  .game-wrap:fullscreen #gdCanvas{width:94vw;max-height:80vh;height:auto}
+  .game-wrap:-webkit-full-screen #gdCanvas{width:94vw;max-height:80vh;height:auto}
 
   /* ---- Comic Creator ---- */
   .games-subhead{font-family:'Baloo 2';font-size:1.4rem;color:var(--ink);text-align:center;margin:40px 0 6px}
@@ -993,6 +996,25 @@
       </div>
     </div>
 
+    <!-- Geometry Dash game -->
+    <h3 class="games-subhead">🔺 Geometry Dash</h3>
+    <p class="games-sub-note">Tap, click, or press Space to jump over the spikes — how far can you go?</p>
+    <div class="game-wrap">
+      <div class="game-head">
+        <span class="game-title">🔺 Geo Dash</span>
+        <span class="game-head-right">
+          <span class="game-score">Progress: <b id="gdScore">0%</b> &nbsp; 🏆 <b id="gdHigh">0%</b></span>
+          <button type="button" id="gdMusic" class="game-full-btn" aria-label="Toggle music" title="Music">🔇</button>
+          <button type="button" id="gdFull" class="game-full-btn" aria-label="Fullscreen" title="Fullscreen">⛶</button>
+        </span>
+      </div>
+      <canvas id="gdCanvas" width="380" height="240" aria-label="Geometry Dash mini game"></canvas>
+      <div class="game-overlay" id="gdOverlay">
+        <button type="button" id="gdStart" class="btn btn-yellow">▶ Start Dashing</button>
+        <p class="game-hint">Jump the spikes! Tap the game, click, or press Space.</p>
+      </div>
+    </div>
+
     <!-- Comic Creator -->
     <h3 class="games-subhead">✏️ Write Your Own Comic</h3>
     <p class="games-sub-note">Pick a sticker and write a line for each panel, then publish your one-page comic!</p>
@@ -1316,6 +1338,8 @@
   const N={C:262,D:294,E:330,F:349,G:392,A:440,B:494,C5:523,D5:587,E5:659,G5:784,0:0};
   const pacMusic = makeMusic([N.C5,N.G,N.E,N.G,N.A,N.C5,N.A,N.G, N.B,N.D5,N.B,N.D5,N.C5,0], 320);
   const socMusic = makeMusic([N.C,N.E,N.G,N.C5,N.G,N.E, N.F,N.A,N.C5,N.A, N.G,N.B,N.D5,N.G5,0,0], 200);
+  // fast energetic loop for Geometry Dash
+  const gdMusic = makeMusic([N.E,N.E,N.G5,N.E,N.D5,N.C5,N.B,N.A, N.G,N.A,N.B,N.C5,N.D5,N.E5,0], 400);
 
   // ---- Pac-Man mini game ----
   (function pacman(){
@@ -1837,6 +1861,177 @@
       else { (document.exitFullscreen||document.webkitExitFullscreen||(()=>{})).call(document); }
     });
     document.addEventListener('fullscreenchange', ()=>{ if(document.fullscreenElement===wrap||!document.fullscreenElement){ fullBtn.textContent=document.fullscreenElement?'✕':'⛶'; draw(); } });
+    reset();
+  })();
+
+  // ---- Geometry Dash (hand-designed level) ----
+  (function geoDash(){
+    const canvas = document.getElementById('gdCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height;
+    const overlay = document.getElementById('gdOverlay');
+    const startBtn = document.getElementById('gdStart');
+    const scoreEl = document.getElementById('gdScore');
+    const highEl = document.getElementById('gdHigh');
+    const musicBtn = document.getElementById('gdMusic');
+    const GROUND = H - 34;
+    const SIZE = 24, SPEED = 3.6, GRAV = 0.7, JUMP = -10.4;
+
+    let best = parseInt(localStorage.getItem('gdBestPct')||'0',10)||0;
+    highEl.textContent = best + '%';
+    let player, cam, running=false, started=false, raf, musicOn=false, shake=0, win=false;
+
+    // ----- Hand-designed level (a fixed rhythmic layout, like a real GD level) -----
+    // s=spike, S=triple spike, b=block(jump on/over), p=floating platform, _=gap (empty)
+    // each char = 30px of level. Build a fun but fair rhythm.
+    const PATTERN =
+      "________s____s____ss____b___s___SS____p__s___bb__s__s__S__s_p_p__s___SS___b_s_s__s____SSS___pp__s_s__b__s__s___S__s__s__bb_s__finish";
+    const UNIT = 34;
+    let obstacles=[], platforms=[], levelLen=0, finishX=0;
+
+    function buildLevel(){
+      obstacles=[]; platforms=[];
+      let x = W; // start first obstacle off-screen right
+      for (let i=0;i<PATTERN.length;i++){
+        const ch=PATTERN[i], gx = x + i*UNIT;
+        if (ch==='s') obstacles.push({x:gx, n:1});
+        else if (ch==='S') obstacles.push({x:gx, n:3});
+        else if (ch==='b') platforms.push({x:gx, w:UNIT, top:GROUND-30});
+        else if (ch==='p') platforms.push({x:gx, w:UNIT*1.6, top:GROUND-64});
+        else if (PATTERN.substr(i,6)==='finish'){ finishX=gx; break; }
+      }
+      levelLen = finishX;
+    }
+
+    function reset(){
+      buildLevel();
+      player = {x:70, y:GROUND-SIZE, vy:0, onGround:true, rot:0};
+      cam=0; win=false; shake=0;
+      scoreEl.textContent='0%';
+      draw();
+    }
+    function jump(){ if(running && player.onGround){ player.vy=JUMP; player.onGround=false; } }
+
+    function platformTopAt(px){
+      // returns y of platform surface under the cube's x-range, or null
+      for(const pf of platforms){
+        const sx=pf.x-cam;
+        if (px+SIZE> sx+4 && px < sx+pf.w-4) return pf.top;
+      }
+      return null;
+    }
+    function spikeHit(){
+      const px=player.x, py=player.y;
+      for(const o of obstacles){
+        const sx=o.x-cam, w=22*o.n;
+        if (px+SIZE-5 > sx && px+5 < sx+w){
+          // hits if cube's bottom is below spike tip zone and near ground
+          if (py+SIZE > GROUND-20) return true;
+        }
+      }
+      return false;
+    }
+
+    function update(){
+      cam += SPEED;
+      // gravity
+      player.vy += GRAV; player.y += player.vy;
+      // landing: ground or platform
+      const pfTop = platformTopAt(player.x);
+      const floor = pfTop!==null ? Math.min(GROUND, pfTop) : GROUND;
+      // if a platform is under us and we're at/below its top while falling, land on it
+      let landed=false;
+      if (pfTop!==null && player.vy>=0 && player.y+SIZE >= pfTop && player.y+SIZE <= pfTop+SPEED+14){
+        player.y=pfTop-SIZE; player.vy=0; player.onGround=true; landed=true;
+      }
+      if (!landed){
+        if (player.y+SIZE >= GROUND){ player.y=GROUND-SIZE; player.vy=0; player.onGround=true; }
+        else player.onGround=false;
+      }
+      // side-collision with a block face (platform) → crash
+      for(const pf of platforms){
+        const sx=pf.x-cam;
+        if (player.x+SIZE > sx+2 && player.x+SIZE < sx+10 && player.y+SIZE > pf.top+6){ return end(false); }
+      }
+      if (!player.onGround) player.rot += 0.16;
+      else player.rot = Math.round(player.rot/(Math.PI/2))*(Math.PI/2);
+      if (spikeHit()) return end(false);
+      // progress
+      const pct = Math.max(0, Math.min(100, Math.round(cam/levelLen*100)));
+      scoreEl.textContent = pct+'%';
+      if (cam >= levelLen){ return end(true); }
+    }
+
+    function draw(){
+      ctx.save();
+      if (shake>0){ ctx.translate((Math.random()-0.5)*shake,(Math.random()-0.5)*shake); shake*=0.82; if(shake<0.5)shake=0; }
+      // gradient sky
+      const g=ctx.createLinearGradient(0,0,0,H); g.addColorStop(0,'#1a3a8f'); g.addColorStop(1,'#10243f');
+      ctx.fillStyle=g; ctx.fillRect(-10,-10,W+20,H+20);
+      // parallax bg squares
+      ctx.fillStyle='rgba(255,255,255,.05)';
+      for(let i=-1;i<W/50+2;i++){ const bx=(i*50-(cam*0.3)%50); ctx.fillRect(bx,40,30,30); ctx.fillRect(bx+25,120,20,20); }
+      // ground
+      ctx.fillStyle='#0a1733'; ctx.fillRect(0,GROUND,W,H-GROUND);
+      ctx.strokeStyle='#ffd500'; ctx.lineWidth=3; ctx.beginPath(); ctx.moveTo(0,GROUND+1); ctx.lineTo(W,GROUND+1); ctx.stroke();
+      // platforms
+      platforms.forEach(pf=>{ const sx=pf.x-cam; if(sx>W||sx+pf.w<0) return;
+        ctx.fillStyle='#5bc8ff'; ctx.fillRect(sx,pf.top,pf.w,GROUND-pf.top);
+        ctx.fillStyle='rgba(255,255,255,.35)'; ctx.fillRect(sx,pf.top,pf.w,4); });
+      // spikes
+      obstacles.forEach(o=>{ const sx=o.x-cam; if(sx>W||sx+22*o.n<0) return;
+        ctx.fillStyle='#ff3b5b';
+        for(let k=0;k<o.n;k++){ const x0=sx+k*22;
+          ctx.beginPath(); ctx.moveTo(x0,GROUND); ctx.lineTo(x0+11,GROUND-24); ctx.lineTo(x0+22,GROUND); ctx.closePath(); ctx.fill(); } });
+      // finish line
+      const fx=finishX-cam;
+      if (fx<W+10){ for(let yy=0;yy<GROUND;yy+=12){ ctx.fillStyle=(Math.floor(yy/12)%2)?'#fff':'#10243f'; ctx.fillRect(fx,yy,10,12);} }
+      // player cube
+      ctx.save(); ctx.translate(player.x+SIZE/2, player.y+SIZE/2); ctx.rotate(player.rot);
+      ctx.fillStyle='#ffd500'; ctx.fillRect(-SIZE/2,-SIZE/2,SIZE,SIZE);
+      ctx.strokeStyle='#10243f'; ctx.lineWidth=2; ctx.strokeRect(-SIZE/2,-SIZE/2,SIZE,SIZE);
+      ctx.fillStyle='#10243f'; ctx.fillRect(-SIZE/2+5,-SIZE/2+5,6,6); ctx.fillRect(SIZE/2-11,-SIZE/2+5,6,6); // eyes
+      ctx.restore();
+      ctx.restore();
+      // progress bar (fixed overlay)
+      const pct=Math.max(0,Math.min(1,cam/levelLen));
+      ctx.fillStyle='rgba(0,0,0,.35)'; ctx.fillRect(40,10,W-80,8);
+      ctx.fillStyle='#3ad17a'; ctx.fillRect(40,10,(W-80)*pct,8);
+      ctx.fillStyle='#fff'; ctx.font='10px Baloo 2, sans-serif'; ctx.textAlign='center';
+      ctx.fillText(Math.round(pct*100)+'%', W/2, 26);
+    }
+
+    function loop(){ if(!running) return; update(); if(!running) return; draw(); raf=requestAnimationFrame(loop); }
+
+    function end(didWin){
+      running=false; win=didWin; cancelAnimationFrame(raf);
+      if (gdMusic.isOn()) gdMusic.stop();
+      const pct = Math.round(Math.min(100, cam/levelLen*100));
+      let newBest='';
+      if (pct>best){ best=pct; highEl.textContent=best+'%'; localStorage.setItem('gdBestPct',best); newBest='<br><span style="color:#ffd500;font-size:.9rem">⭐ New Best!</span>'; }
+      if (!didWin){ shake=12; draw(); }
+      overlay.classList.remove('hidden');
+      overlay.innerHTML = didWin
+        ? '<p style="color:#3ad17a;font-family:\'Baloo 2\';font-size:1.4rem">🏆 Level Complete! 100%</p>'
+        : '<p style="color:#fff;font-family:\'Baloo 2\';font-size:1.25rem">💥 Crashed at '+pct+'%'+newBest+'</p>';
+      const b=document.createElement('button'); b.className='btn btn-yellow'; b.textContent='▶ Try Again'; b.onclick=start; overlay.appendChild(b);
+    }
+    function start(){ started=true; reset(); overlay.classList.add('hidden'); running=true; if(musicOn) gdMusic.start(); cancelAnimationFrame(raf); raf=requestAnimationFrame(loop); }
+
+    startBtn.addEventListener('click', start);
+    canvas.addEventListener('mousedown', jump);
+    canvas.addEventListener('touchstart', e=>{ e.preventDefault(); jump(); }, {passive:false});
+    window.addEventListener('keydown', e=>{
+      if (e.key!==' ' && e.key!=='ArrowUp') return;
+      const r=canvas.getBoundingClientRect(); if (r.bottom<0||r.top>innerHeight) return;
+      if (running){ e.preventDefault(); jump(); }
+    });
+    musicBtn.addEventListener('click', ()=>{ musicOn=!musicOn; musicBtn.textContent=musicOn?'🔊':'🔇'; musicBtn.classList.toggle('on',musicOn);
+      if (musicOn && running) gdMusic.start(); else gdMusic.stop(); });
+    const fullBtn=document.getElementById('gdFull'); const wrap=canvas.closest('.game-wrap');
+    fullBtn.addEventListener('click', ()=>{ if(!document.fullscreenElement){ (wrap.requestFullscreen||wrap.webkitRequestFullscreen||(()=>{})).call(wrap); } else { (document.exitFullscreen||(()=>{})).call(document); } });
+    document.addEventListener('fullscreenchange', ()=>{ if(document.fullscreenElement===wrap||!document.fullscreenElement){ fullBtn.textContent=document.fullscreenElement?'✕':'⛶'; if(!running) draw(); } });
     reset();
   })();
 </script>
