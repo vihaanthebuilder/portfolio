@@ -237,6 +237,16 @@
     background:rgba(255,255,255,.16);color:#fff;font-size:1.1rem;font-weight:800}
   .game-dpad button:active{background:var(--yellow);color:var(--ink)}
   @media(max-width:680px){.game-dpad{display:flex}}
+  /* soccer controls */
+  #socCanvas{display:block;width:100%;height:auto;background:#2a7d2e;border-radius:12px}
+  .soc-controls{margin-top:12px;display:flex;flex-direction:column;gap:10px;align-items:center}
+  .soc-aim{display:flex;gap:8px}
+  .soc-aim button{border:none;border-radius:10px;cursor:pointer;padding:8px 14px;font-weight:800;
+    background:rgba(255,255,255,.16);color:#fff;font-family:'Baloo 2'}
+  .soc-aim button.sel{background:var(--yellow);color:var(--ink)}
+  #socShoot{min-height:46px;padding:0 28px}
+  .game-wrap:fullscreen #socCanvas{height:78vh;width:auto;max-width:94vw}
+  .game-wrap:-webkit-full-screen #socCanvas{height:78vh;width:auto;max-width:94vw}
 
   /* ---- Comic Creator ---- */
   .games-subhead{font-family:'Baloo 2';font-size:1.4rem;color:var(--ink);text-align:center;margin:40px 0 6px}
@@ -949,6 +959,32 @@
       </div>
     </div>
 
+    <!-- Penalty Soccer game -->
+    <h3 class="games-subhead">⚽ Penalty Shootout</h3>
+    <p class="games-sub-note">Aim your shot and beat the keeper — score 5 goals to win!</p>
+    <div class="game-wrap">
+      <div class="game-head">
+        <span class="game-title">⚽ Penalty Shootout</span>
+        <span class="game-head-right">
+          <span class="game-score">⚽ <b id="socGoals">0</b> &nbsp; 🧤 <b id="socSaves">0</b></span>
+          <button type="button" id="socFull" class="game-full-btn" aria-label="Fullscreen" title="Fullscreen">⛶</button>
+        </span>
+      </div>
+      <canvas id="socCanvas" width="380" height="320" aria-label="Penalty shootout mini game"></canvas>
+      <div class="game-overlay" id="socOverlay">
+        <button type="button" id="socStart" class="btn btn-yellow">▶ Start Kicking</button>
+        <p class="game-hint">Pick a target with the buttons, then set power and SHOOT!</p>
+      </div>
+      <div class="soc-controls" id="socControls">
+        <div class="soc-aim">
+          <button data-aim="0">↖ Left</button>
+          <button data-aim="1">⬆ Center</button>
+          <button data-aim="2">↗ Right</button>
+        </div>
+        <button type="button" id="socShoot" class="btn btn-red">⚽ SHOOT!</button>
+      </div>
+    </div>
+
     <!-- Comic Creator -->
     <h3 class="games-subhead">✏️ Write Your Own Comic</h3>
     <p class="games-sub-note">Pick a sticker and write a line for each panel, then publish your one-page comic!</p>
@@ -1559,6 +1595,126 @@
       });
     });
     render();
+  })();
+
+  // ---- Penalty Shootout ----
+  (function soccer(){
+    const canvas = document.getElementById('socCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height;
+    const overlay = document.getElementById('socOverlay');
+    const startBtn = document.getElementById('socStart');
+    const shootBtn = document.getElementById('socShoot');
+    const goalsEl = document.getElementById('socGoals');
+    const savesEl = document.getElementById('socSaves');
+    const aimBtns = [...document.querySelectorAll('.soc-aim button')];
+
+    // goal geometry
+    const goal = {x: W*0.18, y: 40, w: W*0.64, h: 110};
+    const slots = [goal.x + goal.w*0.18, goal.x + goal.w*0.5, goal.x + goal.w*0.82]; // L,C,R target x
+    let aim = 1, goals, saves, animating, msg, msgColor, won, running;
+
+    function reset(){ goals=0; saves=0; aim=1; animating=false; msg=''; won=false;
+      goalsEl.textContent='0'; savesEl.textContent='0'; selectAim(1); draw(); }
+    function selectAim(i){ aim=i; aimBtns.forEach((b,k)=>b.classList.toggle('sel', k===i)); }
+
+    function draw(ball, keeper){
+      ctx.clearRect(0,0,W,H);
+      // grass stripes
+      for(let i=0;i<8;i++){ ctx.fillStyle = i%2? '#2a7d2e':'#2f8a33'; ctx.fillRect(0, i*H/8, W, H/8); }
+      // goal frame
+      ctx.strokeStyle='#fff'; ctx.lineWidth=6;
+      ctx.strokeRect(goal.x, goal.y, goal.w, goal.h);
+      // net
+      ctx.strokeStyle='rgba(255,255,255,.4)'; ctx.lineWidth=1;
+      for(let gx=goal.x; gx<=goal.x+goal.w; gx+=14){ ctx.beginPath(); ctx.moveTo(gx,goal.y); ctx.lineTo(gx,goal.y+goal.h); ctx.stroke(); }
+      for(let gy=goal.y; gy<=goal.y+goal.h; gy+=14){ ctx.beginPath(); ctx.moveTo(goal.x,gy); ctx.lineTo(goal.x+goal.w,gy); ctx.stroke(); }
+      // penalty spot
+      ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(W/2, H-40, 3, 0, 7); ctx.fill();
+      // keeper
+      const kx = keeper!==undefined ? keeper : W/2;
+      ctx.font='34px serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.fillText('🧤', kx, goal.y+goal.h-16);
+      // ball
+      const b = ball || {x:W/2, y:H-40};
+      ctx.font='26px serif'; ctx.fillText('⚽', b.x, b.y);
+      // aim arrow when idle
+      if (!animating && running){
+        ctx.strokeStyle='#ffd500'; ctx.lineWidth=3; ctx.setLineDash([6,5]);
+        ctx.beginPath(); ctx.moveTo(W/2,H-40); ctx.lineTo(slots[aim], goal.y+goal.h-20); ctx.stroke(); ctx.setLineDash([]);
+      }
+      // message
+      if (msg){ ctx.fillStyle=msgColor; ctx.font='bold 30px Baloo 2, sans-serif';
+        ctx.fillText(msg, W/2, H*0.42); }
+    }
+
+    function shoot(){
+      if (animating || !running) return;
+      animating=true; msg='';
+      // keeper picks a slot — chance of guessing right rises a little as you score
+      const difficulty = Math.min(0.6, 0.3 + goals*0.05);
+      let kPick;
+      if (Math.random() < difficulty){ kPick = aim; }            // guessed your direction
+      else { const others=[0,1,2].filter(s=>s!==aim); kPick = others[Math.floor(Math.random()*others.length)]; }
+      const targetX = slots[aim], targetY = goal.y + goal.h*0.4;
+      const keeperX = slots[kPick];
+      const start={x:W/2,y:H-40}; let t=0;
+      function frame(){
+        t += 0.045;
+        const bx = start.x + (targetX-start.x)*t;
+        const by = start.y + (targetY-start.y)*t;
+        // keeper dives toward its pick as ball travels
+        const kx = W/2 + (keeperX - W/2)*Math.min(1,t*1.2);
+        draw({x:bx,y:by}, kx);
+        if (t<1){ requestAnimationFrame(frame); }
+        else {
+          const saved = (kPick===aim);
+          if (saved){ saves++; savesEl.textContent=saves; msg='🧤 SAVED!'; msgColor='#ff5b5b'; }
+          else { goals++; goalsEl.textContent=goals; msg='⚽ GOAL!'; msgColor='#ffd500'; }
+          draw({x:targetX,y:targetY}, kx);
+          if (goals>=5){ end(true); return; }
+          if (saves>=5){ end(false); return; }
+          setTimeout(()=>{ animating=false; msg=''; draw(); }, 700);
+        }
+      }
+      frame();
+    }
+
+    function end(win){
+      running=false; animating=false;
+      overlay.classList.remove('hidden');
+      overlay.innerHTML = win
+        ? '<p style="color:#ffd500;font-family:\'Baloo 2\';font-size:1.4rem">🏆 You Win! '+goals+' goals</p>'
+        : '<p style="color:#fff;font-family:\'Baloo 2\';font-size:1.3rem">🧤 Keeper Wins! Try again</p>';
+      const b=document.createElement('button'); b.className='btn btn-yellow'; b.textContent='▶ Play Again';
+      b.onclick=start; overlay.appendChild(b);
+    }
+    function start(){ reset(); overlay.classList.add('hidden'); running=true; draw(); }
+
+    startBtn.addEventListener('click', start);
+    shootBtn.addEventListener('click', shoot);
+    aimBtns.forEach((b,i)=> b.addEventListener('click', ()=>{ if(!animating){ selectAim(i); draw(); } }));
+    // keyboard: arrows aim, space shoots (only when section in view & running)
+    window.addEventListener('keydown', e=>{
+      if (!running || animating) return;
+      // only when soccer canvas is roughly in view
+      const r=canvas.getBoundingClientRect();
+      if (r.bottom<0 || r.top>innerHeight) return;
+      if (e.key==='ArrowLeft'){ selectAim(0); draw(); }
+      else if (e.key==='ArrowRight'){ selectAim(2); draw(); }
+      else if (e.key==='ArrowUp'){ selectAim(1); draw(); }
+      else if (e.key===' '){ e.preventDefault(); shoot(); }
+    });
+    // fullscreen
+    const fullBtn=document.getElementById('socFull');
+    const wrap=canvas.closest('.game-wrap');
+    fullBtn.addEventListener('click', ()=>{
+      if (!document.fullscreenElement){ (wrap.requestFullscreen||wrap.webkitRequestFullscreen||(()=>{})).call(wrap); }
+      else { (document.exitFullscreen||document.webkitExitFullscreen||(()=>{})).call(document); }
+    });
+    document.addEventListener('fullscreenchange', ()=>{ if(document.fullscreenElement===wrap||!document.fullscreenElement){ fullBtn.textContent=document.fullscreenElement?'✕':'⛶'; draw(); } });
+    reset();
   })();
 </script>
 </body>
