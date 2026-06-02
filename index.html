@@ -200,6 +200,27 @@
     .float{animation:none!important}
   }
 
+  /* ---- Hero Pac-Man mini game ---- */
+  .game-wrap{position:relative;z-index:2;margin:34px auto 0;max-width:380px;
+    background:rgba(8,16,30,.35);border:1px solid rgba(255,255,255,.18);
+    border-radius:20px;padding:14px;backdrop-filter:blur(6px);box-shadow:0 12px 30px rgba(0,0,0,.3)}
+  .game-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;
+    font-family:'Baloo 2';color:#fff}
+  .game-title{font-weight:800}
+  .game-score{font-size:.95rem;color:#dce8ff}
+  .game-score b{color:var(--yellow)}
+  #pacCanvas{display:block;width:100%;height:auto;background:#0a1020;border-radius:12px}
+  .game-overlay{position:absolute;inset:14px;top:46px;border-radius:12px;
+    background:rgba(8,16,30,.78);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;z-index:3}
+  .game-overlay.hidden{display:none}
+  .game-hint{color:#cdd9ec;font-size:.82rem;max-width:240px;text-align:center;line-height:1.4}
+  .game-dpad{display:none;flex-direction:column;align-items:center;gap:6px;margin-top:10px}
+  .dpad-mid{display:flex;gap:6px}
+  .game-dpad button{width:48px;height:44px;border:none;border-radius:10px;cursor:pointer;
+    background:rgba(255,255,255,.16);color:#fff;font-size:1.1rem;font-weight:800}
+  .game-dpad button:active{background:var(--yellow);color:var(--ink)}
+  @media(max-width:680px){.game-dpad{display:flex}}
+
   /* ---------- SECTION HEADINGS ---------- */
   .head{display:flex;align-items:center;gap:14px;margin-bottom:26px;flex-wrap:wrap}
   .head .chip{
@@ -514,6 +535,27 @@
       <a href="#chess" class="btn btn-red">♟️ Chess Journey</a>
       <a href="#goals" class="btn btn-white">🎯 My Goals</a>
       <a href="#timeline" class="btn btn-white">📖 My Story</a>
+    </div>
+
+    <!-- Mini Pac-Man game -->
+    <div class="game-wrap">
+      <div class="game-head">
+        <span class="game-title">👾 Play Pac-Man!</span>
+        <span class="game-score">Score: <b id="pacScore">0</b></span>
+      </div>
+      <canvas id="pacCanvas" width="380" height="420" aria-label="Pac-Man mini game"></canvas>
+      <div class="game-overlay" id="pacOverlay">
+        <button type="button" id="pacStart" class="btn btn-yellow">▶ Start Game</button>
+        <p class="game-hint">Use arrow keys or the buttons below • eat all the dots!</p>
+      </div>
+      <div class="game-dpad" id="pacPad">
+        <button data-dir="up" aria-label="Up">▲</button>
+        <div class="dpad-mid">
+          <button data-dir="left" aria-label="Left">◀</button>
+          <button data-dir="down" aria-label="Down">▼</button>
+          <button data-dir="right" aria-label="Right">▶</button>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1101,6 +1143,178 @@
       g+=`<text x="${x(i)}" y="${H-padB+22}" text-anchor="middle" font-size="12" fill="#5b6b82" font-family="Nunito">${d.label}</text>`;
     });
     svg.innerHTML=g;
+  })();
+
+  // ---- Hero Pac-Man mini game ----
+  (function pacman(){
+    const canvas = document.getElementById('pacCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const overlay = document.getElementById('pacOverlay');
+    const startBtn = document.getElementById('pacStart');
+    const scoreEl = document.getElementById('pacScore');
+    const pad = document.getElementById('pacPad');
+
+    // 19 cols x 21 rows maze. # wall, . pellet, space empty, P pac start, G ghost
+    const MAP = [
+      "###################",
+      "#........#........#",
+      "#.##.###.#.###.##.#",
+      "#.................#",
+      "#.##.#.#####.#.##.#",
+      "#....#...#...#....#",
+      "####.### # ###.####",
+      "   #.#   G   #.#   ",
+      "####.# ##=## #.####",
+      "#......#GGG#......#",
+      "####.# ##### #.####",
+      "   #.#       #.#   ",
+      "####.# ##### #.####",
+      "#........#........#",
+      "#.##.###.#.###.##.#",
+      "#..#.....P.....#..#",
+      "##.#.#.#####.#.#.##",
+      "#....#...#...#....#",
+      "#.######.#.######.#",
+      "#.................#",
+      "###################"
+    ].map(r=>r.split(''));
+    const ROWS = MAP.length, COLS = MAP[0].length;
+    const TILE = Math.floor(canvas.width / COLS);
+    canvas.height = TILE * ROWS;
+
+    let pac, ghosts, pellets, score, running, tickAcc, raf, lastT, won;
+
+    function reset(){
+      pellets = 0;
+      pac = null; ghosts = [];
+      for (let y=0;y<ROWS;y++) for (let x=0;x<COLS;x++){
+        const c = MAP[y][x];
+        if (c === '.') pellets++;
+        if (c === 'P') pac = {x, y, dx:0, dy:0, ndx:0, ndy:0, mouth:0};
+        if (c === 'G') ghosts.push({x, y, dx:0, dy:0, color: ['#ff5b5b','#5bc8ff','#ffb85b'][ghosts.length%3], home:{x,y}});
+      }
+      // restore eaten pellets each game
+      eaten = new Set();
+      score = 0; won = false;
+      scoreEl.textContent = '0';
+    }
+    let eaten = new Set();
+    const key = (x,y)=>x+','+y;
+
+    function isWall(x,y){
+      if (x<0||y<0||x>=COLS||y>=ROWS) return true;
+      const c = MAP[y][x];
+      return c === '#' || c === '=';
+    }
+    function hasPellet(x,y){ return MAP[y][x]==='.' && !eaten.has(key(x,y)); }
+
+    function setDir(dx,dy){ if(pac){ pac.ndx=dx; pac.ndy=dy; } }
+
+    function step(){
+      // Pac-Man: try queued direction, else continue
+      if (pac.ndx!==pac.dx || pac.ndy!==pac.dy){
+        if (!isWall(pac.x+pac.ndx, pac.y+pac.ndy)){ pac.dx=pac.ndx; pac.dy=pac.ndy; }
+      }
+      if (!isWall(pac.x+pac.dx, pac.y+pac.dy)){ pac.x+=pac.dx; pac.y+=pac.dy; }
+      // tunnel wrap
+      if (pac.x<0) pac.x=COLS-1; if (pac.x>=COLS) pac.x=0;
+      pac.mouth = (pac.mouth+1)%2;
+      // eat pellet
+      if (hasPellet(pac.x,pac.y)){ eaten.add(key(pac.x,pac.y)); score+=10; scoreEl.textContent=score;
+        if (eaten.size>=pellets){ endGame(true); return; } }
+      // Ghosts: greedy move toward pac, avoid reversing into walls
+      ghosts.forEach(g=>{
+        const opts=[[1,0],[-1,0],[0,1],[0,-1]].filter(([dx,dy])=>!isWall(g.x+dx,g.y+dy));
+        if(opts.length){
+          // 65% chase, else random
+          let pick;
+          if (Math.abs(((g.x*7+g.y*13+score)%10)) < 6.5){
+            pick = opts.reduce((a,b)=>{
+              const da=Math.hypot(g.x+a[0]-pac.x, g.y+a[1]-pac.y);
+              const db=Math.hypot(g.x+b[0]-pac.x, g.y+b[1]-pac.y);
+              return db<da?b:a;
+            });
+          } else {
+            pick = opts[(g.x+g.y+score)%opts.length];
+          }
+          g.x+=pick[0]; g.y+=pick[1];
+        }
+        if (g.x===pac.x && g.y===pac.y) endGame(false);
+      });
+    }
+
+    function draw(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      for (let y=0;y<ROWS;y++) for (let x=0;x<COLS;x++){
+        const c = MAP[y][x];
+        if (c==='#'){ ctx.fillStyle='#1e50c8'; ctx.fillRect(x*TILE+1,y*TILE+1,TILE-2,TILE-2);
+          ctx.fillStyle='#2a5fe0'; ctx.fillRect(x*TILE+1,y*TILE+1,TILE-2,3); }
+        else if (c==='='){ ctx.fillStyle='#ffb0c8'; ctx.fillRect(x*TILE+2,y*TILE+TILE/2-2,TILE-4,4); }
+        if (hasPellet(x,y)){ ctx.fillStyle='#ffd500'; ctx.beginPath();
+          ctx.arc(x*TILE+TILE/2, y*TILE+TILE/2, 2.2, 0, 7); ctx.fill(); }
+      }
+      // pac
+      const cx=pac.x*TILE+TILE/2, cy=pac.y*TILE+TILE/2, r=TILE/2-1;
+      ctx.fillStyle='#ffd500'; ctx.beginPath();
+      const open = pac.mouth ? .25 : .02;
+      let a0=open*Math.PI, a1=(2-open)*Math.PI;
+      let rot = pac.dx===1?0 : pac.dx===-1?Math.PI : pac.dy===1?Math.PI/2 : pac.dy===-1?-Math.PI/2:0;
+      ctx.save(); ctx.translate(cx,cy); ctx.rotate(rot);
+      ctx.moveTo(0,0); ctx.arc(0,0,r,a0,a1); ctx.closePath(); ctx.fill(); ctx.restore();
+      // ghosts
+      ghosts.forEach(g=>{
+        const gx=g.x*TILE+TILE/2, gy=g.y*TILE+TILE/2;
+        ctx.fillStyle=g.color; ctx.beginPath();
+        ctx.arc(gx,gy-1,r,Math.PI,0); ctx.lineTo(gx+r,gy+r);
+        ctx.lineTo(gx+r/2,gy+r-3); ctx.lineTo(gx,gy+r); ctx.lineTo(gx-r/2,gy+r-3);
+        ctx.lineTo(gx-r,gy+r); ctx.closePath(); ctx.fill();
+        ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(gx-3,gy-2,2,0,7); ctx.arc(gx+3,gy-2,2,0,7); ctx.fill();
+        ctx.fillStyle='#10243f'; ctx.beginPath(); ctx.arc(gx-3,gy-2,1,0,7); ctx.arc(gx+3,gy-2,1,0,7); ctx.fill();
+      });
+    }
+
+    function loop(t){
+      if (!running) return;
+      if (!lastT) lastT=t;
+      tickAcc += t-lastT; lastT=t;
+      const speed = 150; // ms per step
+      while (tickAcc >= speed){ step(); tickAcc-=speed; if(!running) break; }
+      draw();
+      raf = requestAnimationFrame(loop);
+    }
+
+    function endGame(win){
+      running=false; cancelAnimationFrame(raf);
+      overlay.classList.remove('hidden');
+      overlay.innerHTML = win
+        ? '<p style="color:#ffd500;font-family:\'Baloo 2\';font-size:1.4rem">🏆 You Won! '+score+' pts</p>'
+        : '<p style="color:#fff;font-family:\'Baloo 2\';font-size:1.3rem">👻 Caught! '+score+' pts</p>';
+      const b=document.createElement('button'); b.className='btn btn-yellow'; b.textContent='▶ Play Again';
+      b.onclick=start; overlay.appendChild(b);
+    }
+
+    function start(){
+      reset(); overlay.classList.add('hidden');
+      running=true; tickAcc=0; lastT=0;
+      cancelAnimationFrame(raf); raf=requestAnimationFrame(loop);
+    }
+
+    startBtn.addEventListener('click', start);
+    // controls — only capture arrows while playing, don't block page scroll otherwise
+    window.addEventListener('keydown', e=>{
+      if (!running) return;
+      const m={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0],
+               w:[0,-1],s:[0,1],a:[-1,0],d:[1,0]};
+      if (m[e.key]){ e.preventDefault(); setDir(m[e.key][0], m[e.key][1]); }
+    });
+    pad.addEventListener('click', e=>{
+      const dir=e.target.getAttribute('data-dir'); if(!dir) return;
+      const m={up:[0,-1],down:[0,1],left:[-1,0],right:[1,0]};
+      setDir(m[dir][0], m[dir][1]);
+    });
+    // draw an initial static frame behind the overlay
+    reset(); draw();
   })();
 </script>
 </body>
