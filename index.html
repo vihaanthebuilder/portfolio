@@ -200,18 +200,18 @@
     .float{animation:none!important}
   }
 
-  /* ---- Hero Pac-Man mini game ---- */
-  .game-wrap{position:relative;z-index:2;margin:34px auto 0;max-width:380px;
-    background:rgba(8,16,30,.35);border:1px solid rgba(255,255,255,.18);
-    border-radius:20px;padding:14px;backdrop-filter:blur(6px);box-shadow:0 12px 30px rgba(0,0,0,.3)}
-  .game-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;
+  /* ---- Pac-Man mini game ---- */
+  .game-wrap{position:relative;z-index:2;margin:0 auto;max-width:400px;
+    background:linear-gradient(135deg,var(--blue),var(--blue-deep));border:1px solid rgba(255,255,255,.12);
+    border-radius:20px;padding:16px;box-shadow:var(--shadow-lg)}
+  .game-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;
     font-family:'Baloo 2';color:#fff}
-  .game-title{font-weight:800}
+  .game-title{font-weight:800;font-size:1.1rem}
   .game-score{font-size:.95rem;color:#dce8ff}
   .game-score b{color:var(--yellow)}
   #pacCanvas{display:block;width:100%;height:auto;background:#0a1020;border-radius:12px}
-  .game-overlay{position:absolute;inset:14px;top:46px;border-radius:12px;
-    background:rgba(8,16,30,.78);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;z-index:3}
+  .game-overlay{position:absolute;left:16px;right:16px;bottom:16px;top:54px;border-radius:12px;
+    background:rgba(8,16,30,.82);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;z-index:3}
   .game-overlay.hidden{display:none}
   .game-hint{color:#cdd9ec;font-size:.82rem;max-width:240px;text-align:center;line-height:1.4}
   .game-dpad{display:none;flex-direction:column;align-items:center;gap:6px;margin-top:10px}
@@ -510,6 +510,7 @@
         <li><a href="#chess">Chess Journey</a></li>
         <li><a href="#goals">Goals</a></li>
         <li><a href="#achievements">Achievements</a></li>
+        <li><a href="#games">Games</a></li>
         <li><a href="#timeline">Timeline</a></li>
       </ul>
     </nav>
@@ -534,28 +535,7 @@
       <a href="#lego" class="btn btn-yellow">🧱 My LEGO Builds</a>
       <a href="#chess" class="btn btn-red">♟️ Chess Journey</a>
       <a href="#goals" class="btn btn-white">🎯 My Goals</a>
-      <a href="#timeline" class="btn btn-white">📖 My Story</a>
-    </div>
-
-    <!-- Mini Pac-Man game -->
-    <div class="game-wrap">
-      <div class="game-head">
-        <span class="game-title">👾 Play Pac-Man!</span>
-        <span class="game-score">Score: <b id="pacScore">0</b></span>
-      </div>
-      <canvas id="pacCanvas" width="380" height="420" aria-label="Pac-Man mini game"></canvas>
-      <div class="game-overlay" id="pacOverlay">
-        <button type="button" id="pacStart" class="btn btn-yellow">▶ Start Game</button>
-        <p class="game-hint">Use arrow keys or the buttons below • eat all the dots!</p>
-      </div>
-      <div class="game-dpad" id="pacPad">
-        <button data-dir="up" aria-label="Up">▲</button>
-        <div class="dpad-mid">
-          <button data-dir="left" aria-label="Left">◀</button>
-          <button data-dir="down" aria-label="Down">▼</button>
-          <button data-dir="right" aria-label="Right">▶</button>
-        </div>
-      </div>
+      <a href="#games" class="btn btn-white">👾 Play a Game</a>
     </div>
   </div>
 </section>
@@ -867,6 +847,35 @@
       <div class="badge-card"><div class="em">🧩</div><b>Loves Mental Math</b><small>Big sums in his head</small></div>
       <div class="badge-card"><div class="em">🦘</div><b>Future Math Kangaroo</b><small>Aiming to compete</small></div>
       <div class="badge-card"><div class="em">📚</div><b>Patterns &amp; Logic</b><small>Learning &amp; loving it</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GAMES ================= -->
+<section id="games" style="background:#fff">
+  <div class="wrap">
+    <div class="head">
+      <span class="chip">Just for Fun</span>
+      <h2><span class="ico">👾</span> Games</h2>
+    </div>
+    <div class="game-wrap">
+      <div class="game-head">
+        <span class="game-title">👾 Pac-Man</span>
+        <span class="game-score">Score: <b id="pacScore">0</b></span>
+      </div>
+      <canvas id="pacCanvas" width="380" height="420" aria-label="Pac-Man mini game"></canvas>
+      <div class="game-overlay" id="pacOverlay">
+        <button type="button" id="pacStart" class="btn btn-yellow">▶ Start Game</button>
+        <p class="game-hint">Use arrow keys or the buttons below • eat all the dots!</p>
+      </div>
+      <div class="game-dpad" id="pacPad">
+        <button data-dir="up" aria-label="Up">▲</button>
+        <div class="dpad-mid">
+          <button data-dir="left" aria-label="Left">◀</button>
+          <button data-dir="down" aria-label="Down">▼</button>
+          <button data-dir="right" aria-label="Right">▶</button>
+        </div>
+      </div>
     </div>
   </div>
 </section>
