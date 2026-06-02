@@ -380,6 +380,18 @@
   .badge-card b{display:block;font-family:'Baloo 2';font-size:1.05rem;margin-top:8px}
   .badge-card small{color:var(--muted)}
 
+  /* ---------- PLAYER PROFILE ---------- */
+  .player-profile{
+    display:flex;gap:18px;align-items:flex-start;
+    background:linear-gradient(135deg,var(--blue),var(--blue-deep));color:#fff;
+    border-radius:var(--radius);padding:24px 26px;margin-bottom:24px;box-shadow:var(--shadow)
+  }
+  .player-profile .pp-ic{font-size:2.4rem;flex:0 0 auto;line-height:1}
+  .player-profile h3{font-family:'Baloo 2';font-size:1.25rem;color:var(--yellow);margin-bottom:6px}
+  .player-profile p{font-size:1.02rem;line-height:1.6;color:#eaf1ff}
+  .player-profile b{color:#fff}
+  @media(max-width:560px){.player-profile{flex-direction:column;gap:10px}}
+
   /* ---------- CHESS STAT CARDS ---------- */
   .stat-cards{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:24px}
   @media(max-width:900px){.stat-cards{grid-template-columns:repeat(3,1fr)}}
@@ -615,6 +627,13 @@
     <div class="head">
       <span class="chip">Checkmate!</span>
       <h2><span class="ico">♟️</span> Chess Journey</h2>
+    </div>
+    <div class="player-profile">
+      <span class="pp-ic">♟️</span>
+      <div>
+        <h3>Player Profile</h3>
+        <p>Vihaan (age 7) is a fast-rising scholastic chess player who reached a <b>715 USCF rating</b> and <b>#281 in Arkansas</b> within 6 months of his first tournament, with a standout <b>+130-point</b> performance and strong tactical instincts (Lichess puzzles <b>1687</b>). He plays his best with time to think (Classical <b>1435</b>), bounces back from setbacks, and is already competing across three states with his sights set on <b>Chess Nationals</b>.</p>
+      </div>
     </div>
     <div class="stat-cards">
       <div class="stat-card"><span class="stat-ic">♟</span><b>715</b><small>Current USCF Rating</small></div>
