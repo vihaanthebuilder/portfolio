@@ -1876,7 +1876,7 @@
     const highEl = document.getElementById('gdHigh');
     const musicBtn = document.getElementById('gdMusic');
     const GROUND = H - 34;
-    const SIZE = 24, SPEED = 3.6, GRAV = 0.7, JUMP = -10.4;
+    const SIZE = 24, SPEED = 2.7, GRAV = 0.62, JUMP = -10.6;
 
     let best = parseInt(localStorage.getItem('gdBestPct')||'0',10)||0;
     highEl.textContent = best + '%';
@@ -1886,8 +1886,8 @@
     // s=spike, S=triple spike, b=block(jump on/over), p=floating platform, _=gap (empty)
     // each char = 30px of level. Build a fun but fair rhythm.
     const PATTERN =
-      "________s____s____ss____b___s___SS____p__s___bb__s__s__S__s_p_p__s___SS___b_s_s__s____SSS___pp__s_s__b__s__s___S__s__s__bb_s__finish";
-    const UNIT = 34;
+      "__________s______s______s_____b_____s______s_____p_____s______s______b_____s______s_______s_____p______s______b______s______s____finish";
+    const UNIT = 40;
     let obstacles=[], platforms=[], levelLen=0, finishX=0;
 
     function buildLevel(){
