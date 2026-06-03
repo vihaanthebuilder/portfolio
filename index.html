@@ -2099,7 +2099,7 @@
     let spawnQueue, spawnTimer, waveActive, frame;
 
     function reset(){
-      money=100; lives=10; wave=0; towers=[]; creeps=[]; bullets=[]; spawnQueue=0; spawnTimer=0; waveActive=false; frame=0;
+      money=80; lives=5; wave=0; towers=[]; creeps=[]; bullets=[]; spawnQueue=0; spawnTimer=0; waveActive=false; frame=0;
       moneyEl.textContent=money; livesEl.textContent=lives; waveEl.textContent=wave;
       draw();
     }
@@ -2107,19 +2107,19 @@
     function startWave(){
       if (waveActive || !running) return;
       wave++; waveEl.textContent=wave;
-      spawnQueue = 4 + wave*2; spawnTimer=0; waveActive=true;
+      spawnQueue = 6 + wave*3; spawnTimer=0; waveActive=true;
     }
 
     function spawnCreep(){
-      const hp = 2 + Math.floor(wave*1.5);
-      creeps.push({wp:0, x:waypoints[0].x, y:waypoints[0].y, hp, maxhp:hp, speed:0.9+wave*0.06, t:0});
+      const hp = 3 + Math.floor(wave*2.2);
+      creeps.push({wp:0, x:waypoints[0].x, y:waypoints[0].y, hp, maxhp:hp, speed:1.1+wave*0.11, t:0});
     }
 
     function update(){
       frame++;
       // spawn
-      if (waveActive && spawnQueue>0){ spawnTimer--; if(spawnTimer<=0){ spawnCreep(); spawnQueue--; spawnTimer=40; } }
-      if (waveActive && spawnQueue===0 && creeps.length===0){ waveActive=false; money+=20; moneyEl.textContent=money;
+      if (waveActive && spawnQueue>0){ spawnTimer--; if(spawnTimer<=0){ spawnCreep(); spawnQueue--; spawnTimer=26; } }
+      if (waveActive && spawnQueue===0 && creeps.length===0){ waveActive=false; money+=12; moneyEl.textContent=money;
         if (wave>=10){ return end(true); } }
       // move creeps along waypoints
       for (let i=creeps.length-1;i>=0;i--){
@@ -2149,7 +2149,7 @@
         if (hit||b.life<=0||b.x<0||b.x>W||b.y<0||b.y>H) bullets.splice(i,1);
       }
       // kill dead creeps
-      for (let i=creeps.length-1;i>=0;i--){ if(creeps[i].hp<=0){ creeps.splice(i,1); money+=8; moneyEl.textContent=money; } }
+      for (let i=creeps.length-1;i>=0;i--){ if(creeps[i].hp<=0){ creeps.splice(i,1); money+=5; moneyEl.textContent=money; } }
     }
 
     function draw(){
