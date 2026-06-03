@@ -392,6 +392,12 @@
   @media(max-width:620px){.lego-photo{height:320px}}
   .lego-grid{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
 
+  /* ---------- BUILD VIDEOS ---------- */
+  .video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:10px}
+  .video-card{background:#10243f;border-radius:16px;overflow:hidden;box-shadow:var(--shadow);border:3px solid transparent;transition:.18s}
+  .video-card:hover{border-color:var(--yellow);transform:translateY(-4px)}
+  .video-card video{width:100%;height:100%;display:block;aspect-ratio:3/4;object-fit:cover;background:#000}
+
   /* ---------- BUILD OF THE WEEK ---------- */
   .botw{margin-top:30px;background:linear-gradient(135deg,var(--blue),var(--blue-deep));border-radius:24px;
     padding:24px;text-align:center;box-shadow:var(--shadow-lg)}
@@ -774,6 +780,35 @@
           <p class="creator-footer">Built by Vihaan, Age 7</p>
         </div>
       </article>
+      <article class="card lego-card" tabindex="0" role="button" aria-label="Open Rainbow House full screen"
+        data-img="images/rainbow-house.jpg" data-title="Rainbow Brick House"
+        data-meta="🌈 Free Build · 🧩 Pieces TBD · ⏱ Time TBD"
+        data-fav="the rainbow roof made of every color"
+        data-desc="A big colorful brick house built from every color in the box, with a checkerboard rainbow roof, a little yellow door, and windows on the sides. A totally original free build!">
+        <div class="lego-photo">
+          <img src="images/rainbow-house.jpg" alt="Vihaan's colorful LEGO rainbow brick house" loading="lazy">
+          <span class="glass-badge">🌈 Free Build</span>
+          <div class="photo-fade"></div>
+          <h3 class="lego-title">Rainbow Brick House</h3>
+        </div>
+        <div class="lego-body">
+          <div class="pills"><span class="pill">🧩 Pieces TBD</span><span class="pill">⏱ Time TBD</span></div>
+          <p class="why-label">Why I Loved Building It</p>
+          <p class="why-text">"Using every single color to make the rainbow roof."</p>
+          <p class="creator-footer">Built by Vihaan, Age 7</p>
+        </div>
+      </article>
+    </div>
+
+    <!-- Build Videos gallery -->
+    <h3 class="games-subhead" style="color:var(--ink)">🎬 Build Videos</h3>
+    <p class="games-sub-note">Watch Vihaan's LEGO builds come to life — tap any video to play!</p>
+    <div class="video-grid">
+      <div class="video-card"><video src="videos/build1.mp4" controls preload="metadata" playsinline></video></div>
+      <div class="video-card"><video src="videos/build2.mp4" controls preload="metadata" playsinline></video></div>
+      <div class="video-card"><video src="videos/build3.mp4" controls preload="metadata" playsinline></video></div>
+      <div class="video-card"><video src="videos/build4.mp4" controls preload="metadata" playsinline></video></div>
+      <div class="video-card"><video src="videos/build5.mp4" controls preload="metadata" playsinline></video></div>
     </div>
 
     <!-- Build of the Week idea generator -->
@@ -939,8 +974,8 @@
       <div class="goal">
         <div class="em"><img src="images/logos/lego.svg" alt="LEGO" class="goal-logo"></div>
         <b>Build 20 LEGO Projects</b>
-        <small style="display:block;color:rgba(255,255,255,.8);font-weight:600;margin-top:4px">7 / 20 built</small>
-        <div class="bar"><i style="width:35%"></i></div><span class="pct">35%</span>
+        <small style="display:block;color:rgba(255,255,255,.8);font-weight:600;margin-top:4px">8 / 20 built</small>
+        <div class="bar"><i style="width:40%"></i></div><span class="pct">40%</span>
       </div>
       <div class="goal">
         <div class="em">💻</div>
@@ -990,7 +1025,7 @@
     <div class="badges">
       <div class="badge-card"><div class="em">🥉</div><b>First Tournament</b><small>DMV — Dec 2025!</small></div>
       <div class="badge-card"><div class="em">🥈</div><b>500 Puzzle Club</b><small>526 solved · Lichess 1687</small></div>
-      <div class="badge-card"><div class="em">🥈</div><b>7 LEGO Builds</b><small>Eiffel · Temple · Hogwarts · Empire State · Flatiron · Lady Liberty · Taj Mahal</small></div>
+      <div class="badge-card"><div class="em">🥈</div><b>8 LEGO Builds</b><small>Eiffel · Temple · Hogwarts · Empire State · Flatiron · Lady Liberty · Taj Mahal · Rainbow House</small></div>
       <div class="badge-card"><div class="em">🥇</div><b>Grade 6 Math in Grade 2</b><small>4 years ahead!</small></div>
       <div class="badge-card"><div class="em">👑</div><b>Checkmate Patterns Master</b><small>Learned the classics</small></div>
     </div>
