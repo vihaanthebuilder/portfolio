@@ -1,0 +1,146 @@
+<svg viewBox="0 0 500 380" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0B1E3A"/>
+      <stop offset="100%" stop-color="#162E52"/>
+    </linearGradient>
+    <radialGradient id="boardGlow" cx="50%" cy="55%" r="45%">
+      <stop offset="0%" stop-color="#FFD700" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#FFD700" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="studs" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="16" cy="16" r="5" fill="rgba(255,255,255,0.06)"/>
+    </pattern>
+  </defs>
+  <!-- Background -->
+  <rect width="500" height="380" fill="url(#bg)"/>
+  <rect width="500" height="380" fill="url(#studs)"/>
+  <!-- Stars -->
+  <circle cx="30"  cy="30"  r="1.5" fill="white" opacity="0.6"/>
+  <circle cx="80"  cy="50"  r="1"   fill="white" opacity="0.5"/>
+  <circle cx="460" cy="25"  r="1.5" fill="white" opacity="0.7"/>
+  <circle cx="430" cy="55"  r="1"   fill="white" opacity="0.5"/>
+  <circle cx="50"  cy="340" r="1.5" fill="white" opacity="0.6"/>
+  <circle cx="450" cy="350" r="1"   fill="white" opacity="0.5"/>
+  <!-- Board glow -->
+  <circle cx="250" cy="220" r="160" fill="url(#boardGlow)"/>
+  <!-- Board border / frame (LEGO bricks) -->
+  <rect x="88" y="88" width="324" height="324" rx="6" fill="#8B6914"/>
+  <!-- Chess board 8x8 squares (35px each, board starts at 95,95) -->
+  <!-- Row 1 -->
+  <rect x="95"  y="95"  width="35" height="35" fill="#E8D5A0"/>
+  <rect x="130" y="95"  width="35" height="35" fill="#5A3A1A"/>
+  <rect x="165" y="95"  width="35" height="35" fill="#E8D5A0"/>
+  <rect x="200" y="95"  width="35" height="35" fill="#5A3A1A"/>
+  <rect x="235" y="95"  width="35" height="35" fill="#E8D5A0"/>
+  <rect x="270" y="95"  width="35" height="35" fill="#5A3A1A"/>
+  <rect x="305" y="95"  width="35" height="35" fill="#E8D5A0"/>
+  <rect x="340" y="95"  width="35" height="35" fill="#5A3A1A"/>
+  <!-- Row 2 -->
+  <rect x="95"  y="130" width="35" height="35" fill="#5A3A1A"/>
+  <rect x="130" y="130" width="35" height="35" fill="#E8D5A0"/>
+  <rect x="165" y="130" width="35" height="35" fill="#5A3A1A"/>
+  <rect x="200" y="130" width="35" height="35" fill="#E8D5A0"/>
+  <rect x="235" y="130" width="35" height="35" fill="#5A3A1A"/>
+  <rect x="270" y="130" width="35" height="35" fill="#E8D5A0"/>
+  <rect x="305" y="130" width="35" height="35" fill="#5A3A1A"/>
+  <rect x="340" y="130" width="35" height="35" fill="#E8D5A0"/>
+  <!-- Row 3 -->
+  <rect x="95"  y="165" width="35" height="35" fill="#E8D5A0"/>
+  <rect x="130" y="165" width="35" height="35" fill="#5A3A1A"/>
+  <rect x="165" y="165" width="35" height="35" fill="#E8D5A0"/>
+  <rect x="200" y="165" width="35" height="35" fill="#5A3A1A"/>
+  <rect x="235" y="165" width="35" height="35" fill="#E8D5A0"/>
+  <rect x="270" y="165" width="35" height="35" fill="#5A3A1A"/>
+  <rect x="305" y="165" width="35" height="35" fill="#E8D5A0"/>
+  <rect x="340" y="165" width="35" height="35" fill="#5A3A1A"/>
+  <!-- Row 4 -->
+  <rect x="95"  y="200" width="35" height="35" fill="#5A3A1A"/>
+  <rect x="130" y="200" width="35" height="35" fill="#E8D5A0"/>
+  <rect x="165" y="200" width="35" height="35" fill="#5A3A1A"/>
+  <rect x="200" y="200" width="35" height="35" fill="#E8D5A0"/>
+  <rect x="235" y="200" width="35" height="35" fill="#5A3A1A"/>
+  <rect x="270" y="200" width="35" height="35" fill="#E8D5A0"/>
+  <rect x="305" y="200" width="35" height="35" fill="#5A3A1A"/>
+  <rect x="340" y="200" width="35" height="35" fill="#E8D5A0"/>
+  <!-- Row 5 -->
+  <rect x="95"  y="235" width="35" height="35" fill="#E8D5A0"/>
+  <rect x="130" y="235" width="35" height="35" fill="#5A3A1A"/>
+  <rect x="165" y="235" width="35" height="35" fill="#E8D5A0"/>
+  <rect x="200" y="235" width="35" height="35" fill="#5A3A1A"/>
+  <rect x="235" y="235" width="35" height="35" fill="#E8D5A0"/>
+  <rect x="270" y="235" width="35" height="35" fill="#5A3A1A"/>
+  <rect x="305" y="235" width="35" height="35" fill="#E8D5A0"/>
+  <rect x="340" y="235" width="35" height="35" fill="#5A3A1A"/>
+  <!-- Row 6 -->
+  <rect x="95"  y="270" width="35" height="35" fill="#5A3A1A"/>
+  <rect x="130" y="270" width="35" height="35" fill="#E8D5A0"/>
+  <rect x="165" y="270" width="35" height="35" fill="#5A3A1A"/>
+  <rect x="200" y="270" width="35" height="35" fill="#E8D5A0"/>
+  <rect x="235" y="270" width="35" height="35" fill="#5A3A1A"/>
+  <rect x="270" y="270" width="35" height="35" fill="#E8D5A0"/>
+  <rect x="305" y="270" width="35" height="35" fill="#5A3A1A"/>
+  <rect x="340" y="270" width="35" height="35" fill="#E8D5A0"/>
+  <!-- Row 7 -->
+  <rect x="95"  y="305" width="35" height="35" fill="#E8D5A0"/>
+  <rect x="130" y="305" width="35" height="35" fill="#5A3A1A"/>
+  <rect x="165" y="305" width="35" height="35" fill="#E8D5A0"/>
+  <rect x="200" y="305" width="35" height="35" fill="#5A3A1A"/>
+  <rect x="235" y="305" width="35" height="35" fill="#E8D5A0"/>
+  <rect x="270" y="305" width="35" height="35" fill="#5A3A1A"/>
+  <rect x="305" y="305" width="35" height="35" fill="#E8D5A0"/>
+  <rect x="340" y="305" width="35" height="35" fill="#5A3A1A"/>
+  <!-- Row 8 -->
+  <rect x="95"  y="340" width="35" height="35" fill="#5A3A1A"/>
+  <rect x="130" y="340" width="35" height="35" fill="#E8D5A0"/>
+  <rect x="165" y="340" width="35" height="35" fill="#5A3A1A"/>
+  <rect x="200" y="340" width="35" height="35" fill="#E8D5A0"/>
+  <rect x="235" y="340" width="35" height="35" fill="#5A3A1A"/>
+  <rect x="270" y="340" width="35" height="35" fill="#E8D5A0"/>
+  <rect x="305" y="340" width="35" height="35" fill="#5A3A1A"/>
+  <rect x="340" y="340" width="35" height="35" fill="#E8D5A0"/>
+  <!-- LEGO Chess Pieces on board (simplified brick-built look) -->
+  <!-- White King (tall column) at e1 -->
+  <rect x="238" y="348" width="29" height="20" rx="3" fill="#F0F0F0"/>
+  <rect x="240" y="330" width="25" height="20" rx="3" fill="#F0F0F0"/>
+  <rect x="242" y="315" width="21" height="17" rx="3" fill="#F0F0F0"/>
+  <rect x="244" y="308" width="17" height="9"  rx="2" fill="#F0F0F0"/>
+  <rect x="248" y="302" width="9"  height="8"  rx="2" fill="#F0F0F0"/>
+  <!-- Cross on king -->
+  <rect x="250" y="297" width="5" height="12" rx="1" fill="#DDAA00"/>
+  <rect x="247" y="301" width="11" height="4" rx="1" fill="#DDAA00"/>
+  <!-- Black Queen (tall column) at d8 -->
+  <rect x="203" y="98"  width="29" height="20" rx="3" fill="#222"/>
+  <rect x="205" y="80"  width="25" height="20" rx="3" fill="#222"/>
+  <rect x="207" y="65"  width="21" height="17" rx="3" fill="#222"/>
+  <!-- Crown points -->
+  <circle cx="213" cy="60" r="5" fill="#222"/>
+  <circle cx="220" cy="57" r="5" fill="#222"/>
+  <circle cx="227" cy="60" r="5" fill="#222"/>
+  <!-- White Rook at h1 -->
+  <rect x="343" y="348" width="29" height="20" rx="3" fill="#F0F0F0"/>
+  <rect x="345" y="331" width="25" height="19" rx="3" fill="#F0F0F0"/>
+  <!-- Rook battlements -->
+  <rect x="345" y="320" width="6"  height="12" rx="2" fill="#F0F0F0"/>
+  <rect x="355" y="320" width="6"  height="12" rx="2" fill="#F0F0F0"/>
+  <rect x="363" y="320" width="6"  height="12" rx="2" fill="#F0F0F0"/>
+  <!-- Stud dots on pieces -->
+  <circle cx="252" cy="352" r="4" fill="rgba(200,200,200,0.5)"/>
+  <circle cx="217" cy="102" r="4" fill="rgba(60,60,60,0.5)"/>
+  <circle cx="357" cy="352" r="4" fill="rgba(200,200,200,0.5)"/>
+  <!-- LEGO stud dots on board squares -->
+  <circle cx="112" cy="112" r="4" fill="rgba(255,255,255,0.12)"/>
+  <circle cx="147" cy="112" r="4" fill="rgba(0,0,0,0.1)"/>
+  <circle cx="182" cy="112" r="4" fill="rgba(255,255,255,0.12)"/>
+  <circle cx="217" cy="112" r="4" fill="rgba(0,0,0,0.1)"/>
+  <circle cx="252" cy="112" r="4" fill="rgba(255,255,255,0.12)"/>
+  <circle cx="287" cy="112" r="4" fill="rgba(0,0,0,0.1)"/>
+  <circle cx="322" cy="112" r="4" fill="rgba(255,255,255,0.12)"/>
+  <circle cx="357" cy="112" r="4" fill="rgba(0,0,0,0.1)"/>
+  <!-- ⭐ CUSTOM BUILD badge top-left -->
+  <rect x="12" y="12" width="174" height="34" rx="17" fill="#FFD700"/>
+  <text x="99" y="34" font-family="Arial Black,Arial,sans-serif" font-size="12" fill="#0B1E3A" text-anchor="middle" font-weight="900">⭐ CUSTOM BUILD!</text>
+  <!-- LEGO x CHESS badge top-right -->
+  <rect x="314" y="12" width="174" height="34" rx="17" fill="rgba(255,255,255,0.15)" stroke="rgba(255,215,0,0.6)" stroke-width="1.5"/>
+  <text x="401" y="34" font-family="Arial Black,Arial,sans-serif" font-size="12" fill="#FFD700" text-anchor="middle" font-weight="900">🧱 LEGO × ♟ CHESS</text>
+</svg>

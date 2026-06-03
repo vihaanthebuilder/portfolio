@@ -1,0 +1,132 @@
+<svg viewBox="0 0 500 380" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0D0D1A"/>
+      <stop offset="100%" stop-color="#1A1A32"/>
+    </linearGradient>
+    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3A2A10"/>
+      <stop offset="100%" stop-color="#2A1A08"/>
+    </linearGradient>
+    <radialGradient id="headlight1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFFF88" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#FFFF00" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="headlight2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFFF88" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#FFFF00" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="studs" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="16" cy="16" r="5" fill="rgba(255,255,255,0.05)"/>
+    </pattern>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+  <!-- Sky -->
+  <rect width="500" height="380" fill="url(#sky)"/>
+  <rect width="500" height="380" fill="url(#studs)"/>
+  <!-- Stars -->
+  <circle cx="50" cy="40" r="1.5" fill="white" opacity="0.7"/>
+  <circle cx="130" cy="25" r="1" fill="white" opacity="0.6"/>
+  <circle cx="200" cy="50" r="2" fill="white" opacity="0.8"/>
+  <circle cx="320" cy="30" r="1.5" fill="white" opacity="0.7"/>
+  <circle cx="420" cy="45" r="1" fill="white" opacity="0.6"/>
+  <circle cx="460" cy="20" r="2" fill="white" opacity="0.8"/>
+  <circle cx="380" cy="55" r="1" fill="white" opacity="0.5"/>
+  <circle cx="80" cy="70" r="1" fill="white" opacity="0.5"/>
+  <!-- Ground/dirt track -->
+  <rect y="290" width="500" height="90" fill="url(#ground)"/>
+  <!-- Track lines -->
+  <rect y="290" width="500" height="6" fill="#4A3A1A"/>
+  <rect y="300" width="500" height="3" fill="#5A4A2A" opacity="0.5"/>
+  <!-- Dust clouds left -->
+  <ellipse cx="80" cy="295" rx="45" ry="22" fill="rgba(120,90,40,0.5)"/>
+  <ellipse cx="60" cy="285" rx="30" ry="16" fill="rgba(120,90,40,0.35)"/>
+  <!-- Dust clouds right -->
+  <ellipse cx="420" cy="295" rx="45" ry="22" fill="rgba(120,90,40,0.5)"/>
+  <ellipse cx="440" cy="285" rx="30" ry="16" fill="rgba(120,90,40,0.35)"/>
+  <!-- HEADLIGHT BEAMS -->
+  <polygon points="360,195 460,140 500,250 460,280 360,230" fill="rgba(255,255,120,0.08)"/>
+  <!-- ===== MONSTER TRUCK ===== -->
+  <!-- Suspension arms/axles -->
+  <rect x="95" y="248" width="12" height="42" rx="6" fill="#666" transform="rotate(15,101,270)"/>
+  <rect x="120" y="252" width="60" height="10" rx="5" fill="#555"/>
+  <rect x="118" y="248" width="12" height="42" rx="6" fill="#666" transform="rotate(-10,124,270)"/>
+  <rect x="320" y="252" width="60" height="10" rx="5" fill="#555"/>
+  <rect x="322" y="248" width="12" height="42" rx="6" fill="#666" transform="rotate(10,328,270)"/>
+  <rect x="364" y="248" width="12" height="42" rx="6" fill="#666" transform="rotate(-15,370,270)"/>
+  <!-- WHEELS (4 big) - drawn first so body overlaps -->
+  <!-- Front-left wheel -->
+  <circle cx="138" cy="284" r="56" fill="#1A1A1A"/>
+  <circle cx="138" cy="284" r="48" fill="#2A2A2A"/>
+  <circle cx="138" cy="284" r="36" fill="#1A1A1A"/>
+  <circle cx="138" cy="284" r="24" fill="#444"/>
+  <circle cx="138" cy="284" r="14" fill="#333"/>
+  <!-- Tire treads front-left -->
+  <line x1="138" y1="236" x2="138" y2="332" stroke="#333" stroke-width="4"/>
+  <line x1="90" y1="284" x2="186" y2="284" stroke="#333" stroke-width="4"/>
+  <line x1="104" y1="250" x2="172" y2="318" stroke="#333" stroke-width="3"/>
+  <line x1="104" y1="318" x2="172" y2="250" stroke="#333" stroke-width="3"/>
+  <!-- Front-right wheel -->
+  <circle cx="362" cy="284" r="56" fill="#1A1A1A"/>
+  <circle cx="362" cy="284" r="48" fill="#2A2A2A"/>
+  <circle cx="362" cy="284" r="36" fill="#1A1A1A"/>
+  <circle cx="362" cy="284" r="24" fill="#444"/>
+  <circle cx="362" cy="284" r="14" fill="#333"/>
+  <line x1="362" y1="236" x2="362" y2="332" stroke="#333" stroke-width="4"/>
+  <line x1="314" y1="284" x2="410" y2="284" stroke="#333" stroke-width="4"/>
+  <line x1="328" y1="250" x2="396" y2="318" stroke="#333" stroke-width="3"/>
+  <line x1="328" y1="318" x2="396" y2="250" stroke="#333" stroke-width="3"/>
+  <!-- TRUCK BODY -->
+  <!-- Undercarriage/chassis -->
+  <rect x="130" y="230" width="240" height="30" rx="8" fill="#CC4400"/>
+  <!-- Main body -->
+  <rect x="118" y="158" width="264" height="90" rx="16" fill="#EE5500"/>
+  <!-- Body detail: side panel line -->
+  <rect x="118" y="200" width="264" height="5" rx="2" fill="rgba(0,0,0,0.3)"/>
+  <!-- LEGO STUD bumps on hood -->
+  <circle cx="175" cy="165" r="7" fill="#CC4400"/>
+  <circle cx="195" cy="165" r="7" fill="#CC4400"/>
+  <circle cx="215" cy="165" r="7" fill="#CC4400"/>
+  <circle cx="235" cy="165" r="7" fill="#CC4400"/>
+  <circle cx="255" cy="165" r="7" fill="#CC4400"/>
+  <!-- STUD rings -->
+  <circle cx="175" cy="165" r="7" fill="none" stroke="#BB3A00" stroke-width="2"/>
+  <circle cx="195" cy="165" r="7" fill="none" stroke="#BB3A00" stroke-width="2"/>
+  <circle cx="215" cy="165" r="7" fill="none" stroke="#BB3A00" stroke-width="2"/>
+  <circle cx="235" cy="165" r="7" fill="none" stroke="#BB3A00" stroke-width="2"/>
+  <circle cx="255" cy="165" r="7" fill="none" stroke="#BB3A00" stroke-width="2"/>
+  <!-- Cab/Window area -->
+  <rect x="160" y="108" width="180" height="68" rx="14" fill="#EE5500"/>
+  <!-- Windshield -->
+  <rect x="172" y="116" width="156" height="54" rx="10" fill="#88CCFF" opacity="0.85"/>
+  <rect x="172" y="116" width="156" height="54" rx="10" fill="none" stroke="#CC4400" stroke-width="3"/>
+  <!-- Windshield glare -->
+  <path d="M180,120 L220,120 Q215,135 185,140Z" fill="rgba(255,255,255,0.35)"/>
+  <!-- HEADLIGHTS -->
+  <rect x="118" y="188" width="32" height="18" rx="6" fill="#FFEE44"/>
+  <rect x="350" y="188" width="32" height="18" rx="6" fill="#FFEE44"/>
+  <rect x="120" y="190" width="28" height="14" rx="4" fill="#FFFFAA"/>
+  <rect x="352" y="190" width="28" height="14" rx="4" fill="#FFFFAA"/>
+  <!-- Exhaust pipes -->
+  <rect x="138" y="118" width="12" height="55" rx="6" fill="#888"/>
+  <rect x="152" y="118" width="12" height="55" rx="6" fill="#777"/>
+  <!-- Smoke puffs -->
+  <circle cx="144" cy="112" r="10" fill="#666" opacity="0.7"/>
+  <circle cx="136" cy="100" r="8" fill="#555" opacity="0.5"/>
+  <circle cx="152" cy="112" r="10" fill="#666" opacity="0.7"/>
+  <circle cx="160" cy="100" r="8" fill="#555" opacity="0.5"/>
+  <!-- Grille -->
+  <rect x="120" y="208" width="30" height="18" rx="4" fill="#333"/>
+  <line x1="126" y1="208" x2="126" y2="226" stroke="#555" stroke-width="2"/>
+  <line x1="133" y1="208" x2="133" y2="226" stroke="#555" stroke-width="2"/>
+  <line x1="140" y1="208" x2="140" y2="226" stroke="#555" stroke-width="2"/>
+  <!-- Theme badge -->
+  <rect x="12" y="12" width="140" height="34" rx="17" fill="rgba(0,0,0,0.75)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <text x="82" y="34" font-family="Arial Black,Arial,sans-serif" font-size="12" fill="white" text-anchor="middle" font-weight="900">⚙️ TECHNIC</text>
+  <!-- Pieces badge -->
+  <rect x="348" y="12" width="140" height="34" rx="17" fill="#EE5500"/>
+  <text x="418" y="34" font-family="Arial Black,Arial,sans-serif" font-size="13" fill="white" text-anchor="middle" font-weight="900">🧩 558 Pieces</text>
+</svg>

@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🧱 Vihaan's Build of the Week — June 10, 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --lego-yellow: #FFD700;
+      --lego-red: #DA291C;
+      --lego-blue: #006DB7;
+      --lego-green: #00A650;
+      --lego-dark: #1A1A2E;
+      --bg: #F5F7FF;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+    }
+
+    /* ---- HERO HEADER ---- */
+    .hero {
+      background: linear-gradient(135deg, var(--lego-dark) 0%, #2D2D5E 100%);
+      color: white;
+      text-align: center;
+      padding: 48px 24px 56px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,215,0,0.15) 2px, transparent 2px);
+      background-size: 36px 36px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--lego-yellow);
+      color: var(--lego-dark);
+      font-family: 'Baloo 2', sans-serif;
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 6px 18px;
+      border-radius: 100px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-family: 'Baloo 2', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+
+    .hero h1 span { color: var(--lego-yellow); }
+
+    .hero p {
+      font-size: 1.1rem;
+      opacity: 0.85;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .date-chip {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      padding: 4px 16px;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      margin-top: 18px;
+    }
+
+    /* ---- STUDS DIVIDER ---- */
+    .studs-row {
+      display: flex;
+      gap: 0;
+      overflow: hidden;
+      height: 28px;
+      background: var(--lego-yellow);
+    }
+
+    .stud {
+      width: 36px;
+      height: 28px;
+      flex-shrink: 0;
+      background: radial-gradient(circle at 40% 35%, #FFE87A 30%, #E6B800 100%);
+      border-right: 1px solid rgba(0,0,0,0.08);
+    }
+
+    /* ---- GRID ---- */
+    .container { max-width: 1100px; margin: 0 auto; padding: 48px 20px 64px; }
+
+    .section-label {
+      text-align: center;
+      font-family: 'Baloo 2', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--lego-red);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-family: 'Baloo 2', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      color: var(--lego-dark);
+      margin-bottom: 40px;
+    }
+
+    .builds-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+    }
+
+    /* ---- BUILD CARD ---- */
+    .build-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.09);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .build-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.14);
+    }
+
+    .card-img-wrap {
+      position: relative;
+      height: 260px;
+      overflow: hidden;
+    }
+
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .build-card:hover .card-img-wrap img {
+      transform: scale(1.05);
+    }
+
+    .card-theme-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(0,0,0,0.75);
+      color: white;
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 4px 12px;
+      border-radius: 100px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      backdrop-filter: blur(4px);
+    }
+
+    .card-new-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: var(--lego-red);
+      color: white;
+      font-weight: 800;
+      font-size: 0.75rem;
+      padding: 4px 12px;
+      border-radius: 100px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .card-accent {
+      height: 5px;
+    }
+
+    .card-body { padding: 22px 24px 26px; }
+
+    .card-number {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #999;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .card-title {
+      font-family: 'Baloo 2', sans-serif;
+      font-weight: 800;
+      font-size: 1.55rem;
+      color: var(--lego-dark);
+      margin-bottom: 14px;
+      line-height: 1.15;
+    }
+
+    .card-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .pill {
+      padding: 5px 14px;
+      border-radius: 100px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .pill-pieces { background: #FFF4CC; color: #7A5800; }
+    .pill-diff   { background: #EEF2FF; color: #3730A3; }
+    .pill-age    { background: #F0FFF4; color: #166534; }
+
+    .card-desc {
+      font-size: 0.97rem;
+      color: #444;
+      line-height: 1.65;
+      margin-bottom: 20px;
+    }
+
+    .card-why {
+      background: #F9F9FF;
+      border-left: 4px solid var(--lego-yellow);
+      border-radius: 0 10px 10px 0;
+      padding: 12px 16px;
+      font-size: 0.9rem;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .card-why strong {
+      display: block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #888;
+      margin-bottom: 4px;
+    }
+
+    /* ---- CARD THEMES ---- */
+    .theme-tiger  .card-accent { background: #E07800; }
+    .theme-tiger  .card-new-badge { background: #E07800; }
+    .theme-tiger  .card-why { border-left-color: #E07800; }
+
+    .theme-truck  .card-accent { background: #EE5500; }
+    .theme-truck  .card-new-badge { background: #EE5500; }
+    .theme-truck  .card-why { border-left-color: #EE5500; }
+
+    .theme-train  .card-accent { background: var(--lego-red); }
+    .theme-train  .card-new-badge { background: var(--lego-red); }
+    .theme-train  .card-why { border-left-color: var(--lego-red); }
+
+    /* ---- CUSTOM BUILD SPOTLIGHT ---- */
+    .custom-section { margin-top: 56px; }
+
+    .custom-section .section-label { color: #7C3AED; }
+    .custom-section .section-title { color: var(--lego-dark); }
+
+    .custom-card {
+      background: linear-gradient(135deg, #0B1E3A 0%, #162E52 100%);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(11,30,58,0.35);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      min-height: 380px;
+    }
+
+    @media(max-width: 720px) {
+      .custom-card { grid-template-columns: 1fr; }
+    }
+
+    .custom-img {
+      overflow: hidden;
+    }
+
+    .custom-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .custom-body {
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .custom-badge {
+      display: inline-block;
+      background: var(--lego-yellow);
+      color: var(--lego-dark);
+      font-family: 'Baloo 2', sans-serif;
+      font-weight: 800;
+      font-size: 0.78rem;
+      padding: 5px 14px;
+      border-radius: 100px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      align-self: flex-start;
+    }
+
+    .custom-title {
+      font-family: 'Baloo 2', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: white;
+      margin-bottom: 16px;
+      line-height: 1.1;
+    }
+
+    .custom-title span { color: var(--lego-yellow); }
+
+    .custom-desc {
+      font-size: 0.97rem;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .custom-steps {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .custom-steps li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .step-num {
+      background: var(--lego-yellow);
+      color: var(--lego-dark);
+      font-family: 'Baloo 2', sans-serif;
+      font-weight: 800;
+      font-size: 0.78rem;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .custom-why {
+      background: rgba(255,215,0,0.12);
+      border: 1px solid rgba(255,215,0,0.3);
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .custom-why strong {
+      display: block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--lego-yellow);
+      margin-bottom: 4px;
+    }
+
+    /* ---- FOOTER ---- */
+    .footer-band {
+      background: var(--lego-dark);
+      color: rgba(255,255,255,0.65);
+      text-align: center;
+      padding: 28px 20px;
+      font-size: 0.88rem;
+    }
+
+    .footer-band strong { color: var(--lego-yellow); }
+
+    @media(max-width:680px) {
+      .card-img-wrap { height: 210px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-badge">🧱 Vihaan's LEGO Lab</div>
+  <h1>Build of the <span>Week</span></h1>
+  <p>Hey Vihaan! 👋 Three brand-new ideas this week — plus a special custom challenge just for you!</p>
+  <div class="date-chip">📅 Week of June 10, 2026</div>
+</header>
+
+<!-- STUDS ROW -->
+<div class="studs-row" aria-hidden="true">
+  <div class="stud"></div><div class="stud"></div><div class="stud"></div>
+  <div class="stud"></div><div class="stud"></div><div class="stud"></div>
+  <div class="stud"></div><div class="stud"></div><div class="stud"></div>
+  <div class="stud"></div><div class="stud"></div><div class="stud"></div>
+  <div class="stud"></div><div class="stud"></div><div class="stud"></div>
+  <div class="stud"></div><div class="stud"></div><div class="stud"></div>
+  <div class="stud"></div><div class="stud"></div><div class="stud"></div>
+  <div class="stud"></div><div class="stud"></div><div class="stud"></div>
+  <div class="stud"></div><div class="stud"></div><div class="stud"></div>
+  <div class="stud"></div><div class="stud"></div><div class="stud"></div>
+  <div class="stud"></div>
+</div>
+
+<!-- BUILDS -->
+<main class="container">
+  <p class="section-label">This Week's Picks</p>
+  <h2 class="section-title">3 Epic Builds Waiting for You! 🚀</h2>
+
+  <div class="builds-grid">
+
+    <!-- BUILD 1: Majestic Tiger -->
+    <article class="build-card theme-tiger">
+      <div class="card-img-wrap">
+        <img src="images/build-tiger-31129.svg" alt="LEGO Creator Majestic Tiger 31129" loading="lazy">
+        <span class="card-theme-badge">🐯 Creator 3-in-1</span>
+        <span class="card-new-badge">🌿 WILDLIFE</span>
+      </div>
+      <div class="card-accent"></div>
+      <div class="card-body">
+        <div class="card-number">Set #31129 · LEGO Creator</div>
+        <h3 class="card-title">🐯 Majestic Tiger</h3>
+        <div class="card-pills">
+          <span class="pill pill-pieces">🧩 755 Pieces</span>
+          <span class="pill pill-diff">⭐⭐ Advanced</span>
+          <span class="pill pill-age">Age 9+</span>
+        </div>
+        <p class="card-desc">
+          Build a huge poseable Bengal tiger with articulated legs, tail, and jaw — then take it apart and rebuild it as a red panda OR a koi fish! Three awesome wild animals in ONE box. The tiger has orange-and-black stripe detailing and a fierce expression.
+        </p>
+        <div class="card-why">
+          <strong>⚡ Why It's Perfect for Vihaan</strong>
+          You've built amazing buildings and castles — now try a living creature! This is the first animal build on your list, and it's 3-in-1. A total new challenge!
+        </div>
+      </div>
+    </article>
+
+    <!-- BUILD 2: Monster Truck -->
+    <article class="build-card theme-truck">
+      <div class="card-img-wrap">
+        <img src="images/build-monster-truck-42135.svg" alt="LEGO Technic Monster Truck 42135" loading="lazy">
+        <span class="card-theme-badge">⚙️ Technic</span>
+        <span class="card-new-badge">🔧 FIRST TECHNIC!</span>
+      </div>
+      <div class="card-accent"></div>
+      <div class="card-body">
+        <div class="card-number">Set #42135 · LEGO Technic</div>
+        <h3 class="card-title">🚙 Monster Truck</h3>
+        <div class="card-pills">
+          <span class="pill pill-pieces">🧩 558 Pieces</span>
+          <span class="pill pill-diff">⭐⭐ Advanced</span>
+          <span class="pill pill-age">Age 7+</span>
+        </div>
+        <p class="card-desc">
+          Your first LEGO Technic build! This massive monster truck has real working independent suspension on all 4 wheels — push it over a bump and watch the body bounce. Huge knobby tires, a lift-able hood, and authentic 4-wheel-drive steering you can actually turn!
+        </p>
+        <div class="card-why">
+          <strong>⚡ Why It's Perfect for Vihaan</strong>
+          Technic is the engineering side of LEGO — you build something that actually WORKS, not just looks cool. This is the same thinking as chess: figure out the system, make it move perfectly!
+        </div>
+      </div>
+    </article>
+
+    <!-- BUILD 3: Passenger Train -->
+    <article class="build-card theme-train">
+      <div class="card-img-wrap">
+        <img src="images/build-train-60336.svg" alt="LEGO City Express Passenger Train 60336" loading="lazy">
+        <span class="card-theme-badge">🚂 City</span>
+        <span class="card-new-badge">🛤️ LONGEST BUILD</span>
+      </div>
+      <div class="card-accent"></div>
+      <div class="card-body">
+        <div class="card-number">Set #60336 · LEGO City</div>
+        <h3 class="card-title">🚂 Express Passenger Train</h3>
+        <div class="card-pills">
+          <span class="pill pill-pieces">🧩 677 Pieces</span>
+          <span class="pill pill-diff">⭐⭐ Advanced</span>
+          <span class="pill pill-age">Age 7+</span>
+        </div>
+        <p class="card-desc">
+          The longest LEGO City train ever — a full electric passenger train with 24 pieces of curved and straight track forming a complete loop! Comes with 4 minifigures including a conductor and passengers. The locomotive has opening doors and working interior. It's battery-powered and MOVES!
+        </p>
+        <div class="card-why">
+          <strong>⚡ Why It's Perfect for Vihaan</strong>
+          You've built towers and castles that stand still. This one MOVES around a full loop of track! It's more like playing a game — set it going and watch it zoom. A completely new kind of build.
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- ===== CUSTOM BUILD CHALLENGE ===== -->
+  <div class="custom-section">
+    <p class="section-label">✨ Special Challenge</p>
+    <h2 class="section-title">Your Custom Build Idea 🏆</h2>
+
+    <div class="custom-card">
+      <div class="custom-img">
+        <img src="images/build-chess-custom.svg" alt="Custom LEGO Chess Board Build" loading="lazy">
+      </div>
+      <div class="custom-body">
+        <span class="custom-badge">⭐ Custom Creation</span>
+        <h2 class="custom-title">Build a <span>LEGO Chess Board</span>!</h2>
+        <p class="custom-desc">
+          Combine your two biggest superpowers — LEGO building AND chess! Use bricks you already own to build a real, playable chess board with custom LEGO chess pieces. No set needed, pure creativity!
+        </p>
+        <ul class="custom-steps">
+          <li>
+            <span class="step-num">1</span>
+            <span>Make an 8×8 board using flat 2×2 tiles — alternate light and dark colors (tan + dark brown or white + black work great)</span>
+          </li>
+          <li>
+            <span class="step-num">2</span>
+            <span>Build a frame border around the board using 2×4 bricks — make it look like a real chess board!</span>
+          </li>
+          <li>
+            <span class="step-num">3</span>
+            <span>Design each chess piece using bricks: a tall stack for King, wide top for Queen, L-shape for Knight, hollow top for Rook</span>
+          </li>
+          <li>
+            <span class="step-num">4</span>
+            <span>Make one team white/light gray and the other team dark blue or black — then challenge Dad to a game!</span>
+          </li>
+        </ul>
+        <div class="custom-why">
+          <strong>🧠 Why This Build Is Special</strong>
+          You've built 6 amazing sets from instructions. A custom chess board is YOUR design — no instructions, no rules, just your brain! It's the most advanced builder challenge: making something that didn't exist before.
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<div class="studs-row" aria-hidden="true">
+  <div class="stud"></div><div class="stud"></div><div class="stud"></div>
+  <div class="stud"></div><div class="stud"></div><div class="stud"></div>
+  <div class="stud"></div><div class="stud"></div><div class="stud"></div>
+  <div class="stud"></div><div class="stud"></div><div class="stud"></div>
+  <div class="stud"></div><div class="stud"></div><div class="stud"></div>
+  <div class="stud"></div><div class="stud"></div><div class="stud"></div>
+  <div class="stud"></div><div class="stud"></div><div class="stud"></div>
+  <div class="stud"></div><div class="stud"></div><div class="stud"></div>
+  <div class="stud"></div><div class="stud"></div><div class="stud"></div>
+  <div class="stud"></div><div class="stud"></div><div class="stud"></div>
+  <div class="stud"></div>
+</div>
+
+<footer class="footer-band">
+  Made with ❤️ for <strong>Vihaan</strong> — Master LEGO Builder & Chess Champion 🧱♟️ &nbsp;|&nbsp; Auto-generated June 10, 2026
+</footer>
+
+</body>
+</html>

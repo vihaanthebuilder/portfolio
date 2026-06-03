@@ -1,0 +1,146 @@
+<svg viewBox="0 0 500 380" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6BB8E8"/>
+      <stop offset="60%" stop-color="#9DD4F4"/>
+      <stop offset="100%" stop-color="#C8E8F8"/>
+    </linearGradient>
+    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5A9A30"/>
+      <stop offset="100%" stop-color="#3A7A18"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFEE44"/>
+      <stop offset="60%" stop-color="#FFCC00"/>
+      <stop offset="100%" stop-color="#FFAA00" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="studs" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="16" cy="16" r="5" fill="rgba(255,255,255,0.1)"/>
+    </pattern>
+  </defs>
+  <!-- Sky -->
+  <rect width="500" height="380" fill="url(#sky)"/>
+  <rect width="500" height="380" fill="url(#studs)"/>
+  <!-- Sun -->
+  <circle cx="420" cy="60" r="45" fill="url(#sun)"/>
+  <circle cx="420" cy="60" r="30" fill="#FFE030"/>
+  <!-- Clouds -->
+  <ellipse cx="100" cy="70" rx="50" ry="22" fill="white" opacity="0.9"/>
+  <ellipse cx="80" cy="75" rx="30" ry="20" fill="white" opacity="0.9"/>
+  <ellipse cx="125" cy="75" rx="35" ry="18" fill="white" opacity="0.9"/>
+  <ellipse cx="300" cy="55" rx="45" ry="20" fill="white" opacity="0.85"/>
+  <ellipse cx="278" cy="62" rx="28" ry="18" fill="white" opacity="0.85"/>
+  <ellipse cx="326" cy="62" rx="32" ry="16" fill="white" opacity="0.85"/>
+  <!-- Hills/Ground -->
+  <ellipse cx="80" cy="330" rx="120" ry="60" fill="#5A9A30"/>
+  <ellipse cx="400" cy="340" rx="140" ry="55" fill="#4A8A25"/>
+  <rect y="310" width="500" height="70" fill="url(#ground)"/>
+  <!-- Railway Ballast -->
+  <rect y="296" width="500" height="20" rx="0" fill="#B8A888"/>
+  <!-- Railway Ties (sleepers) -->
+  <rect x="5"   y="292" width="24" height="28" rx="3" fill="#8B6840"/>
+  <rect x="41"  y="292" width="24" height="28" rx="3" fill="#7A5C34"/>
+  <rect x="77"  y="292" width="24" height="28" rx="3" fill="#8B6840"/>
+  <rect x="113" y="292" width="24" height="28" rx="3" fill="#7A5C34"/>
+  <rect x="149" y="292" width="24" height="28" rx="3" fill="#8B6840"/>
+  <rect x="185" y="292" width="24" height="28" rx="3" fill="#7A5C34"/>
+  <rect x="221" y="292" width="24" height="28" rx="3" fill="#8B6840"/>
+  <rect x="257" y="292" width="24" height="28" rx="3" fill="#7A5C34"/>
+  <rect x="293" y="292" width="24" height="28" rx="3" fill="#8B6840"/>
+  <rect x="329" y="292" width="24" height="28" rx="3" fill="#7A5C34"/>
+  <rect x="365" y="292" width="24" height="28" rx="3" fill="#8B6840"/>
+  <rect x="401" y="292" width="24" height="28" rx="3" fill="#7A5C34"/>
+  <rect x="437" y="292" width="24" height="28" rx="3" fill="#8B6840"/>
+  <rect x="473" y="292" width="24" height="28" rx="3" fill="#7A5C34"/>
+  <!-- Rails -->
+  <rect y="293" width="500" height="7" rx="3" fill="#AAA" transform="translate(0,3)"/>
+  <rect y="309" width="500" height="7" rx="3" fill="#AAA"/>
+  <!-- ===== LOCOMOTIVE ===== -->
+  <!-- Cab back/body -->
+  <rect x="30" y="200" width="195" height="90" rx="12" fill="#E03020"/>
+  <!-- LEGO studs on top of loco body -->
+  <circle cx="55"  cy="207" r="7" fill="#C02010"/>
+  <circle cx="75"  cy="207" r="7" fill="#C02010"/>
+  <circle cx="95"  cy="207" r="7" fill="#C02010"/>
+  <circle cx="115" cy="207" r="7" fill="#C02010"/>
+  <circle cx="135" cy="207" r="7" fill="#C02010"/>
+  <circle cx="155" cy="207" r="7" fill="#C02010"/>
+  <circle cx="175" cy="207" r="7" fill="#C02010"/>
+  <circle cx="195" cy="207" r="7" fill="#C02010"/>
+  <circle cx="215" cy="207" r="7" fill="#C02010"/>
+  <!-- Cab window area -->
+  <rect x="150" y="215" width="70" height="55" rx="8" fill="#E03020"/>
+  <rect x="158" y="222" width="54" height="42" rx="6" fill="#AADDFF" opacity="0.85"/>
+  <rect x="158" y="222" width="54" height="42" rx="6" fill="none" stroke="#C02010" stroke-width="2"/>
+  <!-- Window shine -->
+  <path d="M161,226 L182,226 Q180,238 163,242Z" fill="rgba(255,255,255,0.4)"/>
+  <!-- Nose/front -->
+  <rect x="225" y="218" width="70" height="68" rx="10" fill="#C02010"/>
+  <!-- Front panel yellow accent -->
+  <rect x="229" y="228" width="62" height="20" rx="6" fill="#FFD700"/>
+  <!-- Headlight -->
+  <circle cx="280" cy="248" r="12" fill="#FFEE44"/>
+  <circle cx="280" cy="248" r="8" fill="#FFFFCC"/>
+  <!-- Pilot/cowcatcher -->
+  <polygon points="225,276 295,276 285,290 235,290" fill="#AA1A0A"/>
+  <!-- Wheels -->
+  <circle cx="75"  cy="292" r="28" fill="#333"/>
+  <circle cx="75"  cy="292" r="20" fill="#444"/>
+  <circle cx="75"  cy="292" r="10" fill="#888"/>
+  <circle cx="75"  cy="292" r="5"  fill="#CCC"/>
+  <circle cx="155" cy="292" r="28" fill="#333"/>
+  <circle cx="155" cy="292" r="20" fill="#444"/>
+  <circle cx="155" cy="292" r="10" fill="#888"/>
+  <circle cx="155" cy="292" r="5"  fill="#CCC"/>
+  <circle cx="240" cy="292" r="22" fill="#333"/>
+  <circle cx="240" cy="292" r="16" fill="#444"/>
+  <circle cx="240" cy="292" r="8"  fill="#888"/>
+  <circle cx="240" cy="292" r="4"  fill="#CCC"/>
+  <!-- Connecting rod -->
+  <rect x="78" y="287" width="168" height="8" rx="4" fill="#666"/>
+  <!-- Steam puffs -->
+  <circle cx="65"  cy="178" r="18" fill="rgba(255,255,255,0.85)"/>
+  <circle cx="85"  cy="163" r="15" fill="rgba(255,255,255,0.75)"/>
+  <circle cx="100" cy="148" r="14" fill="rgba(255,255,255,0.6)"/>
+  <circle cx="115" cy="136" r="12" fill="rgba(255,255,255,0.45)"/>
+  <circle cx="130" cy="126" r="10" fill="rgba(255,255,255,0.3)"/>
+  <!-- Chimney/Funnel -->
+  <rect x="52" y="190" width="22" height="16" rx="4" fill="#882200"/>
+  <rect x="48" y="187" width="30" height="8" rx="4" fill="#663300"/>
+  <!-- ===== PASSENGER CAR ===== -->
+  <rect x="306" y="216" width="170" height="74" rx="12" fill="#FFD700"/>
+  <!-- Windows -->
+  <rect x="322" y="228" width="34" height="28" rx="5" fill="#AADDFF" opacity="0.9"/>
+  <rect x="365" y="228" width="34" height="28" rx="5" fill="#AADDFF" opacity="0.9"/>
+  <rect x="408" y="228" width="34" height="28" rx="5" fill="#AADDFF" opacity="0.9"/>
+  <!-- Window frames -->
+  <rect x="322" y="228" width="34" height="28" rx="5" fill="none" stroke="#CC9900" stroke-width="2"/>
+  <rect x="365" y="228" width="34" height="28" rx="5" fill="none" stroke="#CC9900" stroke-width="2"/>
+  <rect x="408" y="228" width="34" height="28" rx="5" fill="none" stroke="#CC9900" stroke-width="2"/>
+  <!-- LEGO studs on car roof -->
+  <circle cx="320" cy="222" r="6" fill="#CCAA00"/>
+  <circle cx="338" cy="222" r="6" fill="#CCAA00"/>
+  <circle cx="356" cy="222" r="6" fill="#CCAA00"/>
+  <circle cx="374" cy="222" r="6" fill="#CCAA00"/>
+  <circle cx="392" cy="222" r="6" fill="#CCAA00"/>
+  <circle cx="410" cy="222" r="6" fill="#CCAA00"/>
+  <circle cx="428" cy="222" r="6" fill="#CCAA00"/>
+  <circle cx="446" cy="222" r="6" fill="#CCAA00"/>
+  <circle cx="464" cy="222" r="6" fill="#CCAA00"/>
+  <!-- Car wheels -->
+  <circle cx="340" cy="292" r="22" fill="#333"/>
+  <circle cx="340" cy="292" r="15" fill="#444"/>
+  <circle cx="340" cy="292" r="7"  fill="#888"/>
+  <circle cx="450" cy="292" r="22" fill="#333"/>
+  <circle cx="450" cy="292" r="15" fill="#444"/>
+  <circle cx="450" cy="292" r="7"  fill="#888"/>
+  <!-- Coupling -->
+  <rect x="295" y="286" width="14" height="10" rx="3" fill="#666"/>
+  <rect x="303" y="288" width="6" height="6" rx="1" fill="#888"/>
+  <!-- Theme badge -->
+  <rect x="12" y="12" width="130" height="34" rx="17" fill="rgba(0,0,0,0.65)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <text x="77" y="34" font-family="Arial Black,Arial,sans-serif" font-size="12" fill="white" text-anchor="middle" font-weight="900">🚂 CITY</text>
+  <!-- Pieces badge -->
+  <rect x="358" y="12" width="130" height="34" rx="17" fill="#E03020"/>
+  <text x="423" y="34" font-family="Arial Black,Arial,sans-serif" font-size="13" fill="white" text-anchor="middle" font-weight="900">🧩 677 Pieces</text>
+</svg>

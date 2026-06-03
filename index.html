@@ -392,6 +392,28 @@
   @media(max-width:620px){.lego-photo{height:320px}}
   .lego-grid{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
 
+  /* ---------- BUILD OF THE WEEK ---------- */
+  .botw{margin-top:30px;background:linear-gradient(135deg,var(--blue),var(--blue-deep));border-radius:24px;
+    padding:24px;text-align:center;box-shadow:var(--shadow-lg)}
+  .botw-head h3{font-family:'Baloo 2';font-size:1.5rem;color:var(--yellow);margin-bottom:4px}
+  .botw-head p{color:#dce8ff;margin-bottom:18px}
+  .botw-card{display:flex;gap:18px;align-items:flex-start;text-align:left;
+    background:#fff;border-radius:18px;padding:20px;max-width:620px;margin:0 auto 18px;box-shadow:var(--shadow)}
+  .botw-emoji{font-size:3.6rem;flex:0 0 auto;line-height:1;
+    background:linear-gradient(135deg,#fff6d6,#ffe9a8);border-radius:16px;width:90px;height:90px;
+    display:flex;align-items:center;justify-content:center}
+  .botw-info{flex:1;min-width:0}
+  .botw-tag{display:inline-block;background:var(--yellow);color:var(--ink);font-family:'Baloo 2';font-weight:800;
+    font-size:.72rem;letter-spacing:.5px;text-transform:uppercase;padding:4px 12px;border-radius:999px;margin-bottom:6px}
+  .botw-info h4{font-family:'Baloo 2';font-size:1.3rem;color:var(--ink);margin-bottom:8px}
+  .botw-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+  .botw-meta span{background:var(--cream);border:1px solid #ffe9a8;color:#7a5b00;font-weight:700;
+    font-size:.78rem;padding:3px 10px;border-radius:999px}
+  .botw-steps{margin:0;padding-left:20px;color:var(--muted);font-size:.92rem;line-height:1.6}
+  .botw-steps li{margin-bottom:2px}
+  @media(max-width:520px){.botw-card{flex-direction:column;align-items:center;text-align:center}
+    .botw-meta,.botw-steps{text-align:left}}
+
   /* ---------- LEGO LIGHTBOX MODAL ---------- */
   .modal{
     position:fixed;inset:0;z-index:1000;display:none;
@@ -734,6 +756,42 @@
           <p class="creator-footer">Built by Vihaan, Age 7</p>
         </div>
       </article>
+      <article class="card lego-card" tabindex="0" role="button" aria-label="Open Taj Mahal full screen"
+        data-img="images/taj-mahal-2.jpg" data-title="Taj Mahal"
+        data-meta="🕌 Landmark Build · 🧩 Pieces TBD · ⏱ Time TBD"
+        data-fav="the big dome and four tall towers"
+        data-desc="A super-colorful Taj Mahal with a big rounded dome, a grand archway entrance, four tall corner minaret towers, and a wide rainbow-brick base. Built rainbow-style from every color in the box!">
+        <div class="lego-photo">
+          <img src="images/taj-mahal-2.jpg" alt="Vihaan's colorful LEGO Taj Mahal" loading="lazy">
+          <span class="glass-badge">🕌 Landmark Build</span>
+          <div class="photo-fade"></div>
+          <h3 class="lego-title">Taj Mahal</h3>
+        </div>
+        <div class="lego-body">
+          <div class="pills"><span class="pill">🧩 Pieces TBD</span><span class="pill">⏱ Time TBD</span></div>
+          <p class="why-label">Why I Loved Building It</p>
+          <p class="why-text">"The big dome and the four tall corner towers."</p>
+          <p class="creator-footer">Built by Vihaan, Age 7</p>
+        </div>
+      </article>
+    </div>
+
+    <!-- Build of the Week idea generator -->
+    <div class="botw">
+      <div class="botw-head">
+        <h3>🎲 Build of the Week</h3>
+        <p>Stuck on what to build next? Spin the generator for a fresh LEGO challenge!</p>
+      </div>
+      <div class="botw-card" id="botwCard">
+        <div class="botw-emoji" id="botwEmoji">🧱</div>
+        <div class="botw-info">
+          <span class="botw-tag" id="botwTag">Tap the button!</span>
+          <h4 id="botwTitle">Your next build awaits…</h4>
+          <div class="botw-meta" id="botwMeta"></div>
+          <ol class="botw-steps" id="botwSteps"></ol>
+        </div>
+      </div>
+      <button type="button" id="botwBtn" class="btn btn-red">🎲 Generate a Build Idea</button>
     </div>
   </div>
 </section>
@@ -881,8 +939,8 @@
       <div class="goal">
         <div class="em"><img src="images/logos/lego.svg" alt="LEGO" class="goal-logo"></div>
         <b>Build 20 LEGO Projects</b>
-        <small style="display:block;color:rgba(255,255,255,.8);font-weight:600;margin-top:4px">6 / 20 built</small>
-        <div class="bar"><i style="width:30%"></i></div><span class="pct">30%</span>
+        <small style="display:block;color:rgba(255,255,255,.8);font-weight:600;margin-top:4px">7 / 20 built</small>
+        <div class="bar"><i style="width:35%"></i></div><span class="pct">35%</span>
       </div>
       <div class="goal">
         <div class="em">💻</div>
@@ -932,7 +990,7 @@
     <div class="badges">
       <div class="badge-card"><div class="em">🥉</div><b>First Tournament</b><small>DMV — Dec 2025!</small></div>
       <div class="badge-card"><div class="em">🥈</div><b>500 Puzzle Club</b><small>526 solved · Lichess 1687</small></div>
-      <div class="badge-card"><div class="em">🥈</div><b>6 LEGO Builds</b><small>Eiffel · Temple · Hogwarts · Empire State · Flatiron · Lady Liberty</small></div>
+      <div class="badge-card"><div class="em">🥈</div><b>7 LEGO Builds</b><small>Eiffel · Temple · Hogwarts · Empire State · Flatiron · Lady Liberty · Taj Mahal</small></div>
       <div class="badge-card"><div class="em">🥇</div><b>Grade 6 Math in Grade 2</b><small>4 years ahead!</small></div>
       <div class="badge-card"><div class="em">👑</div><b>Checkmate Patterns Master</b><small>Learned the classics</small></div>
     </div>
@@ -2235,6 +2293,62 @@
     fullBtn.addEventListener('click', ()=>{ if(!document.fullscreenElement){ (wrap.requestFullscreen||wrap.webkitRequestFullscreen||(()=>{})).call(wrap); } else { (document.exitFullscreen||(()=>{})).call(document); } });
     document.addEventListener('fullscreenchange', ()=>{ if(document.fullscreenElement===wrap||!document.fullscreenElement){ fullBtn.textContent=document.fullscreenElement?'✕':'⛶'; if(!running) draw(); } });
     reset();
+  })();
+
+  // ---- Build of the Week idea generator ----
+  (function buildOfWeek(){
+    const btn = document.getElementById('botwBtn');
+    if (!btn) return;
+    const IDEAS = [
+      {emoji:'🚀', title:'Mini Rocket Ship', level:'Easy', time:'~15 min',
+        steps:['Build a tall rectangle body, 6–8 bricks high.','Add a cone or triangle nose on top.','Put 3 fins around the bottom.','Add a tiny window and you\'re ready for launch!']},
+      {emoji:'🏰', title:'Tiny Castle', level:'Medium', time:'~30 min',
+        steps:['Make a square wall, 4 bricks high.','Add a taller tower at each corner.','Build a gate in the middle of the front wall.','Top the towers with pointy roofs or flags.']},
+      {emoji:'🤖', title:'Friendly Robot', level:'Easy', time:'~20 min',
+        steps:['Make a box body and a box head.','Add two arms and two legs from long bricks.','Use round pieces for eyes.','Give it antennas or a tool hand!']},
+      {emoji:'🌉', title:'Bridge Over a River', level:'Medium', time:'~25 min',
+        steps:['Lay a blue baseplate for the water.','Build two tall towers on each side.','Connect them with a long flat road on top.','Add little cars or boats underneath.']},
+      {emoji:'🐉', title:'Dragon', level:'Hard', time:'~40 min',
+        steps:['Build a long body that curves like an S.','Add a head with a open mouth and horns.','Make 4 legs and a spiky tail.','Add wings using flat plates on the sides.']},
+      {emoji:'🏎️', title:'Race Car', level:'Easy', time:'~15 min',
+        steps:['Make a flat, wide base for the car.','Add 4 wheels at the corners.','Build a low, sloped body for speed.','Add a spoiler at the back and a number on the side!']},
+      {emoji:'🏠', title:'My Dream House', level:'Medium', time:'~30 min',
+        steps:['Build 4 walls with a door and windows.','Add a sloped or flat roof on top.','Make a chimney or a balcony.','Decorate with a garden, fence, or mailbox.']},
+      {emoji:'✈️', title:'Airplane', level:'Medium', time:'~25 min',
+        steps:['Build a long tube body.','Add two wide wings in the middle.','Put a tail fin at the back.','Add a cockpit window and propeller or engines.']},
+      {emoji:'🦖', title:'Dinosaur', level:'Hard', time:'~35 min',
+        steps:['Make big back legs and small front arms.','Build a long tail that balances the body.','Add a head with lots of teeth.','Stand it up so it doesn\'t tip over!']},
+      {emoji:'🚂', title:'Choo-Choo Train', level:'Medium', time:'~30 min',
+        steps:['Build the engine with a round funnel on top.','Add wheels along the bottom.','Connect 2–3 wagons behind it.','Make a track or station to go with it.']},
+      {emoji:'🛸', title:'UFO Spaceship', level:'Easy', time:'~15 min',
+        steps:['Build a wide flat disc shape.','Add a clear or round dome on top.','Put colorful lights around the edge.','Add little legs for landing!']},
+      {emoji:'🦒', title:'Tall Animal (Giraffe)', level:'Hard', time:'~35 min',
+        steps:['Build a sturdy body with 4 legs.','Make a super long neck going up.','Add a small head with little horns.','Use brown and yellow for the spots!']},
+      {emoji:'⛵', title:'Sail Boat', level:'Easy', time:'~15 min',
+        steps:['Build a boat shape that\'s wide at the bottom.','Add a tall mast in the middle.','Attach a big sail (a flat plate works).','Add a little flag at the top!']},
+      {emoji:'🎡', title:'Ferris Wheel', level:'Hard', time:'~45 min',
+        steps:['Build two strong A-shaped legs.','Make a big wheel that spins between them.','Hang little seats around the wheel.','Spin it and add riders!']},
+      {emoji:'🏙️', title:'City Skyscraper', level:'Medium', time:'~25 min',
+        steps:['Stack bricks tall and straight for the tower.','Make windows in a repeating pattern.','Make the bottom wider so it stands strong.','Add an antenna or flag on top!']}
+    ];
+    const LEVEL_COLORS = {Easy:'🟢 Easy', Medium:'🟡 Medium', Hard:'🔴 Hard'};
+    const emoji=document.getElementById('botwEmoji'), tag=document.getElementById('botwTag'),
+          title=document.getElementById('botwTitle'), meta=document.getElementById('botwMeta'),
+          steps=document.getElementById('botwSteps'), card=document.getElementById('botwCard');
+    let last=-1;
+    function generate(){
+      let i; do { i=Math.floor(Math.random()*IDEAS.length); } while(i===last && IDEAS.length>1);
+      last=i; const b=IDEAS[i];
+      emoji.textContent=b.emoji;
+      tag.textContent='Build of the Week';
+      title.textContent=b.title;
+      meta.innerHTML='<span>'+(LEVEL_COLORS[b.level]||b.level)+'</span><span>⏱ '+b.time+'</span>';
+      steps.innerHTML=b.steps.map(s=>'<li>'+s+'</li>').join('');
+      // little pop animation
+      card.style.transition='none'; card.style.transform='scale(.96)';
+      requestAnimationFrame(()=>{ card.style.transition='transform .25s ease'; card.style.transform='scale(1)'; });
+    }
+    btn.addEventListener('click', generate);
   })();
 </script>
 </body>
