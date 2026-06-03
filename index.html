@@ -1031,7 +1031,7 @@
       <div class="game-head">
         <span class="game-title">🏰 Tower Defense</span>
         <span class="game-head-right">
-          <span class="game-score">💰 <b id="tdMoney">200</b> &nbsp; ❤️ <b id="tdLives">9</b> &nbsp; 🌊 <b id="tdWave">0</b></span>
+          <span class="game-score">💰 <b id="tdMoney">200</b> &nbsp; ❤️ <b id="tdLives">9</b> &nbsp; 🌊 <b id="tdWave">0</b> &nbsp; ⚡ <b id="tdLevel">Lv 1</b></span>
           <button type="button" id="tdMusic" class="game-full-btn" aria-label="Toggle music" title="Music">🔇</button>
           <button type="button" id="tdFull" class="game-full-btn" aria-label="Fullscreen" title="Fullscreen">⛶</button>
         </span>
@@ -2097,22 +2097,28 @@
 
     let money, lives, wave, towers, creeps, bullets, running=false, raf, musicOn=false, tool='cannon';
     let spawnQueue, spawnTimer, waveActive, frame;
+    // persistent difficulty: rises 1.1x each time you clear all waves, stays at hardest beaten
+    let diff = parseFloat(localStorage.getItem('tdDiff')||'1') || 1;
+    function diffLevel(){ return Math.round(Math.log(diff)/Math.log(1.1)) + 1; } // level 1,2,3...
+    function updateDiffLabel(){ const el=document.getElementById('tdLevel'); if(el) el.textContent='Lv '+diffLevel(); }
 
     function reset(){
       money=200; lives=9; wave=0; towers=[]; creeps=[]; bullets=[]; spawnQueue=0; spawnTimer=0; waveActive=false; frame=0;
       moneyEl.textContent=money; livesEl.textContent=lives; waveEl.textContent=wave;
+      updateDiffLabel();
       draw();
     }
 
     function startWave(){
       if (waveActive || !running) return;
       wave++; waveEl.textContent=wave;
-      spawnQueue = 4 + Math.round(wave*1.7); spawnTimer=0; waveActive=true;
+      spawnQueue = Math.round((4 + wave*1.7) * diff); spawnTimer=0; waveActive=true;
     }
 
     function spawnCreep(){
-      const hp = 2 + Math.floor(wave*1.2);
-      creeps.push({wp:0, x:waypoints[0].x, y:waypoints[0].y, hp, maxhp:hp, speed:0.85+wave*0.06, t:0});
+      const hp = Math.ceil((2 + wave*1.2) * diff);
+      const spd = (0.85 + wave*0.06) * Math.min(1.6, 0.85 + diff*0.15);
+      creeps.push({wp:0, x:waypoints[0].x, y:waypoints[0].y, hp, maxhp:hp, speed:spd, t:0});
     }
 
     function update(){
@@ -2200,10 +2206,13 @@
     function end(win){
       running=false; cancelAnimationFrame(raf);
       if (tdMusic.isOn()) tdMusic.stop();
+      let extra='';
+      if (win){ diff*=1.1; localStorage.setItem('tdDiff', diff); updateDiffLabel();
+        extra='<br><span style="color:#ffd500;font-size:.9rem">⚡ Level '+diffLevel()+' unlocked — 1.1× harder!</span>'; }
       overlay.classList.remove('hidden');
       overlay.innerHTML = win
-        ? '<p style="color:#3ad17a;font-family:\'Baloo 2\';font-size:1.35rem">🏆 You defended all 10 waves!</p>'
-        : '<p style="color:#fff;font-family:\'Baloo 2\';font-size:1.3rem">💀 Base overrun at wave '+wave+'</p>';
+        ? '<p style="color:#3ad17a;font-family:\'Baloo 2\';font-size:1.3rem">🏆 You defended all 10 waves!'+extra+'</p>'
+        : '<p style="color:#fff;font-family:\'Baloo 2\';font-size:1.25rem">💀 Base overrun at wave '+wave+' (Level '+diffLevel()+')</p>';
       const b=document.createElement('button'); b.className='btn btn-yellow'; b.textContent='▶ Play Again'; b.onclick=start; overlay.appendChild(b);
     }
     function start(){ reset(); overlay.classList.add('hidden'); running=true; if(musicOn) tdMusic.start(); cancelAnimationFrame(raf); raf=requestAnimationFrame(loop); }
