@@ -465,6 +465,20 @@
     font-family:'Baloo 2';font-size:clamp(1.15rem,2.6vw,1.6rem);line-height:1.4
   }
   .chess-quote cite{display:block;margin-top:10px;font-size:.85rem;font-style:normal;color:var(--yellow);font-weight:700}
+
+  /* ---------- CHESS NOTEBOOK ---------- */
+  .nb-intro{color:var(--muted);font-size:1.02rem;margin-bottom:18px}
+  .nb-panel{background:var(--cream);border:1px solid #ffe9a8;border-radius:var(--radius);padding:24px;max-width:760px}
+  .nb-progress{height:14px;border-radius:999px;background:#fff;border:1px solid #ffe0a0;overflow:hidden}
+  .nb-progress-fill{height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,#3ad17a,#0a9e6e);transition:width .4s ease}
+  .nb-count{font-family:'Baloo 2';font-weight:700;color:var(--ink);margin:10px 0 16px}
+  .nb-count b{color:var(--blue)}
+  .nb-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+  .nb-list li{background:#fff;border-radius:14px;padding:2px;box-shadow:var(--shadow)}
+  .nb-list label{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;cursor:pointer;
+    font-weight:600;color:var(--ink);line-height:1.4}
+  .nb-list input{width:22px;height:22px;flex:0 0 auto;accent-color:#0a9e6e;cursor:pointer;margin-top:1px}
+  .nb-list li.checked label{color:var(--muted);text-decoration:line-through;text-decoration-color:#bbb}
   .chess-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:22px;align-items:stretch}
   @media(max-width:860px){.chess-grid{grid-template-columns:1fr}}
   .panel{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
@@ -613,6 +627,7 @@
         <li><a href="#home">Home</a></li>
         <li><a href="#lego">LEGO Lab</a></li>
         <li><a href="#chess">Chess Journey</a></li>
+        <li><a href="#notebook">Chess Notebook</a></li>
         <li><a href="#goals">Goals</a></li>
         <li><a href="#achievements">Achievements</a></li>
         <li><a href="#games">Games</a></li>
@@ -937,6 +952,29 @@
       ♟️ "Every chess master was once a beginner."
       <cite>— My favorite chess quote</cite>
     </blockquote>
+  </div>
+</section>
+
+<!-- ================= CHESS NOTEBOOK ================= -->
+<section id="notebook" style="background:#fff">
+  <div class="wrap">
+    <div class="head">
+      <span class="chip">Coach's Advice</span>
+      <h2><span class="ico">📒</span> Chess Notebook</h2>
+    </div>
+    <p class="nb-intro">Things my coach told me to work on. I check them off as I practice! ✅</p>
+    <div class="nb-panel">
+      <div class="nb-progress"><div class="nb-progress-fill" id="nbFill"></div></div>
+      <p class="nb-count"><b id="nbDone">0</b> of <b id="nbTotal">0</b> done</p>
+      <ul class="nb-list" id="nbList">
+        <li data-id="c1"><label><input type="checkbox"> Always look for checks, captures, and threats before moving</label></li>
+        <li data-id="c2"><label><input type="checkbox"> Develop knights and bishops early, then castle</label></li>
+        <li data-id="c3"><label><input type="checkbox"> Don't bring the queen out too soon</label></li>
+        <li data-id="c4"><label><input type="checkbox"> Control the center with pawns and pieces</label></li>
+        <li data-id="c5"><label><input type="checkbox"> Think about my opponent's plan, not just mine</label></li>
+        <li data-id="c6"><label><input type="checkbox"> Slow down and double-check before pressing the clock</label></li>
+      </ul>
+    </div>
   </div>
 </section>
 
@@ -2384,6 +2422,35 @@
       requestAnimationFrame(()=>{ card.style.transition='transform .25s ease'; card.style.transform='scale(1)'; });
     }
     btn.addEventListener('click', generate);
+  })();
+
+  // ---- Chess Notebook checklist (saves ticks in the browser) ----
+  (function chessNotebook(){
+    const list = document.getElementById('nbList');
+    if (!list) return;
+    const items = [...list.querySelectorAll('li')];
+    const fill = document.getElementById('nbFill');
+    const doneEl = document.getElementById('nbDone'), totalEl = document.getElementById('nbTotal');
+    let saved = {};
+    try { saved = JSON.parse(localStorage.getItem('chessNotebook')||'{}'); } catch(e){ saved={}; }
+
+    function refresh(){
+      let done=0;
+      items.forEach(li=>{ const cb=li.querySelector('input');
+        li.classList.toggle('checked', cb.checked); if(cb.checked) done++; });
+      totalEl.textContent = items.length;
+      doneEl.textContent = done;
+      fill.style.width = (items.length? (done/items.length*100):0).toFixed(0)+'%';
+    }
+    items.forEach(li=>{
+      const id=li.getAttribute('data-id'), cb=li.querySelector('input');
+      if (saved[id]) cb.checked = true;
+      cb.addEventListener('change', ()=>{
+        saved[id]=cb.checked; localStorage.setItem('chessNotebook', JSON.stringify(saved));
+        refresh();
+      });
+    });
+    refresh();
   })();
 </script>
 </body>
