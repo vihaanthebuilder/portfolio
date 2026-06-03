@@ -479,6 +479,16 @@
     font-weight:600;color:var(--ink);line-height:1.4}
   .nb-list input{width:22px;height:22px;flex:0 0 auto;accent-color:#0a9e6e;cursor:pointer;margin-top:1px}
   .nb-list li.checked label{color:var(--muted);text-decoration:line-through;text-decoration-color:#bbb}
+  .nb-list li{display:flex;align-items:center}
+  .nb-list label{flex:1}
+  .nb-del{border:none;background:none;color:var(--red);font-size:1.1rem;font-weight:800;cursor:pointer;
+    padding:0 12px;flex:0 0 auto;opacity:.5;transition:.15s}
+  .nb-del:hover{opacity:1;transform:scale(1.2)}
+  .nb-add{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+  .nb-add input{flex:1;min-width:180px;border:2px solid #ffe0a0;border-radius:12px;padding:11px 14px;
+    font-size:1rem;font-family:'Nunito',sans-serif;color:var(--ink)}
+  .nb-add input:focus{outline:none;border-color:var(--blue)}
+  .nb-add .btn{min-height:46px;padding:0 18px}
   .chess-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:22px;align-items:stretch}
   @media(max-width:860px){.chess-grid{grid-template-columns:1fr}}
   .panel{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
@@ -962,18 +972,15 @@
       <span class="chip">Coach's Advice</span>
       <h2><span class="ico">📒</span> Chess Notebook</h2>
     </div>
-    <p class="nb-intro">Things my coach told me to work on. I check them off as I practice! ✅</p>
+    <p class="nb-intro">Things my coach told me to work on. I tick them off as I practice — and I can add new notes anytime! ✅</p>
     <div class="nb-panel">
       <div class="nb-progress"><div class="nb-progress-fill" id="nbFill"></div></div>
       <p class="nb-count"><b id="nbDone">0</b> of <b id="nbTotal">0</b> done</p>
-      <ul class="nb-list" id="nbList">
-        <li data-id="c1"><label><input type="checkbox"> Always look for checks, captures, and threats before moving</label></li>
-        <li data-id="c2"><label><input type="checkbox"> Develop knights and bishops early, then castle</label></li>
-        <li data-id="c3"><label><input type="checkbox"> Don't bring the queen out too soon</label></li>
-        <li data-id="c4"><label><input type="checkbox"> Control the center with pawns and pieces</label></li>
-        <li data-id="c5"><label><input type="checkbox"> Think about my opponent's plan, not just mine</label></li>
-        <li data-id="c6"><label><input type="checkbox"> Slow down and double-check before pressing the clock</label></li>
-      </ul>
+      <ul class="nb-list" id="nbList"></ul>
+      <form class="nb-add" id="nbAdd">
+        <input type="text" id="nbInput" placeholder="Add a new coach note…" maxlength="120">
+        <button type="submit" class="btn btn-red">➕ Add Note</button>
+      </form>
     </div>
   </div>
 </section>
@@ -2424,33 +2431,51 @@
     btn.addEventListener('click', generate);
   })();
 
-  // ---- Chess Notebook checklist (saves ticks in the browser) ----
+  // ---- Chess Notebook: self-editable coach checklist (saved in the browser) ----
   (function chessNotebook(){
     const list = document.getElementById('nbList');
     if (!list) return;
-    const items = [...list.querySelectorAll('li')];
     const fill = document.getElementById('nbFill');
     const doneEl = document.getElementById('nbDone'), totalEl = document.getElementById('nbTotal');
-    let saved = {};
-    try { saved = JSON.parse(localStorage.getItem('chessNotebook')||'{}'); } catch(e){ saved={}; }
+    const form = document.getElementById('nbAdd'), input = document.getElementById('nbInput');
+    // Vihaan's coach notes (seeded on first visit; editable after)
+    const SEED = [
+      {t:"Don't accept the Danish Gambit", d:false},
+      {t:"Don't resign", d:false},
+      {t:"Don't move the same piece in the opening (fewer blunders)", d:false},
+      {t:"Take 30 seconds every move", d:false},
+      {t:"Use a pin when I can", d:false},
+      {t:"Don't let other pieces into my side", d:false}
+    ];
+    let notes;
+    try { notes = JSON.parse(localStorage.getItem('chessNotes')); } catch(e){ notes=null; }
+    if (!Array.isArray(notes)) notes = SEED.slice();
+    function save(){ localStorage.setItem('chessNotes', JSON.stringify(notes)); }
 
-    function refresh(){
-      let done=0;
-      items.forEach(li=>{ const cb=li.querySelector('input');
-        li.classList.toggle('checked', cb.checked); if(cb.checked) done++; });
-      totalEl.textContent = items.length;
-      doneEl.textContent = done;
-      fill.style.width = (items.length? (done/items.length*100):0).toFixed(0)+'%';
-    }
-    items.forEach(li=>{
-      const id=li.getAttribute('data-id'), cb=li.querySelector('input');
-      if (saved[id]) cb.checked = true;
-      cb.addEventListener('change', ()=>{
-        saved[id]=cb.checked; localStorage.setItem('chessNotebook', JSON.stringify(saved));
-        refresh();
+    function render(){
+      list.innerHTML='';
+      notes.forEach((n,i)=>{
+        const li=document.createElement('li'); if(n.d) li.className='checked';
+        const label=document.createElement('label');
+        const cb=document.createElement('input'); cb.type='checkbox'; cb.checked=!!n.d;
+        cb.addEventListener('change', ()=>{ notes[i].d=cb.checked; save(); render(); });
+        const span=document.createElement('span'); span.textContent=' '+n.t;
+        label.appendChild(cb); label.appendChild(span);
+        const del=document.createElement('button'); del.className='nb-del'; del.title='Delete'; del.textContent='✕';
+        del.addEventListener('click', ()=>{ notes.splice(i,1); save(); render(); });
+        li.appendChild(label); li.appendChild(del);
+        list.appendChild(li);
       });
+      const done=notes.filter(n=>n.d).length;
+      totalEl.textContent=notes.length; doneEl.textContent=done;
+      fill.style.width=(notes.length? done/notes.length*100:0).toFixed(0)+'%';
+    }
+    form.addEventListener('submit', e=>{
+      e.preventDefault();
+      const t=input.value.trim(); if(!t) return;
+      notes.push({t, d:false}); input.value=''; save(); render();
     });
-    refresh();
+    render();
   })();
 </script>
 </body>
