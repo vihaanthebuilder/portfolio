@@ -255,6 +255,15 @@
   #gdCanvas{display:block;width:100%;height:auto;background:#10243f;border-radius:12px;cursor:pointer}
   .game-wrap:fullscreen #gdCanvas{width:94vw;max-height:80vh;height:auto}
   .game-wrap:-webkit-full-screen #gdCanvas{width:94vw;max-height:80vh;height:auto}
+  #tdCanvas{display:block;width:100%;height:auto;background:#3a7d34;border-radius:12px;cursor:pointer}
+  .game-wrap:fullscreen #tdCanvas{height:80vh;width:auto;max-width:94vw}
+  .game-wrap:-webkit-full-screen #tdCanvas{height:80vh;width:auto;max-width:94vw}
+  .td-controls{margin-top:12px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:center}
+  .td-tool{border:none;border-radius:10px;cursor:pointer;padding:8px 14px;font-weight:800;font-family:'Baloo 2';
+    background:rgba(255,255,255,.16);color:#fff}
+  .td-tool small{font-weight:600;opacity:.85}
+  .td-tool.sel{background:var(--yellow);color:var(--ink)}
+  #tdWaveBtn{min-height:40px;padding:0 18px}
 
   /* ---- Comic Creator ---- */
   .games-subhead{font-family:'Baloo 2';font-size:1.4rem;color:var(--ink);text-align:center;margin:40px 0 6px}
@@ -1015,6 +1024,30 @@
       </div>
     </div>
 
+    <!-- Tower Defense game -->
+    <h3 class="games-subhead">🏰 Tower Defense</h3>
+    <p class="games-sub-note">Tap empty grass to build towers 💰. Stop the creeps before they reach the end — survive all the waves!</p>
+    <div class="game-wrap">
+      <div class="game-head">
+        <span class="game-title">🏰 Tower Defense</span>
+        <span class="game-head-right">
+          <span class="game-score">💰 <b id="tdMoney">100</b> &nbsp; ❤️ <b id="tdLives">10</b> &nbsp; 🌊 <b id="tdWave">0</b></span>
+          <button type="button" id="tdMusic" class="game-full-btn" aria-label="Toggle music" title="Music">🔇</button>
+          <button type="button" id="tdFull" class="game-full-btn" aria-label="Fullscreen" title="Fullscreen">⛶</button>
+        </span>
+      </div>
+      <canvas id="tdCanvas" width="380" height="360" aria-label="Tower Defense game"></canvas>
+      <div class="game-overlay" id="tdOverlay">
+        <button type="button" id="tdStart" class="btn btn-yellow">▶ Start Defense</button>
+        <p class="game-hint">Build towers on the grass to shoot the creeps. Don't let them through!</p>
+      </div>
+      <div class="td-controls" id="tdControls">
+        <button type="button" class="td-tool sel" data-tool="cannon">🔵 Cannon <small>💰40</small></button>
+        <button type="button" class="td-tool" data-tool="sniper">🔴 Sniper <small>💰70</small></button>
+        <button type="button" id="tdWaveBtn" class="btn btn-red">🌊 Next Wave</button>
+      </div>
+    </div>
+
     <!-- Comic Creator -->
     <h3 class="games-subhead">✏️ Write Your Own Comic</h3>
     <p class="games-sub-note">Pick a sticker and write a line for each panel, then publish your one-page comic!</p>
@@ -1340,6 +1373,8 @@
   const socMusic = makeMusic([N.C,N.E,N.G,N.C5,N.G,N.E, N.F,N.A,N.C5,N.A, N.G,N.B,N.D5,N.G5,0,0], 200);
   // fast energetic loop for Geometry Dash
   const gdMusic = makeMusic([N.E,N.E,N.G5,N.E,N.D5,N.C5,N.B,N.A, N.G,N.A,N.B,N.C5,N.D5,N.E5,0], 400);
+  // marching loop for Tower Defense
+  const tdMusic = makeMusic([N.A,N.A,N.E,N.E,N.F,N.F,N.E, N.D,N.D,N.C,N.C,N.B,0], 240);
 
   // ---- Pac-Man mini game ----
   (function pacman(){
@@ -2030,6 +2065,164 @@
     musicBtn.addEventListener('click', ()=>{ musicOn=!musicOn; musicBtn.textContent=musicOn?'🔊':'🔇'; musicBtn.classList.toggle('on',musicOn);
       if (musicOn && running) gdMusic.start(); else gdMusic.stop(); });
     const fullBtn=document.getElementById('gdFull'); const wrap=canvas.closest('.game-wrap');
+    fullBtn.addEventListener('click', ()=>{ if(!document.fullscreenElement){ (wrap.requestFullscreen||wrap.webkitRequestFullscreen||(()=>{})).call(wrap); } else { (document.exitFullscreen||(()=>{})).call(document); } });
+    document.addEventListener('fullscreenchange', ()=>{ if(document.fullscreenElement===wrap||!document.fullscreenElement){ fullBtn.textContent=document.fullscreenElement?'✕':'⛶'; if(!running) draw(); } });
+    reset();
+  })();
+
+  // ---- Tower Defense ----
+  (function towerDefense(){
+    const canvas = document.getElementById('tdCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height;
+    const overlay = document.getElementById('tdOverlay');
+    const startBtn = document.getElementById('tdStart');
+    const moneyEl = document.getElementById('tdMoney');
+    const livesEl = document.getElementById('tdLives');
+    const waveEl = document.getElementById('tdWave');
+    const musicBtn = document.getElementById('tdMusic');
+    const waveBtn = document.getElementById('tdWaveBtn');
+    const toolBtns = [...document.querySelectorAll('.td-tool')];
+    const T = 40;                       // tile size
+    const COLS = Math.floor(W/T), ROWS = Math.floor(H/T);
+    const TOWERS = {
+      cannon: {cost:40, range:90,  rate:45, dmg:1,  color:'#1E50C8', bullet:'#cfe0ff', bspeed:5},
+      sniper: {cost:70, range:150, rate:90, dmg:3,  color:'#E3000B', bullet:'#ffd0d0', bspeed:9}
+    };
+    // path as a list of tile centers the creeps follow (a simple S route)
+    const PATH_TILES = [[0,1],[1,1],[2,1],[3,1],[4,1],[4,2],[4,3],[3,3],[2,3],[1,3],[1,4],[1,5],[2,5],[3,5],[4,5],[5,5],[6,5],[7,5],[8,5],[8,4],[8,3],[8,2],[8,1],[9,1]];
+    const pathSet = new Set(PATH_TILES.map(([c,r])=>c+','+r));
+    const waypoints = PATH_TILES.map(([c,r])=>({x:c*T+T/2, y:r*T+T/2}));
+
+    let money, lives, wave, towers, creeps, bullets, running=false, raf, musicOn=false, tool='cannon';
+    let spawnQueue, spawnTimer, waveActive, frame;
+
+    function reset(){
+      money=100; lives=10; wave=0; towers=[]; creeps=[]; bullets=[]; spawnQueue=0; spawnTimer=0; waveActive=false; frame=0;
+      moneyEl.textContent=money; livesEl.textContent=lives; waveEl.textContent=wave;
+      draw();
+    }
+
+    function startWave(){
+      if (waveActive || !running) return;
+      wave++; waveEl.textContent=wave;
+      spawnQueue = 4 + wave*2; spawnTimer=0; waveActive=true;
+    }
+
+    function spawnCreep(){
+      const hp = 2 + Math.floor(wave*1.5);
+      creeps.push({wp:0, x:waypoints[0].x, y:waypoints[0].y, hp, maxhp:hp, speed:0.9+wave*0.06, t:0});
+    }
+
+    function update(){
+      frame++;
+      // spawn
+      if (waveActive && spawnQueue>0){ spawnTimer--; if(spawnTimer<=0){ spawnCreep(); spawnQueue--; spawnTimer=40; } }
+      if (waveActive && spawnQueue===0 && creeps.length===0){ waveActive=false; money+=20; moneyEl.textContent=money;
+        if (wave>=10){ return end(true); } }
+      // move creeps along waypoints
+      for (let i=creeps.length-1;i>=0;i--){
+        const c=creeps[i]; const tgt=waypoints[c.wp+1];
+        if (!tgt){ // reached end
+          creeps.splice(i,1); lives--; livesEl.textContent=lives; if(lives<=0){ return end(false);} continue;
+        }
+        const dx=tgt.x-c.x, dy=tgt.y-c.y, d=Math.hypot(dx,dy);
+        if (d < c.speed){ c.x=tgt.x; c.y=tgt.y; c.wp++; }
+        else { c.x+=dx/d*c.speed; c.y+=dy/d*c.speed; }
+      }
+      // towers shoot
+      towers.forEach(t=>{
+        t.cool=(t.cool||0)-1;
+        if (t.cool>0) return;
+        // target nearest creep in range
+        let best=null,bd=1e9;
+        for (const c of creeps){ const d=Math.hypot(c.x-t.x,c.y-t.y); if(d<=t.range && d<bd){bd=d;best=c;} }
+        if (best){ const dx=best.x-t.x, dy=best.y-t.y, d=Math.hypot(dx,dy);
+          bullets.push({x:t.x,y:t.y, vx:dx/d*t.bspeed, vy:dy/d*t.bspeed, dmg:t.dmg, color:t.bullet, life:60});
+          t.cool=t.rate; }
+      });
+      // bullets
+      for (let i=bullets.length-1;i>=0;i--){ const b=bullets[i]; b.x+=b.vx; b.y+=b.vy; b.life--;
+        let hit=false;
+        for (const c of creeps){ if (Math.hypot(c.x-b.x,c.y-b.y)<14){ c.hp-=b.dmg; hit=true; break; } }
+        if (hit||b.life<=0||b.x<0||b.x>W||b.y<0||b.y>H) bullets.splice(i,1);
+      }
+      // kill dead creeps
+      for (let i=creeps.length-1;i>=0;i--){ if(creeps[i].hp<=0){ creeps.splice(i,1); money+=8; moneyEl.textContent=money; } }
+    }
+
+    function draw(){
+      // grass
+      for (let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++){
+        ctx.fillStyle=((r+c)%2)?'#3a7d34':'#41883a'; ctx.fillRect(c*T,r*T,T,T);
+      }
+      // path
+      PATH_TILES.forEach(([c,r])=>{ ctx.fillStyle='#c9a66b'; ctx.fillRect(c*T,r*T,T,T);
+        ctx.fillStyle='rgba(0,0,0,.05)'; ctx.fillRect(c*T,r*T,T,4); });
+      // start/end markers
+      const s=waypoints[0], e=waypoints[waypoints.length-1];
+      ctx.fillStyle='#1E50C8'; ctx.font='20px serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.fillText('🚩', e.x, e.y);
+      // towers
+      towers.forEach(t=>{
+        ctx.fillStyle=t.color; ctx.beginPath(); ctx.arc(t.x,t.y,13,0,7); ctx.fill();
+        ctx.fillStyle='rgba(255,255,255,.5)'; ctx.beginPath(); ctx.arc(t.x,t.y,5,0,7); ctx.fill();
+      });
+      // creeps
+      creeps.forEach(c=>{
+        ctx.fillStyle='#10243f'; ctx.beginPath(); ctx.arc(c.x,c.y,11,0,7); ctx.fill();
+        ctx.fillStyle='#9b5bff'; ctx.beginPath(); ctx.arc(c.x,c.y,9,0,7); ctx.fill();
+        // hp bar
+        ctx.fillStyle='#000'; ctx.fillRect(c.x-11,c.y-16,22,4);
+        ctx.fillStyle='#3ad17a'; ctx.fillRect(c.x-11,c.y-16,22*(c.hp/c.maxhp),4);
+      });
+      // bullets
+      bullets.forEach(b=>{ ctx.fillStyle=b.color; ctx.beginPath(); ctx.arc(b.x,b.y,4,0,7); ctx.fill(); });
+      // hover range preview not drawn (kept simple)
+    }
+
+    function loop(){ if(!running) return; update(); if(!running) return; draw(); raf=requestAnimationFrame(loop); }
+
+    function placeTower(px,py){
+      if (!running) return;
+      const c=Math.floor(px/T), r=Math.floor(py/T);
+      if (c<0||r<0||c>=COLS||r>=ROWS) return;
+      if (pathSet.has(c+','+r)) return;                 // can't build on path
+      if (towers.some(t=>t.col===c&&t.row===r)) return; // occupied
+      const def=TOWERS[tool];
+      if (money<def.cost) return;
+      money-=def.cost; moneyEl.textContent=money;
+      towers.push({col:c,row:r, x:c*T+T/2, y:r*T+T/2, ...def, cool:0});
+      draw();
+    }
+
+    function end(win){
+      running=false; cancelAnimationFrame(raf);
+      if (tdMusic.isOn()) tdMusic.stop();
+      overlay.classList.remove('hidden');
+      overlay.innerHTML = win
+        ? '<p style="color:#3ad17a;font-family:\'Baloo 2\';font-size:1.35rem">🏆 You defended all 10 waves!</p>'
+        : '<p style="color:#fff;font-family:\'Baloo 2\';font-size:1.3rem">💀 Base overrun at wave '+wave+'</p>';
+      const b=document.createElement('button'); b.className='btn btn-yellow'; b.textContent='▶ Play Again'; b.onclick=start; overlay.appendChild(b);
+    }
+    function start(){ reset(); overlay.classList.add('hidden'); running=true; if(musicOn) tdMusic.start(); cancelAnimationFrame(raf); raf=requestAnimationFrame(loop); }
+
+    startBtn.addEventListener('click', start);
+    function canvasPos(e){ const r=canvas.getBoundingClientRect(); const sx=canvas.width/r.width, sy=canvas.height/r.height;
+      const cx=(e.touches?e.touches[0].clientX:e.clientX)-r.left, cy=(e.touches?e.touches[0].clientY:e.clientY)-r.top;
+      return {x:cx*sx, y:cy*sy}; }
+    canvas.addEventListener('mousedown', e=>{ const p=canvasPos(e); placeTower(p.x,p.y); });
+    canvas.addEventListener('touchstart', e=>{ e.preventDefault(); const p=canvasPos(e); placeTower(p.x,p.y); }, {passive:false});
+    toolBtns.forEach(b=> b.addEventListener('click', ()=>{ tool=b.getAttribute('data-tool');
+      toolBtns.forEach(x=>x.classList.toggle('sel', x===b)); }));
+    waveBtn.addEventListener('click', startWave);
+    window.addEventListener('keydown', e=>{ if(e.key!==' ') return;
+      const r=canvas.getBoundingClientRect(); if(r.bottom<0||r.top>innerHeight) return;
+      if(running){ e.preventDefault(); startWave(); } });
+    musicBtn.addEventListener('click', ()=>{ musicOn=!musicOn; musicBtn.textContent=musicOn?'🔊':'🔇'; musicBtn.classList.toggle('on',musicOn);
+      if (musicOn && running) tdMusic.start(); else tdMusic.stop(); });
+    const fullBtn=document.getElementById('tdFull'); const wrap=canvas.closest('.game-wrap');
     fullBtn.addEventListener('click', ()=>{ if(!document.fullscreenElement){ (wrap.requestFullscreen||wrap.webkitRequestFullscreen||(()=>{})).call(wrap); } else { (document.exitFullscreen||(()=>{})).call(document); } });
     document.addEventListener('fullscreenchange', ()=>{ if(document.fullscreenElement===wrap||!document.fullscreenElement){ fullBtn.textContent=document.fullscreenElement?'✕':'⛶'; if(!running) draw(); } });
     reset();
