@@ -530,6 +530,19 @@
   .badge-card b{display:block;font-family:'Baloo 2';font-size:1.05rem;margin-top:8px}
   .badge-card small{color:var(--muted)}
 
+  /* ---------- REWARDS ---------- */
+  .rw-intro{color:var(--muted);font-size:1.02rem;margin-bottom:20px}
+  .rewards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px}
+  .reward-card{background:linear-gradient(135deg,#fff8e1,#ffe9a8);border:2px solid #ffd86b;border-radius:18px;
+    padding:22px 16px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:transform .18s ease,box-shadow .18s ease}
+  .reward-card:hover{transform:translateY(-6px) rotate(-1deg);box-shadow:var(--shadow-lg)}
+  .reward-card::after{content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;
+    background:linear-gradient(120deg,transparent,rgba(255,255,255,.7),transparent);transform:skewX(-20deg);transition:left .6s ease}
+  .reward-card:hover::after{left:140%}
+  .reward-card .rw-emoji{font-size:2.8rem;line-height:1}
+  .reward-card b{display:block;font-family:'Baloo 2';font-size:1.05rem;color:var(--ink);margin-top:8px}
+  .reward-card small{display:block;color:#7a5b00;font-weight:600;margin-top:4px}
+
   /* ---------- PLAYER PROFILE ---------- */
   .player-profile{
     display:flex;gap:18px;align-items:flex-start;
@@ -640,6 +653,7 @@
         <li><a href="#notebook">Chess Notebook</a></li>
         <li><a href="#goals">Goals</a></li>
         <li><a href="#achievements">Achievements</a></li>
+        <li><a href="#rewards">Rewards</a></li>
         <li><a href="#games">Games</a></li>
         <li><a href="#timeline">Timeline</a></li>
       </ul>
@@ -1080,6 +1094,24 @@
       <div class="badge-card"><div class="em">🧩</div><b>Loves Mental Math</b><small>Big sums in his head</small></div>
       <div class="badge-card"><div class="em">🦘</div><b>Future Math Kangaroo</b><small>Aiming to compete</small></div>
       <div class="badge-card"><div class="em">📚</div><b>Patterns &amp; Logic</b><small>Learning &amp; loving it</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= REWARDS ================= -->
+<section id="rewards" style="background:#fff">
+  <div class="wrap">
+    <div class="head">
+      <span class="chip">Trophy Shelf</span>
+      <h2><span class="ico">🏆</span> My Rewards</h2>
+    </div>
+    <p class="rw-intro">Prizes, medals, and treats I've earned along the way! 🎉</p>
+    <div class="rewards-grid">
+      <div class="reward-card"><div class="rw-emoji">🥇</div><b>Crowder College Spring Open</b><small>+130 rating jump · May 2026</small></div>
+      <div class="reward-card"><div class="rw-emoji">🏅</div><b>First Tournament Medal</b><small>DMV Scholastic · Dec 2025</small></div>
+      <div class="reward-card"><div class="rw-emoji">📈</div><b>Reached 700+ USCF</b><small>Climbed to a 715 rating</small></div>
+      <div class="reward-card"><div class="rw-emoji">🧩</div><b>500 Puzzle Club</b><small>Lichess puzzle rating 1687</small></div>
+      <div class="reward-card"><div class="rw-emoji">🧱</div><b>8 LEGO Builds Done</b><small>From 13 to 2,660 pieces!</small></div>
     </div>
   </div>
 </section>
