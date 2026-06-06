@@ -1,0 +1,641 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "Vihaan's World" [ref=e4] [cursor=pointer]:
+        - /url: "#home"
+        - text: Vihaan's World
+      - navigation [ref=e10]:
+        - list [ref=e11]:
+          - listitem [ref=e12]:
+            - link "Home" [ref=e13] [cursor=pointer]:
+              - /url: "#home"
+          - listitem [ref=e14]:
+            - link "LEGO Lab" [ref=e15] [cursor=pointer]:
+              - /url: "#lego"
+          - listitem [ref=e16]:
+            - link "Chess Journey" [ref=e17] [cursor=pointer]:
+              - /url: "#chess"
+          - listitem [ref=e18]:
+            - link "Chess Notebook" [ref=e19] [cursor=pointer]:
+              - /url: "#notebook"
+          - listitem [ref=e20]:
+            - link "Goals" [ref=e21] [cursor=pointer]:
+              - /url: "#goals"
+          - listitem [ref=e22]:
+            - link "Achievements" [ref=e23] [cursor=pointer]:
+              - /url: "#achievements"
+          - listitem [ref=e24]:
+            - link "Games" [ref=e25] [cursor=pointer]:
+              - /url: "#games"
+          - listitem [ref=e26]:
+            - link "Timeline" [ref=e27] [cursor=pointer]:
+              - /url: "#timeline"
+  - generic [ref=e28]:
+    - generic [ref=e29]: 🚀
+    - generic [ref=e30]: 🧮
+    - generic [ref=e31]: ♜
+    - generic [ref=e32]: ✕
+    - generic [ref=e33]: 🏆
+    - generic [ref=e34]: 🚲
+    - generic [ref=e35]: नमस्ते
+    - generic [ref=e36]:
+      - heading "Vihaan's World" [level=1] [ref=e37]
+      - paragraph [ref=e38]: ♟ Chess Player • 🧱 LEGO Builder • 🚀 Future Creator
+      - generic [ref=e39]:
+        - link "🧱 My LEGO Builds" [ref=e40] [cursor=pointer]:
+          - /url: "#lego"
+        - link "♟️ Chess Journey" [ref=e41] [cursor=pointer]:
+          - /url: "#chess"
+        - link "🎯 My Goals" [ref=e42] [cursor=pointer]:
+          - /url: "#goals"
+        - link "👾 Play a Game" [ref=e43] [cursor=pointer]:
+          - /url: "#games"
+  - generic [ref=e45]:
+    - generic [ref=e46]:
+      - generic [ref=e47]: Build Zone
+      - heading "LEGO LEGO Lab" [level=2] [ref=e48]:
+        - img "LEGO" [ref=e49]
+        - text: LEGO Lab
+    - paragraph [ref=e50]: 👆 Tap a build to see it full screen
+    - generic [ref=e51]:
+      - button "Open Eiffel Tower full screen" [ref=e52] [cursor=pointer]:
+        - generic [ref=e53]:
+          - img "Vihaan's colorful LEGO Eiffel Tower" [ref=e54]
+          - generic [ref=e55]: 📏 Tallest Build
+          - heading "Eiffel Tower" [level=3] [ref=e56]
+        - generic [ref=e57]:
+          - generic [ref=e58]:
+            - generic [ref=e59]: 🧩 472 Pieces
+            - generic [ref=e60]: ⏱ 1 hr 11 min
+          - paragraph [ref=e61]: Why I Loved Building It
+          - paragraph [ref=e62]: "\"The base section was the most fun to build.\""
+          - paragraph [ref=e63]: Built by Vihaan, Age 7
+      - button "Open Temple full screen" [ref=e64] [cursor=pointer]:
+        - generic [ref=e65]:
+          - img "Vihaan's colorful LEGO Temple" [ref=e66]
+          - generic [ref=e67]: 🥈 Second Hardest Build
+          - heading "Temple" [level=3] [ref=e68]
+        - generic [ref=e69]:
+          - generic [ref=e70]:
+            - generic [ref=e71]: 🧩 672 Pieces
+            - generic [ref=e72]: ⏱ 2 hr 15 min
+          - paragraph [ref=e73]: Why I Loved Building It
+          - paragraph [ref=e74]: "\"The roof was my favorite part to figure out.\""
+          - paragraph [ref=e75]: Built by Vihaan, Age 7
+      - button "Open Hogwarts Castle full screen" [ref=e76] [cursor=pointer]:
+        - generic [ref=e77]:
+          - img "Vihaan's LEGO Hogwarts Castle" [ref=e78]
+          - generic [ref=e79]: ⭐ Favorite Build
+          - heading "Hogwarts Castle" [level=3] [ref=e80]
+        - generic [ref=e81]:
+          - generic [ref=e82]:
+            - generic [ref=e83]: 🧩 2,660 Pieces
+            - generic [ref=e84]: ⏱ 2 Months
+          - paragraph [ref=e85]: Why I Loved Building It
+          - paragraph [ref=e86]: "\"All the tiny decorations made it feel magical.\""
+          - paragraph [ref=e87]: Built by Vihaan, Age 7
+      - button "Open Empire State Building full screen" [ref=e88] [cursor=pointer]:
+        - generic [ref=e89]:
+          - img "Vihaan's LEGO Empire State Building" [ref=e90]
+          - generic [ref=e91]: 🏙️ Landmark Build
+          - heading "Empire State Building" [level=3] [ref=e92]
+        - generic [ref=e93]:
+          - generic [ref=e94]:
+            - generic [ref=e95]: 🧩 132 Pieces
+            - generic [ref=e96]: ⏱ 35 Minutes
+          - paragraph [ref=e97]: Why I Loved Building It
+          - paragraph [ref=e98]: "\"Making it tall and balanced with the spire on top.\""
+          - paragraph [ref=e99]: Built by Vihaan, Age 7
+      - button "Open Flatiron Building full screen" [ref=e100] [cursor=pointer]:
+        - generic [ref=e101]:
+          - img "Vihaan's LEGO Flatiron Building" [ref=e102]
+          - generic [ref=e103]: 🗽 NYC Landmark
+          - heading "Flatiron Building" [level=3] [ref=e104]
+        - generic [ref=e105]:
+          - generic [ref=e106]:
+            - generic [ref=e107]: 🧩 36 Pieces
+            - generic [ref=e108]: ⏱ 11 Minutes
+          - paragraph [ref=e109]: Why I Loved Building It
+          - paragraph [ref=e110]: "\"Its cool wedge shape and the striped windows.\""
+          - paragraph [ref=e111]: Built by Vihaan, Age 7
+      - button "Open Statue of Liberty full screen" [ref=e112] [cursor=pointer]:
+        - generic [ref=e113]:
+          - img "Vihaan's LEGO Statue of Liberty" [ref=e114]
+          - generic [ref=e115]: 🐜 Smallest Build
+          - heading "Statue of Liberty" [level=3] [ref=e116]
+        - generic [ref=e117]:
+          - generic [ref=e118]:
+            - generic [ref=e119]: 🧩 13 Pieces
+            - generic [ref=e120]: ⏱ 3 Minutes
+          - paragraph [ref=e121]: Why I Loved Building It
+          - paragraph [ref=e122]: "\"The little green Lady Liberty on her star base.\""
+          - paragraph [ref=e123]: Built by Vihaan, Age 7
+      - button "Open Taj Mahal full screen" [ref=e124] [cursor=pointer]:
+        - generic [ref=e125]:
+          - img "Vihaan's colorful LEGO Taj Mahal" [ref=e126]
+          - generic [ref=e127]: 🎨 Sticker Build
+          - heading "Taj Mahal" [level=3] [ref=e128]
+        - generic [ref=e129]:
+          - generic [ref=e130]:
+            - generic [ref=e131]: 🧩 Pieces TBD
+            - generic [ref=e132]: ⏱ Time TBD
+          - paragraph [ref=e133]: Why I Loved Building It
+          - paragraph [ref=e134]: "\"The big dome and the four tall corner towers.\""
+          - paragraph [ref=e135]: Built by Vihaan, Age 7
+      - button "Open Rainbow House full screen" [ref=e136] [cursor=pointer]:
+        - generic [ref=e137]:
+          - img "Vihaan's colorful LEGO rainbow brick house" [ref=e138]
+          - generic [ref=e139]: 🌈 Free Build
+          - heading "Rainbow Brick House" [level=3] [ref=e140]
+        - generic [ref=e141]:
+          - generic [ref=e142]:
+            - generic [ref=e143]: 🧩 Pieces TBD
+            - generic [ref=e144]: ⏱ Time TBD
+          - paragraph [ref=e145]: Why I Loved Building It
+          - paragraph [ref=e146]: "\"Using every single color to make the rainbow roof.\""
+          - paragraph [ref=e147]: Built by Vihaan, Age 7
+    - heading "🎬 Build Videos" [level=3] [ref=e148]
+    - paragraph [ref=e149]: Watch Vihaan's LEGO builds come to life — tap any video to play!
+    - generic [ref=e161]:
+      - generic [ref=e162]:
+        - heading "🎲 Build of the Week" [level=3] [ref=e163]
+        - paragraph [ref=e164]: Stuck on what to build next? Spin the generator for a fresh LEGO challenge!
+      - generic [ref=e165]:
+        - generic [ref=e166]: 🧱
+        - generic [ref=e167]:
+          - generic [ref=e168]: Tap the button!
+          - heading "Your next build awaits…" [level=4] [ref=e169]
+          - list
+      - button "🎲 Generate a Build Idea" [ref=e170] [cursor=pointer]
+  - generic [ref=e172]:
+    - generic [ref=e173]:
+      - generic [ref=e174]: Checkmate!
+      - heading "♟️ Chess Journey" [level=2] [ref=e175]
+    - generic [ref=e176]:
+      - generic [ref=e177]: ♟️
+      - generic [ref=e178]:
+        - heading "Player Profile" [level=3] [ref=e179]
+        - paragraph [ref=e180]: "Vihaan (age 7) is a fast-rising scholastic chess player who reached a 715 USCF rating and #281 in Arkansas within 6 months of his first tournament, with a standout +130-point performance and strong tactical instincts (Lichess puzzles 1687). He plays his best with time to think (Classical 1435), bounces back from setbacks, and is already competing across three states with his sights set on Chess Nationals."
+    - generic [ref=e181]:
+      - generic [ref=e182]:
+        - text: ♟
+        - generic [ref=e183]: "715"
+        - text: Current USCF Rating
+      - generic [ref=e184]:
+        - text: 📈
+        - generic [ref=e185]: "715"
+        - text: Peak Rating
+      - generic [ref=e186]:
+        - text: 🎯
+        - generic [ref=e187]: "800"
+        - text: Next Goal
+      - generic [ref=e188]:
+        - text: ⚡
+        - generic [ref=e189]: "+130"
+        - text: Biggest Rating Gain
+      - generic [ref=e190]:
+        - text: 🏟️
+        - generic [ref=e191]: "7"
+        - text: Tournaments Played
+      - generic [ref=e192]:
+        - text: 📍
+        - generic [ref=e193]: "#281"
+        - text: Arkansas Rank
+    - generic [ref=e194]:
+      - generic [ref=e195]:
+        - heading "📈 Rating Progress" [level=3] [ref=e196]
+        - paragraph [ref=e197]: Official US Chess Regular rating — climbed to 715 across my first over-the-board tournaments! 🚀
+        - img "Chess rating progress chart" [ref=e198]:
+          - generic [ref=e199]: "500"
+          - generic [ref=e200]: "550"
+          - generic [ref=e201]: "600"
+          - generic [ref=e202]: "650"
+          - generic [ref=e203]: "700"
+          - generic [ref=e204]: "750"
+          - generic [ref=e205]: "800"
+          - generic [ref=e206]: "Next: 800"
+          - generic [ref=e210]: "546"
+          - generic [ref=e211]: Mar 14
+          - generic [ref=e213]: "603"
+          - generic [ref=e214]: Apr 25
+          - generic [ref=e216]: "585"
+          - generic [ref=e217]: May 2
+          - generic [ref=e219]: "715"
+          - generic [ref=e220]: May 30
+        - paragraph [ref=e221]: 🏛️ US Chess ratings (over-the-board)
+        - generic [ref=e222]:
+          - generic [ref=e223]: ♟️ Regular 715
+          - generic [ref=e224]: ⚡ Quick 717
+          - generic [ref=e225]: "📍 Arkansas Rank #281"
+        - paragraph [ref=e226]: 🌐 Online ratings (Lichess) ✓ live · updated 06:41:53 PM
+        - generic [ref=e227]:
+          - generic [ref=e228]: ♟️ Classical 1435
+          - generic [ref=e229]: ⚡ Rapid 1226
+          - generic [ref=e230]: 🔥 Blitz 1160
+          - generic [ref=e231]: 🚅 Bullet 1252
+          - generic [ref=e232]: 🧩 Puzzles 1687
+        - generic [ref=e233]:
+          - button "🔄 Refresh Lichess Data" [ref=e234] [cursor=pointer]
+          - link "🔗 Open Lichess Profile ↗" [ref=e235] [cursor=pointer]:
+            - /url: https://lichess.org/@/vihaan_67
+          - link "🏛️ Open US Chess Profile ↗" [ref=e236] [cursor=pointer]:
+            - /url: https://ratings.uschess.org/player/32756659
+      - generic [ref=e238]:
+        - heading "🏆 Tournament Results" [level=3] [ref=e239]
+        - generic [ref=e240]:
+          - generic [ref=e241]: 🥇
+          - generic [ref=e242]:
+            - generic [ref=e243]: 2026 Crowder College Spring Open
+            - text: May 30, 2026 · Joplin, MO · Regular 585→715 (+130!)
+        - generic [ref=e244]:
+          - generic [ref=e245]: ♟️
+          - generic [ref=e246]:
+            - generic [ref=e247]: 2026 Arkansas Scholastic Individual Championship
+            - text: May 2, 2026 · Eureka Springs, AR
+        - generic [ref=e248]:
+          - generic [ref=e249]: 📈
+          - generic [ref=e250]:
+            - generic [ref=e251]: 2026 FCC Spring Classic
+            - text: Apr 25–26, 2026 · Fayetteville, AR · Regular 546→603 (+57)
+        - generic [ref=e252]:
+          - generic [ref=e253]: ♟️
+          - generic [ref=e254]:
+            - generic [ref=e255]: DMV March Premier Scholastic
+            - text: Mar 21, 2026 · Tysons Corner, VA
+        - generic [ref=e256]:
+          - generic [ref=e257]: ♟️
+          - generic [ref=e258]:
+            - generic [ref=e259]: 2026 Four States Winter Open
+            - text: "Mar 14, 2026 · Joplin, MO · first OTB rating: 546"
+        - generic [ref=e260]:
+          - generic [ref=e261]: ♟️
+          - generic [ref=e262]:
+            - generic [ref=e263]: DMV Winter Scholastic Championship
+            - text: Dec 23, 2025 · Tysons Corner, VA
+        - generic [ref=e264]:
+          - generic [ref=e265]: ⭐
+          - generic [ref=e266]:
+            - generic [ref=e267]: DMV December Matches Scholastic
+            - text: Dec 13, 2025 · Tysons Corner, VA · my very first tournament!
+    - generic [ref=e268]:
+      - generic [ref=e269]:
+        - heading "🧩 Puzzle Milestones" [level=3] [ref=e270]
+        - list [ref=e271]:
+          - listitem [ref=e272]: 7 US Chess tournaments played
+          - listitem [ref=e274]: Solved 526 puzzles — Lichess 1687!
+          - listitem [ref=e276]: Learned key checkmate patterns
+      - generic [ref=e278]:
+        - heading "💬 My Chess Q&A" [level=3] [ref=e279]
+        - paragraph [ref=e280]: A few of my favorites — I'll keep adding to these!
+        - list [ref=e281]:
+          - listitem [ref=e282]:
+            - generic [ref=e283]: ♟️ Favorite chess player
+            - generic [ref=e284]: _______________
+          - listitem [ref=e285]:
+            - generic [ref=e286]: ⭐ Favorite opening
+            - generic [ref=e287]: _______________
+          - listitem [ref=e288]:
+            - generic [ref=e289]: 👑 Favorite piece
+            - generic [ref=e290]: _______________
+          - listitem [ref=e291]:
+            - generic [ref=e292]: 🏆 Best win so far
+            - generic [ref=e293]: _______________
+          - listitem [ref=e294]:
+            - generic [ref=e295]: 💭 Favorite chess quote
+            - generic [ref=e296]: _______________
+    - blockquote [ref=e297]:
+      - text: ♟️ "Every chess master was once a beginner."
+      - generic [ref=e298]: — My favorite chess quote
+  - generic [ref=e300]:
+    - generic [ref=e301]:
+      - generic [ref=e302]: Coach's Advice
+      - heading "📒 Chess Notebook" [level=2] [ref=e303]
+    - paragraph [ref=e304]: Things my coach told me to work on. I tick them off as I practice — and I can add new notes anytime! ✅
+    - generic [ref=e305]:
+      - paragraph [ref=e307]: 0 of 6 done
+      - list [ref=e308]:
+        - listitem [ref=e309]:
+          - generic [ref=e310] [cursor=pointer]:
+            - checkbox "Don't accept the Danish Gambit" [ref=e311]
+            - generic [ref=e312]: Don't accept the Danish Gambit
+          - button "✕" [ref=e313] [cursor=pointer]
+        - listitem [ref=e314]:
+          - generic [ref=e315] [cursor=pointer]:
+            - checkbox "Don't resign" [ref=e316]
+            - generic [ref=e317]: Don't resign
+          - button "✕" [ref=e318] [cursor=pointer]
+        - listitem [ref=e319]:
+          - generic [ref=e320] [cursor=pointer]:
+            - checkbox "Don't move the same piece in the opening (fewer blunders)" [ref=e321]
+            - generic [ref=e322]: Don't move the same piece in the opening (fewer blunders)
+          - button "✕" [ref=e323] [cursor=pointer]
+        - listitem [ref=e324]:
+          - generic [ref=e325] [cursor=pointer]:
+            - checkbox "Take 30 seconds every move" [ref=e326]
+            - generic [ref=e327]: Take 30 seconds every move
+          - button "✕" [ref=e328] [cursor=pointer]
+        - listitem [ref=e329]:
+          - generic [ref=e330] [cursor=pointer]:
+            - checkbox "Use a pin when I can" [ref=e331]
+            - generic [ref=e332]: Use a pin when I can
+          - button "✕" [ref=e333] [cursor=pointer]
+        - listitem [ref=e334]:
+          - generic [ref=e335] [cursor=pointer]:
+            - checkbox "Don't let other pieces into my side" [ref=e336]
+            - generic [ref=e337]: Don't let other pieces into my side
+          - button "✕" [ref=e338] [cursor=pointer]
+      - generic [ref=e339]:
+        - textbox "Add a new coach note…" [ref=e340]
+        - button "➕ Add Note" [ref=e341] [cursor=pointer]
+  - generic [ref=e343]:
+    - generic [ref=e344]:
+      - generic [ref=e345]: Big Dreams
+      - heading "🎯 2026 Goals" [level=2] [ref=e346]
+    - heading "♟️ Chess Goals" [level=3] [ref=e347]
+    - generic [ref=e348]:
+      - generic [ref=e349]:
+        - img "Lichess" [ref=e351]
+        - generic [ref=e352]: Reach 2000 Lichess Rating
+        - generic [ref=e353]: Now 1435 / 2000
+        - generic [ref=e356]: 72%
+      - generic [ref=e357]:
+        - img "US Chess" [ref=e359]
+        - generic [ref=e360]: Reach 1100 Over-the-Board Rating
+        - generic [ref=e361]: Now 715 / 1100
+        - generic [ref=e364]: 65%
+      - generic [ref=e365]:
+        - generic [ref=e366]: 🏆
+        - generic [ref=e367]: Go to Chess Nationals
+        - generic [ref=e368]: Apr 30–May 2, 2027 · Columbus, OH
+        - generic [ref=e371]: 25%
+    - heading "🛠️ Building & Creating" [level=3] [ref=e372]
+    - generic [ref=e373]:
+      - generic [ref=e374]:
+        - img "LEGO" [ref=e376]
+        - generic [ref=e377]: Build 20 LEGO Projects
+        - generic [ref=e378]: 8 / 20 built
+        - generic [ref=e381]: 40%
+      - generic [ref=e382]:
+        - generic [ref=e383]: 💻
+        - generic [ref=e384]: Learn Coding
+        - generic [ref=e385]: Just getting started!
+        - generic [ref=e388]: 15%
+      - generic [ref=e389]:
+        - generic [ref=e390]: 🎮
+        - generic [ref=e391]: Build First Game
+        - generic [ref=e392]: Dreaming it up!
+        - generic [ref=e395]: 10%
+    - heading "🌟 Learning Goals" [level=3] [ref=e396]
+    - generic [ref=e397]:
+      - generic [ref=e398]:
+        - generic [ref=e399]: 🇮🇳
+        - generic [ref=e400]: Learn Hindi
+        - generic [ref=e401]: Just getting started!
+        - generic [ref=e404]: 10%
+      - generic [ref=e405]:
+        - generic [ref=e406]: 🚲
+        - generic [ref=e407]: Learn Biking
+        - generic [ref=e408]: Just getting started!
+        - generic [ref=e411]: 10%
+      - generic [ref=e412]:
+        - generic [ref=e413]: 🏊
+        - generic [ref=e414]: Learn Swimming
+        - generic [ref=e415]: Just getting started!
+        - generic [ref=e418]: 10%
+  - generic [ref=e420]:
+    - generic [ref=e421]:
+      - generic [ref=e422]: Trophy Case
+      - heading "🏅 Achievement Wall" [level=2] [ref=e423]
+    - generic [ref=e424]:
+      - generic [ref=e425] [cursor=pointer]:
+        - generic [ref=e426]: 🥉
+        - generic [ref=e427]: First Tournament
+        - text: DMV — Dec 2025!
+      - generic [ref=e428] [cursor=pointer]:
+        - generic [ref=e429]: 🥈
+        - generic [ref=e430]: 500 Puzzle Club
+        - text: 526 solved · Lichess 1687
+      - generic [ref=e431] [cursor=pointer]:
+        - generic [ref=e432]: 🥈
+        - generic [ref=e433]: 8 LEGO Builds
+        - text: Eiffel · Temple · Hogwarts · Empire State · Flatiron · Lady Liberty · Taj Mahal · Rainbow House
+      - generic [ref=e434] [cursor=pointer]:
+        - generic [ref=e435]: 🥇
+        - generic [ref=e436]: Grade 6 Math in Grade 2
+        - text: 4 years ahead!
+      - generic [ref=e437] [cursor=pointer]:
+        - generic [ref=e438]: 👑
+        - generic [ref=e439]: Checkmate Patterns Master
+        - text: Learned the classics
+    - heading "➗ Math Highlights" [level=3] [ref=e440]
+    - generic [ref=e441]:
+      - generic [ref=e442] [cursor=pointer]:
+        - generic [ref=e443]: ➗
+        - generic [ref=e444]: Grade 6 Math in Grade 2
+        - text: Working 4 grades ahead
+      - generic [ref=e445] [cursor=pointer]:
+        - generic [ref=e446]: 🧩
+        - generic [ref=e447]: Loves Mental Math
+        - text: Big sums in his head
+      - generic [ref=e448] [cursor=pointer]:
+        - generic [ref=e449]: 🦘
+        - generic [ref=e450]: Future Math Kangaroo
+        - text: Aiming to compete
+      - generic [ref=e451] [cursor=pointer]:
+        - generic [ref=e452]: 📚
+        - generic [ref=e453]: Patterns & Logic
+        - text: Learning & loving it
+  - generic [ref=e455]:
+    - generic [ref=e456]:
+      - generic [ref=e457]: Just for Fun
+      - heading "👾 Games" [level=2] [ref=e458]
+    - generic [ref=e459]:
+      - generic [ref=e460]:
+        - generic [ref=e461]: 👾 Pac-Man
+        - generic [ref=e462]:
+          - generic [ref=e463]: "Score: 0 🏆 0"
+          - button "Toggle music" [ref=e464] [cursor=pointer]: 🔇
+          - button "Fullscreen" [ref=e465] [cursor=pointer]: ⛶
+      - generic "Pac-Man mini game" [ref=e466]
+      - generic [ref=e467]:
+        - button "▶ Start Game" [ref=e468] [cursor=pointer]
+        - paragraph [ref=e469]: Use arrow keys or the buttons below • eat all the dots!
+    - heading "⚽ Champions League Final" [level=3] [ref=e470]
+    - paragraph [ref=e471]: 🔴 Arsenal vs 🔵 PSG — take the penalty and win the trophy! Score 5 to win.
+    - generic [ref=e472]:
+      - generic [ref=e473]:
+        - generic [ref=e474]: 🏆 UCL Final Penalty
+        - generic [ref=e475]:
+          - generic [ref=e476]: ⚽ 0 🧤 0
+          - button "Toggle music" [ref=e477] [cursor=pointer]: 🔇
+          - button "Fullscreen" [ref=e478] [cursor=pointer]: ⛶
+      - generic "Penalty shootout mini game" [ref=e479]
+      - generic [ref=e480]:
+        - button "▶ Take the Penalty" [ref=e481] [cursor=pointer]
+        - paragraph [ref=e482]: 1. Pick a target 2. Hold SHOOT to charge power 3. Release to kick!
+      - generic [ref=e483]:
+        - generic [ref=e484]:
+          - button "↖ Left" [ref=e485] [cursor=pointer]
+          - button "⬆ Center" [ref=e486] [cursor=pointer]
+          - button "↗ Right" [ref=e487] [cursor=pointer]
+        - button "⚽ HOLD to Charge" [ref=e489] [cursor=pointer]
+    - heading "🔺 Geometry Dash" [level=3] [ref=e490]
+    - paragraph [ref=e491]: Tap, click, or press Space to jump over the spikes — how far can you go?
+    - generic [ref=e492]:
+      - generic [ref=e493]:
+        - generic [ref=e494]: 🔺 Geo Dash
+        - generic [ref=e495]:
+          - generic [ref=e496]: "Progress: 0% 🏆 0%"
+          - button "Toggle music" [ref=e497] [cursor=pointer]: 🔇
+          - button "Fullscreen" [ref=e498] [cursor=pointer]: ⛶
+      - generic "Geometry Dash mini game" [ref=e499] [cursor=pointer]
+      - generic [ref=e500]:
+        - button "▶ Start Dashing" [ref=e501] [cursor=pointer]
+        - paragraph [ref=e502]: Jump the spikes! Tap the game, click, or press Space.
+    - heading "🏰 Tower Defense" [level=3] [ref=e503]
+    - paragraph [ref=e504]: Tap empty grass to build towers 💰. Stop the creeps before they reach the end — survive all the waves!
+    - generic [ref=e505]:
+      - generic [ref=e506]:
+        - generic [ref=e507]: 🏰 Tower Defense
+        - generic [ref=e508]:
+          - generic [ref=e509]: 💰 200 ❤️ 9 🌊 0 ⚡ Lv 1
+          - button "Toggle music" [ref=e510] [cursor=pointer]: 🔇
+          - button "Fullscreen" [ref=e511] [cursor=pointer]: ⛶
+      - generic "Tower Defense game" [ref=e512] [cursor=pointer]
+      - generic [ref=e513]:
+        - button "▶ Start Defense" [ref=e514] [cursor=pointer]
+        - paragraph [ref=e515]: Build towers on the grass to shoot the creeps. Don't let them through!
+      - generic [ref=e516]:
+        - button "🔵 Cannon 💰40" [ref=e517] [cursor=pointer]
+        - button "🔴 Sniper 💰70" [ref=e518] [cursor=pointer]
+        - button "🌊 Next Wave" [ref=e519] [cursor=pointer]
+    - heading "✏️ Write Your Own Comic" [level=3] [ref=e520]
+    - paragraph [ref=e521]: Pick a sticker and write a line for each panel, then publish your one-page comic!
+    - generic [ref=e522]:
+      - textbox "Comic title… (e.g. Super Vihaan!)" [ref=e523]
+      - generic [ref=e524]:
+        - generic [ref=e525]:
+          - generic [ref=e526]: ⭐
+          - generic [ref=e527]:
+            - button "🦸" [ref=e528] [cursor=pointer]
+            - button "🦖" [ref=e529] [cursor=pointer]
+            - button "🚀" [ref=e530] [cursor=pointer]
+            - button "⚡" [ref=e531] [cursor=pointer]
+            - button "🐱" [ref=e532] [cursor=pointer]
+            - button "🤖" [ref=e533] [cursor=pointer]
+            - button "👾" [ref=e534] [cursor=pointer]
+            - button "🌟" [ref=e535] [cursor=pointer]
+            - button "💥" [ref=e536] [cursor=pointer]
+            - button "🏰" [ref=e537] [cursor=pointer]
+            - button "⚔️" [ref=e538] [cursor=pointer]
+            - button "🧙" [ref=e539] [cursor=pointer]
+            - button "🐉" [ref=e540] [cursor=pointer]
+            - button "🎈" [ref=e541] [cursor=pointer]
+            - button "❤️" [ref=e542] [cursor=pointer]
+            - button "😂" [ref=e543] [cursor=pointer]
+          - textbox "Panel 1 caption…" [ref=e544]
+        - generic [ref=e545]:
+          - generic [ref=e546]: ⭐
+          - generic [ref=e547]:
+            - button "🦸" [ref=e548] [cursor=pointer]
+            - button "🦖" [ref=e549] [cursor=pointer]
+            - button "🚀" [ref=e550] [cursor=pointer]
+            - button "⚡" [ref=e551] [cursor=pointer]
+            - button "🐱" [ref=e552] [cursor=pointer]
+            - button "🤖" [ref=e553] [cursor=pointer]
+            - button "👾" [ref=e554] [cursor=pointer]
+            - button "🌟" [ref=e555] [cursor=pointer]
+            - button "💥" [ref=e556] [cursor=pointer]
+            - button "🏰" [ref=e557] [cursor=pointer]
+            - button "⚔️" [ref=e558] [cursor=pointer]
+            - button "🧙" [ref=e559] [cursor=pointer]
+            - button "🐉" [ref=e560] [cursor=pointer]
+            - button "🎈" [ref=e561] [cursor=pointer]
+            - button "❤️" [ref=e562] [cursor=pointer]
+            - button "😂" [ref=e563] [cursor=pointer]
+          - textbox "Panel 2 caption…" [ref=e564]
+        - generic [ref=e565]:
+          - generic [ref=e566]: ⭐
+          - generic [ref=e567]:
+            - button "🦸" [ref=e568] [cursor=pointer]
+            - button "🦖" [ref=e569] [cursor=pointer]
+            - button "🚀" [ref=e570] [cursor=pointer]
+            - button "⚡" [ref=e571] [cursor=pointer]
+            - button "🐱" [ref=e572] [cursor=pointer]
+            - button "🤖" [ref=e573] [cursor=pointer]
+            - button "👾" [ref=e574] [cursor=pointer]
+            - button "🌟" [ref=e575] [cursor=pointer]
+            - button "💥" [ref=e576] [cursor=pointer]
+            - button "🏰" [ref=e577] [cursor=pointer]
+            - button "⚔️" [ref=e578] [cursor=pointer]
+            - button "🧙" [ref=e579] [cursor=pointer]
+            - button "🐉" [ref=e580] [cursor=pointer]
+            - button "🎈" [ref=e581] [cursor=pointer]
+            - button "❤️" [ref=e582] [cursor=pointer]
+            - button "😂" [ref=e583] [cursor=pointer]
+          - textbox "Panel 3 caption…" [ref=e584]
+        - generic [ref=e585]:
+          - generic [ref=e586]: ⭐
+          - generic [ref=e587]:
+            - button "🦸" [ref=e588] [cursor=pointer]
+            - button "🦖" [ref=e589] [cursor=pointer]
+            - button "🚀" [ref=e590] [cursor=pointer]
+            - button "⚡" [ref=e591] [cursor=pointer]
+            - button "🐱" [ref=e592] [cursor=pointer]
+            - button "🤖" [ref=e593] [cursor=pointer]
+            - button "👾" [ref=e594] [cursor=pointer]
+            - button "🌟" [ref=e595] [cursor=pointer]
+            - button "💥" [ref=e596] [cursor=pointer]
+            - button "🏰" [ref=e597] [cursor=pointer]
+            - button "⚔️" [ref=e598] [cursor=pointer]
+            - button "🧙" [ref=e599] [cursor=pointer]
+            - button "🐉" [ref=e600] [cursor=pointer]
+            - button "🎈" [ref=e601] [cursor=pointer]
+            - button "❤️" [ref=e602] [cursor=pointer]
+            - button "😂" [ref=e603] [cursor=pointer]
+          - textbox "Panel 4 caption…" [ref=e604]
+      - generic [ref=e605]:
+        - button "📚 Publish Comic" [ref=e606] [cursor=pointer]
+        - button "🗑 Clear" [ref=e607] [cursor=pointer]
+  - generic [ref=e609]:
+    - generic [ref=e610]:
+      - generic [ref=e611]: My Story
+      - heading "📖 Timeline" [level=2] [ref=e612]
+    - list [ref=e613]:
+      - listitem [ref=e614]:
+        - generic [ref=e615]: "2025"
+        - generic [ref=e616]:
+          - text: ⭐First Chess Tournament
+          - generic [ref=e617]: Played my very first USCF event
+      - listitem [ref=e618]:
+        - generic [ref=e619]: "2026"
+        - generic [ref=e620]:
+          - text: 📈Reached 700+ USCF
+          - generic [ref=e621]: Rating climbed to 715
+      - listitem [ref=e622]:
+        - generic [ref=e623]: "2026"
+        - generic [ref=e624]:
+          - text: 🧱Built Vihaan's World
+          - generic [ref=e625]: This very site!
+      - listitem [ref=e626]:
+        - generic [ref=e627]: "2026"
+        - generic [ref=e628]:
+          - text: 🧩Crossed 500 Puzzle Milestone
+          - generic [ref=e629]: Puzzle rating 1687
+      - listitem [ref=e630]:
+        - generic [ref=e631]: "2027"
+        - generic [ref=e632]:
+          - text: 🏆
+          - generic [ref=e633]: Chess Nationals
+          - generic [ref=e634]: Goal · Columbus, OH
+      - listitem [ref=e635]:
+        - generic [ref=e636]: "2028"
+        - generic [ref=e637]:
+          - text: 💻
+          - generic [ref=e638]: First Published App
+          - generic [ref=e639]: Goal
+  - contentinfo [ref=e640]:
+    - generic [ref=e641]:
+      - paragraph [ref=e642]: "\"I love solving puzzles, building LEGO, and learning new things.\""
+      - paragraph [ref=e643]: — Vihaan
+      - paragraph [ref=e651]: © 2026 Vihaan's World • Built with LEGO bricks, chess moves & big imagination.
