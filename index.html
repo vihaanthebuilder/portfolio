@@ -346,6 +346,12 @@
   .lego-hint{color:var(--muted);font-weight:700;margin:-6px 0 18px;font-size:.92rem}
   .lego-group-title{font-family:'Baloo 2';font-size:1.4rem;color:var(--ink);margin:30px 0 16px}
   .lego-group-title:first-of-type{margin-top:4px}
+  .wishlist-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+  .wish-card{margin:0;background:#fff;border-radius:16px;overflow:hidden;box-shadow:var(--shadow);
+    border:3px solid transparent;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+  .wish-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:var(--yellow)}
+  .wish-card img{width:100%;aspect-ratio:5/3;object-fit:cover;display:block;background:#eef2fb}
+  .wish-card figcaption{font-family:'Baloo 2';font-weight:800;color:var(--ink);text-align:center;padding:12px}
 
   /* ---------- PREMIUM LEGO CARDS ---------- */
   .lego-card{
@@ -844,6 +850,18 @@
           <p class="creator-footer">Built by Vihaan, Age 7</p>
         </div>
       </article>
+    </div>
+
+    <h3 class="lego-group-title">🧱 Builds I Want to Try</h3>
+    <p class="lego-hint">Sets and ideas on my wishlist to build next!</p>
+    <div class="wishlist-grid">
+      <figure class="wish-card"><img src="images/build-trex-31151.jpg" alt="LEGO T-Rex Dinosaur set" loading="lazy"><figcaption>🦖 T-Rex Dinosaur</figcaption></figure>
+      <figure class="wish-card"><img src="images/build-ninjago-dragon-71868.jpg" alt="LEGO Ninjago Dragon set" loading="lazy"><figcaption>🐉 Ninjago Dragon</figcaption></figure>
+      <figure class="wish-card"><img src="images/build-space-base-60434.jpg" alt="LEGO Space Base set" loading="lazy"><figcaption>🚀 Space Base</figcaption></figure>
+      <figure class="wish-card"><img src="images/build-monster-truck-42135.svg" alt="LEGO Monster Truck set" loading="lazy"><figcaption>🚙 Monster Truck</figcaption></figure>
+      <figure class="wish-card"><img src="images/build-tiger-31129.svg" alt="LEGO Tiger set" loading="lazy"><figcaption>🐯 Majestic Tiger</figcaption></figure>
+      <figure class="wish-card"><img src="images/build-train-60336.svg" alt="LEGO Train set" loading="lazy"><figcaption>🚂 Cargo Train</figcaption></figure>
+      <figure class="wish-card"><img src="images/build-chess-custom.svg" alt="LEGO Chess board build" loading="lazy"><figcaption>♟️ LEGO Chess Set</figcaption></figure>
     </div>
 
     <!-- Build Videos gallery -->
