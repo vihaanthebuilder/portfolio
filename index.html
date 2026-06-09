@@ -346,6 +346,33 @@
   .lego-hint{color:var(--muted);font-weight:700;margin:-6px 0 18px;font-size:.92rem}
   .lego-group-title{font-family:'Baloo 2';font-size:1.4rem;color:var(--ink);margin:30px 0 16px}
   .lego-group-title:first-of-type{margin-top:4px}
+  /* F1 race animation */
+  .race-show{margin:6px 0 4px;background:linear-gradient(180deg,#0B1E3A,#16305a);border-radius:20px;
+    overflow:hidden;box-shadow:var(--shadow-lg);border:3px solid var(--yellow)}
+  .race-show svg{display:block;width:100%;height:auto}
+  .race-cap{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+    padding:12px 16px;color:#fff;font-family:'Baloo 2';font-weight:800}
+  .race-cap .race-legend{display:flex;gap:14px;font-size:.9rem;font-weight:700;opacity:.95}
+  .race-cap .dot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+  @keyframes f1-roadDash{from{transform:translateX(0)}to{transform:translateX(-160px)}}
+  @keyframes f1-speed{from{transform:translateX(60px);opacity:0}10%{opacity:.9}to{transform:translateX(-860px);opacity:0}}
+  @keyframes f1-spin{to{transform:rotate(360deg)}}
+  @keyframes f1-bobA{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+  @keyframes f1-bobB{0%,100%{transform:translateY(-4px)}50%{transform:translateY(2px)}}
+  @keyframes f1-jostleA{0%,100%{transform:translateX(0)}50%{transform:translateX(26px)}}
+  @keyframes f1-jostleB{0%,100%{transform:translateX(22px)}50%{transform:translateX(-2px)}}
+  @keyframes f1-truckBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+  @keyframes f1-flag{0%,100%{transform:skewX(0deg)}50%{transform:skewX(-9deg)}}
+  .f1-dashes{animation:f1-roadDash .55s linear infinite}
+  .f1-wheel{animation:f1-spin .25s linear infinite;transform-box:fill-box;transform-origin:center}
+  .f1-line{animation:f1-speed 1.1s linear infinite}
+  .f1-carA{animation:f1-jostleA 2.4s ease-in-out infinite}
+  .f1-carA-bob{animation:f1-bobA 1s ease-in-out infinite}
+  .f1-carB{animation:f1-jostleB 2.4s ease-in-out infinite}
+  .f1-carB-bob{animation:f1-bobB 1.1s ease-in-out infinite}
+  .f1-truck{animation:f1-truckBob 1.4s ease-in-out infinite}
+  .f1-flag{animation:f1-flag 1s ease-in-out infinite;transform-box:fill-box;transform-origin:left center}
+  @media (prefers-reduced-motion:reduce){.f1-dashes,.f1-wheel,.f1-line,.f1-carA,.f1-carA-bob,.f1-carB,.f1-carB-bob,.f1-truck,.f1-flag{animation:none}}
   .wishlist-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
   .wish-card{margin:0;background:#fff;border-radius:16px;overflow:hidden;box-shadow:var(--shadow);
     border:3px solid transparent;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
@@ -868,6 +895,109 @@
           <p class="creator-footer">Built by Vihaan, Age 7</p>
         </div>
       </article>
+    </div>
+
+    <div class="race-show" role="img" aria-label="Animation of Vihaan's LEGO F1 truck with the green AMR24 and blue RB20 race cars speeding down a track">
+      <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="f1sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1b3a6b"/><stop offset="100%" stop-color="#3a6fb0"/>
+          </linearGradient>
+          <pattern id="f1check" width="16" height="16" patternUnits="userSpaceOnUse">
+            <rect width="16" height="16" fill="#fff"/><rect width="8" height="8" fill="#111"/><rect x="8" y="8" width="8" height="8" fill="#111"/>
+          </pattern>
+        </defs>
+        <!-- sky + sun -->
+        <rect width="800" height="320" fill="url(#f1sky)"/>
+        <circle cx="690" cy="62" r="34" fill="#FFD23F" opacity="0.95"/>
+        <circle cx="690" cy="62" r="48" fill="#FFD23F" opacity="0.2"/>
+        <!-- distant hills -->
+        <path d="M0 210 Q150 150 320 205 T800 195 L800 320 L0 320 Z" fill="#274d2a" opacity="0.55"/>
+        <!-- grandstand -->
+        <rect x="40" y="150" width="720" height="40" rx="6" fill="#11294d"/>
+        <g fill="#9fb6d6" opacity="0.8">
+          <circle cx="80" cy="170" r="3"/><circle cx="110" cy="168" r="3"/><circle cx="150" cy="171" r="3"/><circle cx="200" cy="167" r="3"/><circle cx="260" cy="170" r="3"/><circle cx="330" cy="168" r="3"/><circle cx="430" cy="171" r="3"/><circle cx="520" cy="168" r="3"/><circle cx="600" cy="170" r="3"/><circle cx="690" cy="168" r="3"/>
+        </g>
+        <!-- road -->
+        <rect x="0" y="200" width="800" height="120" fill="#2b2f36"/>
+        <rect x="0" y="200" width="800" height="6" fill="#c63a3a"/><rect x="0" y="200" width="800" height="6" fill="url(#f1check)" opacity="0.25"/>
+        <!-- moving lane dashes -->
+        <g class="f1-dashes">
+          <g fill="#FFD23F">
+            <rect x="0" y="256" width="70" height="9" rx="4"/><rect x="160" y="256" width="70" height="9" rx="4"/><rect x="320" y="256" width="70" height="9" rx="4"/><rect x="480" y="256" width="70" height="9" rx="4"/><rect x="640" y="256" width="70" height="9" rx="4"/><rect x="800" y="256" width="70" height="9" rx="4"/><rect x="960" y="256" width="70" height="9" rx="4"/>
+          </g>
+        </g>
+        <!-- speed lines -->
+        <g stroke="#bcd2f2" stroke-width="4" stroke-linecap="round" opacity="0.7">
+          <line class="f1-line" x1="820" y1="226" x2="880" y2="226"/>
+          <line class="f1-line" x1="820" y1="240" x2="880" y2="240" style="animation-delay:.35s"/>
+          <line class="f1-line" x1="820" y1="288" x2="880" y2="288" style="animation-delay:.7s"/>
+          <line class="f1-line" x1="820" y1="300" x2="880" y2="300" style="animation-delay:.15s"/>
+        </g>
+
+        <!-- ===== TRUCK (behind) ===== -->
+        <g transform="translate(40,120)"><g class="f1-truck">
+          <!-- trailer -->
+          <rect x="60" y="14" width="300" height="86" rx="8" fill="#15171c"/>
+          <rect x="60" y="14" width="300" height="20" rx="8" fill="#c63a3a"/>
+          <text x="300" y="78" font-family="Arial Black,Arial" font-weight="900" font-size="34" fill="#c63a3a" text-anchor="middle">F1</text>
+          <!-- cab -->
+          <path d="M360 40 h54 q14 0 18 14 l8 30 q2 16 -14 16 h-66 z" fill="#1d1f25"/>
+          <rect x="372" y="46" width="40" height="24" rx="4" fill="#7fb4e8"/>
+          <rect x="360" y="86" width="84" height="14" fill="#c63a3a"/>
+          <!-- wheels -->
+          <g fill="#111"><circle class="f1-wheel" cx="120" cy="104" r="17"/><circle class="f1-wheel" cx="180" cy="104" r="17"/><circle class="f1-wheel" cx="300" cy="104" r="17"/><circle class="f1-wheel" cx="404" cy="104" r="17"/></g>
+          <g fill="#FFD23F"><circle cx="120" cy="104" r="6"/><circle cx="180" cy="104" r="6"/><circle cx="300" cy="104" r="6"/><circle cx="404" cy="104" r="6"/></g>
+        </g></g>
+
+        <!-- ===== GREEN CAR (AMR24) ===== -->
+        <g transform="translate(150,236)"><g class="f1-carA">
+          <g class="f1-carA-bob">
+            <!-- rear wing -->
+            <rect x="-4" y="-26" width="10" height="26" fill="#0c5c3a"/><rect x="-10" y="-30" width="26" height="7" rx="2" fill="#0c5c3a"/>
+            <!-- body -->
+            <path d="M6 0 L18 -16 Q40 -22 70 -20 L120 -14 Q150 -12 168 0 Z" fill="#1aa05f"/>
+            <!-- nose -->
+            <path d="M168 0 L210 -3 L210 2 L168 6 Z" fill="#1aa05f"/>
+            <!-- front wing -->
+            <rect x="200" y="-2" width="22" height="7" rx="2" fill="#0c5c3a"/>
+            <!-- cockpit + helmet -->
+            <path d="M60 -19 q14 -12 30 -1 Z" fill="#0c5c3a"/>
+            <circle cx="74" cy="-19" r="8" fill="#FFD23F"/><rect x="68" y="-21" width="12" height="4" fill="#111"/>
+            <!-- halo -->
+            <path d="M58 -18 Q74 -34 92 -18" fill="none" stroke="#0c5c3a" stroke-width="3"/>
+            <!-- wheels -->
+            <circle class="f1-wheel" cx="46" cy="2" r="15" fill="#111"/><circle cx="46" cy="2" r="5" fill="#c9c9c9"/>
+            <circle class="f1-wheel" cx="150" cy="2" r="15" fill="#111"/><circle cx="150" cy="2" r="5" fill="#c9c9c9"/>
+          </g>
+        </g></g>
+
+        <!-- ===== BLUE CAR (RB20) ===== -->
+        <g transform="translate(420,250)"><g class="f1-carB">
+          <g class="f1-carB-bob">
+            <rect x="-4" y="-26" width="10" height="26" fill="#0a2a6b"/><rect x="-10" y="-30" width="26" height="7" rx="2" fill="#0a2a6b"/>
+            <path d="M6 0 L18 -16 Q40 -22 70 -20 L120 -14 Q150 -12 168 0 Z" fill="#1e44b8"/>
+            <path d="M168 0 L210 -3 L210 2 L168 6 Z" fill="#1e44b8"/>
+            <!-- red accent -->
+            <path d="M40 -18 L120 -15 L120 -10 L40 -12 Z" fill="#d11a2a"/>
+            <rect x="200" y="-2" width="22" height="7" rx="2" fill="#0a2a6b"/>
+            <circle cx="74" cy="-19" r="8" fill="#FFD23F"/><rect x="68" y="-21" width="12" height="4" fill="#111"/>
+            <path d="M58 -18 Q74 -34 92 -18" fill="none" stroke="#0a2a6b" stroke-width="3"/>
+            <circle class="f1-wheel" cx="46" cy="2" r="15" fill="#111"/><circle cx="46" cy="2" r="5" fill="#c9c9c9"/>
+            <circle class="f1-wheel" cx="150" cy="2" r="15" fill="#111"/><circle cx="150" cy="2" r="5" fill="#c9c9c9"/>
+          </g>
+        </g></g>
+
+        <!-- finish flag -->
+        <g transform="translate(742,150)">
+          <rect x="0" y="0" width="5" height="120" fill="#ddd"/>
+          <rect class="f1-flag" x="5" y="2" width="44" height="30" fill="url(#f1check)"/>
+        </g>
+      </svg>
+      <div class="race-cap">
+        <span>🏎️ Race Day! The F1 truck delivered the cars — now they're flat out!</span>
+        <span class="race-legend"><span><span class="dot" style="background:#1aa05f"></span>AMR24</span><span><span class="dot" style="background:#1e44b8"></span>RB20</span></span>
+      </div>
     </div>
 
     <h3 class="lego-group-title">🧱 Builds I Want to Try</h3>
