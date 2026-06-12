@@ -354,6 +354,13 @@
     padding:12px 16px;color:#fff;font-family:'Baloo 2';font-weight:800}
   .race-cap .race-legend{display:flex;gap:14px;font-size:.9rem;font-weight:700;opacity:.95}
   .race-cap .dot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+  .race-toggle{margin-left:auto;cursor:pointer;border:none;border-radius:999px;padding:8px 16px;
+    font-family:'Baloo 2';font-weight:800;font-size:.92rem;color:#0B1E3A;background:var(--yellow);
+    box-shadow:0 3px 0 rgba(0,0,0,.25);transition:transform .12s ease,filter .12s ease}
+  .race-toggle:hover{filter:brightness(1.05)}
+  .race-toggle:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.25)}
+  .race-toggle:focus-visible{outline:3px solid #fff;outline-offset:2px}
+  .race-show.paused svg *{animation-play-state:paused}
   @keyframes f1-roadDash{from{transform:translateX(0)}to{transform:translateX(-160px)}}
   @keyframes f1-speed{from{transform:translateX(60px);opacity:0}10%{opacity:.9}to{transform:translateX(-860px);opacity:0}}
   @keyframes f1-spin{to{transform:rotate(360deg)}}
@@ -997,6 +1004,7 @@
       <div class="race-cap">
         <span>🏎️ Race Day! The F1 truck delivered the cars — now they're flat out!</span>
         <span class="race-legend"><span><span class="dot" style="background:#1aa05f"></span>AMR24</span><span><span class="dot" style="background:#1e44b8"></span>RB20</span></span>
+        <button type="button" class="race-toggle" id="raceToggle" aria-pressed="true" aria-label="Pause the race animation">⏸️ Pause</button>
       </div>
     </div>
 
@@ -1461,6 +1469,18 @@
   const menu = document.getElementById('menu');
   menuBtn.addEventListener('click', () => menu.classList.toggle('open'));
   menu.addEventListener('click', e => { if (e.target.tagName === 'A') menu.classList.remove('open'); });
+
+  // F1 race animation play/pause toggle
+  const raceToggle = document.getElementById('raceToggle');
+  if (raceToggle) {
+    const raceShow = raceToggle.closest('.race-show');
+    raceToggle.addEventListener('click', () => {
+      const paused = raceShow.classList.toggle('paused');
+      raceToggle.textContent = paused ? '▶️ Play' : '⏸️ Pause';
+      raceToggle.setAttribute('aria-pressed', String(!paused));
+      raceToggle.setAttribute('aria-label', paused ? 'Play the race animation' : 'Pause the race animation');
+    });
+  }
 
   // Premium navbar: add elevation once the page is scrolled
   (function navScroll(){
