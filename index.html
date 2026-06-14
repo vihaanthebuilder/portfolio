@@ -385,7 +385,18 @@
   .mc-cloud1{animation:mc-cloud 5s ease-in-out infinite alternate}
   .mc-cloud2{animation:mc-cloud 7s ease-in-out infinite alternate}
   .mc-heart{animation:mc-bounce 1.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
-  @media (prefers-reduced-motion:reduce){.mc-golem,.mc-arm,.mc-skel,.mc-flash,.mc-spark,.mc-arrow,.mc-cloud1,.mc-cloud2,.mc-heart,.mc-knock,.mc-ghit,.mc-gspark{animation:none}}
+  /* health drain: red fill fades out when its owner is hit, refills on loop restart */
+  @keyframes mc-hp-g3{0%,15%{opacity:1}16%,100%{opacity:0}}
+  @keyframes mc-hp-g2{0%,49%{opacity:1}50%,100%{opacity:0}}
+  @keyframes mc-hp-g1{0%,82%{opacity:1}83%,100%{opacity:0}}
+  @keyframes mc-hp-s2{0%,33%{opacity:1}34%,100%{opacity:0}}
+  @keyframes mc-hp-s1{0%,83%{opacity:1}84%,100%{opacity:0}}
+  .mc-hp-g3{animation:mc-hp-g3 6.6s linear infinite}
+  .mc-hp-g2{animation:mc-hp-g2 6.6s linear infinite}
+  .mc-hp-g1{animation:mc-hp-g1 6.6s linear infinite}
+  .mc-hp-s2{animation:mc-hp-s2 3.6s linear infinite}
+  .mc-hp-s1{animation:mc-hp-s1 3.6s linear infinite}
+  @media (prefers-reduced-motion:reduce){.mc-golem,.mc-arm,.mc-skel,.mc-flash,.mc-spark,.mc-arrow,.mc-cloud1,.mc-cloud2,.mc-heart,.mc-knock,.mc-ghit,.mc-gspark,.mc-hp-g1,.mc-hp-g2,.mc-hp-g3,.mc-hp-s1,.mc-hp-s2{animation:none}}
   @keyframes f1-roadDash{from{transform:translateX(0)}to{transform:translateX(-160px)}}
   @keyframes f1-speed{from{transform:translateX(60px);opacity:0}10%{opacity:.9}to{transform:translateX(-860px);opacity:0}}
   @keyframes f1-spin{to{transform:rotate(360deg)}}
@@ -1069,16 +1080,27 @@
         <rect x="0" y="266" width="800" height="54" fill="#7a5230"/>
         <g fill="#664420" opacity="0.5"><rect x="40" y="278" width="14" height="14"/><rect x="160" y="296" width="14" height="14"/><rect x="300" y="280" width="14" height="14"/><rect x="470" y="298" width="14" height="14"/><rect x="640" y="282" width="14" height="14"/><rect x="730" y="298" width="14" height="14"/></g>
 
-        <!-- hearts above golem -->
-        <g fill="#e23b3b">
-          <path class="mc-heart" d="M150 96 l-9 -9 a5 5 0 0 1 9 -5 a5 5 0 0 1 9 5 z"/>
-          <path class="mc-heart" d="M176 96 l-9 -9 a5 5 0 0 1 9 -5 a5 5 0 0 1 9 5 z" style="animation-delay:.2s"/>
-          <path class="mc-heart" d="M202 96 l-9 -9 a5 5 0 0 1 9 -5 a5 5 0 0 1 9 5 z" style="animation-delay:.4s"/>
+        <!-- hearts above golem (drain right-to-left as arrows hit, then refill) -->
+        <g class="mc-heart">
+          <path d="M150 96 l-9 -9 a5 5 0 0 1 9 -5 a5 5 0 0 1 9 5 z" fill="#5b3030"/>
+          <path class="mc-hp-g1" d="M150 96 l-9 -9 a5 5 0 0 1 9 -5 a5 5 0 0 1 9 5 z" fill="#e23b3b"/>
         </g>
-        <!-- hearts above skeleton -->
-        <g fill="#e23b3b">
-          <path class="mc-heart" d="M590 96 l-9 -9 a5 5 0 0 1 9 -5 a5 5 0 0 1 9 5 z" style="animation-delay:.3s"/>
-          <path class="mc-heart" d="M616 96 l-9 -9 a5 5 0 0 1 9 -5 a5 5 0 0 1 9 5 z" style="animation-delay:.5s"/>
+        <g class="mc-heart" style="animation-delay:.2s">
+          <path d="M176 96 l-9 -9 a5 5 0 0 1 9 -5 a5 5 0 0 1 9 5 z" fill="#5b3030"/>
+          <path class="mc-hp-g2" d="M176 96 l-9 -9 a5 5 0 0 1 9 -5 a5 5 0 0 1 9 5 z" fill="#e23b3b"/>
+        </g>
+        <g class="mc-heart" style="animation-delay:.4s">
+          <path d="M202 96 l-9 -9 a5 5 0 0 1 9 -5 a5 5 0 0 1 9 5 z" fill="#5b3030"/>
+          <path class="mc-hp-g3" d="M202 96 l-9 -9 a5 5 0 0 1 9 -5 a5 5 0 0 1 9 5 z" fill="#e23b3b"/>
+        </g>
+        <!-- hearts above skeleton (drain as the golem's swing lands, then refill) -->
+        <g class="mc-heart" style="animation-delay:.3s">
+          <path d="M590 96 l-9 -9 a5 5 0 0 1 9 -5 a5 5 0 0 1 9 5 z" fill="#5b3030"/>
+          <path class="mc-hp-s1" d="M590 96 l-9 -9 a5 5 0 0 1 9 -5 a5 5 0 0 1 9 5 z" fill="#e23b3b"/>
+        </g>
+        <g class="mc-heart" style="animation-delay:.5s">
+          <path d="M616 96 l-9 -9 a5 5 0 0 1 9 -5 a5 5 0 0 1 9 5 z" fill="#5b3030"/>
+          <path class="mc-hp-s2" d="M616 96 l-9 -9 a5 5 0 0 1 9 -5 a5 5 0 0 1 9 5 z" fill="#e23b3b"/>
         </g>
 
         <!-- ===== GOLEM (left) ===== -->
