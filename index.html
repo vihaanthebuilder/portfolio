@@ -368,6 +368,9 @@
   @keyframes mc-flash{0%,60%{opacity:0}67%{opacity:.65}82%{opacity:0}100%{opacity:0}}
   @keyframes mc-spark{0%,60%{opacity:0;transform:scale(.2)}67%{opacity:1;transform:scale(1)}82%{opacity:0;transform:scale(1.4)}100%{opacity:0;transform:scale(1.4)}}
   @keyframes mc-arrow{0%{transform:translateX(0);opacity:0}8%{opacity:1}44%{transform:translateX(-330px);opacity:1}50%{transform:translateX(-330px);opacity:0}100%{transform:translateX(-330px);opacity:0}}
+  @keyframes mc-ghit{0%,38%{opacity:0}46%{opacity:.6}60%{opacity:0}100%{opacity:0}}
+  @keyframes mc-knock{0%,38%{transform:translateX(0)}47%{transform:translateX(-12px)}62%{transform:translateX(0)}100%{transform:translateX(0)}}
+  @keyframes mc-gspark{0%,38%{opacity:0;transform:scale(.2)}47%{opacity:1;transform:scale(1)}62%{opacity:0;transform:scale(1.4)}100%{opacity:0;transform:scale(1.4)}}
   @keyframes mc-cloud{0%{transform:translateX(0)}100%{transform:translateX(40px)}}
   @keyframes mc-bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
   .mc-golem{animation:mc-bob 1.6s ease-in-out infinite}
@@ -376,10 +379,13 @@
   .mc-flash{animation:mc-flash 1.8s ease-in-out infinite}
   .mc-spark{animation:mc-spark 1.8s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
   .mc-arrow{animation:mc-arrow 2.2s linear infinite}
+  .mc-knock{animation:mc-knock 2.2s linear infinite}
+  .mc-ghit{animation:mc-ghit 2.2s linear infinite}
+  .mc-gspark{animation:mc-gspark 2.2s linear infinite;transform-box:fill-box;transform-origin:center}
   .mc-cloud1{animation:mc-cloud 5s ease-in-out infinite alternate}
   .mc-cloud2{animation:mc-cloud 7s ease-in-out infinite alternate}
   .mc-heart{animation:mc-bounce 1.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
-  @media (prefers-reduced-motion:reduce){.mc-golem,.mc-arm,.mc-skel,.mc-flash,.mc-spark,.mc-arrow,.mc-cloud1,.mc-cloud2,.mc-heart{animation:none}}
+  @media (prefers-reduced-motion:reduce){.mc-golem,.mc-arm,.mc-skel,.mc-flash,.mc-spark,.mc-arrow,.mc-cloud1,.mc-cloud2,.mc-heart,.mc-knock,.mc-ghit,.mc-gspark{animation:none}}
   @keyframes f1-roadDash{from{transform:translateX(0)}to{transform:translateX(-160px)}}
   @keyframes f1-speed{from{transform:translateX(60px);opacity:0}10%{opacity:.9}to{transform:translateX(-860px);opacity:0}}
   @keyframes f1-spin{to{transform:rotate(360deg)}}
@@ -1076,7 +1082,7 @@
         </g>
 
         <!-- ===== GOLEM (left) ===== -->
-        <g class="mc-golem">
+        <g class="mc-knock"><g class="mc-golem">
           <!-- legs -->
           <rect x="138" y="214" width="22" height="40" fill="#9aa0a0"/>
           <rect x="176" y="214" width="22" height="40" fill="#9aa0a0"/>
@@ -1097,12 +1103,24 @@
             <rect x="206" y="150" width="17" height="58" fill="#aab0b0"/>
             <rect x="202" y="196" width="25" height="22" fill="#b7bdbd"/><!-- fist -->
           </g>
-        </g>
+          <!-- golem red damage flash (from arrow) — matches body silhouette -->
+          <g class="mc-ghit" fill="#ff3b3b">
+            <rect x="138" y="214" width="22" height="40"/><rect x="176" y="214" width="22" height="40"/>
+            <rect x="126" y="150" width="84" height="66"/>
+            <rect x="108" y="152" width="16" height="56"/>
+            <rect x="142" y="110" width="52" height="42"/>
+          </g>
+        </g></g>
 
-        <!-- impact spark near skeleton -->
+        <!-- impact spark near skeleton (golem's punch) -->
         <g class="mc-spark" transform="translate(548,176)">
           <path d="M0 -16 L4 -4 L16 0 L4 4 L0 16 L-4 4 L-16 0 L-4 -4 Z" fill="#fff7c2"/>
           <path d="M0 -9 L3 -3 L9 0 L3 3 L0 9 L-3 3 L-9 0 L-3 -3 Z" fill="#ffd23f"/>
+        </g>
+        <!-- impact spark on golem (skeleton's arrow) -->
+        <g class="mc-gspark" transform="translate(214,176)">
+          <path d="M0 -15 L4 -4 L15 0 L4 4 L0 15 L-4 4 L-15 0 L-4 -4 Z" fill="#fff7c2"/>
+          <path d="M0 -8 L3 -3 L8 0 L3 3 L0 8 L-3 3 L-8 0 L-3 -3 Z" fill="#ff7a3f"/>
         </g>
 
         <!-- ===== SKELETON (right) ===== -->
