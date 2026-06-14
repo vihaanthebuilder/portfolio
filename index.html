@@ -361,6 +361,25 @@
   .race-toggle:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.25)}
   .race-toggle:focus-visible{outline:3px solid #fff;outline-offset:2px}
   .race-show.paused svg *{animation-play-state:paused}
+  /* Golem vs Skeleton (Minecraft) battle */
+  @keyframes mc-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+  @keyframes mc-swing{0%,50%{transform:rotate(-12deg)}66%{transform:rotate(-92deg)}82%{transform:rotate(-12deg)}100%{transform:rotate(-12deg)}}
+  @keyframes mc-shake{0%,60%{transform:translateX(0)}66%{transform:translateX(10px)}72%{transform:translateX(-4px)}78%{transform:translateX(6px)}84%{transform:translateX(0)}100%{transform:translateX(0)}}
+  @keyframes mc-flash{0%,60%{opacity:0}67%{opacity:.65}82%{opacity:0}100%{opacity:0}}
+  @keyframes mc-spark{0%,60%{opacity:0;transform:scale(.2)}67%{opacity:1;transform:scale(1)}82%{opacity:0;transform:scale(1.4)}100%{opacity:0;transform:scale(1.4)}}
+  @keyframes mc-arrow{0%{transform:translateX(0);opacity:0}8%{opacity:1}44%{transform:translateX(-330px);opacity:1}50%{transform:translateX(-330px);opacity:0}100%{transform:translateX(-330px);opacity:0}}
+  @keyframes mc-cloud{0%{transform:translateX(0)}100%{transform:translateX(40px)}}
+  @keyframes mc-bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+  .mc-golem{animation:mc-bob 1.6s ease-in-out infinite}
+  .mc-arm{animation:mc-swing 1.8s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 0}
+  .mc-skel{animation:mc-shake 1.8s ease-in-out infinite}
+  .mc-flash{animation:mc-flash 1.8s ease-in-out infinite}
+  .mc-spark{animation:mc-spark 1.8s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+  .mc-arrow{animation:mc-arrow 2.2s linear infinite}
+  .mc-cloud1{animation:mc-cloud 5s ease-in-out infinite alternate}
+  .mc-cloud2{animation:mc-cloud 7s ease-in-out infinite alternate}
+  .mc-heart{animation:mc-bounce 1.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+  @media (prefers-reduced-motion:reduce){.mc-golem,.mc-arm,.mc-skel,.mc-flash,.mc-spark,.mc-arrow,.mc-cloud1,.mc-cloud2,.mc-heart{animation:none}}
   @keyframes f1-roadDash{from{transform:translateX(0)}to{transform:translateX(-160px)}}
   @keyframes f1-speed{from{transform:translateX(60px);opacity:0}10%{opacity:.9}to{transform:translateX(-860px);opacity:0}}
   @keyframes f1-spin{to{transform:rotate(360deg)}}
@@ -1026,6 +1045,103 @@
       </div>
     </div>
 
+    <div class="race-show" role="img" aria-label="Animation of Vihaan's LEGO Golem battling a Minecraft skeleton: the golem swings its long arm while the skeleton shoots arrows">
+      <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg">
+        <!-- Minecraft sky -->
+        <rect width="800" height="320" fill="#7EC0EE"/>
+        <!-- sun (pixel) -->
+        <rect x="58" y="40" width="44" height="44" fill="#FCEE4B"/>
+        <!-- clouds (blocky) -->
+        <g class="mc-cloud1" fill="#ffffff">
+          <rect x="200" y="54" width="70" height="18"/><rect x="216" y="42" width="40" height="14"/>
+        </g>
+        <g class="mc-cloud2" fill="#f3f7ff">
+          <rect x="520" y="78" width="90" height="18"/><rect x="544" y="66" width="46" height="14"/>
+        </g>
+        <!-- ground: grass + dirt -->
+        <rect x="0" y="252" width="800" height="14" fill="#6cbb3c"/>
+        <rect x="0" y="266" width="800" height="54" fill="#7a5230"/>
+        <g fill="#664420" opacity="0.5"><rect x="40" y="278" width="14" height="14"/><rect x="160" y="296" width="14" height="14"/><rect x="300" y="280" width="14" height="14"/><rect x="470" y="298" width="14" height="14"/><rect x="640" y="282" width="14" height="14"/><rect x="730" y="298" width="14" height="14"/></g>
+
+        <!-- hearts above golem -->
+        <g fill="#e23b3b">
+          <path class="mc-heart" d="M150 96 l-9 -9 a5 5 0 0 1 9 -5 a5 5 0 0 1 9 5 z"/>
+          <path class="mc-heart" d="M176 96 l-9 -9 a5 5 0 0 1 9 -5 a5 5 0 0 1 9 5 z" style="animation-delay:.2s"/>
+          <path class="mc-heart" d="M202 96 l-9 -9 a5 5 0 0 1 9 -5 a5 5 0 0 1 9 5 z" style="animation-delay:.4s"/>
+        </g>
+        <!-- hearts above skeleton -->
+        <g fill="#e23b3b">
+          <path class="mc-heart" d="M590 96 l-9 -9 a5 5 0 0 1 9 -5 a5 5 0 0 1 9 5 z" style="animation-delay:.3s"/>
+          <path class="mc-heart" d="M616 96 l-9 -9 a5 5 0 0 1 9 -5 a5 5 0 0 1 9 5 z" style="animation-delay:.5s"/>
+        </g>
+
+        <!-- ===== GOLEM (left) ===== -->
+        <g class="mc-golem">
+          <!-- legs -->
+          <rect x="138" y="214" width="22" height="40" fill="#9aa0a0"/>
+          <rect x="176" y="214" width="22" height="40" fill="#9aa0a0"/>
+          <rect x="138" y="246" width="22" height="10" fill="#a060d0"/><!-- purple foot easter egg -->
+          <!-- torso -->
+          <rect x="126" y="150" width="84" height="66" fill="#b7bdbd"/>
+          <rect x="150" y="160" width="36" height="48" fill="#9aa0a0"/>
+          <!-- vines -->
+          <rect x="126" y="170" width="8" height="30" fill="#4a7a2a"/><rect x="202" y="176" width="8" height="26" fill="#4a7a2a"/>
+          <!-- far (back) arm, static -->
+          <rect x="108" y="152" width="16" height="56" fill="#9aa0a0"/>
+          <!-- head -->
+          <rect x="142" y="110" width="52" height="42" fill="#b7bdbd"/>
+          <rect x="152" y="124" width="12" height="10" fill="#3a3a3a"/><rect x="172" y="124" width="12" height="10" fill="#3a3a3a"/>
+          <rect x="162" y="134" width="12" height="14" fill="#c7a06a"/><!-- nose -->
+          <!-- attacking arm (swings) -->
+          <g class="mc-arm">
+            <rect x="206" y="150" width="17" height="58" fill="#aab0b0"/>
+            <rect x="202" y="196" width="25" height="22" fill="#b7bdbd"/><!-- fist -->
+          </g>
+        </g>
+
+        <!-- impact spark near skeleton -->
+        <g class="mc-spark" transform="translate(548,176)">
+          <path d="M0 -16 L4 -4 L16 0 L4 4 L0 16 L-4 4 L-16 0 L-4 -4 Z" fill="#fff7c2"/>
+          <path d="M0 -9 L3 -3 L9 0 L3 3 L0 9 L-3 3 L-9 0 L-3 -3 Z" fill="#ffd23f"/>
+        </g>
+
+        <!-- ===== SKELETON (right) ===== -->
+        <g class="mc-skel">
+          <!-- red damage flash overlay -->
+          <!-- legs -->
+          <rect x="598" y="216" width="12" height="38" fill="#d7d7d7"/>
+          <rect x="620" y="216" width="12" height="38" fill="#d7d7d7"/>
+          <!-- pelvis/ribs -->
+          <rect x="596" y="158" width="40" height="60" fill="#e3e3e3"/>
+          <g fill="#b9b9b9"><rect x="600" y="168" width="32" height="5"/><rect x="600" y="180" width="32" height="5"/><rect x="600" y="192" width="32" height="5"/><rect x="612" y="158" width="6" height="58"/></g>
+          <!-- arms -->
+          <rect x="582" y="160" width="12" height="44" fill="#d7d7d7"/><!-- bow arm -->
+          <rect x="636" y="160" width="12" height="40" fill="#d7d7d7"/>
+          <!-- skull -->
+          <rect x="596" y="118" width="42" height="40" fill="#eaeaea"/>
+          <rect x="603" y="130" width="10" height="11" fill="#222"/><rect x="621" y="130" width="10" height="11" fill="#222"/>
+          <rect x="606" y="148" width="22" height="5" fill="#999"/>
+          <!-- bow (facing golem) -->
+          <path d="M576 150 q-16 25 0 50" fill="none" stroke="#6b4423" stroke-width="5"/>
+          <line x1="576" y1="150" x2="576" y2="200" stroke="#efefef" stroke-width="1.5"/>
+          <!-- red flash -->
+          <rect class="mc-flash" x="594" y="116" width="46" height="140" fill="#ff3b3b"/>
+        </g>
+
+        <!-- arrow flying toward golem -->
+        <g transform="translate(560,174)"><g class="mc-arrow">
+          <rect x="-30" y="-2" width="30" height="4" fill="#6b4423"/>
+          <path d="M-30 0 L-22 -6 L-22 6 Z" fill="#c8c8c8"/>
+          <rect x="0" y="-3" width="6" height="6" fill="#efefef"/>
+        </g></g>
+      </svg>
+      <div class="race-cap">
+        <span>⚔️ Golem vs. Skeleton — a Minecraft battle! The Golem swings while the Skeleton fires arrows.</span>
+        <span class="race-legend"><span><span class="dot" style="background:#b7bdbd"></span>Golem</span><span><span class="dot" style="background:#eaeaea;border:1px solid #aaa"></span>Skeleton</span></span>
+        <button type="button" class="race-toggle" id="battleToggle" aria-pressed="true" aria-label="Pause the battle animation">⏸️ Pause</button>
+      </div>
+    </div>
+
     <h3 class="lego-group-title">🧱 Builds I Want to Try</h3>
     <p class="lego-hint">Sets and ideas on my wishlist to build next!</p>
     <div class="wishlist-grid">
@@ -1488,17 +1604,17 @@
   menuBtn.addEventListener('click', () => menu.classList.toggle('open'));
   menu.addEventListener('click', e => { if (e.target.tagName === 'A') menu.classList.remove('open'); });
 
-  // F1 race animation play/pause toggle
-  const raceToggle = document.getElementById('raceToggle');
-  if (raceToggle) {
-    const raceShow = raceToggle.closest('.race-show');
-    raceToggle.addEventListener('click', () => {
-      const paused = raceShow.classList.toggle('paused');
-      raceToggle.textContent = paused ? '▶️ Play' : '⏸️ Pause';
-      raceToggle.setAttribute('aria-pressed', String(!paused));
-      raceToggle.setAttribute('aria-label', paused ? 'Play the race animation' : 'Pause the race animation');
+  // Animated scenes (F1 race, Golem battle) play/pause toggles
+  document.querySelectorAll('.race-toggle').forEach(btn => {
+    const show = btn.closest('.race-show');
+    if (!show) return;
+    btn.addEventListener('click', () => {
+      const paused = show.classList.toggle('paused');
+      btn.textContent = paused ? '▶️ Play' : '⏸️ Pause';
+      btn.setAttribute('aria-pressed', String(!paused));
+      btn.setAttribute('aria-label', paused ? 'Play the animation' : 'Pause the animation');
     });
-  }
+  });
 
   // Premium navbar: add elevation once the page is scrolled
   (function navScroll(){
