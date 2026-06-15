@@ -575,6 +575,14 @@
   .nb-del{border:none;background:none;color:var(--red);font-size:1.1rem;font-weight:800;cursor:pointer;
     padding:0 12px;flex:0 0 auto;opacity:.5;transition:.15s}
   .nb-del:hover{opacity:1;transform:scale(1.2)}
+  .nb-review{background:#fff;border:1px solid #ffe9a8;border-radius:var(--radius);padding:24px;max-width:760px;margin-top:22px}
+  .nb-review h3{font-family:'Baloo 2';color:var(--ink);margin:0 0 4px}
+  .nb-review .rev-sub{color:var(--muted);margin:0 0 16px}
+  .nb-review ul{list-style:none;display:flex;flex-direction:column;gap:10px;margin:0;padding:0}
+  .nb-review li{display:flex;gap:11px;align-items:flex-start;background:var(--cream);border-radius:12px;
+    padding:12px 15px;font-weight:600;color:var(--ink);line-height:1.45}
+  .nb-review li .rev-ic{flex:0 0 auto;font-size:1.15rem;line-height:1.3}
+  .nb-review li b{color:var(--blue)}
   .nb-add{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
   .nb-add input{flex:1;min-width:180px;border:2px solid #ffe0a0;border-radius:12px;padding:11px 14px;
     font-size:1rem;font-family:'Nunito',sans-serif;color:var(--ink)}
@@ -1362,6 +1370,22 @@
         <input type="text" id="nbInput" placeholder="Add a new coach note…" maxlength="120">
         <button type="submit" class="btn btn-red">➕ Add Note</button>
       </form>
+    </div>
+
+    <div class="nb-review">
+      <h3>📝 My Game Review (Rapid Games)</h3>
+      <p class="rev-sub">The big things my coach showed me when we looked at my games together.</p>
+      <ul>
+        <li><span class="rev-ic">♘</span><span>I moved the same knight back and forth in the opening — that wastes time. <b>Develop all my pieces!</b></span></li>
+        <li><span class="rev-ic">⚠️</span><span>Taking on <b>g5</b> was a trap, and <b>Bxd4</b> lost material — <b>Bg4</b> would have kept me safe.</span></li>
+        <li><span class="rev-ic">♛</span><span>In the <b>Scandinavian (1.e4 d5)</b>, bringing my queen out early gave away tempo.</span></li>
+        <li><span class="rev-ic">🛡️</span><span>When my opponent attacks my king (threats on <b>h2</b>), defend in time — <b>f4</b> was the best move there.</span></li>
+        <li><span class="rev-ic">🏰</span><span>I missed <b>free rooks</b> more than once! Always scan for pieces I can just grab.</span></li>
+        <li><span class="rev-ic">🚫</span><span>Moves like <b>a6</b> and <b>b3</b> had no plan — every move should develop or make a threat.</span></li>
+        <li><span class="rev-ic">⏱️</span><span>In 30-minute games, take <b>20–30 seconds a move</b> to calculate before I play.</span></li>
+        <li><span class="rev-ic">✂️</span><span>Use tactics like <b>forks</b> to win material and trade down when I'm ahead.</span></li>
+        <li><span class="rev-ic">🤝</span><span>Know when it's a draw — a messy or equal spot can end in <b>threefold repetition</b>.</span></li>
+      </ul>
     </div>
   </div>
 </section>
@@ -2861,9 +2885,15 @@
       {t:"Always grab free pieces — don't miss a hanging rook!", d:false},
       {t:"Before each move, check 2–3 of my opponent's replies", d:false},
       {t:"Hunt for tactics: forks, pins, rook lifts and mating nets", d:false},
-      {t:"Slow down when I'm winning so I don't blunder", d:false}
+      {t:"Slow down when I'm winning so I don't blunder", d:false},
+      // From my tactics class with UA_Chirag (June 2026)
+      {t:"Calculate the whole line before I move — don't guess", d:false},
+      {t:"A check isn't mate if my opponent has a quiet defense (like Bf5)", d:false},
+      {t:"In a mating net, take away the king's escape squares first", d:false},
+      {t:"Play real opponents, not the computer", d:false},
+      {t:"Do puzzle streaks to sharpen my tactics", d:false}
     ];
-    const SEED_V = 2; // bump when adding new SEED notes so returning visitors get them
+    const SEED_V = 3; // bump when adding new SEED notes so returning visitors get them
     let notes;
     try { notes = JSON.parse(localStorage.getItem('chessNotes')); } catch(e){ notes=null; }
     if (!Array.isArray(notes)) {
