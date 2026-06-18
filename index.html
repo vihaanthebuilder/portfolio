@@ -346,6 +346,9 @@
   .lego-hint{color:var(--muted);font-weight:700;margin:-6px 0 18px;font-size:.92rem}
   .lego-group-title{font-family:'Baloo 2';font-size:1.4rem;color:var(--ink);margin:30px 0 16px}
   .lego-group-title:first-of-type{margin-top:4px}
+  .build-count{display:inline-flex;align-items:center;gap:8px;background:var(--cream);border:1px solid #ffe0a0;
+    border-radius:999px;padding:8px 16px;font-family:'Baloo 2';font-weight:700;color:var(--ink);margin:2px 0 8px;font-size:1.02rem}
+  .build-count b{color:var(--blue);font-size:1.15rem}
   /* F1 race animation */
   .race-show{margin:6px 0 4px;background:linear-gradient(180deg,#0B1E3A,#16305a);border-radius:20px;
     overflow:hidden;box-shadow:var(--shadow-lg);border:3px solid var(--yellow)}
@@ -791,6 +794,7 @@
       <span class="chip">Build Zone</span>
       <h2><img src="images/logos/lego.svg" alt="LEGO" class="head-logo"> LEGO Lab</h2>
     </div>
+    <div class="build-count">🧱 <b id="legoBuildCount">12</b> builds and counting!</div>
     <p class="lego-hint">👆 Tap a build to see it full screen</p>
     <h3 class="lego-group-title">🌍 Wonders of the World</h3>
     <div class="grid lego-grid">
@@ -1873,6 +1877,14 @@
     closeBtn.addEventListener('click', close);
     modal.addEventListener('click', e => { if (e.target === modal) close(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) close(); });
+  })();
+
+  // LEGO build counter — keeps the "X builds and counting!" badge accurate
+  (function legoBuildCount(){
+    const el = document.getElementById('legoBuildCount');
+    if (!el) return;
+    const n = document.querySelectorAll('#lego .lego-card').length;
+    if (n) el.textContent = n;
   })();
 
   // Live Lichess data — fetch current ratings from the public API
