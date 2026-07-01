@@ -268,6 +268,18 @@
   /* ---- Comic Creator ---- */
   .games-subhead{font-family:'Baloo 2';font-size:1.4rem;color:var(--ink);text-align:center;margin:40px 0 6px}
   .games-sub-note{text-align:center;color:var(--muted);margin-bottom:18px}
+  .war-box{max-width:400px;margin:0 auto;background:#0b6b3a;border:4px solid #094f2c;border-radius:18px;padding:20px 18px;text-align:center;color:#fff}
+  .war-row{display:flex;justify-content:space-around;align-items:center;gap:12px;margin:14px 0}
+  .war-side{flex:1}
+  .war-side h4{font-family:'Baloo 2';font-size:1.05rem;margin-bottom:8px;color:#fff}
+  .war-card{width:90px;height:124px;margin:0 auto;background:#fff;border-radius:10px;display:flex;
+    flex-direction:column;align-items:center;justify-content:center;box-shadow:0 4px 0 rgba(0,0,0,.25)}
+  .war-card .r{font-family:'Baloo 2';font-size:2rem;font-weight:800;line-height:1}
+  .war-card .s{font-size:1.7rem;line-height:1}
+  .war-card.back{background:repeating-linear-gradient(45deg,#c0392b,#c0392b 8px,#a5312260 8px,#a53122 16px);color:#fff}
+  .war-count{font-family:'Baloo 2';font-weight:800;font-size:1.05rem;margin-top:8px}
+  .war-msg{min-height:28px;font-family:'Baloo 2';font-weight:800;font-size:1.15rem;margin:12px 0}
+  .war-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
   .comic-maker{max-width:680px;margin:0 auto;background:#fff;border-radius:20px;
     box-shadow:var(--shadow);padding:20px}
   .comic-title-input{width:100%;font-family:'Baloo 2';font-weight:800;font-size:1.2rem;
@@ -1731,6 +1743,28 @@
       </div>
     </div>
 
+    <h3 class="games-subhead">🦖 Dino War</h3>
+    <p class="games-sub-note">Dinosaur card battle! Flip a dino each — the higher power number wins both cards. A tie starts a <b>War</b>! First to grab all 52 dinos wins.</p>
+    <div class="war-box" id="warBox">
+      <div class="war-row">
+        <div class="war-side">
+          <h4>🤖 Computer</h4>
+          <div class="war-card back" id="warComp"><span class="s">🥚</span></div>
+          <div class="war-count"><span id="warCompCount">26</span> dinos</div>
+        </div>
+        <div class="war-side">
+          <h4>🧑 You</h4>
+          <div class="war-card back" id="warYou"><span class="s">🥚</span></div>
+          <div class="war-count"><span id="warYouCount">26</span> dinos</div>
+        </div>
+      </div>
+      <div class="war-msg" id="warMsg">Press Flip to start the battle!</div>
+      <div class="war-actions">
+        <button type="button" id="warFlip" class="btn btn-yellow">⚔️ Flip!</button>
+        <button type="button" id="warReset" class="btn btn-white">🔄 New Game</button>
+      </div>
+    </div>
+
     <h3 class="games-subhead" id="comicsHead" style="display:none">📚 My Comics</h3>
     <div class="comics-gallery" id="comicsGallery"></div>
   </div>
@@ -1934,6 +1968,80 @@
     if (!el) return;
     const n = document.querySelectorAll('#lego .lego-card').length;
     if (n) el.textContent = n;
+  })();
+
+  // War — classic card game (you vs computer)
+  (function warGame(){
+    const box = document.getElementById('warBox');
+    if (!box) return;
+    const youEl = document.getElementById('warYou'), compEl = document.getElementById('warComp');
+    const youCount = document.getElementById('warYouCount'), compCount = document.getElementById('warCompCount');
+    const msg = document.getElementById('warMsg'), flipBtn = document.getElementById('warFlip'), resetBtn = document.getElementById('warReset');
+    const DINOS = ['🦖','🦕','🐊','🦎'], RANKS = {11:'J',12:'Q',13:'K',14:'A'};
+    let you = [], comp = [], busy = false;
+
+    function newDeck(){
+      const d = [];
+      for (let s=0; s<4; s++) for (let v=2; v<=14; v++) d.push({v, suit:DINOS[s]});
+      for (let i=d.length-1; i>0; i--){ const j=Math.floor(Math.random()*(i+1)); [d[i],d[j]]=[d[j],d[i]]; }
+      return d;
+    }
+    function label(v){ return RANKS[v] || String(v); }
+    function paint(el, card){
+      if (!card){ el.className='war-card back'; el.innerHTML='<span class="s">🥚</span>'; return; }
+      el.className='war-card';
+      el.innerHTML = '<span class="s">'+card.suit+'</span><span class="r" style="color:#0b6b3a">'+label(card.v)+'</span>';
+    }
+    function counts(){ youCount.textContent=you.length; compCount.textContent=comp.length; }
+    function reset(){
+      const d = newDeck(); you = d.slice(0,26); comp = d.slice(26);
+      busy=false; counts(); paint(youEl,null); paint(compEl,null);
+      msg.textContent='Press Flip to start the battle!'; flipBtn.disabled=false;
+    }
+    function endCheck(){
+      if (you.length===0 || comp.length===0){
+        flipBtn.disabled=true;
+        msg.textContent = you.length>comp.length ? '🏆 You win the whole game! 🎉' : '🤖 Computer wins the game! Try again!';
+        return true;
+      }
+      return false;
+    }
+    function flip(){
+      if (busy || !you.length || !comp.length) return;
+      busy=true; flipBtn.disabled=true;
+      const yc = you.shift(), cc = comp.shift();
+      paint(youEl, yc); paint(compEl, cc); counts();
+      const pot = [yc, cc];
+      if (yc.v > cc.v){ msg.textContent='You win the round! ⚔️'; you.push(...pot); }
+      else if (cc.v > yc.v){ msg.textContent='Computer wins the round.'; comp.push(...pot); }
+      else { return doWar(pot); }
+      counts();
+      setTimeout(()=>{ busy=false; if(!endCheck()) flipBtn.disabled=false; }, 650);
+    }
+    function doWar(pot){
+      msg.textContent='⚔️ WAR! Cards down… flip again!';
+      // each puts up to 3 face-down + 1 face-up; if not enough, use what's left
+      const yDown = you.splice(0, Math.min(3, Math.max(0, you.length-1)));
+      const cDown = comp.splice(0, Math.min(3, Math.max(0, comp.length-1)));
+      pot.push(...yDown, ...cDown);
+      counts();
+      setTimeout(()=>{
+        if (!you.length || !comp.length){ // ran out mid-war — bigger army takes the pot
+          (you.length>=comp.length ? you : comp).push(...pot);
+          counts(); busy=false; endCheck() || (flipBtn.disabled=false); return;
+        }
+        const yc = you.shift(), cc = comp.shift();
+        paint(youEl, yc); paint(compEl, cc); pot.push(yc, cc); counts();
+        if (yc.v > cc.v){ msg.textContent='You won the WAR! 🎉'; you.push(...pot); }
+        else if (cc.v > yc.v){ msg.textContent='Computer won the WAR.'; comp.push(...pot); }
+        else { return doWar(pot); }
+        counts();
+        setTimeout(()=>{ busy=false; if(!endCheck()) flipBtn.disabled=false; }, 700);
+      }, 800);
+    }
+    flipBtn.addEventListener('click', flip);
+    resetBtn.addEventListener('click', reset);
+    reset();
   })();
 
   // Live Lichess data — fetch current ratings from the public API
