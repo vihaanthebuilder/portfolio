@@ -365,6 +365,12 @@
   .fact-card{background:var(--cream);border:1px solid #ffe9a8;border-radius:16px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start}
   .fact-card .fact-ic{font-size:1.7rem;flex:0 0 auto;line-height:1.2}
   .fact-card p{margin:0;color:var(--ink);font-weight:600;line-height:1.45}
+  .boat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px;margin-bottom:8px}
+  .boat-card{background:linear-gradient(180deg,#cdeafd,#8ec7ee);border:1px solid #a9d5f5;border-radius:16px;
+    padding:20px 12px;text-align:center;box-shadow:var(--shadow);transition:transform .18s ease}
+  .boat-card:hover{transform:translateY(-4px)}
+  .boat-card .b-em{font-size:2.6rem;line-height:1;display:block}
+  .boat-card .b-name{font-family:'Baloo 2';font-weight:800;color:#0d3b66;margin-top:10px;font-size:1rem;line-height:1.2;display:block}
   /* F1 race animation */
   .race-show{margin:6px 0 4px;background:linear-gradient(180deg,#0B1E3A,#16305a);border-radius:20px;
     overflow:hidden;box-shadow:var(--shadow-lg);border:3px solid var(--yellow)}
@@ -1143,6 +1149,21 @@
           <p class="creator-footer">Built by Vihaan, Age 8</p>
         </div>
       </article>
+    </div>
+
+    <h3 class="lego-group-title">🚢 Build It! Things That Float</h3>
+    <p class="lego-hint">10 boats I built following the "Build It! Things That Float" book from the Bentonville Library! ⛵</p>
+    <div class="boat-grid">
+      <div class="boat-card"><span class="b-em">🛶</span><span class="b-name">Skiff</span></div>
+      <div class="boat-card"><span class="b-em">🚤</span><span class="b-name">Red Speed Boat</span></div>
+      <div class="boat-card"><span class="b-em">⛵</span><span class="b-name">Catamaran</span></div>
+      <div class="boat-card"><span class="b-em">🛥️</span><span class="b-name">Yacht</span></div>
+      <div class="boat-card"><span class="b-em">🚤</span><span class="b-name">Jet Boat</span></div>
+      <div class="boat-card"><span class="b-em">🛢️</span><span class="b-name">Oil Tanker</span></div>
+      <div class="boat-card"><span class="b-em">⛵</span><span class="b-name">Trimaran</span></div>
+      <div class="boat-card"><span class="b-em">🛥️</span><span class="b-name">Super Yacht</span></div>
+      <div class="boat-card"><span class="b-em">🌊</span><span class="b-name">Blue Jet Ski</span></div>
+      <div class="boat-card"><span class="b-em">🛥️</span><span class="b-name">Big Yacht</span></div>
     </div>
 
     <h3 class="lego-group-title">🔭 Mini Builds</h3>
