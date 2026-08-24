@@ -365,12 +365,18 @@
   .fact-card{background:var(--cream);border:1px solid #ffe9a8;border-radius:16px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start}
   .fact-card .fact-ic{font-size:1.7rem;flex:0 0 auto;line-height:1.2}
   .fact-card p{margin:0;color:var(--ink);font-weight:600;line-height:1.45}
-  .boat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px;margin-bottom:8px}
-  .boat-card{background:linear-gradient(180deg,#cdeafd,#8ec7ee);border:1px solid #a9d5f5;border-radius:16px;
-    padding:20px 12px;text-align:center;box-shadow:var(--shadow);transition:transform .18s ease}
-  .boat-card:hover{transform:translateY(-4px)}
-  .boat-card .b-em{font-size:2.6rem;line-height:1;display:block}
-  .boat-card .b-name{font-family:'Baloo 2';font-weight:800;color:#0d3b66;margin-top:10px;font-size:1rem;line-height:1.2;display:block}
+  .boat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;margin-bottom:8px}
+  .boat-card{background:#fff;border:1px solid #d6ebfb;border-radius:16px;overflow:hidden;
+    box-shadow:var(--shadow);transition:transform .18s ease,box-shadow .18s ease}
+  .boat-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+  .boat-photo{position:relative;height:120px;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(180deg,#d6eefe 0%,#8ec7ee 70%,#5aa9e0 100%)}
+  .boat-photo::after{content:"";position:absolute;left:0;right:0;bottom:0;height:16px;
+    background:radial-gradient(120% 100% at 50% 0,rgba(255,255,255,.55),transparent 70%)}
+  .boat-photo .b-em{font-size:3rem;line-height:1;filter:drop-shadow(0 2px 3px rgba(0,0,0,.18))}
+  .boat-body{padding:12px 10px 14px;text-align:center}
+  .boat-body .b-name{font-family:'Baloo 2';font-weight:800;color:var(--ink);font-size:1.02rem;line-height:1.2;display:block}
+  .boat-body .b-tag{display:block;font-size:.72rem;color:var(--muted);font-weight:700;margin-top:3px}
   /* F1 race animation */
   .race-show{margin:6px 0 4px;background:linear-gradient(180deg,#0B1E3A,#16305a);border-radius:20px;
     overflow:hidden;box-shadow:var(--shadow-lg);border:3px solid var(--yellow)}
@@ -1152,18 +1158,17 @@
     </div>
 
     <h3 class="lego-group-title">🚢 Build It! Things That Float</h3>
-    <p class="lego-hint">10 boats I built following the "Build It! Things That Float" book from the Bentonville Library! ⛵</p>
+    <p class="lego-hint">9 boats I built following the "Build It! Things That Float" book from the Bentonville Library! ⛵</p>
     <div class="boat-grid">
-      <div class="boat-card"><span class="b-em">🛶</span><span class="b-name">Skiff</span></div>
-      <div class="boat-card"><span class="b-em">🚤</span><span class="b-name">Red Speed Boat</span></div>
-      <div class="boat-card"><span class="b-em">⛵</span><span class="b-name">Catamaran</span></div>
-      <div class="boat-card"><span class="b-em">🛥️</span><span class="b-name">Yacht</span></div>
-      <div class="boat-card"><span class="b-em">🚤</span><span class="b-name">Jet Boat</span></div>
-      <div class="boat-card"><span class="b-em">🛢️</span><span class="b-name">Oil Tanker</span></div>
-      <div class="boat-card"><span class="b-em">⛵</span><span class="b-name">Trimaran</span></div>
-      <div class="boat-card"><span class="b-em">🛥️</span><span class="b-name">Super Yacht</span></div>
-      <div class="boat-card"><span class="b-em">🌊</span><span class="b-name">Blue Jet Ski</span></div>
-      <div class="boat-card"><span class="b-em">🛥️</span><span class="b-name">Big Yacht</span></div>
+      <div class="boat-card"><div class="boat-photo"><span class="b-em">🛶</span></div><div class="boat-body"><span class="b-name">Skiff</span><span class="b-tag">Book build</span></div></div>
+      <div class="boat-card"><div class="boat-photo"><span class="b-em">🚤</span></div><div class="boat-body"><span class="b-name">Red Speed Boat</span><span class="b-tag">Book build</span></div></div>
+      <div class="boat-card"><div class="boat-photo"><span class="b-em">⛵</span></div><div class="boat-body"><span class="b-name">Catamaran</span><span class="b-tag">Book build</span></div></div>
+      <div class="boat-card"><div class="boat-photo"><span class="b-em">🛥️</span></div><div class="boat-body"><span class="b-name">Yacht</span><span class="b-tag">Book build</span></div></div>
+      <div class="boat-card"><div class="boat-photo"><span class="b-em">🚤</span></div><div class="boat-body"><span class="b-name">Jet Boat</span><span class="b-tag">Book build</span></div></div>
+      <div class="boat-card"><div class="boat-photo"><span class="b-em">🛢️</span></div><div class="boat-body"><span class="b-name">Oil Tanker</span><span class="b-tag">Book build</span></div></div>
+      <div class="boat-card"><div class="boat-photo"><span class="b-em">⛵</span></div><div class="boat-body"><span class="b-name">Trimaran</span><span class="b-tag">Book build</span></div></div>
+      <div class="boat-card"><div class="boat-photo"><span class="b-em">🛥️</span></div><div class="boat-body"><span class="b-name">Super Yacht</span><span class="b-tag">Book build</span></div></div>
+      <div class="boat-card"><div class="boat-photo"><span class="b-em">🌊</span></div><div class="boat-body"><span class="b-name">Blue Jet Ski</span><span class="b-tag">Book build</span></div></div>
     </div>
 
     <h3 class="lego-group-title">🔭 Mini Builds</h3>
