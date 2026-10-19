@@ -1685,7 +1685,7 @@ window.ThreeUITerrainPlume = { mountTerrainPlume, TERRAIN_PLUME_DEFAULTS, SCENE_
             <span class="mnd-icon">🧱</span>
             <div class="mnd-info">
               <span class="mnd-title">LEGO Lab</span>
-              <span class="mnd-desc">23+ builds &amp; Idea Lab</span>
+              <span class="mnd-desc">32+ builds (incl. 9 boats) &amp; Idea Lab</span>
             </div>
           </a>
           <a href="hall-of-fame.html" class="mnd-link ${path === 'hall-of-fame.html' ? 'active' : ''}">
@@ -1807,10 +1807,10 @@ window.ThreeUITerrainPlume = { mountTerrainPlume, TERRAIN_PLUME_DEFAULTS, SCENE_
             </div>
             <div class="tt-stat-row">
               <div class="tt-stat-left">
-                <div class="tt-stat-title"><span class="tt-stat-label">🧱 LEGO Masterpieces</span><span class="tt-stat-note">🏰 Hogwarts · Falcon · Eiffel</span></div>
-                <div class="tt-bar"><i style="width:98%"></i></div>
+                <div class="tt-stat-title"><span class="tt-stat-label">🧱 LEGO Masterpieces</span><span class="tt-stat-note">🏰 Hogwarts · 9-Boat Fleet · Falcon</span></div>
+                <div class="tt-bar"><i style="width:100%"></i></div>
               </div>
-              <div class="tt-stat-val">23+</div>
+              <div class="tt-stat-val">32+</div>
             </div>
             <div class="tt-stat-row">
               <div class="tt-stat-left">
@@ -1924,7 +1924,7 @@ window.ThreeUITerrainPlume = { mountTerrainPlume, TERRAIN_PLUME_DEFAULTS, SCENE_
               <span class="mnd-icon">🧱</span>
               <div class="mnd-info">
                 <span class="mnd-title">LEGO Lab</span>
-                <span class="mnd-desc">23+ builds &amp; Idea Lab</span>
+                <span class="mnd-desc">32+ builds (incl. 9 boats) &amp; Idea Lab</span>
               </div>
             </a>
             <a href="hall-of-fame.html" class="mnd-link ${path === 'hall-of-fame.html' ? 'active' : ''}">
@@ -2530,7 +2530,7 @@ window.__sheet = {group, mat, uni, renderer, scene, camera, mesh,
   if (term && !term.dataset.wired) {
     term.dataset.wired = 'true';
     const txt = term.querySelector('.txt');
-    const STATUS = ['online', 'building lego', 'solving chess puzzles', 'shooting hoops', '23+ builds ready', 'online'];
+    const STATUS = ['online', 'building lego', 'solving chess puzzles', 'shooting hoops', '32+ builds ready', 'online'];
     let si = 0, typing = null;
     function type(str) { clearInterval(typing); let k = 0; typing = setInterval(() => { txt.textContent = str.slice(0, ++k); if (k >= str.length) clearInterval(typing); }, 28); }
     setInterval(() => { if (!document.body.classList.contains('machine')) { si = (si + 1) % STATUS.length; type(STATUS[si]); } }, 4200);
@@ -2553,7 +2553,7 @@ window.__sheet = {group, mat, uni, renderer, scene, camera, mesh,
       ["AGE ........... 8 YEARS OLD", "p"],
       ["ROLES ......... LEGO BUILDER, TOURNAMENT CHESS PLAYER, COMIC CREATOR", "p"],
       ["USCF RATING ... 715 REGULAR (PEAK +130 JUMP · NEXT GOAL: 800+)", "p"],
-      ["LEGO BUILDS ... 23+ FEATURED SETS (HOGWARTS, FALCON, EIFFEL) & MOCS", "p"],
+      ["LEGO BUILDS ... 32+ FEATURED SETS (HOGWARTS, FALCON, 9 BOATS) & MOCS", "p"],
       ["", "p"],
       ["── PAGES ─────────────────────────────────────────────────────────", "d"],
       ["* /INDEX.HTML .... 3D INTERACTIVE LOBBY (ARCADE, HOOP, 7 CRT TVS)", "h"],
