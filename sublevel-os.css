@@ -901,8 +901,7 @@ body.menu-open .os-page-wrap{visibility:hidden}
   transform-origin:0 0;will-change:transform;opacity:0;transition:opacity .5s ease;
   display:flex;flex-direction:column;justify-content:space-between;padding:24px 28px 20px;overflow:hidden;border-radius:16px;
   pointer-events:none;
-  -webkit-backdrop-filter:blur(16px) saturate(130%);backdrop-filter:blur(16px) saturate(130%);
-  background:linear-gradient(160deg,rgba(18,22,34,.76) 0%,rgba(10,12,20,.84) 52%,rgba(22,18,12,.78) 100%);
+  background:linear-gradient(160deg,rgba(18,22,34,.88) 0%,rgba(10,12,20,.92) 52%,rgba(22,18,12,.88) 100%);
   border:2px solid rgba(255,213,0,.55);
   box-shadow:inset 0 0 0 2px rgba(255,255,255,.14),inset 0 1px 0 rgba(255,255,255,.55),0 18px 48px rgba(0,0,0,.65)}
 .menu-links.on{opacity:1}
@@ -920,7 +919,7 @@ body.menu-open .os-page-wrap{visibility:hidden}
 .tt-name{font-family:var(--sans);font-size:34px;line-height:1;font-weight:800;letter-spacing:-.04em;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.6)}
 .tt-name i{font-style:normal;color:#ffd500}
 .tt-sub{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#ff9e5e}
-.tt-pwr-badge{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:78px;padding:6px 10px;border-radius:8px;background:linear-gradient(145deg,rgba(255,77,0,.28),rgba(255,213,0,.22));border:1.5px solid #ffd500;box-shadow:0 4px 14px rgba(255,140,0,.25);margin-right:86px;flex-shrink:0}
+.tt-pwr-badge{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:78px;padding:6px 10px;border-radius:8px;background:linear-gradient(145deg,rgba(255,77,0,.28),rgba(255,213,0,.22));border:1.5px solid #ffd500;box-shadow:0 4px 14px rgba(255,140,0,.25);flex-shrink:0}
 .tt-pwr-badge small{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#ffd500}
 .tt-pwr-badge b{font-family:var(--mono);font-size:22px;line-height:1.05;font-weight:900;color:#fff}
 
@@ -968,7 +967,6 @@ body.menu-open .os-page-wrap{visibility:hidden}
 .sblvl-menu #paper-stage:active{cursor:grabbing}
 #paper-stage{--ink:#f2f2f0;--dim:rgba(242,242,240,.38)}
 #paper-stage #pp-dof{position:fixed;inset:-30px;z-index:2;pointer-events:none;
-     backdrop-filter:blur(2.4px);-webkit-backdrop-filter:blur(2.4px);
      background:rgba(8,8,10,.05)}
 #paper-stage #pp-gl{position:fixed;top:0;left:0;width:100%;height:100%;z-index:3;
     pointer-events:none;display:block}
@@ -984,7 +982,7 @@ body.menu-open .os-page-wrap{visibility:hidden}
 #paper-stage #pp-hint b{font-weight:500;color:rgba(242,242,240,.58)}
 
 /* Machine mode & VHS overlay */
-#vhs-overlay{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:900;mix-blend-mode:screen;opacity:.38}
+#vhs-overlay{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:900;opacity:.38}
 body.machine #vhs-overlay{z-index:2100;mix-blend-mode:screen;opacity:.18}
 #machine-scan{display:none;position:fixed;inset:0;z-index:2050;pointer-events:none;overflow:hidden;
   mix-blend-mode:multiply;
