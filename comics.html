@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>function __threeuiStorageImage(...args){const image=new Image(...args);const property=Object.getOwnPropertyDescriptor(HTMLImageElement.prototype,"src");Object.defineProperty(image,"src",{configurable:true,get(){return property.get.call(this)},set(value){try{const url=new URL(value,document.baseURI);if(this.crossOrigin===null&&(url.href.startsWith("https://ublctyddhtbgaersvxxb.supabase.co/storage/v1/object/public/threeui-media/scene-images/")||url.origin===new URL(document.baseURI).origin))this.crossOrigin="anonymous"}catch{}property.set.call(this,value)}});return image;}</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Comics — Vihaan's World</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23FFD500'/><circle cx='30' cy='32' r='10' fill='%231E50C8'/><circle cx='70' cy='32' r='10' fill='%23E3000B'/><circle cx='30' cy='70' r='10' fill='%23E3000B'/><circle cx='70' cy='70' r='10' fill='%231E50C8'/></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="sublevel-os.css" />
+</head>
+<body>
+
+<div class="os-page-wrap">
+  <main class="os-workspace">
+    <header class="os-workspace-bar framed">
+      <i class="corner tl" aria-hidden="true"></i><i class="corner tr" aria-hidden="true"></i><i class="corner bl" aria-hidden="true"></i><i class="corner br" aria-hidden="true"></i>
+      <div class="os-workspace-title">
+        <span class="chip">Laugh Factory</span>
+        <h1><span>💬</span> Vihaan's Funny Comic Studio</h1>
+      </div>
+      <div class="os-subtabs" role="tablist">
+        <button type="button" class="os-subtab active" data-target="view-studio">🎬 Comic Studio</button>
+        <button type="button" class="os-subtab" data-target="view-gallery">📚 My Comic Books (<span id="csGalleryCount">0</span>)</button>
+      </div>
+    </header>
+
+    <!-- SUB-VIEW 1: INTERACTIVE COMIC STUDIO -->
+    <div class="os-subview active" id="view-studio">
+      <div class="cs-toolbar">
+        <div class="cs-starters">
+          <span class="cs-starter-label">⚡ Starters:</span>
+          <button type="button" class="cs-chip" data-template="0">🍌 Peely</button>
+          <button type="button" class="cs-chip" data-template="1">🦖 T-Rex Chess</button>
+          <button type="button" class="cs-chip" data-template="2">🍕 F1 Pizza</button>
+          <button type="button" class="cs-chip" data-template="3">🐶 Sneaky Puppy</button>
+          <button type="button" class="cs-chip surprise" id="csRandomBtn">🎲 Silly Remix!</button>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button type="button" class="btn btn-white" id="csReadBtn" style="min-height:36px;padding:0 12px;font-size:.72rem">🔊 Read Out Loud!</button>
+          <button type="button" class="btn btn-yellow" id="csPublishBtn" style="min-height:36px;padding:0 14px;font-size:.72rem">📚 Save Comic Book</button>
+        </div>
+      </div>
+
+      <div class="cs-grid">
+        <!-- LEFT: LIVE 4-PANEL COMIC BOOK PREVIEW -->
+        <div class="cs-book">
+          <div class="cs-book-head">
+            <input type="text" id="csTitle" class="cs-title-input" maxlength="48" value="The Day the T-Rex Played Chess!" aria-label="Comic title" placeholder="Type or pick a funny title…" />
+            <button type="button" class="cs-chip" id="csRandomTitleBtn" title="Give me a funny title!">🎲 Title</button>
+          </div>
+
+          <div class="cs-panels-grid" id="csStageGrid">
+            <!-- 4 interactive panels rendered by JS -->
+          </div>
+
+          <div class="cs-book-actions">
+            <span style="font-family:var(--mono);font-size:.72rem;color:var(--g1);align-self:center" id="csStatusMsg">👆 Tap any panel above to edit it on the right!</span>
+            <div style="display:flex;gap:8px">
+              <button type="button" class="cs-chip" id="csPanelJokeBtn">😂 Randomize This Panel</button>
+              <button type="button" class="cs-chip" id="csClearBtn">🔄 Reset</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: 1-TAP PANEL DIRECTOR CONSOLE -->
+        <div class="cs-director">
+          <div class="cs-panel-tabs" id="csPanelTabs">
+            <button type="button" class="cs-ptab active" data-p="0">Panel 1 · Setup</button>
+            <button type="button" class="cs-ptab" data-p="1">Panel 2 · Action</button>
+            <button type="button" class="cs-ptab" data-p="2">Panel 3 · Twist</button>
+            <button type="button" class="cs-ptab" data-p="3">Panel 4 · Laugh!</button>
+          </div>
+
+          <div class="cs-group">
+            <div class="cs-label"><span>1. 🌍 Pick a Scene Background</span><span id="csBgName" style="color:var(--w2)">Chess Arena</span></div>
+            <div class="cs-picker-row" id="csBgPicker"></div>
+          </div>
+
+          <div class="cs-group">
+            <div class="cs-label"><span>2. 🦸 Hero (Left) &amp; Sidekick / Villain (Right)</span><button type="button" class="cs-chip" id="csSwapActors" style="padding:2px 8px;font-size:.66rem">⇄ Swap</button></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+              <div>
+                <small style="display:block;font-family:var(--mono);font-size:.64rem;color:var(--g1);margin-bottom:4px">LEFT CHARACTER</small>
+                <div class="cs-picker-row" id="csHeroPicker"></div>
+              </div>
+              <div>
+                <small style="display:block;font-family:var(--mono);font-size:.64rem;color:var(--g1);margin-bottom:4px">RIGHT CHARACTER</small>
+                <div class="cs-picker-row" id="csBuddyPicker"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cs-group">
+            <div class="cs-label"><span>3. 💥 Sound Effect Sticker (Plays Sound!)</span></div>
+            <div class="cs-picker-row" id="csSfxPicker"></div>
+          </div>
+
+          <div class="cs-group" style="margin-bottom:0">
+            <div class="cs-label">
+              <span>4. 💬 Speech Bubble &amp; 1-Tap Funny Lines</span>
+              <div style="display:inline-flex;gap:4px" id="csBubbleStylePicker">
+                <button type="button" class="cs-pick-btn sel" data-bstyle="say" style="padding:2px 7px;font-size:.66rem">💬 Say</button>
+                <button type="button" class="cs-pick-btn" data-bstyle="shout" style="padding:2px 7px;font-size:.66rem">📢 SHOUT!</button>
+                <button type="button" class="cs-pick-btn" data-bstyle="think" style="padding:2px 7px;font-size:.66rem">💭 Think</button>
+              </div>
+            </div>
+            <input type="text" id="csLineInput" class="cs-line-input" maxlength="90" placeholder="Type what they say, or tap a funny line below…" />
+            <div class="cs-gags" id="csGagPicker"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUB-VIEW 2: MY SAVED COMIC BOOKS GALLERY -->
+    <div class="os-subview" id="view-gallery">
+      <div class="cs-gallery-grid" id="csGalleryGrid"></div>
+    </div>
+  </main>
+</div>
+
+<script src="sublevel-os.js"></script>
+<script>
+  (function initSubtabs(){
+    const btns = document.querySelectorAll('.os-subtab');
+    const views = document.querySelectorAll('.os-subview');
+    function activate(targetId) {
+      if (!document.getElementById(targetId)) return;
+      btns.forEach(b => b.classList.toggle('active', b.dataset.target === targetId));
+      views.forEach(v => v.classList.toggle('active', v.id === targetId));
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.target;
+        history.replaceState(null, '', '#' + target);
+        activate(target);
+      });
+    });
+    if (location.hash && location.hash.length > 1) activate(location.hash.slice(1));
+    window.addEventListener('hashchange', () => {
+      if (location.hash && location.hash.length > 1) activate(location.hash.slice(1));
+    });
+  })();
+
+  (function funnyComicStudio(){
+    const SCENES = [
+      { id: 'chess', label: '♟️ Chess', cls: 'cs-bg-chess' },
+      { id: 'lego',  label: '🧱 LEGO City', cls: 'cs-bg-lego' },
+      { id: 'space', label: '🌌 Space', cls: 'cs-bg-space' },
+      { id: 'dino',  label: '🌴 Dino Jungle', cls: 'cs-bg-dino' },
+      { id: 'lava',  label: '🌋 Lava Pit', cls: 'cs-bg-lava' },
+      { id: 'soccer',label: '⚽ Stadium', cls: 'cs-bg-soccer' },
+      { id: 'pizza', label: '🍕 Pizza Shop', cls: 'cs-bg-pizza' },
+      { id: 'disco', label: '🪩 Disco Party', cls: 'cs-bg-disco' },
+    ];
+
+    const CHARS = ['👦','🍌','🤖','💀','🦖','🐶','👑','🏎️','🥷','👽','🐉','🍕','💩','🦸','🧙','🐸'];
+
+    const SFX_LIST = [
+      { text: '💥 POW!', freq: 220, type: 'sawtooth' },
+      { text: '⚡ CHECKMATE!', freq: 587, type: 'triangle' },
+      { text: '💨 TOOT!', freq: 110, type: 'sawtooth' },
+      { text: '🦖 ROAR!', freq: 150, type: 'square' },
+      { text: '😱 UH OH!', freq: 330, type: 'sine' },
+      { text: '😂 HAHAHA!', freq: 660, type: 'triangle' },
+      { text: '🍕 CHOMP!', freq: 280, type: 'square' },
+      { text: '🚀 ZOOM!', freq: 784, type: 'sine' },
+      { text: '🧱 SNAP!', freq: 520, type: 'square' },
+    ];
+
+    const FUNNY_TITLES = [
+      "The Day the T-Rex Played Chess!",
+      "Attack of the Giant LEGO Banana!",
+      "Never Let a Puppy Guard Your Queen!",
+      "F1 Race Car vs. Flying Pizza!",
+      "Iron Golem's Secret Dance Party!",
+      "Grandmaster Vihaan & The Silly Skeleton!",
+      "The Great Underwear Checkmate!",
+      "When Aliens Steal My LEGO Bricks!"
+    ];
+
+    const FUNNY_GAGS = [
+      "Wait... did that T-Rex just eat my rook?!",
+      "Step on a LEGO brick, I dare you!",
+      "Checkmate in 1 move! Now where is my pizza?",
+      "Excuse me, that's a banana, not a bishop!",
+      "I pressed the TURBO FART button by mistake!",
+      "Plot twist: the puppy is a 2500 Grandmaster!",
+      "Hold on! Time-out for a taco break! 🌮",
+      "Why is the skeleton wearing polka-dot pajamas?!",
+      "My Iron Golem has THREE swords and zero chill!",
+      "1. e4 ... and then the volcano exploded!",
+      "Don't resign! My knight knows karate!",
+      "BEEP BOOP! Homework detector overloaded!"
+    ];
+
+    const TEMPLATES = [
+      {
+        title: "Attack of the Giant LEGO Banana!",
+        panels: [
+          { bg: 'lego', hero: '👦', buddy: '🤖', sfx: '🧱 SNAP!', bstyle: 'say', line: "Look Golem! I built a 500-piece fortress!" },
+          { bg: 'lego', hero: '🍌', buddy: '💀', sfx: '😱 UH OH!', bstyle: 'shout', line: "SURPRISE! Peely and Skeleton want your snacks!" },
+          { bg: 'lava', hero: '🤖', buddy: '🍌', sfx: '💨 TOOT!', bstyle: 'say', line: "Wait... did Peely just slip on himself?!" },
+          { bg: 'disco', hero: '👦', buddy: '🐶', sfx: '😂 HAHAHA!', bstyle: 'shout', line: "Fortress saved! Everybody disco dance!" }
+        ]
+      },
+      {
+        title: "The Day the T-Rex Played Chess!",
+        panels: [
+          { bg: 'chess', hero: '👦', buddy: '🦖', sfx: '⚡ CHECKMATE!', bstyle: 'say', line: "Okay Mr. T-Rex, I play 1. e4! Your turn!" },
+          { bg: 'chess', hero: '🦖', buddy: '👑', sfx: '🦖 ROAR!', bstyle: 'think', line: "Hmm... my arms are too short to reach the pawn!" },
+          { bg: 'pizza', hero: '🦖', buddy: '🍕', sfx: '🍕 CHOMP!', bstyle: 'shout', line: "Wait... he ate the Queen thinking it was pizza!" },
+          { bg: 'chess', hero: '👦', buddy: '🏆', sfx: '😂 HAHAHA!', bstyle: 'say', line: "Referee says eating pieces = +130 rating points for Vihaan!" }
+        ]
+      },
+      {
+        title: "F1 Pizza Emergency!",
+        panels: [
+          { bg: 'pizza', hero: '👦', buddy: '🍕', sfx: '😱 UH OH!', bstyle: 'shout', line: "Code Red! The cheese pizza is getting cold!" },
+          { bg: 'lego', hero: '🏎️', buddy: '🥷', sfx: '🚀 ZOOM!', bstyle: 'say', line: "Fire up the AMR24 LEGO F1 car! Full turbo!" },
+          { bg: 'space', hero: '🏎️', buddy: '👽', sfx: '💨 TOOT!', bstyle: 'say', line: "Oops, we drove so fast we passed Mars!" },
+          { bg: 'pizza', hero: '👦', buddy: '👽', sfx: '🍕 CHOMP!', bstyle: 'shout', line: "Zero-gravity pizza party with the aliens!" }
+        ]
+      },
+      {
+        title: "Puppy Eats the Queen!",
+        panels: [
+          { bg: 'chess', hero: '👦', buddy: '👑', sfx: '⚡ CHECKMATE!', bstyle: 'think', line: "Take 30 seconds to calculate the winning fork..." },
+          { bg: 'chess', hero: '🐶', buddy: '👑', sfx: '🍕 CHOMP!', bstyle: 'say', line: "WOOF! Shiny plastic Queen tastes like bacon!" },
+          { bg: 'dino', hero: '👦', buddy: '🐶', sfx: '😱 UH OH!', bstyle: 'shout', line: "HEY! Give back my best piece, you furry grandmaster!" },
+          { bg: 'disco', hero: '🐶', buddy: '💩', sfx: '😂 HAHAHA!', bstyle: 'say', line: "Coach says: Always watch out for sneaky puppy tactics!" }
+        ]
+      }
+    ];
+
+    let activePanel = 0;
+    let state = JSON.parse(JSON.stringify(TEMPLATES[1]));
+
+    function playSfxSound(freq, type) {
+      try {
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return;
+        const ctx = new AC();
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.type = type || 'triangle';
+        o.frequency.setValueAtTime(freq || 440, ctx.currentTime);
+        o.frequency.exponentialRampToValueAtTime((freq || 440) * 1.45, ctx.currentTime + 0.14);
+        g.gain.setValueAtTime(0.08, ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18);
+        o.connect(g); g.connect(ctx.destination);
+        o.start(); o.stop(ctx.currentTime + 0.19);
+      } catch (e) {}
+    }
+
+    const stageGrid = document.getElementById('csStageGrid');
+    const titleInput = document.getElementById('csTitle');
+    const lineInput = document.getElementById('csLineInput');
+    const bgPicker = document.getElementById('csBgPicker');
+    const heroPicker = document.getElementById('csHeroPicker');
+    const buddyPicker = document.getElementById('csBuddyPicker');
+    const sfxPicker = document.getElementById('csSfxPicker');
+    const gagPicker = document.getElementById('csGagPicker');
+    const statusMsg = document.getElementById('csStatusMsg');
+
+    function renderStage() {
+      titleInput.value = state.title;
+      stageGrid.innerHTML = state.panels.map((p, idx) => {
+        const sc = SCENES.find(s => s.id === p.bg) || SCENES[0];
+        return `
+          <div class="cs-panel-card ${idx === activePanel ? 'selected' : ''}" data-idx="${idx}">
+            <span class="cs-panel-num">Panel 0${idx + 1}</span>
+            <span class="cs-panel-sfx">${p.sfx}</span>
+            <div class="cs-panel-stage ${sc.cls}">
+              <div class="cs-bubble ${p.bstyle}">${p.line || 'Tap a funny line on the right!'}</div>
+              <div class="cs-actors">
+                <span class="cs-actor">${p.hero}</span>
+                <span class="cs-actor flip">${p.buddy}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      stageGrid.querySelectorAll('.cs-panel-card').forEach(card => {
+        card.addEventListener('click', () => {
+          activePanel = Number(card.dataset.idx);
+          renderStage();
+          syncDirector();
+        });
+      });
+    }
+
+    function syncDirector() {
+      const p = state.panels[activePanel];
+      document.querySelectorAll('#csPanelTabs .cs-ptab').forEach(b => {
+        b.classList.toggle('active', Number(b.dataset.p) === activePanel);
+      });
+      const sc = SCENES.find(s => s.id === p.bg) || SCENES[0];
+      document.getElementById('csBgName').textContent = sc.label;
+
+      bgPicker.querySelectorAll('button').forEach(b => b.classList.toggle('sel', b.dataset.bg === p.bg));
+      heroPicker.querySelectorAll('button').forEach(b => b.classList.toggle('sel', b.dataset.ch === p.hero));
+      buddyPicker.querySelectorAll('button').forEach(b => b.classList.toggle('sel', b.dataset.ch === p.buddy));
+      sfxPicker.querySelectorAll('button').forEach(b => b.classList.toggle('sel', b.dataset.sfx === p.sfx));
+      document.querySelectorAll('#csBubbleStylePicker button').forEach(b => b.classList.toggle('sel', b.dataset.bstyle === p.bstyle));
+      lineInput.value = p.line;
+    }
+
+    // Build Director Pickers
+    bgPicker.innerHTML = SCENES.map(s => `<button type="button" class="cs-pick-btn" data-bg="${s.id}">${s.label}</button>`).join('');
+    bgPicker.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+      state.panels[activePanel].bg = b.dataset.bg;
+      renderStage(); syncDirector();
+    }));
+
+    heroPicker.innerHTML = CHARS.map(c => `<button type="button" class="cs-pick-btn cs-char-btn" data-ch="${c}">${c}</button>`).join('');
+    heroPicker.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+      state.panels[activePanel].hero = b.dataset.ch;
+      playSfxSound(420, 'sine');
+      renderStage(); syncDirector();
+    }));
+
+    buddyPicker.innerHTML = CHARS.map(c => `<button type="button" class="cs-pick-btn cs-char-btn" data-ch="${c}">${c}</button>`).join('');
+    buddyPicker.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+      state.panels[activePanel].buddy = b.dataset.ch;
+      playSfxSound(520, 'sine');
+      renderStage(); syncDirector();
+    }));
+
+    sfxPicker.innerHTML = SFX_LIST.map(s => `<button type="button" class="cs-pick-btn" data-sfx="${s.text}" data-freq="${s.freq}" data-type="${s.type}">${s.text}</button>`).join('');
+    sfxPicker.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+      state.panels[activePanel].sfx = b.dataset.sfx;
+      playSfxSound(Number(b.dataset.freq), b.dataset.type);
+      renderStage(); syncDirector();
+    }));
+
+    gagPicker.innerHTML = FUNNY_GAGS.slice(0, 6).map(g => `<button type="button" class="cs-gag-btn">${g}</button>`).join('') +
+      `<button type="button" class="cs-gag-btn" id="csMoreGags" style="background:rgba(255,213,0,0.16);border-color:var(--yellow);color:var(--yellow);font-weight:700">🎲 Another Silly Line!</button>`;
+
+    function wireGags() {
+      gagPicker.querySelectorAll('.cs-gag-btn:not(#csMoreGags)').forEach(b => {
+        b.addEventListener('click', () => {
+          state.panels[activePanel].line = b.textContent;
+          playSfxSound(480, 'triangle');
+          renderStage(); syncDirector();
+        });
+      });
+      document.getElementById('csMoreGags')?.addEventListener('click', () => {
+        const pick = FUNNY_GAGS[Math.floor(Math.random() * FUNNY_GAGS.length)];
+        state.panels[activePanel].line = pick;
+        playSfxSound(620, 'triangle');
+        renderStage(); syncDirector();
+      });
+    }
+    wireGags();
+
+    document.querySelectorAll('#csPanelTabs .cs-ptab').forEach(b => {
+      b.addEventListener('click', () => {
+        activePanel = Number(b.dataset.p);
+        renderStage(); syncDirector();
+      });
+    });
+
+    document.querySelectorAll('#csBubbleStylePicker button').forEach(b => {
+      b.addEventListener('click', () => {
+        state.panels[activePanel].bstyle = b.dataset.bstyle;
+        renderStage(); syncDirector();
+      });
+    });
+
+    document.getElementById('csSwapActors').addEventListener('click', () => {
+      const p = state.panels[activePanel];
+      [p.hero, p.buddy] = [p.buddy, p.hero];
+      playSfxSound(360, 'sine');
+      renderStage(); syncDirector();
+    });
+
+    titleInput.addEventListener('input', () => { state.title = titleInput.value; });
+    lineInput.addEventListener('input', () => {
+      state.panels[activePanel].line = lineInput.value;
+      renderStage();
+    });
+
+    document.getElementById('csRandomTitleBtn').addEventListener('click', () => {
+      state.title = FUNNY_TITLES[Math.floor(Math.random() * FUNNY_TITLES.length)];
+      playSfxSound(540, 'triangle');
+      renderStage();
+    });
+
+    function randomizePanel(idx) {
+      const p = state.panels[idx];
+      p.bg = SCENES[Math.floor(Math.random() * SCENES.length)].id;
+      p.hero = CHARS[Math.floor(Math.random() * CHARS.length)];
+      p.buddy = CHARS[Math.floor(Math.random() * CHARS.length)];
+      p.sfx = SFX_LIST[Math.floor(Math.random() * SFX_LIST.length)].text;
+      p.bstyle = ['say', 'shout', 'think'][Math.floor(Math.random() * 3)];
+      p.line = FUNNY_GAGS[Math.floor(Math.random() * FUNNY_GAGS.length)];
+    }
+
+    document.getElementById('csPanelJokeBtn').addEventListener('click', () => {
+      randomizePanel(activePanel);
+      playSfxSound(600, 'sawtooth');
+      renderStage(); syncDirector();
+    });
+
+    document.getElementById('csRandomBtn').addEventListener('click', () => {
+      state.title = FUNNY_TITLES[Math.floor(Math.random() * FUNNY_TITLES.length)];
+      for (let i = 0; i < 4; i++) randomizePanel(i);
+      playSfxSound(680, 'triangle');
+      renderStage(); syncDirector();
+      statusMsg.textContent = '🎲 Generated a brand-new silly 4-panel comic!';
+    });
+
+    document.querySelectorAll('[data-template]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const t = TEMPLATES[Number(btn.dataset.template)];
+        if (!t) return;
+        state = JSON.parse(JSON.stringify(t));
+        activePanel = 0;
+        playSfxSound(520, 'triangle');
+        renderStage(); syncDirector();
+        statusMsg.textContent = '✨ Loaded "' + state.title + '" — customize any panel!';
+      });
+    });
+
+    document.getElementById('csClearBtn').addEventListener('click', () => {
+      state = JSON.parse(JSON.stringify(TEMPLATES[0]));
+      activePanel = 0;
+      renderStage(); syncDirector();
+    });
+
+    // Read Comic Out Loud via Web Speech API!
+    function readComicAloud(comicObj) {
+      if (!('speechSynthesis' in window)) {
+        statusMsg.textContent = '🔊 Speech playback is not supported in this browser.';
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const lines = [
+        comicObj.title + '!',
+        ...comicObj.panels.map((p, i) => `Panel ${i + 1}. ${p.sfx.replace(/[^\w\s!]/g, '')}! ${p.line}`)
+      ];
+      lines.forEach((text, i) => {
+        const u = new SpeechSynthesisUtterance(text);
+        u.rate = 1.04;
+        u.pitch = i === 0 ? 1.2 : (1.05 + (i % 2) * 0.2);
+        window.speechSynthesis.speak(u);
+      });
+      statusMsg.textContent = '🔊 Reading "' + comicObj.title + '" out loud!';
+    }
+
+    document.getElementById('csReadBtn').addEventListener('click', () => readComicAloud(state));
+
+    // Saved Comics Gallery (localStorage)
+    const STORAGE_KEY = 'vihaanComicsV2';
+    function loadSaved() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed) && parsed.length) return parsed;
+        }
+      } catch (e) {}
+      return [TEMPLATES[0], TEMPLATES[1]];
+    }
+    function saveAll(list) {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); } catch (e) {}
+    }
+
+    function renderGallery() {
+      const list = loadSaved();
+      document.getElementById('csGalleryCount').textContent = String(list.length);
+      const grid = document.getElementById('csGalleryGrid');
+      grid.innerHTML = list.map((item, idx) => `
+        <article class="cs-saved-card">
+          <div class="cs-saved-head">
+            <h4>${item.title || 'Untitled Comic'}</h4>
+            <div style="display:flex;gap:6px">
+              <button type="button" class="cs-chip" data-read="${idx}" title="Read Out Loud">🔊 Read</button>
+              <button type="button" class="cs-chip" data-remix="${idx}" title="Edit in Studio">✏️ Remix</button>
+              <button type="button" class="cs-chip" data-del="${idx}" title="Delete">🗑️</button>
+            </div>
+          </div>
+          <div class="cs-saved-panels">
+            ${(item.panels || []).map((p, pi) => {
+              const sc = SCENES.find(s => s.id === p.bg) || SCENES[0];
+              return `
+                <div class="cs-panel-card">
+                  <span class="cs-panel-num">0${pi + 1}</span>
+                  <span class="cs-panel-sfx">${p.sfx || '💥 POW!'}</span>
+                  <div class="cs-panel-stage ${sc.cls}">
+                    <div class="cs-bubble ${p.bstyle || 'say'}">${p.line || ''}</div>
+                    <div class="cs-actors">
+                      <span class="cs-actor">${p.hero || '👦'}</span>
+                      <span class="cs-actor flip">${p.buddy || '🦖'}</span>
+                    </div>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </article>
+      `).join('');
+
+      grid.querySelectorAll('[data-read]').forEach(b => b.addEventListener('click', () => {
+        const item = list[Number(b.dataset.read)];
+        if (item) readComicAloud(item);
+      }));
+      grid.querySelectorAll('[data-remix]').forEach(b => b.addEventListener('click', () => {
+        const item = list[Number(b.dataset.remix)];
+        if (!item) return;
+        state = JSON.parse(JSON.stringify(item));
+        activePanel = 0;
+        renderStage(); syncDirector();
+        document.querySelector('[data-target="view-studio"]').click();
+      }));
+      grid.querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', () => {
+        list.splice(Number(b.dataset.del), 1);
+        saveAll(list);
+        renderGallery();
+      }));
+    }
+
+    document.getElementById('csPublishBtn').addEventListener('click', () => {
+      const list = loadSaved();
+      list.unshift(JSON.parse(JSON.stringify(state)));
+      saveAll(list);
+      renderGallery();
+      playSfxSound(740, 'triangle');
+      statusMsg.textContent = '🎉 Saved "' + state.title + '" to My Comic Books!';
+    });
+
+    renderStage();
+    syncDirector();
+    renderGallery();
+  })();
+</script>
+</body>
+</html>

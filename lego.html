@@ -1,0 +1,2986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>function __threeuiStorageImage(...args){const image=new Image(...args);const property=Object.getOwnPropertyDescriptor(HTMLImageElement.prototype,"src");Object.defineProperty(image,"src",{configurable:true,get(){return property.get.call(this)},set(value){try{const url=new URL(value,document.baseURI);if(this.crossOrigin===null&&(url.href.startsWith("https://ublctyddhtbgaersvxxb.supabase.co/storage/v1/object/public/threeui-media/scene-images/")||url.origin===new URL(document.baseURI).origin))this.crossOrigin="anonymous"}catch{}property.set.call(this,value)}});return image;}</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lego — Vihaan's World</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23FFD500'/><circle cx='30' cy='32' r='10' fill='%231E50C8'/><circle cx='70' cy='32' r='10' fill='%23E3000B'/><circle cx='30' cy='70' r='10' fill='%23E3000B'/><circle cx='70' cy='70' r='10' fill='%231E50C8'/></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="sublevel-os.css" />
+<style>
+  /* ================= LEGO LAB ENHANCEMENTS (SUBLEVEL STUDIO OS THEME) ================= */
+  .lego-hero-banner {
+    padding: 1.5rem 0 2rem !important;
+    margin-bottom: 1.75rem;
+    border-bottom: 1px solid rgba(230, 230, 230, 0.12);
+  }
+  .lego-hero-banner .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--o, #ff4d00);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .lego-hero-banner .eyebrow .rule {
+    flex: 1;
+    margin: 0;
+    height: 1px;
+    background: rgba(230, 230, 230, 0.12);
+    border: 0;
+  }
+  .lego-hero-banner .hero-box {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 16px;
+    align-items: stretch;
+  }
+  @media (max-width: 860px) {
+    .lego-hero-banner .hero-box {
+      grid-template-columns: 1fr;
+    }
+  }
+  .lego-hero-banner .title-frame {
+    padding: 22px 26px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: linear-gradient(180deg, rgba(255, 213, 0, 0.05), rgba(255, 77, 0, 0.02));
+  }
+  .lego-hero-banner .title-frame h1 {
+    font-family: var(--sans) !important;
+    font-size: clamp(1.9rem, 3.6vw, 2.9rem) !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.035em !important;
+    line-height: 1.05 !important;
+    color: #fff !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .lego-hero-banner .title-frame h1 .pop {
+    color: var(--yellow, #ffd500);
+  }
+  .lego-hero-banner .sub-frame {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+    color: var(--w2, #c4c4c4);
+    font-size: 0.94rem;
+    line-height: 1.55;
+  }
+  .hero-stat-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .hero-stat-pill {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-radius: 3px;
+    background: rgba(255, 213, 0, 0.12);
+    border: 1px solid rgba(255, 213, 0, 0.4);
+    color: var(--yellow, #ffd500);
+  }
+
+  /* ---------- 1. HALL OF FAME — FEATURED PROJECTS ---------- */
+  .hof-section {
+    padding: 0 0 2.5rem !important;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(230, 230, 230, 0.14);
+  }
+  .hof-header {
+    margin-bottom: 20px;
+  }
+  .hof-header .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: var(--o, #ff4d00);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .hof-header .eyebrow .rule {
+    flex: 1;
+    margin: 0;
+    height: 1px;
+    border: 0;
+    background: rgba(230, 230, 230, 0.14);
+  }
+  .hof-header-frames {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 14px;
+    align-items: stretch;
+  }
+  @media (max-width: 820px) {
+    .hof-header-frames {
+      grid-template-columns: 1fr;
+    }
+  }
+  .hof-header .title-frame {
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: linear-gradient(135deg, rgba(255, 213, 0, 0.08), rgba(15, 18, 26, 0.92));
+  }
+  .hof-header .title-frame h2 {
+    font-family: var(--sans) !important;
+    font-size: clamp(1.65rem, 3vw, 2.35rem) !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.03em !important;
+    color: #fff !important;
+    margin: 0 !important;
+  }
+  .hof-crown-badge {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-radius: 3px;
+    background: rgba(255, 77, 0, 0.18);
+    border: 1px solid rgba(255, 77, 0, 0.5);
+    color: #ff854d;
+    white-space: nowrap;
+  }
+  .hof-header .sub-frame {
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    color: var(--w2, #c4c4c4);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    background: rgba(14, 16, 23, 0.88);
+  }
+
+  .hof-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    align-items: stretch;
+  }
+  @media (max-width: 1024px) {
+    .hof-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 640px) {
+    .hof-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .hof-card {
+    position: relative;
+    display: flex !important;
+    flex-direction: column !important;
+    background: linear-gradient(180deg, rgba(20, 23, 32, 0.95) 0%, rgba(9, 11, 16, 0.99) 100%) !important;
+    border: 1px solid rgba(230, 230, 230, 0.16) !important;
+    border-radius: 4px !important;
+    padding: 0 !important;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), border-color 200ms ease, box-shadow 220ms ease !important;
+    box-shadow: 0 16px 38px rgba(0, 0, 0, 0.65) !important;
+  }
+  .hof-card:hover {
+    transform: translateY(-5px) !important;
+    border-color: var(--yellow, #ffd500) !important;
+    box-shadow: 0 22px 48px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 213, 0, 0.35), 0 0 28px rgba(255, 213, 0, 0.15) !important;
+  }
+  .hof-card .corner {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border: 1.5px solid rgba(255, 213, 0, 0.65);
+    pointer-events: none;
+    z-index: 6;
+  }
+  .hof-card .corner.tl { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+  .hof-card .corner.tr { top: 0; right: 0; border-left: 0; border-bottom: 0; }
+  .hof-card .corner.bl { bottom: 0; left: 0; border-right: 0; border-top: 0; }
+  .hof-card .corner.br { bottom: 0; right: 0; border-left: 0; border-top: 0; }
+
+  .hof-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(230, 230, 230, 0.11);
+    background: rgba(255, 255, 255, 0.02);
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--yellow, #ffd500);
+  }
+  .hof-card-top .hof-num {
+    color: var(--o, #ff4d00);
+    background: rgba(255, 77, 0, 0.14);
+    border: 1px solid rgba(255, 77, 0, 0.4);
+    padding: 2px 6px;
+    border-radius: 2px;
+  }
+
+  .hof-photo {
+    position: relative;
+    height: 235px;
+    width: 100%;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 50%, #1c2233 0%, #090b10 100%);
+    border-bottom: 1px solid rgba(230, 230, 230, 0.11);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hof-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .hof-photo img.contain-img {
+    object-fit: contain;
+    padding: 10px;
+    background: radial-gradient(circle at 50% 50%, #1d2334 0%, #0a0c12 100%);
+  }
+  .hof-card:hover .hof-photo img {
+    transform: scale(1.06);
+  }
+
+  .hof-diag-strip {
+    height: 8px;
+    width: 100%;
+    border-bottom: 1px solid rgba(230, 230, 230, 0.1);
+    background-color: rgba(255, 213, 0, 0.04);
+  }
+
+  .hof-body {
+    padding: 16px 16px 14px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 8px;
+  }
+  .hof-meta {
+    font-family: var(--mono);
+    font-size: 0.69rem;
+    color: #ff9d6e;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+  }
+  .hof-title {
+    font-family: var(--sans) !important;
+    font-size: 1.25rem !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.02em !important;
+    color: #fff !important;
+    margin: 0 !important;
+    line-height: 1.2;
+  }
+  .hof-desc {
+    font-family: var(--sans);
+    font-size: 0.86rem;
+    line-height: 1.5;
+    color: var(--w2, #c4c4c4);
+    margin: 0;
+    flex: 1;
+  }
+  .hof-foot {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(230, 230, 230, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .hof-foot .hof-builder {
+    color: var(--g1, #8a8f9c);
+    font-size: 0.66rem;
+  }
+  .hof-foot .hof-cta {
+    color: var(--yellow, #ffd500);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: transform 160ms ease, color 160ms ease;
+  }
+  .hof-card:hover .hof-foot .hof-cta {
+    color: var(--o, #ff4d00);
+    transform: translateX(3px);
+  }
+
+  /* ---------- 2. UNIVERSAL "CLICK TO EXPAND" BADGE & LIGHTBOX MODAL ---------- */
+  .hof-card, .lego-card, .card, .boat-card, .wish-card {
+    cursor: pointer !important;
+  }
+  .click-expand-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 5;
+    font-family: var(--mono);
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 3px;
+    background: rgba(8, 10, 16, 0.84);
+    color: var(--yellow, #ffd500);
+    border: 1px solid rgba(255, 213, 0, 0.45);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+    pointer-events: none;
+  }
+  .hof-card:hover .click-expand-badge,
+  .lego-card:hover .click-expand-badge,
+  .boat-card:hover .click-expand-badge,
+  .wish-card:hover .click-expand-badge {
+    background: var(--yellow, #ffd500);
+    color: #000;
+    transform: scale(1.04);
+  }
+  .boat-photo, .wish-card {
+    position: relative !important;
+  }
+
+  /* Full-Screen LEGO Build Inspector Modal (#lego-lightbox-modal) */
+  #lego-lightbox-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2500;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(12px, 2.5vw, 28px);
+    background: rgba(4, 6, 11, 0.9);
+    backdrop-filter: blur(16px) saturate(130%);
+    -webkit-backdrop-filter: blur(16px) saturate(130%);
+  }
+  #lego-lightbox-modal.open {
+    display: flex;
+    animation: lbFadeIn 200ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  @keyframes lbFadeIn {
+    from { opacity: 0; transform: scale(0.98); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .lb-shell {
+    position: relative;
+    width: min(1220px, 96vw);
+    max-height: 92vh;
+    display: grid;
+    grid-template-columns: 1.25fr 0.95fr;
+    background: linear-gradient(180deg, #141824 0%, #0b0d14 100%);
+    border: 1.5px solid rgba(255, 213, 0, 0.5);
+    border-radius: 8px;
+    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.9), 0 0 40px rgba(255, 213, 0, 0.14);
+    overflow: hidden;
+  }
+  @media (max-width: 900px) {
+    .lb-shell {
+      grid-template-columns: 1fr;
+      max-height: 95vh;
+      overflow-y: auto;
+    }
+  }
+  .lb-image-stage {
+    position: relative;
+    background: radial-gradient(circle at 50% 50%, #1d2436 0%, #07090e 100%);
+    border-right: 1px solid rgba(230, 230, 230, 0.14);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 420px;
+    max-height: 92vh;
+    overflow: auto;
+    padding: 24px;
+  }
+  @media (max-width: 900px) {
+    .lb-image-stage {
+      min-height: 290px;
+      max-height: 46vh;
+      border-right: 0;
+      border-bottom: 1px solid rgba(230, 230, 230, 0.14);
+    }
+  }
+  .lb-image-stage img {
+    max-width: 100%;
+    max-height: 80vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 4px;
+    transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+    transform-origin: center center;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.65);
+  }
+  .lb-image-stage.zoomed img {
+    transform: scale(1.5);
+    cursor: zoom-out;
+  }
+  .lb-stage-controls {
+    position: absolute;
+    bottom: 14px;
+    left: 14px;
+    right: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    pointer-events: none;
+  }
+  .lb-stage-btn {
+    pointer-events: auto;
+    appearance: none;
+    background: rgba(10, 12, 18, 0.88);
+    border: 1px solid rgba(255, 213, 0, 0.45);
+    color: var(--yellow, #ffd500);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 7px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 150ms ease;
+  }
+  .lb-stage-btn:hover {
+    background: var(--yellow, #ffd500);
+    color: #000;
+  }
+  .lb-counter-pill {
+    pointer-events: auto;
+    background: rgba(10, 12, 18, 0.88);
+    border: 1px solid rgba(230, 230, 230, 0.2);
+    color: var(--w1, #e6e6e6);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 6px 11px;
+    border-radius: 4px;
+    letter-spacing: 0.06em;
+  }
+
+  .lb-details {
+    padding: 26px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 16px;
+    overflow-y: auto;
+    max-height: 92vh;
+  }
+  @media (max-width: 900px) {
+    .lb-details {
+      max-height: none;
+      padding: 20px;
+    }
+  }
+  .lb-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .lb-cat-badge {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-radius: 3px;
+    background: rgba(255, 77, 0, 0.16);
+    border: 1px solid rgba(255, 77, 0, 0.5);
+    color: #ff854d;
+  }
+  .lb-close-btn {
+    appearance: none;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(230, 230, 230, 0.22);
+    color: #fff;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 150ms ease;
+  }
+  .lb-close-btn:hover {
+    background: var(--o, #ff4d00);
+    color: #000;
+    border-color: var(--o, #ff4d00);
+  }
+  .lb-title {
+    font-family: var(--sans) !important;
+    font-size: clamp(1.5rem, 2.5vw, 2.1rem) !important;
+    font-weight: 700 !important;
+    color: var(--yellow, #ffd500) !important;
+    letter-spacing: -0.025em !important;
+    line-height: 1.15 !important;
+    margin: 4px 0 8px !important;
+  }
+  .lb-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-bottom: 6px;
+  }
+  .lb-pill {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(230, 230, 230, 0.16);
+    color: var(--w1, #e6e6e6);
+  }
+  .lb-pill.builder {
+    background: rgba(255, 213, 0, 0.12);
+    border-color: rgba(255, 213, 0, 0.4);
+    color: var(--yellow, #ffd500);
+  }
+  .lb-quote-box {
+    background: rgba(255, 213, 0, 0.06);
+    border-left: 3px solid var(--yellow, #ffd500);
+    border-radius: 4px;
+    padding: 12px 14px;
+  }
+  .lb-quote-label {
+    font-family: var(--mono);
+    font-size: 0.64rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--o, #ff4d00);
+    margin-bottom: 4px;
+  }
+  .lb-quote-text {
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.45;
+    margin: 0;
+  }
+  .lb-desc {
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--w2, #c4c4c4);
+    margin: 0;
+  }
+  .lb-specs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  @media (max-width: 520px) {
+    .lb-specs-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .lb-spec-card {
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(230, 230, 230, 0.12);
+    border-radius: 5px;
+    padding: 10px 12px;
+  }
+  .lb-spec-card small {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--yellow, #ffd500);
+    margin-bottom: 4px;
+  }
+  .lb-spec-card p {
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: var(--w1, #e6e6e6);
+    margin: 0;
+  }
+  .lb-nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(230, 230, 230, 0.12);
+  }
+  .lb-nav-btn {
+    flex: 1;
+    appearance: none;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(230, 230, 230, 0.2);
+    color: #fff;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 10px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 150ms ease;
+  }
+  .lb-nav-btn:hover {
+    background: var(--yellow, #ffd500);
+    color: #000;
+    border-color: var(--yellow, #ffd500);
+  }
+
+  /* ---------- 3. SUPERCHARGED LEGO MASTER BUILDER IDEA LAB ---------- */
+  .idea-gen-wrap {
+    background: linear-gradient(180deg, rgba(20, 23, 34, 0.96) 0%, rgba(10, 12, 18, 0.99) 100%) !important;
+    border: 1px solid rgba(255, 213, 0, 0.32) !important;
+    border-radius: 8px !important;
+    padding: clamp(20px, 3vw, 32px) !important;
+    margin: 24px 0 32px !important;
+    text-align: left !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7) !important;
+  }
+  .idea-lab-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 14px;
+    padding-bottom: 18px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid rgba(230, 230, 230, 0.12);
+  }
+  .idea-lab-header h3 {
+    font-family: var(--sans) !important;
+    font-size: clamp(1.45rem, 2.6vw, 2rem) !important;
+    font-weight: 700 !important;
+    color: var(--yellow, #ffd500) !important;
+    margin: 4px 0 6px !important;
+  }
+  .idea-lab-header p {
+    color: var(--w2, #c4c4c4) !important;
+    font-size: 0.92rem !important;
+    margin: 0 !important;
+  }
+  .idea-filter-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 14px 16px;
+    background: rgba(6, 8, 13, 0.78);
+    border: 1px solid rgba(230, 230, 230, 0.11);
+    border-radius: 6px;
+  }
+  .idea-filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+  }
+  .idea-filter-label {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--o, #ff4d00);
+    margin-right: 6px;
+    min-width: 82px;
+  }
+  .idea-pill-btn {
+    appearance: none;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(230, 230, 230, 0.14);
+    color: var(--w2, #c4c4c4);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 6px 11px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 140ms ease;
+  }
+  .idea-pill-btn:hover {
+    background: rgba(255, 255, 255, 0.11);
+    color: #fff;
+  }
+  .idea-pill-btn.active {
+    background: var(--yellow, #ffd500);
+    color: #000;
+    border-color: var(--yellow, #ffd500);
+    font-weight: 700;
+    box-shadow: 0 0 14px rgba(255, 213, 0, 0.28);
+  }
+
+  .blueprint-card {
+    position: relative;
+    background:
+      linear-gradient(rgba(30, 80, 200, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(30, 80, 200, 0.07) 1px, transparent 1px),
+      linear-gradient(180deg, #0d1322 0%, #080b14 100%) !important;
+    background-size: 24px 24px, 24px 24px, 100% 100% !important;
+    border: 1.5px solid rgba(90, 150, 255, 0.35) !important;
+    border-radius: 8px !important;
+    padding: 24px !important;
+    max-width: 100% !important;
+    margin: 0 0 18px 0 !important;
+    display: grid !important;
+    grid-template-columns: auto 1fr;
+    gap: 22px !important;
+    align-items: start !important;
+    text-align: left !important;
+  }
+  @media (max-width: 720px) {
+    .blueprint-card {
+      grid-template-columns: 1fr;
+    }
+  }
+  .blueprint-icon-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .blueprint-emoji {
+    width: 96px;
+    height: 96px;
+    border-radius: 8px;
+    background: rgba(255, 213, 0, 0.12);
+    border: 1.5px solid rgba(255, 213, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.6rem;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+  }
+  .blueprint-code {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #7fb4ff;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .blueprint-main {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-width: 0;
+  }
+  .blueprint-badges {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+  .bp-badge {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #fff;
+  }
+  .bp-badge.cat {
+    background: var(--yellow, #ffd500);
+    color: #000;
+    border-color: var(--yellow, #ffd500);
+  }
+  .bp-badge.pieces {
+    background: rgba(255, 77, 0, 0.18);
+    border-color: rgba(255, 77, 0, 0.5);
+    color: #ff986b;
+  }
+
+  .blueprint-title {
+    font-family: var(--sans) !important;
+    font-size: clamp(1.35rem, 2.3vw, 1.75rem) !important;
+    font-weight: 700 !important;
+    color: #fff !important;
+    margin: 0 !important;
+    line-height: 1.2;
+  }
+
+  .bp-parts-box {
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(230, 230, 230, 0.13);
+    border-radius: 6px;
+    padding: 12px 14px;
+  }
+  .bp-section-label {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--yellow, #ffd500);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .bp-parts-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+  .bp-part-pill {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 3px;
+    background: rgba(30, 80, 200, 0.22);
+    border: 1px solid rgba(100, 160, 255, 0.4);
+    color: #dbe9ff;
+  }
+
+  .bp-steps-list {
+    margin: 0;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    color: var(--w1, #e6e6e6);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+  .bp-steps-list li::marker {
+    color: var(--yellow, #ffd500);
+    font-family: var(--mono);
+    font-weight: 700;
+  }
+
+  .bp-callouts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 680px) {
+    .bp-callouts-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .bp-callout {
+    padding: 12px 14px;
+    border-radius: 6px;
+    background: rgba(255, 213, 0, 0.07);
+    border: 1px solid rgba(255, 213, 0, 0.3);
+  }
+  .bp-callout.secret {
+    background: rgba(255, 77, 0, 0.09);
+    border-color: rgba(255, 77, 0, 0.38);
+  }
+  .bp-callout strong {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--yellow, #ffd500);
+    margin-bottom: 4px;
+  }
+  .bp-callout.secret strong {
+    color: #ff8c5a;
+  }
+  .bp-callout p {
+    font-size: 0.85rem;
+    line-height: 1.45;
+    color: #fff;
+    margin: 0;
+  }
+
+  .bp-twist-banner {
+    display: none;
+    padding: 12px 16px;
+    border-radius: 6px;
+    background: linear-gradient(90deg, rgba(255, 77, 0, 0.26), rgba(255, 213, 0, 0.2));
+    border: 1.5px solid var(--yellow, #ffd500);
+    color: #fff;
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    font-weight: 700;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    box-shadow: 0 6px 20px rgba(255, 140, 0, 0.25);
+  }
+  .bp-twist-banner.show {
+    display: flex;
+    animation: lbFadeIn 180ms ease-out;
+  }
+
+  .idea-actions-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+  }
+  .idea-actions-row .btn {
+    flex: 1 1 210px;
+    min-height: 48px !important;
+    font-weight: 700 !important;
+    cursor: pointer;
+  }
+
+  .all-ideas-drawer {
+    display: none;
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(230, 230, 230, 0.14);
+  }
+  .all-ideas-drawer.open {
+    display: block;
+  }
+  .all-ideas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .mini-idea-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(230, 230, 230, 0.14);
+    border-radius: 5px;
+    padding: 11px 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 150ms ease;
+    text-align: left;
+  }
+  .mini-idea-card:hover, .mini-idea-card.active {
+    background: rgba(255, 213, 0, 0.14);
+    border-color: var(--yellow, #ffd500);
+    transform: translateY(-2px);
+  }
+  .mini-idea-card .mi-em {
+    font-size: 1.75rem;
+    flex: 0 0 auto;
+  }
+  .mini-idea-card .mi-txt {
+    min-width: 0;
+  }
+  .mini-idea-card b {
+    display: block;
+    font-family: var(--sans);
+    font-size: 0.86rem;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .mini-idea-card small {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.64rem;
+    color: var(--g1, #8a8f9c);
+    margin-top: 2px;
+  }
+</style>
+</head>
+<body>
+
+<div class="os-page-wrap">
+  <main class="os-workspace" id="lego">
+
+    <!-- ================= PAGE HERO BANNER ================= -->
+    <section class="os-page-hero lego-hero-banner">
+      <div class="eyebrow">
+        <span>// LEGO LAB · MASTER BUILDER ARCHIVE</span>
+        <hr class="rule" />
+        <span>VIHAAN · AGE 8</span>
+      </div>
+      <div class="hero-box">
+        <div class="framed title-frame">
+          <i class="corner tl" aria-hidden="true"></i><i class="corner tr" aria-hidden="true"></i><i class="corner bl" aria-hidden="true"></i><i class="corner br" aria-hidden="true"></i>
+          <h1><img src="images/logos/lego.svg" alt="LEGO" class="head-logo"> Vihaan's <span class="pop">LEGO Lab</span></h1>
+        </div>
+        <div class="framed sub-frame">
+          <i class="corner tl" aria-hidden="true"></i><i class="corner tr" aria-hidden="true"></i><i class="corner bl" aria-hidden="true"></i><i class="corner br" aria-hidden="true"></i>
+          <p style="margin:0">Explore Vihaan's flagship architectural builds, Star Wars starships, custom freestyle MOCs, world monuments, and the interactive Master Builder Idea Lab. Tap any card to open the full-screen Build Inspector!</p>
+          <div class="hero-stat-pills">
+            <span class="hero-stat-pill">🧱 32+ Builds Logged</span>
+            <span class="hero-stat-pill">🏆 6 Hall of Fame Flagships</span>
+            <span class="hero-stat-pill">🔍 Full-Screen Inspector</span>
+            <span class="hero-stat-pill">🎲 18-Blueprint Idea Lab</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 1. HALL OF FAME — FEATURED PROJECTS ================= -->
+    <section class="hof-section" id="hall-of-fame" aria-label="Hall of Fame Featured Projects">
+      <div class="hof-header">
+        <div class="eyebrow">
+          <span>// 00 — HALL OF FAME</span>
+          <hr class="rule" />
+          <span>FLAGSHIP MASTERWORKS · 01—06</span>
+        </div>
+        <div class="hof-header-frames">
+          <div class="framed title-frame">
+            <i class="corner tl" aria-hidden="true"></i><i class="corner tr" aria-hidden="true"></i><i class="corner bl" aria-hidden="true"></i><i class="corner br" aria-hidden="true"></i>
+            <h2>Hall of Fame</h2>
+            <span class="hof-crown-badge">👑 Featured Projects</span>
+          </div>
+          <div class="framed sub-frame">
+            <i class="corner tl" aria-hidden="true"></i><i class="corner tr" aria-hidden="true"></i><i class="corner bl" aria-hidden="true"></i><i class="corner br" aria-hidden="true"></i>
+            <p style="margin:0">Vihaan's biggest, most legendary flagship creations — from Hogwarts Castle to 800-piece starships and world monuments.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="hof-grid">
+        <!-- 1. Hogwarts Castle -->
+        <article class="hof-card card" tabindex="0" role="button" aria-label="Inspect Hogwarts Castle in full screen"
+          data-img="images/hogwarts.jpg"
+          data-title="Hogwarts Castle"
+          data-category="WIZARDING WORLD · HALL OF FAME #01 · MASTER BUILD"
+          data-meta="🏰 Magic Architecture · ⭐ Featured Masterpiece · 🧩 2,660 Pieces · ⏱ 2 Months"
+          data-fav="The Great Hall, soaring wizard towers, bridges, and tiny boat on the cliffside lake"
+          data-quote="Vihaan's legendary Hogwarts Castle masterpiece — complete with the Great Hall, soaring wizard towers, bridges, and magical details along the rocky cliffs!"
+          data-desc="Vihaan's #1 flagship masterpiece! Built over 2 months with 2,660 pieces, this detailed Hogwarts Castle features rocky cliff foundations, the Great Hall, astronomy and wizard towers, arched bridges, and micro-scale magical details."
+          data-technique="Micro-scale SNOT cliff sculpting, multi-angle tower framing & layered spire assembly"
+          data-funfact="At 2,660 pieces, this is Vihaan's largest and most detailed LEGO build of all time!">
+          <i class="corner tl" aria-hidden="true"></i><i class="corner tr" aria-hidden="true"></i><i class="corner bl" aria-hidden="true"></i><i class="corner br" aria-hidden="true"></i>
+          <div class="hof-card-top">
+            <span>WIZARDING WORLD · HALL OF FAME #01 · MASTER BUILD</span>
+            <span class="hof-num">#01</span>
+          </div>
+          <div class="hof-photo">
+            <img src="images/hogwarts.jpg" alt="Vihaan's LEGO Hogwarts Castle Masterpiece" loading="lazy">
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+          </div>
+          <div class="hof-diag-strip with-diagonal-lines" aria-hidden="true"></div>
+          <div class="hof-body">
+            <div class="hof-meta">🏰 Magic Architecture · ⭐ Featured Masterpiece</div>
+            <h3 class="hof-title">Hogwarts Castle</h3>
+            <p class="hof-desc">"Vihaan's legendary Hogwarts Castle masterpiece — complete with the Great Hall, soaring wizard towers, bridges, and magical details along the rocky cliffs!"</p>
+            <div class="hof-foot">
+              <span class="hof-builder">Built by Vihaan, Age 8</span>
+              <span class="hof-cta">View project →</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. Millennium Falcon (75375) -->
+        <article class="hof-card card" tabindex="0" role="button" aria-label="Inspect Millennium Falcon (75375) in full screen"
+          data-img="images/millennium-falcon.jpg"
+          data-title="Millennium Falcon (75375)"
+          data-category="STAR WARS · 800 PIECES · 5 HOURS"
+          data-meta="🚀 Starship Class · 🧩 800 Pieces · ⏱ 5 Hours"
+          data-fav="The grey greebling details, cockpit dish, and glowing hyperdrive vents"
+          data-quote="My biggest Star Wars build! It has so many cool grey details, cockpit Dish, and hyperdrive vents — it looks like it's ready to jump to hyperspace!"
+          data-desc="Vihaan's flagship Star Wars YT-1300 Corellian freighter! Packed with 800 pieces of intricate hull plating, sensor dish, quad laser cannons, side cockpit, and hyperdrive thrusters."
+          data-technique="Angled wedge hull sub-assemblies, surface greebling & Technic core frame"
+          data-funfact="The Millennium Falcon made the Kessel Run in less than 12 parsecs!">
+          <i class="corner tl" aria-hidden="true"></i><i class="corner tr" aria-hidden="true"></i><i class="corner bl" aria-hidden="true"></i><i class="corner br" aria-hidden="true"></i>
+          <div class="hof-card-top">
+            <span>STAR WARS · 800 PIECES · 5 HOURS</span>
+            <span class="hof-num">#02</span>
+          </div>
+          <div class="hof-photo">
+            <img src="images/millennium-falcon.jpg" alt="Vihaan's LEGO Star Wars Millennium Falcon" loading="lazy">
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+          </div>
+          <div class="hof-diag-strip with-diagonal-lines" aria-hidden="true"></div>
+          <div class="hof-body">
+            <div class="hof-meta">🚀 Starship Showcase · ⭐ Flagship #02</div>
+            <h3 class="hof-title">Millennium Falcon (75375)</h3>
+            <p class="hof-desc">"My biggest Star Wars build! It has so many cool grey details, cockpit Dish, and hyperdrive vents — it looks like it's ready to jump to hyperspace!"</p>
+            <div class="hof-foot">
+              <span class="hof-builder">Built by Vihaan, Age 8</span>
+              <span class="hof-cta">View project →</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3. The Mandalorian Helmet (75328) -->
+        <article class="hof-card card" tabindex="0" role="button" aria-label="Inspect The Mandalorian Helmet (75328) in full screen"
+          data-img="images/set-mando-helmet-75328.jpg"
+          data-title="The Mandalorian Helmet (75328)"
+          data-category="STAR WARS · 584 PIECES · 2.5 DAYS"
+          data-meta="🪖 Helmet Collection · 🧩 584 Pieces · ⏱ 2.5 Days"
+          data-fav="The drum-lacquered metallic silver beskar tiles and T-shaped visor"
+          data-quote="Building Mando's shiny metallic beskar helmet with drum-lacquered silver tiles — this is the way!"
+          data-desc="LEGO Star Wars The Mandalorian Helmet (Set 75328, 584 pieces) — a collector's display sculpture capturing the contours of Din Djarin's beskar armor and T-visor on a custom nameplate pedestal."
+          data-technique="4-way SNOT bracket core with stepped slope shading & metallic tile contouring"
+          data-funfact="Set 75328 is rated 18+ on the box, and Vihaan mastered it at age 8!">
+          <i class="corner tl" aria-hidden="true"></i><i class="corner tr" aria-hidden="true"></i><i class="corner bl" aria-hidden="true"></i><i class="corner br" aria-hidden="true"></i>
+          <div class="hof-card-top">
+            <span>STAR WARS · 584 PIECES · 2.5 DAYS</span>
+            <span class="hof-num">#03</span>
+          </div>
+          <div class="hof-photo">
+            <img src="images/set-mando-helmet-75328.jpg" alt="LEGO Star Wars 75328 The Mandalorian Helmet" class="contain-img" loading="lazy">
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+          </div>
+          <div class="hof-diag-strip with-diagonal-lines" aria-hidden="true"></div>
+          <div class="hof-body">
+            <div class="hof-meta">🪖 Beskar Sculpture · ⭐ Flagship #03</div>
+            <h3 class="hof-title">The Mandalorian Helmet (75328)</h3>
+            <p class="hof-desc">"Building Mando's shiny metallic beskar helmet with drum-lacquered silver tiles — this is the way!"</p>
+            <div class="hof-foot">
+              <span class="hof-builder">Built by Vihaan, Age 8</span>
+              <span class="hof-cta">View project →</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4. Eiffel Tower — Paris -->
+        <article class="hof-card card" tabindex="0" role="button" aria-label="Inspect Eiffel Tower — Paris in full screen"
+          data-img="images/eiffel-tower.jpg"
+          data-title="Eiffel Tower — Paris"
+          data-category="WORLD ARCHITECTURE · 472 PIECES · 3 DAYS"
+          data-meta="🗼 World Monument · 🧩 472 Pieces · ⏱ 3 Days"
+          data-fav="The four curved base legs, observation decks, and tall spire on top"
+          data-quote="Super tall with four curved legs, French flag on top, and tiny trees at the base — my tallest tower ever!"
+          data-desc="Vihaan's tallest architectural landmark build! Standing proud with 472 pieces, four wide-stanced legs, multi-stage observation platforms, and a soaring pinnacle spire."
+          data-technique="Tapered structural stacking, symmetrical 4-leg weight distribution & spire alignment"
+          data-funfact="The real Eiffel Tower in Paris is 1,083 feet tall and was the tallest structure in the world for 41 years!">
+          <i class="corner tl" aria-hidden="true"></i><i class="corner tr" aria-hidden="true"></i><i class="corner bl" aria-hidden="true"></i><i class="corner br" aria-hidden="true"></i>
+          <div class="hof-card-top">
+            <span>WORLD ARCHITECTURE · 472 PIECES · 3 DAYS</span>
+            <span class="hof-num">#04</span>
+          </div>
+          <div class="hof-photo">
+            <img src="images/eiffel-tower.jpg" alt="Vihaan's LEGO Eiffel Tower — Paris" class="contain-img" loading="lazy">
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+          </div>
+          <div class="hof-diag-strip with-diagonal-lines" aria-hidden="true"></div>
+          <div class="hof-body">
+            <div class="hof-meta">🗼 Tallest Tower · ⭐ Flagship #04</div>
+            <h3 class="hof-title">Eiffel Tower — Paris</h3>
+            <p class="hof-desc">"Super tall with four curved legs, French flag on top, and tiny trees at the base — my tallest tower ever!"</p>
+            <div class="hof-foot">
+              <span class="hof-builder">Built by Vihaan, Age 8</span>
+              <span class="hof-cta">View project →</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 5. Taj Mahal Monument -->
+        <article class="hof-card card" tabindex="0" role="button" aria-label="Inspect Taj Mahal Monument in full screen"
+          data-img="images/taj-mahal.jpg"
+          data-title="Taj Mahal Monument"
+          data-category="WORLD ARCHITECTURE · 392 PIECES · 2 DAYS"
+          data-meta="🕌 World Wonder · 🧩 392 Pieces · ⏱ 2 Days"
+          data-fav="The central crown dome and the four symmetrical corner minarets"
+          data-quote="The white domes and four minarets look just like the real monument in India!"
+          data-desc="A tribute to one of the Seven Wonders of the World in Agra, India! Features the grand central onion dome, four corner minaret towers, and a raised terrace foundation."
+          data-technique="4-fold rotational symmetry, dome curvature layering & corner minaret pillars"
+          data-funfact="Over 20,000 artisans worked for 22 years to build the real marble Taj Mahal in India!">
+          <i class="corner tl" aria-hidden="true"></i><i class="corner tr" aria-hidden="true"></i><i class="corner bl" aria-hidden="true"></i><i class="corner br" aria-hidden="true"></i>
+          <div class="hof-card-top">
+            <span>WORLD ARCHITECTURE · 392 PIECES · 2 DAYS</span>
+            <span class="hof-num">#05</span>
+          </div>
+          <div class="hof-photo">
+            <img src="images/taj-mahal.jpg" alt="Vihaan's LEGO Taj Mahal Monument" loading="lazy">
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+          </div>
+          <div class="hof-diag-strip with-diagonal-lines" aria-hidden="true"></div>
+          <div class="hof-body">
+            <div class="hof-meta">🕌 Indian Heritage Wonder · ⭐ Flagship #05</div>
+            <h3 class="hof-title">Taj Mahal Monument</h3>
+            <p class="hof-desc">"The white domes and four minarets look just like the real monument in India!"</p>
+            <div class="hof-foot">
+              <span class="hof-builder">Built by Vihaan, Age 8</span>
+              <span class="hof-cta">View project →</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 6. 200-Pc Custom Mega Spaceship -->
+        <article class="hof-card card" tabindex="0" role="button" aria-label="Inspect 200-Pc Custom Mega Spaceship in full screen"
+          data-img="images/mega-build.jpg"
+          data-title="200-Pc Custom Mega Spaceship"
+          data-category="100% ORIGINAL DESIGN · 200+ PIECES · NO MANUAL"
+          data-meta="🛸 Original MOC · 🧩 200+ Pieces · ⏱ Freestyle Build"
+          data-fav="The sweeping multi-color wingspan and custom command bridge"
+          data-quote="My biggest free-build creation ever — designed completely from my imagination with zero instructions!"
+          data-desc="100% original LEGO MOC (My Own Creation)! Engineered completely without a manual, combining long Reinforced Plates for an ultra-wide wingspan, twin thruster pods, and a central command deck."
+          data-technique="Cantilevered wing plate interlocking & freestyle structural balancing without instructions"
+          data-funfact="In the LEGO community, a build made from your own imagination with no instructions is called a MOC (My Own Creation)!">
+          <i class="corner tl" aria-hidden="true"></i><i class="corner tr" aria-hidden="true"></i><i class="corner bl" aria-hidden="true"></i><i class="corner br" aria-hidden="true"></i>
+          <div class="hof-card-top">
+            <span>100% ORIGINAL DESIGN · 200+ PIECES · NO MANUAL</span>
+            <span class="hof-num">#06</span>
+          </div>
+          <div class="hof-photo">
+            <img src="images/mega-build.jpg" alt="Vihaan's 200-Pc Custom Mega Spaceship" loading="lazy">
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+          </div>
+          <div class="hof-diag-strip with-diagonal-lines" aria-hidden="true"></div>
+          <div class="hof-body">
+            <div class="hof-meta">🛸 100% Original MOC · ⭐ Flagship #06</div>
+            <h3 class="hof-title">200-Pc Custom Mega Spaceship</h3>
+            <p class="hof-desc">"My biggest free-build creation ever — designed completely from my imagination with zero instructions!"</p>
+            <div class="hof-foot">
+              <span class="hof-builder">Built by Vihaan, Age 8</span>
+              <span class="hof-cta">View project →</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= WORKSPACE SUBTABS BAR ================= -->
+    <header class="os-workspace-bar framed">
+      <i class="corner tl" aria-hidden="true"></i><i class="corner tr" aria-hidden="true"></i><i class="corner bl" aria-hidden="true"></i><i class="corner br" aria-hidden="true"></i>
+      <div class="os-workspace-title">
+        <span class="chip">Build Zone</span>
+        <h1><img src="images/logos/lego.svg" alt="LEGO" class="head-logo"> LEGO Collections</h1>
+      </div>
+      <div class="os-subtabs" role="tablist">
+        <button type="button" class="os-subtab active" data-target="all">🌟 All Collections</button>
+        <button type="button" class="os-subtab" data-target="view-creations">🎨 My Creations (14)</button>
+        <button type="button" class="os-subtab" data-target="view-wonders">🌍 Wonders (4)</button>
+        <button type="button" class="os-subtab" data-target="view-minis">🔭 Mini Builds &amp; Boats</button>
+        <button type="button" class="os-subtab" data-target="view-battles">🏎️ F1 &amp; Golem Battles</button>
+        <button type="button" class="os-subtab" data-target="view-videos">🎬 Build Videos (5)</button>
+        <button type="button" class="os-subtab" data-target="view-botw">🎲 Master Idea Lab (18)</button>
+        <button type="button" class="os-subtab" data-target="view-arts">🖌️ Arts &amp; Crafts</button>
+      </div>
+    </header>
+
+    <!-- ================= SUBVIEW 1: MY CREATIONS ================= -->
+    <div class="os-subview active" id="view-creations">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px">
+        <div class="build-count" style="margin:0">🧱 <b id="legoBuildCount">32</b> builds and counting!</div>
+        <p class="lego-hint" style="margin:0">🔍 Tap any build card to open the Full-Screen Build Inspector</p>
+      </div>
+      <h3 class="lego-group-title">🎨 My Own Creations</h3>
+      <div class="grid lego-grid">
+        <article class="card lego-card" tabindex="0" role="button" aria-label="Open The Mandalorian Helmet full screen"
+          data-img="images/set-mando-helmet-75328.jpg" data-title="The Mandalorian Helmet"
+          data-category="🪖 STAR WARS HELMET SERIES"
+          data-meta="🪖 Set 75328 · 🧩 584 Pieces · ⏱ 2½ Days"
+          data-fav="the shiny silver visor and the beskar shine"
+          data-quote="Building Mando's shiny beskar helmet — this is the way!"
+          data-desc="LEGO Star Wars The Mandalorian Helmet (set 75328, 584 pieces) — a detailed display model of Mando's iconic beskar helmet with its silver T-shaped visor, mounted on a black stand with a nameplate. From the 18+ Helmet Collection — this is the way!"
+          data-technique="SNOT bracket core with drum-lacquered metallic silver tile layering"
+          data-funfact="Features special metallic silver LEGO elements to mimic real Mandalorian beskar steel!">
+          <div class="lego-photo">
+            <img src="images/set-mando-helmet-75328.jpg" alt="LEGO Star Wars 75328 The Mandalorian Helmet" class="contain" loading="lazy" style="background:#fff">
+            <span class="glass-badge">🪖 Star Wars Set</span>
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+            <div class="photo-fade"></div>
+            <h3 class="lego-title">The Mandalorian Helmet</h3>
+          </div>
+          <div class="lego-body">
+            <div class="pills"><span class="pill">🧩 584 Pieces</span><span class="pill">⏱ 2½ Days</span></div>
+            <p class="why-label">Why I Loved Building It</p>
+            <p class="why-text">"Building Mando's shiny beskar helmet — this is the way!"</p>
+            <p class="creator-footer">Built by Vihaan, Age 8</p>
+          </div>
+        </article>
+        <article class="card lego-card" tabindex="0" role="button" aria-label="Open Peely and Sparkplug's Camp full screen"
+          data-img="images/set-fortnite-camp-77075.jpg" data-title="Peely & Sparkplug's Camp"
+          data-category="🎮 LEGO FORTNITE SERIES"
+          data-meta="🎮 Set 77075 · 🧩 250 Pieces · ⏱ 1 hr"
+          data-fav="the black dragon and the campfire"
+          data-quote="Peely the banana guy and the black dragon are the best!"
+          data-desc="LEGO Fortnite Peely & Sparkplug's Camp (set 77075, 250 pieces) — a battle camp with a campfire, ruins and a workbench, plus a Supply Llama, a wolf, a black dragon, and the Peely (banana!), Sparkplug and skeleton figures. Vihaan's birthday gift!"
+          data-technique="Modular terrain baseplates & articulated creature joints"
+          data-funfact="Includes the iconic Fortnite Supply Llama and Peely minifigure!">
+          <div class="lego-photo">
+            <img src="images/set-fortnite-camp-77075.jpg" alt="LEGO Fortnite 77075 Peely and Sparkplug's Camp" class="contain" loading="lazy" style="background:#fff">
+            <span class="glass-badge">🎮 Fortnite Set</span>
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+            <div class="photo-fade"></div>
+            <h3 class="lego-title">Peely &amp; Sparkplug's Camp</h3>
+          </div>
+          <div class="lego-body">
+            <div class="pills"><span class="pill">🧩 250 Pieces</span><span class="pill">⏱ 1 hr</span></div>
+            <p class="why-label">Why I Loved Building It</p>
+            <p class="why-text">"Peely the banana guy and the black dragon are the best!"</p>
+            <p class="creator-footer">Built by Vihaan, Age 8</p>
+          </div>
+        </article>
+        <article class="card lego-card" tabindex="0" role="button" aria-label="Open Playful Puppy Dog full screen"
+          data-img="images/set-puppy-31382.jpg" data-title="Playful Puppy Dog"
+          data-category="🐶 CREATOR 3-IN-1 SERIES"
+          data-meta="🐶 Set 31382 · 🧩 336 Pieces · ⏱ 1 hr 17 min"
+          data-fav="the floppy ears and the big puppy eyes"
+          data-quote="It's so cute with the floppy ears — and it was my birthday present!"
+          data-desc="LEGO Creator 3-in-1 Playful Puppy Dog (set 31382, 336 pieces) — an adorable brown-and-white puppy with floppy ears, big eyes, a collar, a food bowl and a bone. Vihaan's birthday present! It can also rebuild into a squirrel or a duck."
+          data-technique="Ball-and-socket posable limbs & hinged ear attachments"
+          data-funfact="Can be rebuilt into 3 different animals using the exact same 336 bricks!">
+          <div class="lego-photo">
+            <img src="images/set-puppy-31382.jpg" alt="LEGO Creator 3-in-1 31382 Playful Puppy Dog" class="contain" loading="lazy" style="background:#fff">
+            <span class="glass-badge">🐶 Creator 3-in-1</span>
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+            <div class="photo-fade"></div>
+            <h3 class="lego-title">Playful Puppy Dog</h3>
+          </div>
+          <div class="lego-body">
+            <div class="pills"><span class="pill">🧩 336 Pieces</span><span class="pill">⏱ 1 hr 17 min</span></div>
+            <p class="why-label">Why I Loved Building It</p>
+            <p class="why-text">"It's so cute with the floppy ears — and it was my birthday present!"</p>
+            <p class="creator-footer">Built by Vihaan, Age 8</p>
+          </div>
+        </article>
+        <article class="card lego-card" tabindex="0" role="button" aria-label="Open Car full screen"
+          data-img="images/car.jpg" data-title="Custom Street Racer Car"
+          data-category="🚗 ORIGINAL MOC FREE BUILD"
+          data-meta="🎲 Random Build · 🧩 ~40 Pieces · ⏱ 29 min"
+          data-fav="the racing wheels and the smooth two-tone body"
+          data-quote="Making it look fast with big wheels and a smooth body!"
+          data-desc="An original car Vihaan designed all by himself — a sleek two-tone racer with big wheels, curved fenders, and a printed cockpit tile. Built freestyle from all kinds of bricks! About 40 pieces, made in 29 minutes."
+          data-technique="Low-slung chassis framing with curved fender arches"
+          data-funfact="Designed 100% freestyle in under 30 minutes!">
+          <div class="lego-photo">
+            <img src="images/car.jpg" alt="Vihaan's original LEGO car" class="contain" loading="lazy" style="background:#efeae0">
+            <span class="glass-badge">🚗 Random Build</span>
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+            <div class="photo-fade"></div>
+            <h3 class="lego-title">Car</h3>
+          </div>
+          <div class="lego-body">
+            <div class="pills"><span class="pill">🧩 ~40 Pieces</span><span class="pill">⏱ 29 min</span></div>
+            <p class="why-label">Why I Loved Building It</p>
+            <p class="why-text">"Making it look fast with big wheels and a smooth body!"</p>
+            <p class="creator-footer">Built by Vihaan, Age 8</p>
+          </div>
+        </article>
+        <article class="card lego-card" tabindex="0" role="button" aria-label="Open Bento Lunch Box full screen"
+          data-img="images/bento-lunchbox.jpg" data-title="Bento Lunch Box"
+          data-category="🍱 ORIGINAL MOC FREE BUILD"
+          data-meta="🎲 Random Build · 🧩 ~65 Pieces · ⏱ 49 min"
+          data-fav="filling every compartment with brick-built food"
+          data-quote="Filling every part of the lunch box with LEGO food!"
+          data-desc="A LEGO bento lunch box packed with brick-built food — leafy greens and veggies in every compartment, all framed in a colorful tray. An original freestyle build, about 65 pieces, made in 49 minutes."
+          data-technique="Compartment divider walls & botanical element detailing"
+          data-funfact="Every section of the tray has its own custom LEGO snack inside!">
+          <div class="lego-photo">
+            <img src="images/bento-lunchbox.jpg" alt="Vihaan's LEGO bento lunch box full of brick-built food" class="contain" loading="lazy" style="background:#efeae0">
+            <span class="glass-badge">🍱 Random Build</span>
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+            <div class="photo-fade"></div>
+            <h3 class="lego-title">Bento Lunch Box</h3>
+          </div>
+          <div class="lego-body">
+            <div class="pills"><span class="pill">🧩 ~65 Pieces</span><span class="pill">⏱ 49 min</span></div>
+            <p class="why-label">Why I Loved Building It</p>
+            <p class="why-text">"Filling every part of the lunch box with LEGO food!"</p>
+            <p class="creator-footer">Built by Vihaan, Age 8</p>
+          </div>
+        </article>
+        <article class="card lego-card" tabindex="0" role="button" aria-label="Open Flatbed Truck with Helicopter full screen"
+          data-img="images/set-truck-helicopter-31146.jpg" data-title="Flatbed Truck with Helicopter"
+          data-category="🚁 CREATOR 3-IN-1 SERIES"
+          data-meta="🚁 Set 31146 · 🧩 270 Pieces · ⏱ 1 hr 17 min"
+          data-fav="the helicopter with spinning rotors on the flatbed"
+          data-quote="Loading the helicopter onto the truck's flatbed!"
+          data-desc="LEGO Creator 3-in-1 Flatbed Truck with Helicopter (set 31146, 270 pieces) — a black-and-red transporter truck carrying a red, white and blue helicopter with spinning rotor blades. A 3-in-1 set that can also rebuild into other vehicles!"
+          data-technique="Hinged trailer coupling & free-spinning Technic rotor pin"
+          data-funfact="Can also rebuild into a propeller plane + fuel truck or a hot rod + SUV!">
+          <div class="lego-photo">
+            <img src="images/set-truck-helicopter-31146.jpg" alt="LEGO Creator 3-in-1 31146 flatbed truck carrying a helicopter" class="contain" loading="lazy">
+            <span class="glass-badge">🚁 Creator 3-in-1</span>
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+            <div class="photo-fade"></div>
+            <h3 class="lego-title">Flatbed Truck with Helicopter</h3>
+          </div>
+          <div class="lego-body">
+            <div class="pills"><span class="pill">🧩 270 Pieces</span><span class="pill">⏱ 1 hr 17 min</span></div>
+            <p class="why-label">Why I Loved Building It</p>
+            <p class="why-text">"Loading the helicopter onto the truck's flatbed!"</p>
+            <p class="creator-footer">Built by Vihaan, Age 8</p>
+          </div>
+        </article>
+        <article class="card lego-card" tabindex="0" role="button" aria-label="Open Typewriter full screen"
+          data-img="images/set-typewriter-31169.jpg" data-title="Typewriter with Flowers"
+          data-category="⌨️ CREATOR 3-IN-1 SERIES"
+          data-meta="⌨️ Set 31169 · 🧩 363 Pieces · ⏱ 1 hr"
+          data-fav="the flowers and the moving keys"
+          data-quote="The keys really move, and I love the brick flowers!"
+          data-desc="LEGO Creator 3-in-1 Typewriter with Flowers (set 31169, 363 pieces) — a pink typewriter with a moving keyboard and platen, a brick-built sheet of paper, and colorful brick flowers. It can also rebuild into a keytar or a flowerpot!"
+          data-technique="Mechanical key linkage & botanical petal arrangement"
+          data-funfact="Vihaan built both this Typewriter AND the Keytar alternate build from Set 31169!">
+          <div class="lego-photo">
+            <img src="images/set-typewriter-31169.jpg" alt="LEGO Creator 3-in-1 31169 Typewriter with Flowers" class="contain" loading="lazy">
+            <span class="glass-badge">⌨️ Creator 3-in-1</span>
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+            <div class="photo-fade"></div>
+            <h3 class="lego-title">Typewriter with Flowers</h3>
+          </div>
+          <div class="lego-body">
+            <div class="pills"><span class="pill">🧩 363 Pieces</span><span class="pill">⏱ 1 hr</span></div>
+            <p class="why-label">Why I Loved Building It</p>
+            <p class="why-text">"The keys really move, and I love the brick flowers!"</p>
+            <p class="creator-footer">Built by Vihaan, Age 8</p>
+          </div>
+        </article>
+        <article class="card lego-card" tabindex="0" role="button" aria-label="Open Keytar Guitar full screen"
+          data-img="images/set-guitar-31169.jpg" data-title="Keytar Guitar"
+          data-category="🎸 CREATOR 3-IN-1 REBUILD"
+          data-meta="🎸 Set 31169 · 🧩 363 Pieces · ⏱ 1 hr"
+          data-fav="turning the typewriter into a pink keytar"
+          data-quote="Rebuilding the same set into a rockin' keytar!"
+          data-desc="The keytar rebuild of LEGO set 31169 — a bright pink guitar-keyboard on a flowery stand, with a blue butterfly. Made from the very same bricks as the typewriter (a Creator 3-in-1 set)!"
+          data-technique="2nd-mode alternate build reconstruction & angled neck bracing"
+          data-funfact="Taking apart a finished model to build the B-model is one of the best ways to level up LEGO engineering skills!">
+          <div class="lego-photo">
+            <img src="images/set-guitar-31169.jpg" alt="LEGO 31169 pink keytar guitar alternate build" class="contain" loading="lazy">
+            <span class="glass-badge">🎸 Creator 3-in-1</span>
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+            <div class="photo-fade"></div>
+            <h3 class="lego-title">Keytar Guitar</h3>
+          </div>
+          <div class="lego-body">
+            <div class="pills"><span class="pill">🧩 363 Pieces</span><span class="pill">⏱ 1 hr</span></div>
+            <p class="why-label">Why I Loved Building It</p>
+            <p class="why-text">"Rebuilding the same set into a rockin' keytar!"</p>
+            <p class="creator-footer">Built by Vihaan, Age 8</p>
+          </div>
+        </article>
+        <article class="card lego-card" tabindex="0" role="button" aria-label="Open Millennium Falcon full screen"
+          data-img="images/millennium-falcon.jpg" data-title="Millennium Falcon"
+          data-category="🚀 STAR WARS FLAGSHIP"
+          data-meta="🚀 Star Wars Set · 🧩 ~800 Pieces · ⏱ 2½ Days"
+          data-fav="the cockpit and the dejarik holo-chess table inside"
+          data-quote="Building the cockpit and the little dejarik table inside!"
+          data-desc="Vihaan's LEGO Star Wars Millennium Falcon — the YT-1300 freighter with a detailed interior, a gunner station, and a dejarik holo-chess table. Crewed by Han Solo, Luke Skywalker, Princess Leia and C-3PO minifigures! About 800 pieces, built over 2½ days."
+          data-technique="Hinged hull panels opening to reveal a full minifigure interior"
+          data-funfact="Even has a tiny LEGO Dejarik holo-chess table inside — combining Vihaan's love of chess and LEGO!">
+          <div class="lego-photo">
+            <img src="images/millennium-falcon.jpg" alt="Vihaan's LEGO Star Wars Millennium Falcon with Han, Luke and C-3PO minifigures" loading="lazy">
+            <span class="glass-badge">🚀 Star Wars Set</span>
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+            <div class="photo-fade"></div>
+            <h3 class="lego-title">Millennium Falcon</h3>
+          </div>
+          <div class="lego-body">
+            <div class="pills"><span class="pill">🧩 ~800 Pieces</span><span class="pill">⏱ 2½ Days</span></div>
+            <p class="why-label">Why I Loved Building It</p>
+            <p class="why-text">"Building the cockpit and the little dejarik table inside!"</p>
+            <p class="creator-footer">Built by Vihaan, Age 8</p>
+          </div>
+        </article>
+        <article class="card lego-card" tabindex="0" role="button" aria-label="Open Spaceship full screen"
+          data-img="images/mega-build.jpg" data-title="Spaceship"
+          data-category="🛸 ORIGINAL MOC STARSHIP"
+          data-meta="🎲 Random Build · 🧩 478 Pieces · ⏱ 1 hour"
+          data-fav="the long colorful wings stretching way out"
+          data-quote="I made a huge spaceship with long wings out of all my bricks!"
+          data-desc="A giant freestyle LEGO spaceship with long colorful wings stretching way out and a big detailed body — built from all kinds of bricks! A 478-piece random build made in exactly 1 hour."
+          data-technique="Wide-span wing plate overlapping for zero wing droop"
+          data-funfact="Built at a blistering pace of nearly 8 bricks per minute!">
+          <div class="lego-photo">
+            <img src="images/mega-build.jpg" alt="Vihaan's original giant LEGO spaceship with long colorful wings" loading="lazy">
+            <span class="glass-badge">🎲 Random Build</span>
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+            <div class="photo-fade"></div>
+            <h3 class="lego-title">Spaceship</h3>
+          </div>
+          <div class="lego-body">
+            <div class="pills"><span class="pill">🧩 478 Pieces</span><span class="pill">⏱ 1 hour</span></div>
+            <p class="why-label">Why I Loved Building It</p>
+            <p class="why-text">"I made a huge spaceship with long wings out of all my bricks!"</p>
+            <p class="creator-footer">Built by Vihaan, Age 8</p>
+          </div>
+        </article>
+        <article class="card lego-card" tabindex="0" role="button" aria-label="Open Golem full screen"
+          data-img="images/robot-warrior.jpg" data-title="Golem"
+          data-category="⚔️ MINECRAFT MOC MECH"
+          data-meta="🎲 Random Build · 🧩 123 Pieces · ⏱ 41 min"
+          data-fav="the three swords, three guns, armor and shield"
+          data-quote="The golem has three swords and three guns plus armor. There is also a shield. It is made randomly. I didn't even think about making it."
+          data-desc="The golem has three swords and three guns plus armor. There is also a shield. It is made randomly. I didn't even think about making it. It also looks just like a Minecraft Iron Golem! A 123-piece random build made in 41 minutes."
+          data-technique="Heavy torso block stacking & multi-weapon arm mounts"
+          data-funfact="This Golem stars in its own animated Minecraft battle against a Skeleton in the Battles tab!">
+          <div class="lego-photo">
+            <img src="images/robot-warrior.jpg" alt="Vihaan's original LEGO Golem with three swords, three guns, armor and a shield" loading="lazy">
+            <span class="glass-badge">🎲 Random Build</span>
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+            <div class="photo-fade"></div>
+            <h3 class="lego-title">Golem</h3>
+          </div>
+          <div class="lego-body">
+            <div class="pills"><span class="pill">🧩 123 Pieces</span><span class="pill">⏱ 41 min</span></div>
+            <p class="why-label">Why I Loved Building It</p>
+            <p class="why-text">"The golem has three swords and three guns plus armor. There is also a shield. It is made randomly. I didn't even think about making it."</p>
+            <p class="creator-footer">Built by Vihaan, Age 8</p>
+          </div>
+        </article>
+        <article class="card lego-card" tabindex="0" role="button" aria-label="Open F1 Truck with 2 Race Cars full screen"
+          data-img="images/f1-truck.jpg" data-title="F1 Truck with 2 Race Cars"
+          data-category="🏎️ FORMULA 1 RACING SERIES"
+          data-meta="🏎️ Set 60445 · 🧩 1,086 Pieces · ⏱ 2 Days"
+          data-fav="the back ramp that moves to load the race cars"
+          data-quote="The back of the truck moves so I could load the race cars!"
+          data-desc="A big F1 transport truck carrying two real Formula 1 race cars — the Red Bull RB20 and the Aston Martin AMR24. The back of the truck moves to lower a ramp so the cars can drive on! LEGO set 60445, 1,086 pieces, built in 2 days."
+          data-technique="Articulated semi-trailer ramp mechanism & aerodynamic F1 halo cockpits"
+          data-funfact="Over 1,000 pieces! Features both the Aston Martin AMR24 and Red Bull RB20 race cars!">
+          <div class="lego-photo">
+            <img src="images/f1-truck.jpg" alt="Vihaan's LEGO F1 truck with two Formula 1 race cars" loading="lazy">
+            <span class="glass-badge">🏎️ F1 Race Set</span>
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+            <div class="photo-fade"></div>
+            <h3 class="lego-title">F1 Truck with 2 Race Cars</h3>
+          </div>
+          <div class="lego-body">
+            <div class="pills"><span class="pill">🧩 1,086 Pieces</span><span class="pill">⏱ 2 Days</span></div>
+            <p class="why-label">Why I Loved Building It</p>
+            <p class="why-text">"The back of the truck moves so I could load the race cars!"</p>
+            <p class="creator-footer">Built by Vihaan, Age 8</p>
+          </div>
+        </article>
+        <article class="card lego-card" tabindex="0" role="button" aria-label="Open Hogwarts Castle full screen"
+          data-img="images/hogwarts.jpg" data-title="Hogwarts Castle"
+          data-category="⭐ WIZARDING WORLD FLAGSHIP"
+          data-meta="⭐ Favorite Build · 🧩 2,660 Pieces · ⏱ 2 Months"
+          data-fav="the decorations"
+          data-quote="All the tiny decorations made it feel magical."
+          data-desc="The magical Hogwarts Castle with lots of pointy towers, a rocky base, a tiny wizard figure, and a little boat on the water. A huge 2,660-piece build!"
+          data-technique="Micro-scale gothic spires & cliffside rockwork"
+          data-funfact="Vihaan's #1 Hall of Fame build — 2,660 pieces completed over 2 months!">
+          <div class="lego-photo">
+            <img src="images/hogwarts.jpg" alt="Vihaan's LEGO Hogwarts Castle" loading="lazy">
+            <span class="glass-badge">⭐ Favorite Build</span>
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+            <div class="photo-fade"></div>
+            <h3 class="lego-title">Hogwarts Castle</h3>
+          </div>
+          <div class="lego-body">
+            <div class="pills"><span class="pill">🧩 2,660 Pieces</span><span class="pill">⏱ 2 Months</span></div>
+            <p class="why-label">Why I Loved Building It</p>
+            <p class="why-text">"All the tiny decorations made it feel magical."</p>
+            <p class="creator-footer">Built by Vihaan, Age 8</p>
+          </div>
+        </article>
+        <article class="card lego-card" tabindex="0" role="button" aria-label="Open Rainbow House full screen"
+          data-img="images/rainbow-house.jpg" data-title="Rainbow Brick House"
+          data-category="🌈 ORIGINAL ARCHITECTURE MOC"
+          data-meta="🌈 Free Build · 🧩 297 Pieces · ⏱ 2 hr 27 min"
+          data-fav="the rainbow roof made of every color"
+          data-quote="Using every single color to make the rainbow roof."
+          data-desc="A big colorful brick house built from every color in the box, with a checkerboard rainbow roof, a little yellow door, and windows on the sides. A totally original free build!"
+          data-technique="Staggered running-bond brick walls & stepped gable roof"
+          data-funfact="Uses nearly 300 bricks in every color of the LEGO rainbow!">
+          <div class="lego-photo">
+            <img src="images/rainbow-house.jpg" alt="Vihaan's colorful LEGO rainbow brick house" loading="lazy">
+            <span class="glass-badge">🌈 Free Build</span>
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+            <div class="photo-fade"></div>
+            <h3 class="lego-title">Rainbow Brick House</h3>
+          </div>
+          <div class="lego-body">
+            <div class="pills"><span class="pill">🧩 297 Pieces</span><span class="pill">⏱ 2 hr 27 min</span></div>
+            <p class="why-label">Why I Loved Building It</p>
+            <p class="why-text">"Using every single color to make the rainbow roof."</p>
+            <p class="creator-footer">Built by Vihaan, Age 8</p>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- ================= SUBVIEW 2: WONDERS OF THE WORLD ================= -->
+    <div class="os-subview active" id="view-wonders">
+      <h3 class="lego-group-title" style="margin-top:28px">🌍 Wonders of the World</h3>
+      <div class="grid lego-grid">
+        <article class="card lego-card" tabindex="0" role="button" aria-label="Open Eiffel Tower full screen"
+          data-img="images/eiffel-tower.jpg" data-title="Eiffel Tower"
+          data-category="📏 WORLD WONDER ARCHITECTURE"
+          data-meta="📏 Tallest Build · 🧩 472 Pieces · ⏱ 1 hr 11 min"
+          data-fav="the base section"
+          data-quote="The base section was the most fun to build."
+          data-desc="A super-tall rainbow tower built from hundreds of colorful bricks, with a pointy spire reaching all the way to the top. Every layer uses a different color!"
+          data-technique="4-legged arch base & tapered skyward tower stacking"
+          data-funfact="Stands taller than any other LEGO creation in Vihaan's room!">
+          <div class="lego-photo">
+            <img src="images/eiffel-tower.jpg" alt="Vihaan's colorful LEGO Eiffel Tower" class="contain" loading="lazy">
+            <span class="glass-badge">📏 Tallest Build</span>
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+            <div class="photo-fade"></div>
+            <h3 class="lego-title">Eiffel Tower</h3>
+          </div>
+          <div class="lego-body">
+            <div class="pills"><span class="pill">🧩 472 Pieces</span><span class="pill">⏱ 1 hr 11 min</span></div>
+            <p class="why-label">Why I Loved Building It</p>
+            <p class="why-text">"The base section was the most fun to build."</p>
+            <p class="creator-footer">Built by Vihaan, Age 8</p>
+          </div>
+        </article>
+        <article class="card lego-card" tabindex="0" role="button" aria-label="Open Temple full screen"
+          data-img="images/taj-mahal.jpg" data-title="Temple"
+          data-category="🥈 WORLD WONDER ARCHITECTURE"
+          data-meta="🥈 Second Hardest Build · 🧩 672 Pieces · ⏱ 2 hr 15 min"
+          data-fav="the roof"
+          data-quote="The roof was my favorite part to figure out."
+          data-desc="A colorful temple with a big central dome, four tall corner towers, and a wide brick base with a little yellow door. Packed with detail on every side!"
+          data-technique="Central dome tiering & symmetrical corner tower framing"
+          data-funfact="At 672 pieces, this is one of Vihaan's biggest architectural free-builds!">
+          <div class="lego-photo">
+            <img src="images/taj-mahal.jpg" alt="Vihaan's colorful LEGO Temple" loading="lazy">
+            <span class="glass-badge">🥈 Second Hardest Build</span>
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+            <div class="photo-fade"></div>
+            <h3 class="lego-title">Temple</h3>
+          </div>
+          <div class="lego-body">
+            <div class="pills"><span class="pill">🧩 672 Pieces</span><span class="pill">⏱ 2 hr 15 min</span></div>
+            <p class="why-label">Why I Loved Building It</p>
+            <p class="why-text">"The roof was my favorite part to figure out."</p>
+            <p class="creator-footer">Built by Vihaan, Age 8</p>
+          </div>
+        </article>
+        <article class="card lego-card" tabindex="0" role="button" aria-label="Open Empire State Building full screen"
+          data-img="images/empire-state.jpg" data-title="Empire State Building"
+          data-category="🏙️ NYC SKYLINE LANDMARK"
+          data-meta="🏙️ Landmark Build · 🧩 132 Pieces · ⏱ 35 Minutes"
+          data-fav="the tall antenna spire"
+          data-quote="Making it tall and balanced with the spire on top."
+          data-desc="A tan brick model of the Empire State Building — a tall stepped tower with a pointed top and a thin antenna spire reaching for the sky."
+          data-technique="Art Deco setback tiering & centered pinnacle antenna"
+          data-funfact="The real Empire State Building in New York City has 102 stories!">
+          <div class="lego-photo">
+            <img src="images/empire-state.jpg" alt="Vihaan's LEGO Empire State Building" class="contain" loading="lazy">
+            <span class="glass-badge">🏙️ Landmark Build</span>
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+            <div class="photo-fade"></div>
+            <h3 class="lego-title">Empire State Building</h3>
+          </div>
+          <div class="lego-body">
+            <div class="pills"><span class="pill">🧩 132 Pieces</span><span class="pill">⏱ 35 Minutes</span></div>
+            <p class="why-label">Why I Loved Building It</p>
+            <p class="why-text">"Making it tall and balanced with the spire on top."</p>
+            <p class="creator-footer">Built by Vihaan, Age 8</p>
+          </div>
+        </article>
+        <article class="card lego-card" tabindex="0" role="button" aria-label="Open Taj Mahal full screen"
+          data-img="images/taj-mahal-2.jpg" data-title="Taj Mahal (Rainbow Edition)"
+          data-category="🎨 WORLD WONDER ARCHITECTURE"
+          data-meta="🎨 Sticker Build · 🧩 262 Pieces · ⏱ 1 hr 36 min"
+          data-fav="the big dome and four tall towers"
+          data-quote="The big dome and the four tall corner towers."
+          data-desc="A super-colorful Taj Mahal with a big rounded dome, a grand archway entrance, four tall corner minaret towers, and a wide rainbow-brick base. Built rainbow-style from every color in the box!"
+          data-technique="Archway facade framing & rainbow color-block symmetry"
+          data-funfact="Vihaan built three different versions of the Taj Mahal at different scales!">
+          <div class="lego-photo">
+            <img src="images/taj-mahal-2.jpg" alt="Vihaan's colorful LEGO Taj Mahal" loading="lazy">
+            <span class="glass-badge">🎨 Sticker Build</span>
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+            <div class="photo-fade"></div>
+            <h3 class="lego-title">Taj Mahal</h3>
+          </div>
+          <div class="lego-body">
+            <div class="pills"><span class="pill">🧩 262 Pieces</span><span class="pill">⏱ 1 hr 36 min</span></div>
+            <p class="why-label">Why I Loved Building It</p>
+            <p class="why-text">"The big dome and the four tall corner towers."</p>
+            <p class="creator-footer">Built by Vihaan, Age 8</p>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- ================= SUBVIEW 3: MINI BUILDS & BOATS ================= -->
+    <div class="os-subview active" id="view-minis">
+      <h3 class="lego-group-title" style="margin-top:28px">🚢 Build It! Things That Float</h3>
+      <p class="lego-hint">9 boats I built following the "Build It! Things That Float" book from the Bentonville Library! Tap any boat to inspect its blueprint! ⛵</p>
+      <div class="boat-grid">
+        <div class="boat-card" tabindex="0" role="button" aria-label="Inspect Skiff Boat Build"
+          data-emoji="🛶" data-title="Skiff — Things That Float" data-category="🚢 BENTONVILLE LIBRARY BOOK BUILD #01"
+          data-meta="🛶 Naval Fleet · 🧩 ~35 Pieces · ⏱ 15 min"
+          data-fav="the angled bow and flat wooden-style hull"
+          data-quote="A nimble flat-bottomed skiff boat from the 'Build It! Things That Float' library book!"
+          data-desc="Built following the 'Build It! Things That Float' engineering book from the Bentonville Public Library. Features a sleek shallow hull and bench seat."
+          data-technique="Inverted slope bow shaping & plate hull planking"
+          data-funfact="Skiffs are designed with flat bottoms so they can glide right over shallow water!">
+          <div class="boat-photo"><span class="b-em">🛶</span><span class="click-expand-badge">🔍 Click to Expand</span></div>
+          <div class="boat-body"><span class="b-name">Skiff</span><span class="b-tag">Book build · 🔍 Inspect</span></div>
+        </div>
+        <div class="boat-card" tabindex="0" role="button" aria-label="Inspect Red Speed Boat Build"
+          data-emoji="🚤" data-title="Red Speed Boat — Things That Float" data-category="🚢 BENTONVILLE LIBRARY BOOK BUILD #02"
+          data-meta="🚤 Naval Fleet · 🧩 ~48 Pieces · ⏱ 20 min"
+          data-fav="the bright red racing stripes and windshield"
+          data-quote="Built for pure speed across the water with a low aerodynamic windshield!"
+          data-desc="A high-speed red powerboat from 'Build It! Things That Float' featuring wedge hulls, a sloped cockpit screen, and outboard motor detail."
+          data-technique="Wedge plate hull tapering & angled windscreen mount"
+          data-funfact="Red bricks make every LEGO vehicle go at least 10% faster!">
+          <div class="boat-photo"><span class="b-em">🚤</span><span class="click-expand-badge">🔍 Click to Expand</span></div>
+          <div class="boat-body"><span class="b-name">Red Speed Boat</span><span class="b-tag">Book build · 🔍 Inspect</span></div>
+        </div>
+        <div class="boat-card" tabindex="0" role="button" aria-label="Inspect Catamaran Boat Build"
+          data-emoji="⛵" data-title="Catamaran — Things That Float" data-category="🚢 BENTONVILLE LIBRARY BOOK BUILD #03"
+          data-meta="⛵ Naval Fleet · 🧩 ~60 Pieces · ⏱ 25 min"
+          data-fav="the twin hulls connected by a bridge deck"
+          data-quote="Two hulls side-by-side make this sailboat super stable and fast!"
+          data-desc="A twin-hull Catamaran yacht built from 'Build It! Things That Float', connecting two parallel pontoons with a wide deck and tall center mast."
+          data-technique="Parallel twin-hull bridging & vertical mast bracing"
+          data-funfact="Catamarans have much less water drag than single-hull boats!">
+          <div class="boat-photo"><span class="b-em">⛵</span><span class="click-expand-badge">🔍 Click to Expand</span></div>
+          <div class="boat-body"><span class="b-name">Catamaran</span><span class="b-tag">Book build · 🔍 Inspect</span></div>
+        </div>
+        <div class="boat-card" tabindex="0" role="button" aria-label="Inspect Yacht Boat Build"
+          data-emoji="🛥️" data-title="Luxury Yacht — Things That Float" data-category="🚢 BENTONVILLE LIBRARY BOOK BUILD #04"
+          data-meta="🛥️ Naval Fleet · 🧩 ~75 Pieces · ⏱ 25 min"
+          data-fav="the white cabin deck and captain's bridge"
+          data-quote="A sleek white cruiser yacht with an upper sun deck!"
+          data-desc="Built from 'Build It! Things That Float' — features a stepped white cabin, wrap-around windows, and a rear swim platform."
+          data-technique="Stepped cabin tiering & wrap-around trans-clear window plates"
+          data-funfact="Part of Vihaan's 9-vessel naval fleet built from the Bentonville Library book!">
+          <div class="boat-photo"><span class="b-em">🛥️</span><span class="click-expand-badge">🔍 Click to Expand</span></div>
+          <div class="boat-body"><span class="b-name">Yacht</span><span class="b-tag">Book build · 🔍 Inspect</span></div>
+        </div>
+        <div class="boat-card" tabindex="0" role="button" aria-label="Inspect Jet Boat Build"
+          data-emoji="🚤" data-title="Jet Boat — Things That Float" data-category="🚢 BENTONVILLE LIBRARY BOOK BUILD #05"
+          data-meta="🚤 Naval Fleet · 🧩 ~52 Pieces · ⏱ 20 min"
+          data-fav="the twin rear water-jet thrusters"
+          data-quote="Powered by water jets in the back instead of a regular propeller!"
+          data-desc="A compact hydro-jet boat from 'Build It! Things That Float' with rear jet nozzles, sporty fins, and a deep cockpit."
+          data-technique="SNOT rear thruster nozzles & sloped side sponsons"
+          data-funfact="Jet boats can spin 360 degrees on a dime!">
+          <div class="boat-photo"><span class="b-em">🚤</span><span class="click-expand-badge">🔍 Click to Expand</span></div>
+          <div class="boat-body"><span class="b-name">Jet Boat</span><span class="b-tag">Book build · 🔍 Inspect</span></div>
+        </div>
+        <div class="boat-card" tabindex="0" role="button" aria-label="Inspect Oil Tanker Boat Build"
+          data-emoji="🛢️" data-title="Oil Tanker — Things That Float" data-category="🚢 BENTONVILLE LIBRARY BOOK BUILD #06"
+          data-meta="🛢️ Naval Fleet · 🧩 ~90 Pieces · ⏱ 30 min"
+          data-fav="the long cargo deck and rear bridge tower"
+          data-quote="The longest heavy-duty cargo ship in my 9-boat fleet!"
+          data-desc="A micro-scale ocean Oil Tanker from 'Build It! Things That Float' with a long flat pipeline deck and a tall stern command bridge."
+          data-technique="Longitudinal plate reinforcement & micro-scale bridge stacking"
+          data-funfact="Real supertankers are longer than the Empire State Building is tall!">
+          <div class="boat-photo"><span class="b-em">🛢️</span><span class="click-expand-badge">🔍 Click to Expand</span></div>
+          <div class="boat-body"><span class="b-name">Oil Tanker</span><span class="b-tag">Book build · 🔍 Inspect</span></div>
+        </div>
+        <div class="boat-card" tabindex="0" role="button" aria-label="Inspect Trimaran Boat Build"
+          data-emoji="⛵" data-title="Trimaran — Things That Float" data-category="🚢 BENTONVILLE LIBRARY BOOK BUILD #07"
+          data-meta="⛵ Naval Fleet · 🧩 ~70 Pieces · ⏱ 25 min"
+          data-fav="the three hulls — one main hull plus two outriggers!"
+          data-quote="Even cooler than a catamaran because it has THREE hulls!"
+          data-desc="A racing Trimaran sailboat from 'Build It! Things That Float' combining a central main hull with two slim outrigger floats on wing struts."
+          data-technique="3-hull outrigger cross-beam locking & aerodynamic sail plate"
+          data-funfact="Trimarans hold some of the fastest ocean-crossing world records!">
+          <div class="boat-photo"><span class="b-em">⛵</span><span class="click-expand-badge">🔍 Click to Expand</span></div>
+          <div class="boat-body"><span class="b-name">Trimaran</span><span class="b-tag">Book build · 🔍 Inspect</span></div>
+        </div>
+        <div class="boat-card" tabindex="0" role="button" aria-label="Inspect Super Yacht Boat Build"
+          data-emoji="🛥️" data-title="Super Yacht — Things That Float" data-category="🚢 BENTONVILLE LIBRARY BOOK BUILD #08"
+          data-meta="🛥️ Naval Fleet · 🧩 ~110 Pieces · ⏱ 35 min"
+          data-fav="the multi-level decks and radar arch on top"
+          data-quote="The flagship luxury Super Yacht of my Bentonville Library boat collection!"
+          data-desc="A multi-deck Super Yacht from 'Build It! Things That Float' featuring three levels of cabin windows, radar mast, and a helipad stern."
+          data-technique="Multi-deck SNOT window striping & cantilevered radar arch"
+          data-funfact="The biggest vessel in Vihaan's 9-boat 'Things That Float' challenge!">
+          <div class="boat-photo"><span class="b-em">🛥️</span><span class="click-expand-badge">🔍 Click to Expand</span></div>
+          <div class="boat-body"><span class="b-name">Super Yacht</span><span class="b-tag">Book build · 🔍 Inspect</span></div>
+        </div>
+        <div class="boat-card" tabindex="0" role="button" aria-label="Inspect Blue Jet Ski Build"
+          data-emoji="🌊" data-title="Blue Jet Ski — Things That Float" data-category="🚢 BENTONVILLE LIBRARY BOOK BUILD #09"
+          data-meta="🌊 Naval Fleet · 🧩 ~28 Pieces · ⏱ 12 min"
+          data-fav="the handlebars and compact wave-jumping hull"
+          data-quote="Small, super fast, and ready to jump ocean waves!"
+          data-desc="A nimble Blue Jet Ski personal watercraft from 'Build It! Things That Float' complete with clip handlebars and a contoured saddle."
+          data-technique="Compact clip-bar steering & curved slope seat"
+          data-funfact="Completed all 9 boats in the 'Build It! Things That Float' library book!">
+          <div class="boat-photo"><span class="b-em">🌊</span><span class="click-expand-badge">🔍 Click to Expand</span></div>
+          <div class="boat-body"><span class="b-name">Blue Jet Ski</span><span class="b-tag">Book build · 🔍 Inspect</span></div>
+        </div>
+      </div>
+
+      <h3 class="lego-group-title" style="margin-top:24px">🔭 Mini Builds</h3>
+      <div class="grid lego-grid">
+        <article class="card lego-card" tabindex="0" role="button" aria-label="Open Small Taj Mahal full screen"
+          data-img="images/mini-taj-mahal.jpg" data-title="Small Taj Mahal"
+          data-category="🕌 MICRO-SCALE ARCHITECTURE"
+          data-meta="🕌 Mini Build · 🧩 19 Pieces · ⏱ 5 min"
+          data-fav="the four tall towers around the dome"
+          data-quote="Putting a tall tower on each corner around the dome!"
+          data-desc="A mini Taj Mahal — a colorful little version of the famous wonder, with a domed center and four tall corner towers (minarets). Just 19 pieces, built in 5 minutes!"
+          data-technique="Minimalist micro-scale proportioning in under 20 pieces"
+          data-funfact="Captures the unmistakable silhouette of the Taj Mahal using only 19 bricks!">
+          <div class="lego-photo">
+            <img src="images/mini-taj-mahal.jpg" alt="Vihaan's small LEGO Taj Mahal with four minarets" class="contain" loading="lazy" style="background:#efeae0">
+            <span class="glass-badge">🕌 Mini Build</span>
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+            <div class="photo-fade"></div>
+            <h3 class="lego-title">Small Taj Mahal</h3>
+          </div>
+          <div class="lego-body">
+            <div class="pills"><span class="pill">🧩 19 Pieces</span><span class="pill">⏱ 5 min</span></div>
+            <p class="why-label">Why I Loved Building It</p>
+            <p class="why-text">"Putting a tall tower on each corner around the dome!"</p>
+            <p class="creator-footer">Built by Vihaan, Age 8</p>
+          </div>
+        </article>
+        <article class="card lego-card" tabindex="0" role="button" aria-label="Open Mini Eiffel Tower full screen"
+          data-img="images/mini-eiffel.jpg" data-title="Mini Eiffel Tower"
+          data-category="🗼 MICRO-SCALE ARCHITECTURE"
+          data-meta="🗼 Mini Build · 🧩 50 Pieces · ⏱ 1 hr"
+          data-fav="the rocket spire on top"
+          data-quote="Putting the little rocket right on top of the spire!"
+          data-desc="A mini Eiffel Tower built from colorful bricks, with a tall thin spire and a little rocket right on top, ready to blast off!"
+          data-technique="Centered pin-axle spire & stepped base pyramid"
+          data-funfact="Topped with a rocket piece so the tower looks ready for launch!">
+          <div class="lego-photo">
+            <img src="images/mini-eiffel.jpg" alt="Vihaan's LEGO mini Eiffel Tower with a rocket spire on top" class="contain" loading="lazy">
+            <span class="glass-badge">🗼 Mini Build</span>
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+            <div class="photo-fade"></div>
+            <h3 class="lego-title">Mini Eiffel Tower</h3>
+          </div>
+          <div class="lego-body">
+            <div class="pills"><span class="pill">🧩 50 Pieces</span><span class="pill">⏱ 1 hr</span></div>
+            <p class="why-label">Why I Loved Building It</p>
+            <p class="why-text">"Putting the little rocket right on top of the spire!"</p>
+            <p class="creator-footer">Built by Vihaan, Age 8</p>
+          </div>
+        </article>
+        <article class="card lego-card" tabindex="0" role="button" aria-label="Open Colosseum full screen"
+          data-img="images/mini-colosseum.jpg" data-title="Colosseum"
+          data-category="🏛️ MICRO-SCALE ARCHITECTURE"
+          data-meta="🏛️ Mini Build · 🧩 11 Pieces · ⏱ 15 min"
+          data-fav="the round walls and the little arched door"
+          data-quote="Making the round walls curve all the way around."
+          data-desc="A mini Colosseum from Rome — round tan and gray walls curving around, with a tiny arched doorway, all sitting on a green base."
+          data-technique="Curved macaroni brick ring & micro-archway"
+          data-funfact="At just 11 pieces, this is Vihaan's most compact world wonder!">
+          <div class="lego-photo">
+            <img src="images/mini-colosseum.jpg" alt="Vihaan's LEGO mini Colosseum with round walls and an arched door" class="contain" loading="lazy">
+            <span class="glass-badge">🏛️ Mini Build</span>
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+            <div class="photo-fade"></div>
+            <h3 class="lego-title">Colosseum</h3>
+          </div>
+          <div class="lego-body">
+            <div class="pills"><span class="pill">🧩 11 Pieces</span><span class="pill">⏱ 15 min</span></div>
+            <p class="why-label">Why I Loved Building It</p>
+            <p class="why-text">"Making the round walls curve all the way around."</p>
+            <p class="creator-footer">Built by Vihaan, Age 8</p>
+          </div>
+        </article>
+        <article class="card lego-card" tabindex="0" role="button" aria-label="Open Statue of Liberty full screen"
+          data-img="images/statue-liberty.jpg" data-title="Statue of Liberty"
+          data-category="🗽 NYC ARCHITECTURE SKYLINE"
+          data-meta="🐜 Smallest Build · 🧩 13 Pieces · ⏱ 3 Minutes"
+          data-fav="the green statue on top"
+          data-quote="The little green Lady Liberty on her star base."
+          data-desc="The Statue of Liberty from New York City — a green Lady Liberty figure standing on a tan star-shaped pedestal base. Part of the LEGO Architecture NYC skyline."
+          data-technique="Micro-trophy figure pedestal mounting"
+          data-funfact="Built in just 3 minutes — Vihaan's fastest speed-build record!">
+          <div class="lego-photo">
+            <img src="images/statue-liberty.jpg" alt="Vihaan's LEGO Statue of Liberty" loading="lazy">
+            <span class="glass-badge">🐜 Smallest Build</span>
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+            <div class="photo-fade"></div>
+            <h3 class="lego-title">Statue of Liberty</h3>
+          </div>
+          <div class="lego-body">
+            <div class="pills"><span class="pill">🧩 13 Pieces</span><span class="pill">⏱ 3 Minutes</span></div>
+            <p class="why-label">Why I Loved Building It</p>
+            <p class="why-text">"The little green Lady Liberty on her star base."</p>
+            <p class="creator-footer">Built by Vihaan, Age 8</p>
+          </div>
+        </article>
+        <article class="card lego-card" tabindex="0" role="button" aria-label="Open Flatiron Building full screen"
+          data-img="images/modern-building.jpg" data-title="Flatiron Building"
+          data-category="🗽 NYC ARCHITECTURE SKYLINE"
+          data-meta="🗽 NYC Landmark · 🧩 36 Pieces · ⏱ 11 Minutes"
+          data-fav="the wedge-shaped top"
+          data-quote="Its cool wedge shape and the striped windows."
+          data-desc="The famous Flatiron Building from New York City — a wedge-shaped tower with its narrow angled top, layered window ledges, and a striped facade. Part of the LEGO Architecture NYC skyline."
+          data-technique="Alternating plate-and-tile facade striping & wedge corner"
+          data-funfact="The real Flatiron Building in NYC is only 6 feet wide at its narrowest point!">
+          <div class="lego-photo">
+            <img src="images/modern-building.jpg" alt="Vihaan's LEGO Flatiron Building" loading="lazy">
+            <span class="glass-badge">🗽 NYC Landmark</span>
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+            <div class="photo-fade"></div>
+            <h3 class="lego-title">Flatiron Building</h3>
+          </div>
+          <div class="lego-body">
+            <div class="pills"><span class="pill">🧩 36 Pieces</span><span class="pill">⏱ 11 Minutes</span></div>
+            <p class="why-label">Why I Loved Building It</p>
+            <p class="why-text">"Its cool wedge shape and the striped windows."</p>
+            <p class="creator-footer">Built by Vihaan, Age 8</p>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- ================= SUBVIEW 4: F1 & GOLEM BATTLES ================= -->
+    <div class="os-subview active" id="view-battles">
+      <h3 class="lego-group-title" style="margin-top:28px">🏎️ F1 Race Day &amp; ⚔️ Minecraft Golem Battle</h3>
+      <div class="race-show" role="img" aria-label="Animation of Vihaan's LEGO F1 truck with the green AMR24 and blue RB20 race cars speeding down a track">
+        <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="f1sky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#1b3a6b"/><stop offset="100%" stop-color="#3a6fb0"/>
+            </linearGradient>
+            <pattern id="f1check" width="16" height="16" patternUnits="userSpaceOnUse">
+              <rect width="16" height="16" fill="#fff"/><rect width="8" height="8" fill="#111"/><rect x="8" y="8" width="8" height="8" fill="#111"/>
+            </pattern>
+          </defs>
+          <rect width="800" height="320" fill="url(#f1sky)"/>
+          <circle cx="690" cy="62" r="34" fill="#FFD23F" opacity="0.95"/>
+          <circle cx="690" cy="62" r="48" fill="#FFD23F" opacity="0.2"/>
+          <path d="M0 210 Q150 150 320 205 T800 195 L800 320 L0 320 Z" fill="#274d2a" opacity="0.55"/>
+          <rect x="40" y="150" width="720" height="40" rx="6" fill="#11294d"/>
+          <g fill="#9fb6d6" opacity="0.8">
+            <circle cx="80" cy="170" r="3"/><circle cx="110" cy="168" r="3"/><circle cx="150" cy="171" r="3"/><circle cx="200" cy="167" r="3"/><circle cx="260" cy="170" r="3"/><circle cx="330" cy="168" r="3"/><circle cx="430" cy="171" r="3"/><circle cx="520" cy="168" r="3"/><circle cx="600" cy="170" r="3"/><circle cx="690" cy="168" r="3"/>
+          </g>
+          <rect x="0" y="200" width="800" height="120" fill="#2b2f36"/>
+          <rect x="0" y="200" width="800" height="6" fill="#c63a3a"/><rect x="0" y="200" width="800" height="6" fill="url(#f1check)" opacity="0.25"/>
+          <g class="f1-dashes">
+            <g fill="#FFD23F">
+              <rect x="0" y="256" width="70" height="9" rx="4"/><rect x="160" y="256" width="70" height="9" rx="4"/><rect x="320" y="256" width="70" height="9" rx="4"/><rect x="480" y="256" width="70" height="9" rx="4"/><rect x="640" y="256" width="70" height="9" rx="4"/><rect x="800" y="256" width="70" height="9" rx="4"/><rect x="960" y="256" width="70" height="9" rx="4"/>
+            </g>
+          </g>
+          <g stroke="#bcd2f2" stroke-width="4" stroke-linecap="round" opacity="0.7">
+            <line class="f1-line" x1="820" y1="226" x2="880" y2="226"/>
+            <line class="f1-line" x1="820" y1="240" x2="880" y2="240" style="animation-delay:.35s"/>
+            <line class="f1-line" x1="820" y1="288" x2="880" y2="288" style="animation-delay:.7s"/>
+            <line class="f1-line" x1="820" y1="300" x2="880" y2="300" style="animation-delay:.15s"/>
+          </g>
+          <g transform="translate(40,120)"><g class="f1-truck">
+            <rect x="60" y="14" width="300" height="86" rx="8" fill="#15171c"/>
+            <rect x="60" y="14" width="300" height="20" rx="8" fill="#c63a3a"/>
+            <text x="300" y="78" font-family="Arial Black,Arial" font-weight="900" font-size="34" fill="#c63a3a" text-anchor="middle">F1</text>
+            <path d="M360 40 h54 q14 0 18 14 l8 30 q2 16 -14 16 h-66 z" fill="#1d1f25"/>
+            <rect x="372" y="46" width="40" height="24" rx="4" fill="#7fb4e8"/>
+            <rect x="360" y="86" width="84" height="14" fill="#c63a3a"/>
+            <g fill="#111"><circle class="f1-wheel" cx="120" cy="104" r="17"/><circle class="f1-wheel" cx="180" cy="104" r="17"/><circle class="f1-wheel" cx="300" cy="104" r="17"/><circle class="f1-wheel" cx="404" cy="104" r="17"/></g>
+            <g fill="#FFD23F"><circle cx="120" cy="104" r="6"/><circle cx="180" cy="104" r="6"/><circle cx="300" cy="104" r="6"/><circle cx="404" cy="104" r="6"/></g>
+          </g></g>
+          <g transform="translate(150,236)"><g class="f1-carA">
+            <g class="f1-carA-bob">
+              <rect x="-4" y="-26" width="10" height="26" fill="#0c5c3a"/><rect x="-10" y="-30" width="26" height="7" rx="2" fill="#0c5c3a"/>
+              <path d="M6 0 L18 -16 Q40 -22 70 -20 L120 -14 Q150 -12 168 0 Z" fill="#1aa05f"/>
+              <path d="M168 0 L210 -3 L210 2 L168 6 Z" fill="#1aa05f"/>
+              <rect x="200" y="-2" width="22" height="7" rx="2" fill="#0c5c3a"/>
+              <path d="M60 -19 q14 -12 30 -1 Z" fill="#0c5c3a"/>
+              <circle cx="74" cy="-19" r="8" fill="#FFD23F"/><rect x="68" y="-21" width="12" height="4" fill="#111"/>
+              <path d="M58 -18 Q74 -34 92 -18" fill="none" stroke="#0c5c3a" stroke-width="3"/>
+              <circle class="f1-wheel" cx="46" cy="2" r="15" fill="#111"/><circle cx="46" cy="2" r="5" fill="#c9c9c9"/>
+              <circle class="f1-wheel" cx="150" cy="2" r="15" fill="#111"/><circle cx="150" cy="2" r="5" fill="#c9c9c9"/>
+            </g>
+          </g></g>
+          <g transform="translate(420,250)"><g class="f1-carB">
+            <g class="f1-carB-bob">
+              <rect x="-4" y="-26" width="10" height="26" fill="#0a2a6b"/><rect x="-10" y="-30" width="26" height="7" rx="2" fill="#0a2a6b"/>
+              <path d="M6 0 L18 -16 Q40 -22 70 -20 L120 -14 Q150 -12 168 0 Z" fill="#1e44b8"/>
+              <path d="M168 0 L210 -3 L210 2 L168 6 Z" fill="#1e44b8"/>
+              <path d="M40 -18 L120 -15 L120 -10 L40 -12 Z" fill="#d11a2a"/>
+              <rect x="200" y="-2" width="22" height="7" rx="2" fill="#0a2a6b"/>
+              <circle cx="74" cy="-19" r="8" fill="#FFD23F"/><rect x="68" y="-21" width="12" height="4" fill="#111"/>
+              <path d="M58 -18 Q74 -34 92 -18" fill="none" stroke="#0a2a6b" stroke-width="3"/>
+              <circle class="f1-wheel" cx="46" cy="2" r="15" fill="#111"/><circle cx="46" cy="2" r="5" fill="#c9c9c9"/>
+              <circle class="f1-wheel" cx="150" cy="2" r="15" fill="#111"/><circle cx="150" cy="2" r="5" fill="#c9c9c9"/>
+            </g>
+          </g></g>
+          <g transform="translate(742,150)">
+            <rect x="0" y="0" width="5" height="120" fill="#ddd"/>
+            <rect class="f1-flag" x="5" y="2" width="44" height="30" fill="url(#f1check)"/>
+          </g>
+        </svg>
+        <div class="race-cap">
+          <span>🏎️ Race Day! The F1 truck delivered the cars — now they're flat out!</span>
+          <span class="race-legend"><span><span class="dot" style="background:#1aa05f"></span>AMR24</span><span><span class="dot" style="background:#1e44b8"></span>RB20</span></span>
+          <button type="button" class="race-toggle" id="raceToggle" aria-pressed="true" aria-label="Pause the race animation">⏸️ Pause</button>
+        </div>
+      </div>
+
+      <div class="race-show" style="margin-top:16px" role="img" aria-label="Animation of Vihaan's LEGO Golem battling a Minecraft skeleton: the golem swings its long arm while the skeleton shoots arrows">
+        <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg">
+          <rect width="800" height="320" fill="#7EC0EE"/>
+          <rect x="58" y="40" width="44" height="44" fill="#FCEE4B"/>
+          <g class="mc-cloud1" fill="#ffffff">
+            <rect x="200" y="54" width="70" height="18"/><rect x="216" y="42" width="40" height="14"/>
+          </g>
+          <g class="mc-cloud2" fill="#f3f7ff">
+            <rect x="520" y="78" width="90" height="18"/><rect x="544" y="66" width="46" height="14"/>
+          </g>
+          <rect x="0" y="252" width="800" height="14" fill="#6cbb3c"/>
+          <rect x="0" y="266" width="800" height="54" fill="#7a5230"/>
+          <g fill="#664420" opacity="0.5"><rect x="40" y="278" width="14" height="14"/><rect x="160" y="296" width="14" height="14"/><rect x="300" y="280" width="14" height="14"/><rect x="470" y="298" width="14" height="14"/><rect x="640" y="282" width="14" height="14"/><rect x="730" y="298" width="14" height="14"/></g>
+          <g class="mc-heart">
+            <path d="M150 96 l-9 -9 a5 5 0 0 1 9 -5 a5 5 0 0 1 9 5 z" fill="#5b3030"/>
+            <path class="mc-hp-g1" d="M150 96 l-9 -9 a5 5 0 0 1 9 -5 a5 5 0 0 1 9 5 z" fill="#e23b3b"/>
+          </g>
+          <g class="mc-heart" style="animation-delay:.2s">
+            <path d="M176 96 l-9 -9 a5 5 0 0 1 9 -5 a5 5 0 0 1 9 5 z" fill="#5b3030"/>
+            <path class="mc-hp-g2" d="M176 96 l-9 -9 a5 5 0 0 1 9 -5 a5 5 0 0 1 9 5 z" fill="#e23b3b"/>
+          </g>
+          <g class="mc-heart" style="animation-delay:.4s">
+            <path d="M202 96 l-9 -9 a5 5 0 0 1 9 -5 a5 5 0 0 1 9 5 z" fill="#5b3030"/>
+            <path class="mc-hp-g3" d="M202 96 l-9 -9 a5 5 0 0 1 9 -5 a5 5 0 0 1 9 5 z" fill="#e23b3b"/>
+          </g>
+          <g class="mc-heart" style="animation-delay:.3s">
+            <path d="M590 96 l-9 -9 a5 5 0 0 1 9 -5 a5 5 0 0 1 9 5 z" fill="#5b3030"/>
+            <path class="mc-hp-s1" d="M590 96 l-9 -9 a5 5 0 0 1 9 -5 a5 5 0 0 1 9 5 z" fill="#e23b3b"/>
+          </g>
+          <g class="mc-heart" style="animation-delay:.5s">
+            <path d="M616 96 l-9 -9 a5 5 0 0 1 9 -5 a5 5 0 0 1 9 5 z" fill="#5b3030"/>
+            <path class="mc-hp-s2" d="M616 96 l-9 -9 a5 5 0 0 1 9 -5 a5 5 0 0 1 9 5 z" fill="#e23b3b"/>
+          </g>
+          <g class="mc-gdodge"><g class="mc-knock"><g class="mc-golem">
+            <rect x="138" y="214" width="22" height="40" fill="#9aa0a0"/>
+            <rect x="176" y="214" width="22" height="40" fill="#9aa0a0"/>
+            <rect x="138" y="246" width="22" height="10" fill="#a060d0"/>
+            <rect x="126" y="150" width="84" height="66" fill="#b7bdbd"/>
+            <rect x="150" y="160" width="36" height="48" fill="#9aa0a0"/>
+            <rect x="126" y="170" width="8" height="30" fill="#4a7a2a"/><rect x="202" y="176" width="8" height="26" fill="#4a7a2a"/>
+            <rect x="108" y="152" width="16" height="56" fill="#9aa0a0"/>
+            <rect x="142" y="110" width="52" height="42" fill="#b7bdbd"/>
+            <rect x="152" y="124" width="12" height="10" fill="#3a3a3a"/><rect x="172" y="124" width="12" height="10" fill="#3a3a3a"/>
+            <rect x="162" y="134" width="12" height="14" fill="#c7a06a"/>
+            <g class="mc-arm">
+              <rect x="206" y="150" width="17" height="58" fill="#aab0b0"/>
+              <rect x="202" y="196" width="25" height="22" fill="#b7bdbd"/>
+            </g>
+            <g class="mc-ghit" fill="#ff3b3b">
+              <rect x="138" y="214" width="22" height="40"/><rect x="176" y="214" width="22" height="40"/>
+              <rect x="126" y="150" width="84" height="66"/>
+              <rect x="108" y="152" width="16" height="56"/>
+              <rect x="142" y="110" width="52" height="42"/>
+            </g>
+          </g></g></g>
+          <g class="mc-spark" transform="translate(372,176)">
+            <path d="M0 -16 L4 -4 L16 0 L4 4 L0 16 L-4 4 L-16 0 L-4 -4 Z" fill="#fff7c2"/>
+            <path d="M0 -9 L3 -3 L9 0 L3 3 L0 9 L-3 3 L-9 0 L-3 -3 Z" fill="#ffd23f"/>
+          </g>
+          <g class="mc-gspark" transform="translate(214,176)">
+            <path d="M0 -15 L4 -4 L15 0 L4 4 L0 15 L-4 4 L-15 0 L-4 -4 Z" fill="#fff7c2"/>
+            <path d="M0 -8 L3 -3 L8 0 L3 3 L0 8 L-3 3 L-8 0 L-3 -3 Z" fill="#ff7a3f"/>
+          </g>
+          <g class="mc-sdodge"><g class="mc-skel">
+            <rect x="398" y="216" width="12" height="38" fill="#d7d7d7"/>
+            <rect x="420" y="216" width="12" height="38" fill="#d7d7d7"/>
+            <rect x="396" y="158" width="40" height="60" fill="#e3e3e3"/>
+            <g fill="#b9b9b9"><rect x="400" y="168" width="32" height="5"/><rect x="400" y="180" width="32" height="5"/><rect x="400" y="192" width="32" height="5"/><rect x="412" y="158" width="6" height="58"/></g>
+            <rect x="382" y="160" width="12" height="44" fill="#d7d7d7"/>
+            <rect x="436" y="160" width="12" height="40" fill="#d7d7d7"/>
+            <rect x="396" y="118" width="42" height="40" fill="#eaeaea"/>
+            <rect x="403" y="130" width="10" height="11" fill="#222"/><rect x="421" y="130" width="10" height="11" fill="#222"/>
+            <rect x="406" y="148" width="22" height="5" fill="#999"/>
+            <path d="M376 150 q-16 25 0 50" fill="none" stroke="#6b4423" stroke-width="5"/>
+            <line x1="376" y1="150" x2="376" y2="200" stroke="#efefef" stroke-width="1.5"/>
+            <rect class="mc-flash" x="394" y="116" width="46" height="140" fill="#ff3b3b"/>
+          </g></g>
+          <g transform="translate(376,174)"><g class="mc-arrow">
+            <rect x="-30" y="-2" width="30" height="4" fill="#6b4423"/>
+            <path d="M-30 0 L-22 -6 L-22 6 Z" fill="#c8c8c8"/>
+            <rect x="0" y="-3" width="6" height="6" fill="#efefef"/>
+          </g></g>
+        </svg>
+        <div class="race-cap">
+          <span>⚔️ Golem vs. Skeleton — a Minecraft battle! The Golem swings while the Skeleton fires arrows.</span>
+          <span class="race-legend"><span><span class="dot" style="background:#b7bdbd"></span>Golem</span><span><span class="dot" style="background:#eaeaea;border:1px solid #aaa"></span>Skeleton</span></span>
+          <button type="button" class="race-toggle" id="battleToggle" aria-pressed="true" aria-label="Pause the battle animation">⏸️ Pause</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= SUBVIEW 5: BUILD VIDEOS ================= -->
+    <div class="os-subview active" id="view-videos">
+      <h3 class="lego-group-title" style="margin-top:28px">🎬 Build Videos</h3>
+      <p class="lego-hint">Watch Vihaan's LEGO builds come to life — tap any video to play!</p>
+      <div class="video-grid">
+        <div class="video-card"><video src="videos/build1.mp4" controls preload="metadata" playsinline></video></div>
+        <div class="video-card"><video src="videos/build2.mp4" controls preload="metadata" playsinline></video></div>
+        <div class="video-card"><video src="videos/build3.mp4" controls preload="metadata" playsinline></video></div>
+        <div class="video-card"><video src="videos/build4.mp4" controls preload="metadata" playsinline></video></div>
+        <div class="video-card"><video src="videos/build5.mp4" controls preload="metadata" playsinline></video></div>
+      </div>
+    </div>
+
+    <!-- ================= 3. SUPERCHARGED LEGO MASTER BUILDER IDEA LAB ================= -->
+    <div class="os-subview active" id="view-botw">
+      <div class="botw idea-gen-wrap" id="ideaBox">
+        <div class="idea-lab-header">
+          <div>
+            <span class="chip" style="font-family:var(--mono);font-size:0.68rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;background:rgba(255,77,0,0.16);color:#ff6a2b;border:1px solid rgba(255,77,0,0.45);padding:4px 10px;border-radius:3px;display:inline-block">⚡ INTERACTIVE BLUEPRINT GENERATOR</span>
+            <h3>🎲 LEGO Master Builder Idea Lab</h3>
+            <p>Filter by category or difficulty, spin a fresh LEGO blueprint with parts checklist &amp; pro techniques, or add a crazy twist!</p>
+          </div>
+          <div class="build-count" style="margin:0">📐 <b id="ideaMatchCount">18</b> Blueprints Ready</div>
+        </div>
+
+        <!-- Category & Difficulty Filter Pills -->
+        <div class="idea-filter-bar">
+          <div class="idea-filter-row" id="ideaCategoryFilters" role="group" aria-label="Filter build ideas by category">
+            <span class="idea-filter-label">// CATEGORY:</span>
+            <button type="button" class="idea-pill-btn active" data-cat="all">🌟 All Ideas</button>
+            <button type="button" class="idea-pill-btn" data-cat="space">🚀 Space &amp; Sci-Fi</button>
+            <button type="button" class="idea-pill-btn" data-cat="vehicles">🏎️ Vehicles &amp; Racing</button>
+            <button type="button" class="idea-pill-btn" data-cat="castles">🏰 Castles &amp; Magic</button>
+            <button type="button" class="idea-pill-btn" data-cat="creatures">🦖 Dinos &amp; Creatures</button>
+            <button type="button" class="idea-pill-btn" data-cat="robots">🤖 Robots &amp; Mechs</button>
+            <button type="button" class="idea-pill-btn" data-cat="city">🏙️ Secret Bases &amp; City</button>
+          </div>
+          <div class="idea-filter-row" id="ideaDiffFilters" role="group" aria-label="Filter build ideas by difficulty">
+            <span class="idea-filter-label">// LEVEL:</span>
+            <button type="button" class="idea-pill-btn active" data-diff="all">All Levels</button>
+            <button type="button" class="idea-pill-btn" data-diff="Easy">🟢 Easy (~15m)</button>
+            <button type="button" class="idea-pill-btn" data-diff="Medium">🟡 Medium (~30m)</button>
+            <button type="button" class="idea-pill-btn" data-diff="Master">🔴 Master (~60m+)</button>
+          </div>
+        </div>
+
+        <!-- Rich Blueprint Display Card -->
+        <div class="botw-card blueprint-card" id="botwCard">
+          <div class="blueprint-icon-col">
+            <div class="botw-emoji blueprint-emoji" id="botwEmoji">🚀</div>
+            <span class="blueprint-code" id="botwCode">BP-01 // LAB</span>
+          </div>
+          <div class="botw-info blueprint-main">
+            <div class="blueprint-badges" id="botwMeta">
+              <span class="bp-badge cat" id="botwTag">🚀 Space &amp; Sci-Fi</span>
+              <span class="bp-badge" id="botwDiff">🟡 Medium</span>
+              <span class="bp-badge" id="botwTime">⏱ ~30 min</span>
+              <span class="bp-badge pieces" id="botwPieces">🧩 ~140 Bricks</span>
+            </div>
+
+            <h4 class="blueprint-title" id="botwTitle">Deep-Space Hyperdrive Explorer</h4>
+
+            <!-- Bricks to Grab (Parts Checklist) -->
+            <div class="bp-parts-box">
+              <span class="bp-section-label">🧰 Bricks to Grab (Parts Checklist):</span>
+              <div class="bp-parts-list" id="botwParts"></div>
+            </div>
+
+            <!-- 5-6 Detailed Step-by-Step Building Instructions -->
+            <div>
+              <span class="bp-section-label">📋 Step-by-Step Master Blueprint:</span>
+              <ol class="botw-steps bp-steps-list" id="botwSteps"></ol>
+            </div>
+
+            <!-- Pro Master Builder Technique Tip & Bonus Secret Feature Challenge -->
+            <div class="bp-callouts-grid">
+              <div class="bp-callout">
+                <strong>💡 Pro Master Builder Technique Tip</strong>
+                <p id="botwTechTip"></p>
+              </div>
+              <div class="bp-callout secret">
+                <strong>🔥 Bonus Secret Feature Challenge</strong>
+                <p id="botwSecret"></p>
+              </div>
+            </div>
+
+            <!-- Crazy Twist Banner -->
+            <div class="bp-twist-banner" id="botwTwistBanner" role="status" aria-live="polite">
+              <span id="botwTwistText">⚡ TWIST: Give it fold-out rocket boosters!</span>
+              <button type="button" id="rerollTwistBtn" class="lb-stage-btn" style="padding:4px 9px;font-size:0.65rem">🔄 Reroll</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="idea-actions-row">
+          <button type="button" id="botwBtn" class="btn btn-yellow">🎲 SPIN NEW BUILD IDEA</button>
+          <button type="button" id="twistIdeaBtn" class="btn btn-red">🌪️ ADD A CRAZY TWIST!</button>
+          <button type="button" id="browseIdeasBtn" class="btn btn-white" aria-expanded="false">📚 BROWSE ALL 18 BUILD IDEAS</button>
+        </div>
+
+        <!-- Browse All 18 Build Ideas Drawer -->
+        <div class="all-ideas-drawer" id="allIdeasDrawer">
+          <span class="bp-section-label">📚 Click Any of the 18 Master Builder Blueprints Below to Load It Instantly:</span>
+          <div class="all-ideas-grid" id="allIdeasGrid"></div>
+        </div>
+      </div>
+
+      <h3 class="lego-group-title">🧱 Builds I Want to Try</h3>
+      <p class="lego-hint">Sets and ideas on my wishlist to build next — tap any card to inspect!</p>
+      <div class="wishlist-grid">
+        <figure class="wish-card card" tabindex="0" role="button" aria-label="Inspect Ninjago Dragon Wishlist Set"
+          data-img="images/build-ninjago-dragon-71868.jpg" data-title="🐉 LEGO Ninjago Dragon (Wishlist)"
+          data-category="🎯 WISHLIST TARGET · NINJAGO"
+          data-meta="🐉 Ninjago Series · 🧩 Posable Wings · ⭐ Next Goal"
+          data-fav="the articulated dragon wings, tail, and ninja saddle"
+          data-quote="I want to build a giant posable Ninjago dragon with huge wings!"
+          data-desc="On Vihaan's upcoming LEGO wishlist! A posable Ninjago elemental dragon featuring ball-jointed legs, sweeping wings, and jaw articulation."
+          data-technique="Ball-joint creature articulation & foil wing framing"
+          data-funfact="Dragons are some of the trickiest LEGO builds to balance on four legs!">
+          <img src="images/build-ninjago-dragon-71868.jpg" alt="LEGO Ninjago Dragon set" loading="lazy">
+          <span class="click-expand-badge">🔍 Click to Expand</span>
+          <figcaption>🐉 Ninjago Dragon</figcaption>
+        </figure>
+        <figure class="wish-card card" tabindex="0" role="button" aria-label="Inspect Majestic Tiger Wishlist Set"
+          data-img="images/build-tiger-31129.svg" data-title="🐯 Majestic Tiger 31129 (Wishlist)"
+          data-category="🎯 WISHLIST TARGET · CREATOR 3-IN-1"
+          data-meta="🐯 Set 31129 · 🧩 755 Pieces · ⭐ Next Goal"
+          data-fav="the orange-and-black brick stripes and posable paws"
+          data-quote="A 755-piece Creator 3-in-1 tiger that also rebuilds into a red panda or koi fish!"
+          data-desc="LEGO Creator 3-in-1 Majestic Tiger (Set 31129, 755 pieces) — features a fully posable tiger with a red bird on a jungle branch."
+          data-technique="SNOT stripe patterning & multi-axis leg joints"
+          data-funfact="One of the most critically acclaimed Creator 3-in-1 animal sets ever designed!">
+          <img src="images/build-tiger-31129.svg" alt="LEGO Tiger set" loading="lazy">
+          <span class="click-expand-badge">🔍 Click to Expand</span>
+          <figcaption>🐯 Majestic Tiger</figcaption>
+        </figure>
+        <figure class="wish-card card" tabindex="0" role="button" aria-label="Inspect Cargo Train Wishlist Set"
+          data-img="images/build-train-60336.svg" data-title="🚂 Motorized Cargo Train (Wishlist)"
+          data-category="🎯 WISHLIST TARGET · LEGO CITY TRAINS"
+          data-meta="🚂 Set 60336 · 🧩 1,153 Pieces · ⭐ Next Goal"
+          data-fav="the motorized locomotive, crane wagon, and huge track loop"
+          data-quote="A motorized LEGO train with a reach stacker crane and freight cars!"
+          data-desc="LEGO City Freight Train (Set 60336, 1,153 pieces) — a remote-controlled motorized locomotive with flatcars, open wagons, and a huge oval track."
+          data-technique="Powered Up motor integration & magnetic bogie couplers"
+          data-funfact="Includes 33 track pieces for a giant room-sized railway layout!">
+          <img src="images/build-train-60336.svg" alt="LEGO Train set" loading="lazy">
+          <span class="click-expand-badge">🔍 Click to Expand</span>
+          <figcaption>🚂 Cargo Train</figcaption>
+        </figure>
+        <figure class="wish-card card" tabindex="0" role="button" aria-label="Inspect LEGO Chess Set Wishlist Build"
+          data-img="images/build-chess-custom.svg" data-title="♟️ Custom LEGO Chess Set (Wishlist)"
+          data-category="🎯 WISHLIST TARGET · CHESS + LEGO CROSSOVER"
+          data-meta="♟️ 64-Square Board · 🧩 32 Brick Pieces · ⭐ Next Goal"
+          data-fav="building custom LEGO Kings, Queens, Knights, and Rooks to play real chess games"
+          data-quote="Combining my two favorite worlds: USCF Tournament Chess and LEGO engineering!"
+          data-desc="A full playable 64-square tiled LEGO chessboard with 32 custom-built chess pieces — complete with storage drawers underneath the board."
+          data-technique="Alternating 4x4 smooth tile checkerboard & SNOT Knight head sculpting"
+          data-funfact="Vihaan can practice his 1.e4 openings on a chessboard he built himself!">
+          <img src="images/build-chess-custom.svg" alt="LEGO Chess board build" loading="lazy">
+          <span class="click-expand-badge">🔍 Click to Expand</span>
+          <figcaption>♟️ LEGO Chess Set</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <!-- ================= SUBVIEW 7: ARTS & CRAFTS ================= -->
+    <div class="os-subview active" id="view-arts">
+      <h3 class="lego-group-title" style="margin-top:28px">🖌️ Arts &amp; Crafts</h3>
+      <p class="lego-hint">Drawings, paintings and crafty creations by Vihaan — more coming soon! 🖍️</p>
+      <div class="grid lego-grid" id="artsGrid">
+        <div class="card lego-card" tabindex="0" role="button" aria-label="Inspect Vihaan's Art Studio"
+          data-emoji="🖌️" data-title="Vihaan's Art & Craft Studio"
+          data-category="🖍️ CREATIVE SKETCHBOOK & CRAFTS"
+          data-meta="🎨 Mixed Media · ✏️ Sketching · 🖌️ Painting"
+          data-fav="drawing dragons, F1 race cars, and custom comic characters"
+          data-quote="More drawings, paintings, and paper crafts coming soon to the gallery!"
+          data-desc="Alongside LEGO engineering and tournament chess, Vihaan loves sketching dragons, designing comic book panels, and crafting!"
+          data-technique="Pencil sketching, marker shading & paper origami"
+          data-funfact="Check out the Comics page to see Vihaan's interactive 4-panel comic strips!"
+          style="display:flex;align-items:center;justify-content:center;min-height:220px;text-align:center;padding:24px;color:var(--muted);font-weight:700;font-size:1.05rem;position:relative">
+          <span class="click-expand-badge">🔍 Click to Expand</span>
+          🖌️ Vihaan's first art project is coming soon!
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ================= 2. FULL-SCREEN LEGO BUILD INSPECTOR MODAL (#lego-lightbox-modal) ================= -->
+<div id="lego-lightbox-modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Full-Screen LEGO Build Inspector">
+  <div class="lb-shell">
+    <div class="lb-image-stage" id="lbImageStage">
+      <img id="modalImg" src="" alt="" />
+      <div class="lb-stage-controls">
+        <button type="button" class="lb-stage-btn" id="lightboxZoomBtn" aria-pressed="false">🔍 Zoom 1.5x</button>
+        <span class="lb-counter-pill" id="lightboxCounter">BUILD 01 / 32</span>
+      </div>
+    </div>
+    <div class="lb-details">
+      <div>
+        <div class="lb-top-row">
+          <span class="lb-cat-badge" id="modalCategory">LEGO MASTER BUILD</span>
+          <button type="button" class="lb-close-btn" id="modalClose" aria-label="Close Inspector">✕ ESC</button>
+        </div>
+        <h3 class="lb-title" id="modalTitle">Build Title</h3>
+        <div class="lb-pills" id="modalMeta"></div>
+      </div>
+
+      <div class="lb-quote-box">
+        <div class="lb-quote-label">💬 Vihaan's Builder Story — Why I Loved Building It</div>
+        <p class="lb-quote-text" id="modalQuote"></p>
+      </div>
+
+      <p class="lb-desc" id="modalDesc"></p>
+
+      <div class="lb-specs-grid">
+        <div class="lb-spec-card">
+          <small>⭐ Favorite Part &amp; Technique</small>
+          <p id="modalFav"></p>
+        </div>
+        <div class="lb-spec-card">
+          <small>💡 Master Builder Spec &amp; Fun Fact</small>
+          <p id="modalFunFact"></p>
+        </div>
+      </div>
+
+      <div class="lb-nav-bar">
+        <button type="button" class="lb-nav-btn" id="modalPrev">← Prev Build</button>
+        <button type="button" class="lb-nav-btn" id="modalNext">Next Build →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="sublevel-os.js"></script>
+<script>
+  /* ================= 1. SUBTABS NAVIGATION (SUPPORTS "ALL" + FILTERING) ================= */
+  (function initSubtabs(){
+    const btns = document.querySelectorAll('.os-subtab');
+    const views = document.querySelectorAll('.os-subview');
+    function activate(targetId, shouldScroll) {
+      if (!targetId || targetId === 'all') {
+        btns.forEach(b => b.classList.toggle('active', b.dataset.target === 'all'));
+        views.forEach(v => v.classList.add('active'));
+        return;
+      }
+      const targetEl = document.getElementById(targetId);
+      if (!targetEl) return;
+      btns.forEach(b => b.classList.toggle('active', b.dataset.target === targetId));
+      views.forEach(v => v.classList.toggle('active', v.id === targetId));
+      if (shouldScroll) {
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.target;
+        if (target === 'all') {
+          history.replaceState(null, '', location.pathname);
+          activate('all', false);
+        } else {
+          history.replaceState(null, '', '#' + target);
+          activate(target, true);
+        }
+      });
+    });
+    if (location.hash && location.hash.length > 1) {
+      const h = location.hash.slice(1);
+      if (document.getElementById(h) && document.getElementById(h).classList.contains('os-subview')) {
+        activate(h, false);
+      }
+    }
+  })();
+
+  /* ================= 2. ANIMATED SCENES PLAY/PAUSE ================= */
+  document.querySelectorAll('.race-toggle').forEach(btn => {
+    const show = btn.closest('.race-show');
+    if (!show) return;
+    btn.addEventListener('click', () => {
+      const paused = show.classList.toggle('paused');
+      btn.textContent = paused ? '▶️ Play' : '⏸️ Pause';
+      btn.setAttribute('aria-pressed', String(!paused));
+      btn.setAttribute('aria-label', paused ? 'Play the animation' : 'Pause the animation');
+    });
+  });
+
+  /* ================= 3. FULL-SCREEN LEGO BUILD INSPECTOR LIGHTBOX ================= */
+  (function initLegoLightbox(){
+    const modal = document.getElementById('lego-lightbox-modal');
+    if (!modal) return;
+    const stage = document.getElementById('lbImageStage');
+    const img = document.getElementById('modalImg');
+    const catEl = document.getElementById('modalCategory');
+    const titleEl = document.getElementById('modalTitle');
+    const metaEl = document.getElementById('modalMeta');
+    const quoteEl = document.getElementById('modalQuote');
+    const favEl = document.getElementById('modalFav');
+    const factEl = document.getElementById('modalFunFact');
+    const descEl = document.getElementById('modalDesc');
+    const counterEl = document.getElementById('lightboxCounter');
+    const zoomBtn = document.getElementById('lightboxZoomBtn');
+    const closeBtn = document.getElementById('modalClose');
+    const prevBtn = document.getElementById('modalPrev');
+    const nextBtn = document.getElementById('modalNext');
+
+    const cards = Array.from(document.querySelectorAll('.hof-card, .lego-card, .boat-card, .wish-card'));
+    let currentIndex = 0;
+    let lastFocused = null;
+    let isZoomed = false;
+
+    // Update total build count badge dynamically
+    const countBadge = document.getElementById('legoBuildCount');
+    if (countBadge) countBadge.textContent = cards.length;
+
+    function makeEmojiPosterDataURI(emoji, title, subtitle) {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560">
+        <defs>
+          <radialGradient id="g" cx="50%" cy="45%" r="65%">
+            <stop offset="0%" stop-color="#1e3b70"/>
+            <stop offset="100%" stop-color="#090d18"/>
+          </radialGradient>
+          <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+            <path d="M 32 0 L 0 0 0 32" fill="none" stroke="rgba(255,213,0,0.1)" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="800" height="560" fill="url(#g)"/>
+        <rect width="800" height="560" fill="url(#grid)"/>
+        <rect x="28" y="28" width="744" height="504" rx="16" fill="none" stroke="#ffd500" stroke-width="2" stroke-opacity="0.45"/>
+        <text x="400" y="265" font-size="165" text-anchor="middle">${emoji || '🧱'}</text>
+        <text x="400" y="385" font-family="Geist, system-ui, sans-serif" font-size="34" font-weight="700" fill="#ffffff" text-anchor="middle">${(title || '').replace(/[<>&"]/g, '')}</text>
+        <text x="400" y="430" font-family="Geist Mono, monospace" font-size="17" font-weight="600" fill="#ffd500" letter-spacing="3" text-anchor="middle">${(subtitle || 'BUILT BY VIHAAN, AGE 8').replace(/[<>&"]/g, '')}</text>
+      </svg>`;
+      return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+    }
+
+    function setZoom(zoomState) {
+      isZoomed = zoomState;
+      stage.classList.toggle('zoomed', isZoomed);
+      zoomBtn.setAttribute('aria-pressed', String(isZoomed));
+      zoomBtn.textContent = isZoomed ? '📐 Fit to Screen' : '🔍 Zoom 1.5x';
+    }
+
+    function renderCardAtIndex(idx) {
+      currentIndex = (idx + cards.length) % cards.length;
+      const card = cards[currentIndex];
+      setZoom(false);
+
+      const title = card.dataset.title || card.querySelector('h3, .b-name, figcaption')?.textContent?.trim() || 'LEGO Creation';
+      const category = card.dataset.category || card.querySelector('.glass-badge, .hof-card-top span, .b-tag')?.textContent?.trim() || 'VIHAAN LEGO LAB';
+      const imgSrc = card.dataset.img || card.querySelector('img')?.getAttribute('src') || makeEmojiPosterDataURI(card.dataset.emoji || '🚤', title, category);
+      const quote = card.dataset.quote || card.querySelector('.why-text, .hof-desc')?.textContent?.replace(/^"|"$/g, '') || 'One of my favorite LEGO creations to engineer and test!';
+      const desc = card.dataset.desc || quote;
+      const fav = card.dataset.fav || 'Custom brick geometry & sturdy interlocking structure';
+      const tech = card.dataset.technique || 'Interlocking stud-and-tube framing & SNOT detailing';
+      const fact = card.dataset.funfact || 'Engineered and tested in Vihaan\'s LEGO Lab!';
+
+      img.src = imgSrc;
+      img.alt = title;
+      catEl.textContent = category;
+      titleEl.textContent = title;
+      quoteEl.textContent = '"' + quote + '"';
+      descEl.textContent = desc;
+      favEl.textContent = 'Favorite detail: ' + fav + '. Technique: ' + tech + '.';
+      factEl.textContent = fact;
+
+      metaEl.innerHTML = '';
+      const rawMeta = card.dataset.meta || '';
+      rawMeta.split('·').forEach(part => {
+        const t = part.trim();
+        if (!t) return;
+        const s = document.createElement('span');
+        s.className = 'lb-pill';
+        s.textContent = t;
+        metaEl.appendChild(s);
+      });
+      const builderPill = document.createElement('span');
+      builderPill.className = 'lb-pill builder';
+      builderPill.textContent = '👷 Built by Vihaan, Age 8';
+      metaEl.appendChild(builderPill);
+
+      counterEl.textContent = `BUILD ${String(currentIndex + 1).padStart(2, '0')} / ${String(cards.length).padStart(2, '0')}`;
+    }
+
+    function openAt(idx, triggerEl) {
+      lastFocused = triggerEl || document.activeElement;
+      renderCardAtIndex(idx);
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      closeBtn.focus();
+    }
+
+    function close() {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      setZoom(false);
+      if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+    }
+
+    cards.forEach((card, idx) => {
+      card.addEventListener('click', () => openAt(idx, card));
+      card.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openAt(idx, card);
+        }
+      });
+    });
+
+    zoomBtn.addEventListener('click', () => setZoom(!isZoomed));
+    img.addEventListener('click', () => setZoom(!isZoomed));
+    prevBtn.addEventListener('click', () => renderCardAtIndex(currentIndex - 1));
+    nextBtn.addEventListener('click', () => renderCardAtIndex(currentIndex + 1));
+    closeBtn.addEventListener('click', close);
+    modal.addEventListener('click', e => {
+      if (e.target === modal) close();
+    });
+    document.addEventListener('keydown', e => {
+      if (!modal.classList.contains('open')) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowLeft') renderCardAtIndex(currentIndex - 1);
+      else if (e.key === 'ArrowRight') renderCardAtIndex(currentIndex + 1);
+    });
+  })();
+
+  /* ================= 4. SUPERCHARGED LEGO MASTER BUILDER IDEA LAB (18 BLUEPRINTS) ================= */
+  (function initMasterIdeaLab(){
+    const IDEAS = [
+      // SPACE & SCI-FI (3)
+      {
+        id: 'BP-01', emoji: '🚀', title: 'Deep-Space Hyperdrive Explorer',
+        category: 'space', catLabel: '🚀 Space & Sci-Fi', level: 'Medium', time: '~30 min', pieces: '🧩 ~140 Bricks',
+        parts: ['Wedge Plates (Left/Right)', 'Clear Cockpit Canopy', 'Round 2x2 Thruster Bricks', 'Hinge Plates', 'Trans-Blue 1x1 Studs'],
+        steps: [
+          'Start with a long 2x12 Technic or plate spine for a rock-solid fuselage core.',
+          'Attach angled wedge plates on both sides to form swept-back delta wings.',
+          'Build a raised front cockpit with a clear canopy and a minifigure pilot seat.',
+          'Mount twin cylindrical thruster engines at the rear using 2x2 round bricks and trans-orange cones.',
+          'Add fold-out sensor dishes and laser cannons on the wingtips using clip-and-bar pieces.'
+        ],
+        tip: 'Symmetrical Wing Locking — Build both left and right wings at the exact same time so your starship stays perfectly balanced!',
+        secret: 'Add a hidden rear cargo bay ramp that drops down to deploy a tiny 6-piece planetary rover!'
+      },
+      {
+        id: 'BP-02', emoji: '🛸', title: 'Alien UFO Tractor-Beam Saucer',
+        category: 'space', catLabel: '🚀 Space & Sci-Fi', level: 'Easy', time: '~15 min', pieces: '🧩 ~75 Bricks',
+        steps: [
+          'Create an octagonal core using overlapping 4x4 plates and corner slopes.',
+          'Ring the outer edge with alternating trans-neon green and yellow 1x1 round studs for saucer lights.',
+          'Build a central cockpit pod on top with a rounded dome or dish element.',
+          'Attach 3 retractable landing claws underneath using clip hinges.',
+          'Stack trans-clear or trans-blue round bricks underneath to act as a glowing tractor beam stand!'
+        ],
+        parts: ['Radar Dishes', 'Curved Slopes', 'Trans-Green 1x1 Studs', 'Clip Hinges', 'Clear Round Bricks'],
+        tip: 'Center Pedestal Support — Use a column of transparent bricks under the center so the UFO looks like it is hovering in mid-air!',
+        secret: 'Put a surprised minifigure or LEGO cow at the bottom of the tractor beam!'
+      },
+      {
+        id: 'BP-03', emoji: '🛰️', title: 'Modular Lunar Research Base & Rover',
+        category: 'space', catLabel: '🚀 Space & Sci-Fi', level: 'Master', time: '~65 min', pieces: '🧩 ~260 Bricks',
+        parts: ['16x16 Baseplate', 'Window Frames', 'Solar Panel Tiles', 'Small Rover Wheels', 'Technic Pins'],
+        steps: [
+          'Lay out rocky moon craters on a baseplate using grey slopes and curved wedges.',
+          'Build a pressurized central habitat dome with airlock doors on two sides.',
+          'Construct a detachable communications tower with rotating solar panel wings.',
+          'Connect a science lab module using Technic pins so modules can rearrange.',
+          'Build a 6-wheeled Lunar Buggy with a robotic sample-grabber arm.'
+        ],
+        tip: 'Modular Pin Connectors — Use Technic bricks with holes at the base of each room so you can snap new moon-base pods together anytime!',
+        secret: 'Hide a glowing crystal geode inside a break-apart moon rock crater!'
+      },
+
+      // VEHICLES & RACING (3)
+      {
+        id: 'BP-04', emoji: '🏎️', title: 'Turbo Formula-X Championship Racer',
+        category: 'vehicles', catLabel: '🏎️ Vehicles & Racing', level: 'Easy', time: '~15 min', pieces: '🧩 ~85 Bricks',
+        parts: ['4 Wide Racing Wheels', 'Curved Nose Slopes', 'Spoiler Tail Fin', 'Steering Wheel', '1x2 Grille Tiles'],
+        steps: [
+          'Start with a low 4-stud-wide wheelbase plate with axle holders at the front and back.',
+          'Build a tapered nose cone extending forward with a wide front downforce wing.',
+          'Create the open-wheel cockpit in the center with a steering wheel and protective side pods.',
+          'Add engine air intakes behind the driver\'s helmet using 1x2 grille tiles.',
+          'Mount a tall adjustable rear spoiler wing and snap on the 4 slick racing tires!'
+        ],
+        tip: 'Low Center of Gravity — Keep the chassis just 1 plate above the axles so it looks sleek and speeds across the floor!',
+        secret: 'Build a mini pit-stop tool rack with a spare tire and wrench!'
+      },
+      {
+        id: 'BP-05', emoji: '🚜', title: 'Mega Monster-Wheel Crusher Truck',
+        category: 'vehicles', catLabel: '🏎️ Vehicles & Racing', level: 'Medium', time: '~30 min', pieces: '🧩 ~155 Bricks',
+        parts: ['4 Giant Oversized Tires', 'Technic Axles', 'Roll-Cage Bars', 'Cheese Slopes', 'Headlight Bricks'],
+        steps: [
+          'Build a high-clearance suspension frame using stacked Technic bricks and long axles.',
+          'Snap on your 4 biggest, chunkiest LEGO wheels to create monster ground clearance.',
+          'Build the pickup truck cab on top in bright contrasting colors with side exhaust pipes.',
+          'Add a sturdy roll-cage bar over the truck bed and roof floodlights.',
+          'Make 2 tiny crushed cars out of flat plates for your Monster Truck to jump over!'
+        ],
+        tip: 'Drop-Axle Framing — Mount the wheel axles 2 bricks lower than the cab floor to give it true Monster Jam height!',
+        secret: 'Add a springy Technic beam axle so the wheels can tilt over giant LEGO obstacles!'
+      },
+      {
+        id: 'BP-06', emoji: '🚁', title: 'Supersonic Tilt-Rotor Rescue Craft',
+        category: 'vehicles', catLabel: '🏎️ Vehicles & Racing', level: 'Master', time: '~60 min', pieces: '🧩 ~230 Bricks',
+        parts: ['Turntable Plates', 'Long Rotor Blades', 'Hinged Tail Ramp', 'Trans-Red Lights', 'Winch String/Hook'],
+        steps: [
+          'Build a boxy cargo fuselage wide enough to fit a stretcher or mini rescue ATV inside.',
+          'Construct a rear loading ramp on hinges that folds down smoothly.',
+          'Attach heavy-duty high wings across the top of the fuselage.',
+          'Mount rotating engine nacelles on the wingtips using friction pins so they tilt from helicopter mode to airplane mode!',
+          'Attach 3-blade or 4-blade rotors to each wingtip engine pod.'
+        ],
+        tip: 'Friction Pin Pivots — Use grey or black Technic friction pins so the tilt-rotors hold their angle in both hover and jet modes!',
+        secret: 'Install a working rescue winch hook that lowers through a trapdoor in the belly!'
+      },
+
+      // CASTLES & MAGIC (3)
+      {
+        id: 'BP-07', emoji: '🏰', title: 'Wizard\'s Floating Sky-Tower',
+        category: 'castles', catLabel: '🏰 Castles & Magic', level: 'Medium', time: '~35 min', pieces: '🧩 ~165 Bricks',
+        parts: ['Inverted Rock Slopes', 'Arch Bricks', 'Cone Roof Pieces', 'Trans-Purple Jewels', 'Round 1x1 Bricks'],
+        steps: [
+          'Build an upside-down rocky island base using inverted slopes that get wider from bottom to top.',
+          'Raise cylindrical stone walls using 1x2 bricks and round 1x1 columns.',
+          'Add arched gothic windows and a cantilevered wooden balcony.',
+          'Furnish the interior with a potion table, spellbook stand, and owl perch.',
+          'Cap the tower with a tall pointed cone spire and glowing trans-purple magic crystals!'
+        ],
+        tip: 'Inverted Slope Island — Stacking inverted 45° slopes creates the illusion of a floating chunk of mountain rock!',
+        secret: 'Make one bookshelf wall swing open on a hinge to reveal a hidden wand vault!'
+      },
+      {
+        id: 'BP-08', emoji: '⚔️', title: 'King\'s Drawbridge Fortress Gatehouse',
+        category: 'castles', catLabel: '🏰 Castles & Magic', level: 'Master', time: '~70 min', pieces: '🧩 ~290 Bricks',
+        parts: ['Grey Wall Bricks', 'Hinge Plates for Drawbridge', '1x1 Battlement Merlons', 'Castle Flags', 'Blue Water Tiles'],
+        steps: [
+          'Create a blue moat along the front edge using blue plates and white wave studs.',
+          'Build twin octagonal guard towers on the left and right of the main entrance.',
+          'Span the towers with a tall archway and a top battlement walkway with crenellations.',
+          'Hinge a 6x8 flat plate drawbridge at the base of the gate so it raises and lowers over the moat.',
+          'Add banners, torches, and a rooftop catapult for castle defense!'
+        ],
+        tip: 'Crenellation Rhythm — Alternate 1x2 tiles and 1x1 bricks with 1-stud gaps along the roof edge for authentic medieval battlements!',
+        secret: 'Add a secret escape tunnel behind a loose stone brick in the left tower!'
+      },
+      {
+        id: 'BP-09', emoji: '🧪', title: 'Alchemist\'s Enchanted Treasure Chest',
+        category: 'castles', catLabel: '🏰 Castles & Magic', level: 'Easy', time: '~20 min', pieces: '🧩 ~90 Bricks',
+        parts: ['Brown & Gold Bricks', 'Curved Top Slopes', 'Hinge Bricks', 'Trans-Colored Gems', '1x2 Smooth Tiles'],
+        steps: [
+          'Build a sturdy 6x10 rectangular chest box using brown bricks with gold corner trim.',
+          'Line the top rim of the bottom box with smooth flat tiles (except for 2 hinge bricks at the back!).',
+          'Build a curved barrel lid using sloped bricks and attach it to the rear hinges.',
+          'Create a front golden lock clasp on a clip hinge that snaps over a stud on the box.',
+          'Fill the inside with shiny gold studs, goblets, and magical potion bottles!'
+        ],
+        tip: 'Tile-Rimmed Lid — Putting smooth tiles on the top edge lets the hinged lid open and close without getting stuck on studs!',
+        secret: 'Build a false bottom floor inside the chest to hide the rarest diamond piece!'
+      },
+
+      // DINOS & CREATURES (3)
+      {
+        id: 'BP-10', emoji: '🦖', title: 'Posable T-Rex King of the Jungle',
+        category: 'creatures', catLabel: '🦖 Dinos & Creatures', level: 'Medium', time: '~35 min', pieces: '🧩 ~150 Bricks',
+        parts: ['Ball-and-Socket Joints', 'White Tooth/Cone Pieces', 'Green & Tan Slopes', 'Hinge Plates', '1x1 Eye Tiles'],
+        steps: [
+          'Build a muscular torso angled slightly forward, with a long segmented tail to counterbalance the weight.',
+          'Construct two powerful hind legs with 3-toed claws and wide feet so it stands rock-steady.',
+          'Add two tiny posable front arms using clip hinges.',
+          'Sculpt the fierce T-Rex head with a hinged lower jaw lined with white cone or tooth plates.',
+          'Add back ridges from neck to tail tip and expressive eyes on the sides of the head!'
+        ],
+        tip: 'Counterweight Tail Engineering — A heavy, long tail that barely touches the ground keeps two-legged LEGO dinosaurs from tipping forward!',
+        secret: 'Make the T-Rex hold a tiny LEGO walkie-talkie or wearing a funny hat!'
+      },
+      {
+        id: 'BP-11', emoji: '🐉', title: 'Fire-Breathing Volcano Dragon',
+        category: 'creatures', catLabel: '🦖 Dinos & Creatures', level: 'Master', time: '~60 min', pieces: '🧩 ~240 Bricks',
+        parts: ['Hinge Bricks for Neck/Tail', 'Large Wing Plates', 'Red & Gold Slopes', 'Trans-Orange Flame Pieces', 'Curved Horns'],
+        steps: [
+          'Build an armored chest core with 4 leg sockets and 2 upper shoulder mounts for the wings.',
+          'Chain 3–4 hinge bricks together for a sinuous, curving neck and a whip-like spiked tail.',
+          'Construct wide bat-like wings using layered wedge plates that can flap up and down.',
+          'Sculpt the dragon head with swept-back horns, golden eyes, and an open jaw.',
+          'Snap a trans-orange flame blast piece right inside the mouth!'
+        ],
+        tip: 'Segmented Hinge Spine — Alternating vertical and horizontal hinges lets your dragon curl its neck and tail in any direction!',
+        secret: 'Build a miniature treasure hoard of golden studs for the dragon to guard!'
+      },
+      {
+        id: 'BP-12', emoji: '🦈', title: 'Deep-Sea Hammerhead Shark & Sub',
+        category: 'creatures', catLabel: '🦖 Dinos & Creatures', level: 'Easy', time: '~15 min', pieces: '🧩 ~80 Bricks',
+        parts: ['Grey & White Slopes', 'Wide T-Shaped Nose Plate', 'Triangle Tail Fins', 'Hinge Bricks', '1x1 Round Eyes'],
+        steps: [
+          'Build a streamlined torpedo body with a white belly and grey top.',
+          'Create the signature wide T-shaped hammerhead front with an eye mounted on each outer tip.',
+          'Attach a tall dorsal fin on the back and two angled pectoral fins on the sides.',
+          'Use 2 click-hinges for the tail so the shark can swish side-to-side.',
+          'Build a tiny 15-piece yellow mini-submarine with spinning propellers for it to chase!'
+        ],
+        tip: 'Two-Tone Countershading — Using white plates on the bottom and dark grey slopes on top makes sea creatures look super realistic!',
+        secret: 'Hide a glow-in-the-dark or trans-neon anglerfish on a seabed coral reef!'
+      },
+
+      // ROBOTS & MECHS (3)
+      {
+        id: 'BP-13', emoji: '🤖', title: 'Titan Defender Battle Mech Suit',
+        category: 'robots', catLabel: '🤖 Robots & Mechs', level: 'Master', time: '~60 min', pieces: '🧩 ~220 Bricks',
+        parts: ['Ball Joint Plates', 'SNOT Chest Brackets', 'Technic Pin Axles', 'Sloped Armor Tiles', 'Minifigure Cockpit'],
+        steps: [
+          'Build a chest cockpit frame with a hinged front armor hatch that opens so a minifigure pilot can sit inside.',
+          'Construct heavy armored legs with wide ankle stabilizers so your mech can strike dynamic action poses.',
+          'Attach articulated shoulder joints and build one giant plasma-cannon arm and one 3-fingered gripping claw hand.',
+          'Add shoulder missile pods and back jetpack thrusters.',
+          'Finish with smooth tile armor plating and a glowing visor strip!'
+        ],
+        tip: 'Wide Foot Footprint — Give heavy mechs 4x6 or 3x6 feet with rubber tire treads or wide plates underneath so they never topple in battle!',
+        secret: 'Make the backpack jetpack detach and transform into a flying scout drone!'
+      },
+      {
+        id: 'BP-14', emoji: '🦾', title: 'Transforming Cyber-Bot (Robot ↔ Jet)',
+        category: 'robots', catLabel: '🤖 Robots & Mechs', level: 'Medium', time: '~35 min', pieces: '🧩 ~130 Bricks',
+        parts: ['Click-Hinge Plates', 'Wedge Wing Plates', '1x2 Jumper Plates', 'Robot Head Brick', 'Thruster Cones'],
+        steps: [
+          'Build a central torso block with click-hinges on the sides, top, and bottom.',
+          'Attach legs that fold straight back to become the rear jet thrusters.',
+          'Attach arms with wing plates on the forearms that fold inward to lock together as delta wings.',
+          'Mount a nose-cone shield on the back that flips over the robot\'s head in Jet Mode.',
+          'Test transforming it back and forth from Robot Mode to Supersonic Jet Mode without detaching a single brick!'
+        ],
+        tip: 'Zero-Partsforming Challenge — Use click-hinges so every part stays attached during transformation just like a real Transformer!',
+        secret: 'Add twin laser blasters that store underneath the wings in jet mode and fit in the robot\'s hands!'
+      },
+      {
+        id: 'BP-15', emoji: '🐕‍🦺', title: 'Robo-Pup Companion & Charging Dock',
+        category: 'robots', catLabel: '🤖 Robots & Mechs', level: 'Easy', time: '~15 min', pieces: '🧩 ~70 Bricks',
+        parts: ['1x2 Hinge Bricks', 'SNOT Head Cube', 'Trans-Blue Visor Tile', 'Antenna Tail', 'Round 1x1 Paws'],
+        steps: [
+          'Build a compact 2x4 body block in silver, white, or bright yellow.',
+          'Attach 4 posable legs using clip-and-bar joints so Robo-Pup can sit, stand, or beg.',
+          'Build a cube head using SNOT brackets with a glowing trans-blue visor for eyes and floppy mechanical ears.',
+          'Add a flexible antenna tail that wags.',
+          'Build a mini cyber-charging pad with a battery indicator and a metallic LEGO bone!'
+        ],
+        tip: 'SNOT Cube Head — Using a 1x1 brick with studs on all 4 sides lets you attach ears, snout, and visor in every direction!',
+        secret: 'Give Robo-Pup fold-out hover-thrusters on its paws so it can fly!'
+      },
+
+      // SECRET BASES & CITY (3)
+      {
+        id: 'BP-16', emoji: '🌋', title: 'Volcano Island Secret Agent HQ',
+        category: 'city', catLabel: '🏙️ Secret Bases & City', level: 'Master', time: '~75 min', pieces: '🧩 ~310 Bricks',
+        parts: ['Dark Grey Mountain Slopes', 'Trans-Orange Lava Bricks', 'Sliding Track Plates', 'Computer Console Tiles', 'Mini Speedboat'],
+        steps: [
+          'Build a hollow volcano mountain shell using dark grey slopes with a glowing trans-orange lava stream down the front.',
+          'Engineer a secret sliding rock door or hinged cliff wall that opens to reveal a hidden boat dock.',
+          'Inside the volcano, build a 2-story command center with giant radar screens, a laser lab, and a briefing table.',
+          'Add a rooftop helipad hidden inside the volcano crater rim.',
+          'Build a sleek spy speedboat and mini-helicopter for high-stakes missions!'
+        ],
+        tip: 'Hollow Mountain Framing — Use tall 1x6 arch bricks and BURPs (Big Ugly Rock Pieces) or stacked slopes to build a huge mountain using fewer bricks!',
+        secret: 'Build a working trapdoor over a shark tank or lava pit inside the base!'
+      },
+      {
+        id: 'BP-17', emoji: '🌲', title: 'Ultimate 3-Story Adventure Treehouse',
+        category: 'city', catLabel: '🏙️ Secret Bases & City', level: 'Medium', time: '~40 min', pieces: '🧩 ~180 Bricks',
+        parts: ['Brown Trunk Bricks', 'Green Leaf/Plate Foliage', 'Rope Ladder / Winch', 'Fence Railings', 'Telescope Elements'],
+        steps: [
+          'Build a thick, sturdy brown tree trunk on a green baseplate with roots spreading out in 4 directions for stability.',
+          'Create wide horizontal branch platforms at 3 different heights.',
+          'Build a cozy wooden cabin on the main deck with windows, a bed, and a comic-reading corner.',
+          'Add a rope ladder, a working bucket pulley winch, and a high crow\'s-nest lookout with a telescope on top.',
+          'Surround the cabin with lush green leaf plates, brick flowers, and a tire swing!'
+        ],
+        tip: 'Root Buttress Base — Spreading brown slope "roots" 4 studs wide at the bottom keeps a top-heavy treehouse from ever wobbling!',
+        secret: 'Add a zip-line or slide from the top lookout deck down to the ground!'
+      },
+      {
+        id: 'BP-18', emoji: '🕹️', title: 'Micro-City Cyber Arcade & Pizza Tower',
+        category: 'city', catLabel: '🏙️ Secret Bases & City', level: 'Easy', time: '~25 min', pieces: '🧩 ~115 Bricks',
+        parts: ['Neon Trans Tiles', 'Printed/Round Pizza Tile', 'Arcade Cabinet Slopes', 'Window Frames', 'Rooftop Sign'],
+        steps: [
+          'Build the ground-floor Pizza Parlor with a brick-built pizza oven, counter, and checkered floor tiles.',
+          'Construct the 2nd-floor Retro Arcade above it, packed with 3 mini LEGO arcade machines (made from 1x2 slopes and trans screens!).',
+          'Add an exterior staircase and neon signboards on the front facade using bright trans-pink, yellow, and cyan tiles.',
+          'Top the building with a rooftop chill zone featuring a giant spinning pizza or joystick sign!'
+        ],
+        tip: 'Micro Arcade Cabinets — A 1x2 brick topped with a 1x2 slope and a 1x1 lever makes a recognizable mini arcade machine in just 4 pieces!',
+        secret: 'Hide a secret VIP gaming trophy room behind the pizza oven!'
+      }
+    ];
+
+    const TWISTS = [
+      '⚡ TWIST: Give it fold-out rocket boosters so it can fly into orbit!',
+      '🦖 TWIST: A baby dinosaur or alien is secretly piloting it!',
+      '🌈 TWIST: Rainbow Challenge — build it using at least 5 different brick colors!',
+      '🕵️ TWIST: Hide a secret trapdoor or hidden treasure compartment inside!',
+      '⏱️ TWIST: Speed-Builder Mode — build the core frame in under 10 minutes!',
+      '🔄 TWIST: Make it a 2-in-1 Transformer that flips into a second mode!',
+      '🛡️ TWIST: Add heavy armor plating and a shield generator for Golem battles!',
+      '🍕 TWIST: Add a built-in pizza launcher or snack dispenser!',
+      '🌊 TWIST: Make it amphibious so it works underwater AND on land!',
+      '♟️ TWIST: Chess Crossover — hide a LEGO Crown or Knight emblem on top!'
+    ];
+
+    const LEVEL_BADGES = {
+      Easy: '🟢 Easy (~15m)',
+      Medium: '🟡 Medium (~30m)',
+      Master: '🔴 Master (~60m+)'
+    };
+
+    let activeCat = 'all';
+    let activeDiff = 'all';
+    let currentIdeaIndex = 0;
+    let lastTwistIndex = -1;
+
+    const emojiEl = document.getElementById('botwEmoji');
+    const codeEl = document.getElementById('botwCode');
+    const tagEl = document.getElementById('botwTag');
+    const diffEl = document.getElementById('botwDiff');
+    const timeEl = document.getElementById('botwTime');
+    const piecesEl = document.getElementById('botwPieces');
+    const titleEl = document.getElementById('botwTitle');
+    const partsEl = document.getElementById('botwParts');
+    const stepsEl = document.getElementById('botwSteps');
+    const techTipEl = document.getElementById('botwTechTip');
+    const secretEl = document.getElementById('botwSecret');
+    const twistBanner = document.getElementById('botwTwistBanner');
+    const twistText = document.getElementById('botwTwistText');
+    const matchCountEl = document.getElementById('ideaMatchCount');
+    const cardEl = document.getElementById('botwCard');
+    const spinBtn = document.getElementById('botwBtn');
+    const twistBtn = document.getElementById('twistIdeaBtn');
+    const rerollTwistBtn = document.getElementById('rerollTwistBtn');
+    const browseBtn = document.getElementById('browseIdeasBtn');
+    const drawerEl = document.getElementById('allIdeasDrawer');
+    const gridEl = document.getElementById('allIdeasGrid');
+
+    function getFilteredIdeas() {
+      return IDEAS.filter(item => {
+        const catOk = activeCat === 'all' || item.category === activeCat;
+        const diffOk = activeDiff === 'all' || item.level === activeDiff;
+        return catOk && diffOk;
+      });
+    }
+
+    function renderBlueprint(idea) {
+      if (!idea) return;
+      currentIdeaIndex = IDEAS.indexOf(idea);
+      emojiEl.textContent = idea.emoji;
+      codeEl.textContent = `${idea.id} // LAB`;
+      tagEl.textContent = idea.catLabel;
+      diffEl.textContent = LEVEL_BADGES[idea.level] || idea.level;
+      timeEl.textContent = `⏱ ${idea.time}`;
+      piecesEl.textContent = idea.pieces;
+      titleEl.textContent = idea.title;
+      partsEl.innerHTML = idea.parts.map(p => `<span class="bp-part-pill">🧱 ${p}</span>`).join('');
+      stepsEl.innerHTML = idea.steps.map(s => `<li>${s}</li>`).join('');
+      techTipEl.textContent = idea.tip;
+      secretEl.textContent = idea.secret;
+
+      // Update active highlight in drawer grid
+      if (gridEl) {
+        gridEl.querySelectorAll('.mini-idea-card').forEach((c, idx) => {
+          c.classList.toggle('active', idx === currentIdeaIndex);
+        });
+      }
+
+      // Subtle tactile pop animation
+      cardEl.style.transition = 'none';
+      cardEl.style.transform = 'scale(0.985)';
+      requestAnimationFrame(() => {
+        cardEl.style.transition = 'transform 200ms cubic-bezier(0.22, 1, 0.36, 1)';
+        cardEl.style.transform = 'scale(1)';
+      });
+    }
+
+    function spinRandomIdea() {
+      let pool = getFilteredIdeas();
+      if (pool.length === 0) pool = IDEAS;
+      let pick = pool[Math.floor(Math.random() * pool.length)];
+      if (pool.length > 1 && IDEAS.indexOf(pick) === currentIdeaIndex) {
+        pick = pool[(pool.indexOf(pick) + 1) % pool.length];
+      }
+      renderBlueprint(pick);
+    }
+
+    function spinTwist() {
+      let idx;
+      do {
+        idx = Math.floor(Math.random() * TWISTS.length);
+      } while (idx === lastTwistIndex && TWISTS.length > 1);
+      lastTwistIndex = idx;
+      twistText.textContent = TWISTS[idx];
+      twistBanner.classList.add('show');
+    }
+
+    function updateFilterCountsAndSpin() {
+      const pool = getFilteredIdeas();
+      if (matchCountEl) matchCountEl.textContent = pool.length;
+      if (pool.length > 0) {
+        renderBlueprint(pool[0]);
+      }
+    }
+
+    // Populate Browse All 18 Grid
+    if (gridEl) {
+      gridEl.innerHTML = IDEAS.map((idea, idx) => `
+        <button type="button" class="mini-idea-card ${idx === 0 ? 'active' : ''}" data-idx="${idx}">
+          <span class="mi-em">${idea.emoji}</span>
+          <span class="mi-txt">
+            <b>${idea.title}</b>
+            <small>${idea.id} · ${idea.level} · ${idea.pieces}</small>
+          </span>
+        </button>
+      `).join('');
+      gridEl.querySelectorAll('.mini-idea-card').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = Number(btn.dataset.idx);
+          renderBlueprint(IDEAS[idx]);
+          cardEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+      });
+    }
+
+    // Category filter clicks
+    document.querySelectorAll('#ideaCategoryFilters .idea-pill-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeCat = btn.dataset.cat;
+        document.querySelectorAll('#ideaCategoryFilters .idea-pill-btn').forEach(b => b.classList.toggle('active', b === btn));
+        updateFilterCountsAndSpin();
+      });
+    });
+
+    // Difficulty filter clicks
+    document.querySelectorAll('#ideaDiffFilters .idea-pill-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeDiff = btn.dataset.diff;
+        document.querySelectorAll('#ideaDiffFilters .idea-pill-btn').forEach(b => b.classList.toggle('active', b === btn));
+        updateFilterCountsAndSpin();
+      });
+    });
+
+    spinBtn.addEventListener('click', spinRandomIdea);
+    twistBtn.addEventListener('click', spinTwist);
+    if (rerollTwistBtn) rerollTwistBtn.addEventListener('click', spinTwist);
+
+    if (browseBtn && drawerEl) {
+      browseBtn.addEventListener('click', () => {
+        const open = drawerEl.classList.toggle('open');
+        browseBtn.setAttribute('aria-expanded', String(open));
+        browseBtn.textContent = open ? '🔼 HIDE ALL 18 BUILD IDEAS' : '📚 BROWSE ALL 18 BUILD IDEAS';
+      });
+    }
+
+    // Render initial blueprint so card is immediately rich and populated on load
+    renderBlueprint(IDEAS[0]);
+  })();
+</script>
+</body>
+</html>
