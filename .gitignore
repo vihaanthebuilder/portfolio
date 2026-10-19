@@ -29,3 +29,4 @@ yarn-error.log*
 # stray temp files
 .commitmsg.tmp
 *.bak
+images/dog.bin

@@ -1662,7 +1662,6 @@ window.ThreeUITerrainPlume = { mountTerrainPlume, TERRAIN_PLUME_DEFAULTS, SCENE_
           <button class="nft-trigger arcade" id="nft-card-btn" type="button" title="Open Vihaan's 3D Top Trumps Super Card">🃏 CARD</button>
           <button class="term arcade metal" id="termstatus" aria-pressed="false" title="Open Vihaan's machine-readable CRT index"><span class="led"></span><span class="prompt">vihaan@world</span><span class="txt">online</span><span class="cur"></span></button>
           <a class="icon arcade metal" href="index.html" aria-label="3D Lobby" title="Back to 3D Lobby">🏠</a>
-          <button class="icon burger arcade metal" aria-label="Top Trumps Card" title="Open Vihaan's 3D Top Trumps Card" aria-expanded="false"><svg viewBox="0 0 20 20"><rect x="3" y="5" width="14" height="1.6" rx=".8"/><rect x="3" y="9.2" width="14" height="1.6" rx=".8"/><rect x="3" y="13.4" width="14" height="1.6" rx=".8"/></svg></button>
         </div>
       </div>
     </nav>
@@ -2485,8 +2484,8 @@ window.__sheet = {group, mat, uni, renderer, scene, camera, mesh,
       bar.addEventListener('pointerenter', () => bar.style.setProperty('--lit', '1'));
       bar.addEventListener('pointerleave', () => bar.style.setProperty('--lit', '0'));
     }
-    if (links && menu && burger && !burger.dataset.wired) {
-      burger.dataset.wired = 'true';
+    if (links && menu && !menu.dataset.wired) {
+      menu.dataset.wired = 'true';
       const W = 560, H = 790;
       function homography(dst) {
         const src = [[0, 0], [W, 0], [W, H], [0, H]];
@@ -2546,13 +2545,13 @@ window.__sheet = {group, mat, uni, renderer, scene, camera, mesh,
           menu.classList.remove('open');
           setTimeout(() => { if (!menu.classList.contains('open')) menu.hidden = true; }, 450);
         }
-        burger.setAttribute('aria-expanded', String(open));
+        burger?.setAttribute('aria-expanded', String(open));
         nftBtn?.setAttribute('aria-expanded', String(open));
         document.body.style.overflow = open ? 'hidden' : '';
         document.body.classList.toggle('menu-open', open);
       };
       menu.querySelector('.menu-close')?.addEventListener('click', () => set(false));
-      burger.addEventListener('click', (e) => { e.stopPropagation(); set(!menu.classList.contains('open')); });
+      burger?.addEventListener('click', (e) => { e.stopPropagation(); set(!menu.classList.contains('open')); });
       nftBtn?.addEventListener('click', (e) => { e.stopPropagation(); set(!menu.classList.contains('open')); });
       document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.classList.contains('open')) set(false); });
       window.openVihaanNftCard = () => set(true);

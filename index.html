@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Vihaan's World — Builder • Chess Player • Creator</title>
 <meta name="description" content="Vihaan's World — an 8-year-old builder, chess player, and creator. Interactive 3D lobby, LEGO builds, chess journey, projects, and goals." />
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23FFD500'/><circle cx='30' cy='32' r='10' fill='%231E50C8'/><circle cx='70' cy='32' r='10' fill='%23E3000B'/><circle cx='30' cy='70' r='10' fill='%23E3000B'/><circle cx='70' cy='70' r='10' fill='%231E50C8'/></svg>" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -1177,7 +1177,6 @@ body.machine #topnav,body.machine #layout{display:none}
       <button class="nft-trigger arcade" id="nft-card-btn" type="button" title="Open Vihaan's 3D Top Trumps Super Card">🃏 CARD</button>
       <button class="term arcade metal" id="termstatus" aria-pressed="false" title="Open Vihaan's machine-readable CRT index"><span class="led"></span><span class="prompt">vihaan@world</span><span class="txt">online</span><span class="cur"></span></button>
       <a class="icon arcade metal" href="lego.html" aria-label="LEGO Lab" title="Explore LEGO Lab">🧱</a>
-      <button class="icon burger arcade metal" aria-label="Top Trumps Card" title="Open Vihaan's 3D Top Trumps Card" aria-expanded="false"><svg viewBox="0 0 20 20"><rect x="3" y="5" width="14" height="1.6" rx=".8"/><rect x="3" y="9.2" width="14" height="1.6" rx=".8"/><rect x="3" y="13.4" width="14" height="1.6" rx=".8"/></svg></button>
     </div>
   </div>
 </nav>
@@ -4838,12 +4837,12 @@ window.__sheet = {group, mat, uni, renderer, scene, camera, mesh,
     bar.addEventListener('pointerleave', () => bar.style.setProperty('--lit', '0'));
   })();
 
-  // 3D Top Trumps Card toggle (via TRUMP CARD button or burger icon)
-  (function burgerMenu() {
+  // 3D Top Trumps Card toggle (via CARD button)
+  (function cardMenu() {
     const burger = document.querySelector('#topnav .burger');
     const nftBtn = document.getElementById('nft-card-btn');
     const menu = document.querySelector('.sblvl-menu');
-    if (!burger || !menu) return;
+    if (!menu) return;
     const set = (open) => {
       if (open) {
         menu.hidden = false;
@@ -4855,13 +4854,13 @@ window.__sheet = {group, mat, uni, renderer, scene, camera, mesh,
         menu.classList.remove('open');
         setTimeout(() => { if (!menu.classList.contains('open')) menu.hidden = true; }, 450);
       }
-      burger.setAttribute('aria-expanded', String(open));
+      burger?.setAttribute('aria-expanded', String(open));
       nftBtn?.setAttribute('aria-expanded', String(open));
       document.body.style.overflow = open ? 'hidden' : '';
       document.body.classList.toggle('menu-open', open);
     };
     menu.querySelector('.menu-close')?.addEventListener('click', () => set(false));
-    burger.addEventListener('click', (e) => { e.stopPropagation(); set(!menu.classList.contains('open')); });
+    burger?.addEventListener('click', (e) => { e.stopPropagation(); set(!menu.classList.contains('open')); });
     nftBtn?.addEventListener('click', (e) => { e.stopPropagation(); set(!menu.classList.contains('open')); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.classList.contains('open')) set(false); });
     window.openVihaanNftCard = () => set(true);
