@@ -788,29 +788,49 @@
 #loader.done{opacity:0}
 #loader span{display:inline-block;animation:sblvl-blink 1s steps(2) infinite}
 @keyframes sblvl-blink{50%{opacity:0}}
-#hint{position:absolute;left:50%;bottom:66px;transform:translateX(-50%);font-family:var(--mono);font-size:12px;line-height:16px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;color:var(--w1);background:rgba(0,0,0,.72);border:1px solid rgba(255,213,0,.35);padding:8px 18px;border-radius:9999px;pointer-events:none;opacity:0;transition:opacity .35s,bottom .25s ease;white-space:nowrap;max-width:calc(100% - 32px);overflow:hidden;text-overflow:ellipsis;box-shadow:0 8px 24px rgba(0,0,0,.45)}
+#hint{position:absolute;left:50%;bottom:66px;transform:translateX(-50%);font-family:var(--mono);font-size:11px;line-height:16px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;color:var(--w1);background:rgba(0,0,0,.76);border:1px solid rgba(255,213,0,.35);padding:7px 16px;border-radius:9999px;pointer-events:none;opacity:0;transition:opacity .35s,bottom .25s ease;white-space:normal;text-align:center;max-width:min(680px,calc(100% - 24px));box-shadow:0 8px 24px rgba(0,0,0,.55);z-index:4}
 #hint.show{opacity:1}
 #canvas-container.arcade-active #hint{bottom:114px}
+@media (max-width:640px){
+  #hint{font-size:10px;padding:6px 12px;bottom:64px;border-radius:12px;line-height:1.35}
+  #canvas-container.arcade-active #hint{bottom:140px}
+}
 #arcade-game-dock{position:absolute;left:50%;bottom:128px;transform:translateX(-50%);z-index:12;display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:8px;background:rgba(10,12,18,.9);border:1.5px solid rgba(255,213,0,.55);box-shadow:0 12px 32px rgba(0,0,0,.78),0 0 22px rgba(255,77,0,.28);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);flex-wrap:wrap;justify-content:center;max-width:calc(100vw - 24px)}
 #arcade-game-dock[hidden]{display:none !important}
 .agd-label{font-family:var(--mono);font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#ffd500;padding:0 6px 0 2px;white-space:nowrap}
-.agd-btn{appearance:none;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:7px 11px;border-radius:5px;background:rgba(255,255,255,.07);color:#e6e6e6;border:1px solid rgba(255,255,255,.18);cursor:pointer;transition:all .15s ease;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
+.agd-btn{appearance:none;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:7px 11px;border-radius:5px;background:rgba(255,255,255,.07);color:#e6e6e6;border:1px solid rgba(255,255,255,.18);cursor:pointer;transition:all .15s ease;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:5px;min-height:36px}
 .agd-btn:hover{background:rgba(255,213,0,.18);border-color:#ffd500;color:#fff;transform:translateY(-1px)}
 .agd-btn.active{background:linear-gradient(135deg,#ff4d00,#ff8800);color:#fff;border-color:#ffd500;box-shadow:0 0 14px rgba(255,77,0,.55)}
 .agd-btn.agd-link{background:rgba(30,80,200,.38);border-color:rgba(110,168,255,.55);color:#ffd500}
 .agd-btn.agd-link:hover{background:rgba(30,80,200,.72);color:#fff}
 #hud{position:absolute;top:76px;left:16px;font-family:var(--mono);color:var(--o);font-size:13px;line-height:16px;font-weight:600;text-transform:uppercase;pointer-events:none}
-#tvcap{position:absolute;left:16px;bottom:84px;max-width:420px;pointer-events:auto;z-index:10;color:var(--w1);background:rgba(10,12,16,.84);backdrop-filter:blur(14px);padding:16px 20px;border:1px solid rgba(255,213,0,.35);border-radius:4px;box-shadow:0 16px 40px rgba(0,0,0,.7)}
+#tvcap{position:absolute;left:16px;bottom:84px;max-width:420px;pointer-events:auto;z-index:10;color:var(--w1);background:rgba(10,12,16,.90);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:16px 20px;border:1.5px solid rgba(255,213,0,.45);border-radius:6px;box-shadow:0 16px 40px rgba(0,0,0,.7)}
+.tvcap-close{position:absolute;top:8px;right:10px;background:none;border:none;color:#aaa;font-size:16px;cursor:pointer;padding:4px 8px;border-radius:4px}
+.tvcap-close:hover{color:#fff;background:rgba(255,255,255,0.15)}
+@media (max-width:540px){
+  #tvcap{left:12px;right:12px;bottom:70px;max-width:none;padding:12px 14px}
+  #tvcap .ttl{font-size:1.45rem !important;line-height:1.2 !important}
+}
 #tvcap .idx{display:block;font-family:var(--mono);font-size:12px;line-height:16px;font-weight:600;text-transform:uppercase;color:var(--o);margin-bottom:6px}
 #tvcap .ttl{display:block;font-family:var(--sans);font-size:2rem;line-height:2rem;letter-spacing:-.04em;font-weight:600}
 #tvcap .desc{display:block;font-family:var(--sans);font-size:.9375rem;line-height:1.25rem;font-weight:500;color:var(--w2);margin-top:6px;text-wrap:pretty}
 #hud .msg{display:block;font-family:var(--sans);font-size:64px;line-height:64px;letter-spacing:-.04em;font-weight:600;color:var(--w1);margin-top:8px}
 
 /* ---------- Floating Hero Overlay Badge (Top-Left / Bottom-Right Quick Jump) ---------- */
-#hero-quick-bar{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);z-index:5;display:flex;gap:8px;flex-wrap: nowrap;justify-content:center;white-space:nowrap}
+#hero-quick-bar{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);z-index:5;display:flex;gap:8px;flex-wrap:nowrap;justify-content:center;white-space:nowrap}
 #hero-quick-bar a{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:8px 13px;border-radius:4px;background:rgba(16,18,24,.78);color:#fff;border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(12px);transition:transform .15s,background .2s,border-color .2s}
 #hero-quick-bar a:hover{transform:translateY(-2px);background:rgba(30,80,200,.88);border-color:var(--yellow)}
-@media (max-width:900px){#hero-quick-bar{display:none}}
+@media (max-width:980px){
+  #hero-quick-bar{
+    left:0;right:0;transform:none;bottom:10px;padding:6px 12px;
+    overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    justify-content:flex-start;
+    mask-image:linear-gradient(to right,transparent,black 16px,black calc(100% - 16px),transparent);
+    -webkit-mask-image:linear-gradient(to right,transparent,black 16px,black calc(100% - 16px),transparent);
+  }
+  #hero-quick-bar::-webkit-scrollbar{display:none}
+  #hero-quick-bar a{flex-shrink:0;padding:8px 12px;min-height:38px;display:inline-flex;align-items:center}
+}
 
 /* ---------- top nav: floating glass pill ---------- */
 #topnav{position:fixed;top:12px;left:0;right:0;z-index:1000;display:flex;flex-direction:column;align-items:center;pointer-events:none;font-family:var(--sans);font-size:.75rem;line-height:1rem;font-weight:600;perspective:1300px}
@@ -1111,17 +1131,247 @@ body.machine #topnav,body.machine #layout{display:none}
 #machine-close:hover{background:rgba(255,77,0,.15)}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
+/* Mobile Navigation Button & Drawer */
+#topnav .mobile-menu-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 32px;
+  padding: 0 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #fff !important;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #2c303c, #161822) !important;
+  border: 1px solid rgba(255, 213, 0, 0.5) !important;
+  box-shadow: 0 3px 0 #0e1018, 0 4px 10px rgba(0, 0, 0, 0.5) !important;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+#topnav .mobile-menu-btn:hover {
+  background: linear-gradient(180deg, #3d4253, #1e212f) !important;
+  border-color: var(--yellow) !important;
+}
+#topnav .mobile-menu-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #0e1018, 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+}
+#topnav .mobile-menu-btn .m-ic {
+  font-size: 13px;
+  color: var(--yellow);
+}
+
 @media (max-width:1023px){
   #topnav .pillbar{grid-template-columns:auto 1fr;padding-left:14px}
   #topnav .center{display:none}
-  #topnav .right{gap:5px;min-width:0}
-  #topnav .term{min-width:0;padding:0 9px}
-  #topnav .term .prompt{display:none}
-  #topnav .term .txt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:104px}
+  #topnav .right{gap:6px;min-width:0}
+  #topnav .mobile-menu-btn{display:inline-flex !important}
   .sblvl-hero-band article{grid-column:1/-1}
   .sblvl-hero-band .ill-cat{display:none}
 }
+@media (max-width:860px){
+  #topnav .term{display:none !important}
+}
+@media (max-width:640px){
+  #topnav .pillbar{
+    width:calc(100% - 16px);
+    padding:0 6px 0 10px;
+    height:44px;
+    gap:6px;
+  }
+  #topnav .logo{height:44px}
+  #topnav .wordmark{font-size:18px}
+  #topnav .nft-trigger{padding:0 8px;font-size:10px;height:30px}
+  #topnav .mobile-menu-btn{height:30px;padding:0 8px;font-size:10px}
+  #topnav .icon{width:30px;height:30px;font-size:12px !important}
+}
 
+.mobile-nav-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 2100;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+  pointer-events: auto;
+}
+.mobile-nav-drawer[hidden] {
+  display: none !important;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.mnd-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 6, 12, 0.88);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  z-index: 1;
+}
+.mnd-panel {
+  position: relative;
+  z-index: 2;
+  width: min(540px, 94vw);
+  margin: 12px auto 0;
+  max-height: 88vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: linear-gradient(180deg, rgba(18, 22, 32, 0.98), rgba(10, 12, 18, 0.99));
+  border: 1.5px solid rgba(255, 213, 0, 0.45);
+  border-radius: 14px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(255, 77, 0, 0.22);
+  padding: 18px 18px 24px;
+  animation: mndSlideDown 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes mndSlideDown {
+  from { transform: translateY(-16px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.mnd-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(230, 230, 230, 0.12);
+  margin-bottom: 14px;
+}
+.mnd-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.mnd-subtitle {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  color: var(--yellow);
+  text-transform: uppercase;
+}
+.mnd-close-btn {
+  width: 36px;
+  height: 36px;
+  display: inline-grid;
+  place-items: center;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 4px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.mnd-close-btn:hover {
+  background: rgba(255, 77, 0, 0.3);
+  border-color: var(--o);
+}
+.mnd-links {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+@media (min-width: 480px) {
+  .mnd-links {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.mnd-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  min-height: 50px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(230, 230, 230, 0.12);
+  border-radius: 8px;
+  color: #f0f0f0;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  font-family: var(--sans);
+  cursor: pointer;
+}
+.mnd-link:hover {
+  background: rgba(255, 213, 0, 0.12);
+  border-color: rgba(255, 213, 0, 0.6);
+  transform: translateY(-1px);
+}
+.mnd-link:active {
+  transform: translateY(1px);
+}
+.mnd-link.active {
+  background: linear-gradient(135deg, rgba(255, 213, 0, 0.2), rgba(255, 77, 0, 0.12));
+  border-color: var(--yellow);
+  box-shadow: 0 0 14px rgba(255, 213, 0, 0.25);
+}
+.mnd-icon {
+  font-size: 22px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.mnd-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.mnd-title {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mnd-link.active .mnd-title {
+  color: var(--yellow);
+}
+.mnd-desc {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: #b2b9c7;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mnd-card-btn {
+  appearance: none;
+  text-align: left;
+  border-color: rgba(255, 213, 0, 0.4);
+}
+.mnd-footer {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(230, 230, 230, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: #8b949e;
+}
+.mnd-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #3fb950;
+}
+.mnd-status .led {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #3fb950;
+  box-shadow: 0 0 8px #3fb950;
+}
 </style>
 </head>
 <body>
@@ -1141,7 +1391,7 @@ body.machine #topnav,body.machine #layout{display:none}
     <button type="button" class="agd-btn" data-arcade-game="snake">🐍 CYBER SNAKE</button>
     <a href="games.html" class="agd-btn agd-link">🕹️ ALL FULL GAMES →</a>
   </div>
-  <div id="tvcap" hidden><span class="idx"></span><span class="ttl"></span><span class="desc"></span><a class="tv-open btn btn-yellow" href="lego.html" style="margin-top:12px;min-height:36px;padding:0 14px;font-size:.76rem;font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;border-radius:3px">OPEN PAGE →</a></div>
+  <div id="tvcap" hidden><button type="button" id="tvcap-close" class="tvcap-close" aria-label="Close TV Preview">✕</button><span class="idx"></span><span class="ttl"></span><span class="desc"></span><a class="tv-open btn btn-yellow" href="lego.html" style="margin-top:12px;min-height:36px;padding:0 14px;font-size:.76rem;font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;border-radius:3px">OPEN PAGE →</a></div>
   <div id="hero-quick-bar">
     <a href="lego.html">01 · 🧱 LEGO Lab</a>
     <a href="hall-of-fame.html">🏆 Hall of Fame</a>
@@ -1175,11 +1425,95 @@ body.machine #topnav,body.machine #layout{display:none}
     </div>
     <div class="right">
       <button class="nft-trigger arcade" id="nft-card-btn" type="button" title="Open Vihaan's 3D Top Trumps Super Card">🃏 CARD</button>
+      <button class="mobile-menu-btn arcade metal" id="mobile-nav-toggle" type="button" aria-label="Open Navigation Menu" aria-expanded="false" title="Explore Pages"><span class="m-ic">☰</span> <b>MENU</b></button>
       <button class="term arcade metal" id="termstatus" aria-pressed="false" title="Open Vihaan's machine-readable CRT index"><span class="led"></span><span class="prompt">vihaan@world</span><span class="txt">online</span><span class="cur"></span></button>
       <a class="icon arcade metal" href="lego.html" aria-label="LEGO Lab" title="Explore LEGO Lab">🧱</a>
     </div>
   </div>
 </nav>
+
+<!-- ================= MOBILE NAVIGATION DRAWER ================= -->
+<div id="mobile-nav-drawer" class="mobile-nav-drawer" hidden aria-label="Mobile Navigation Menu">
+  <div class="mnd-backdrop"></div>
+  <div class="mnd-panel">
+    <div class="mnd-header">
+      <div class="mnd-brand"><span class="wordmark">vihaan<i>.</i></span><span class="mnd-subtitle">PAGES</span></div>
+      <button type="button" class="mnd-close-btn arcade metal" id="mobile-nav-close" aria-label="Close Navigation Menu">✕</button>
+    </div>
+    <div class="mnd-links">
+      <a href="index.html" class="mnd-link active">
+        <span class="mnd-icon">🏠</span>
+        <div class="mnd-info">
+          <span class="mnd-title">3D Lobby</span>
+          <span class="mnd-desc">Arcade games, hoop &amp; CRT TVs</span>
+        </div>
+      </a>
+      <a href="lego.html" class="mnd-link">
+        <span class="mnd-icon">🧱</span>
+        <div class="mnd-info">
+          <span class="mnd-title">LEGO Lab</span>
+          <span class="mnd-desc">23+ builds &amp; Idea Lab</span>
+        </div>
+      </a>
+      <a href="hall-of-fame.html" class="mnd-link">
+        <span class="mnd-icon">🏆</span>
+        <div class="mnd-info">
+          <span class="mnd-title">Hall of Fame</span>
+          <span class="mnd-desc">Flagship masterworks &amp; Hogwarts</span>
+        </div>
+      </a>
+      <a href="chess.html" class="mnd-link">
+        <span class="mnd-icon">♟️</span>
+        <div class="mnd-info">
+          <span class="mnd-title">Chess Journey</span>
+          <span class="mnd-desc">715 USCF rating &amp; tournaments</span>
+        </div>
+      </a>
+      <a href="games.html" class="mnd-link">
+        <span class="mnd-icon">👾</span>
+        <div class="mnd-info">
+          <span class="mnd-title">Games Arcade</span>
+          <span class="mnd-desc">Pac-Man, Penalty, Geo Dash &amp; more</span>
+        </div>
+      </a>
+      <a href="notebook.html" class="mnd-link">
+        <span class="mnd-icon">📓</span>
+        <div class="mnd-info">
+          <span class="mnd-title">Notebook</span>
+          <span class="mnd-desc">Coach checklist &amp; game reviews</span>
+        </div>
+      </a>
+      <a href="goals.html" class="mnd-link">
+        <span class="mnd-icon">🎯</span>
+        <div class="mnd-info">
+          <span class="mnd-title">2026 Goals</span>
+          <span class="mnd-desc">Big dreams &amp; learning targets</span>
+        </div>
+      </a>
+      <a href="badges.html" class="mnd-link">
+        <span class="mnd-icon">🏅</span>
+        <div class="mnd-info">
+          <span class="mnd-title">Badges &amp; Honors</span>
+          <span class="mnd-desc">Achievements &amp; story timeline</span>
+        </div>
+      </a>
+      <a href="comics.html" class="mnd-link">
+        <span class="mnd-icon">💬</span>
+        <div class="mnd-info">
+          <span class="mnd-title">Comic Studio</span>
+          <span class="mnd-desc">Vihaan's funny 4-panel comic creator</span>
+        </div>
+      </a>
+      <button type="button" class="mnd-link mnd-card-btn" id="mnd-open-card">
+        <span class="mnd-icon">🃏</span>
+        <div class="mnd-info">
+          <span class="mnd-title">Top Trumps Card</span>
+          <span class="mnd-desc">3D spinning mythic card #01</span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
 
 <!-- ================= 3D PAPER TOP TRUMPS CARD OVERLAY ================= -->
 <div class="sblvl-menu" hidden>
@@ -3297,6 +3631,7 @@ function targets() {
 const HINTS = { home: 'Click arcade to play 5 games &nbsp;·&nbsp; click hoop to shoot &nbsp;·&nbsp; click CRT TVs for Vihaan\'s builds &nbsp;·&nbsp; scroll down for Hall of Fame', arcade: 'ARROWS / WASD move &nbsp;·&nbsp; SPACE action &nbsp;·&nbsp; pick any of the 5 games below &nbsp;·&nbsp; ESC leave', hoop: 'Drag up on the ball to shoot &nbsp;·&nbsp; ESC leave', tv: '← → browse Vihaan\'s builds &nbsp;·&nbsp; click another CRT &nbsp;·&nbsp; ESC leave' };
 hintEl.innerHTML = HINTS.home; hintEl.classList.add('show');
 const tvcap = document.getElementById('tvcap');
+document.getElementById('tvcap-close')?.addEventListener('click', () => setMode('home'));
 const arcadeDock = document.getElementById('arcade-game-dock');
 const TV_HREFS = ['lego.html', 'lego.html', 'lego.html', 'chess.html', 'games.html', 'lego.html', 'lego.html'];
 function showTV(i) {
@@ -4780,6 +5115,61 @@ window.__sheet = {group, mat, uni, renderer, scene, camera, mesh,
     modalClose?.addEventListener('click', () => modal.classList.remove('open'));
     modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('open'); });
     window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('open')) modal.classList.remove('open'); });
+  })();
+
+  // Mobile Navigation Drawer Controller
+  (function initMobileNavDrawer() {
+    function wire() {
+      const toggleBtn = document.getElementById('mobile-nav-toggle');
+      const drawer = document.getElementById('mobile-nav-drawer');
+      const closeBtn = document.getElementById('mobile-nav-close');
+      const backdrop = drawer?.querySelector('.mnd-backdrop');
+      const cardBtn = document.getElementById('mnd-open-card');
+      if (!drawer || drawer.dataset.wired) return;
+      drawer.dataset.wired = 'true';
+
+      function setDrawer(open) {
+        if (open) {
+          drawer.hidden = false;
+          toggleBtn?.setAttribute('aria-expanded', 'true');
+          document.body.style.overflow = 'hidden';
+        } else {
+          drawer.hidden = true;
+          toggleBtn?.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        }
+      }
+
+      toggleBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setDrawer(drawer.hidden);
+      });
+      closeBtn?.addEventListener('click', () => setDrawer(false));
+      backdrop?.addEventListener('click', () => setDrawer(false));
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !drawer.hidden) setDrawer(false);
+      });
+
+      cardBtn?.addEventListener('click', () => {
+        setDrawer(false);
+        if (window.openVihaanNftCard) window.openVihaanNftCard();
+      });
+
+      // Close drawer when clicking any page link
+      drawer.querySelectorAll('.mnd-link').forEach(link => {
+        if (link.id !== 'mnd-open-card') {
+          link.addEventListener('click', () => {
+            document.body.style.overflow = '';
+          });
+        }
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', wire);
+    } else {
+      wire();
+    }
   })();
 })();
 </script>
