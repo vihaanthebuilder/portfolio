@@ -791,7 +791,7 @@
 #hint{position:absolute;left:50%;bottom:66px;transform:translateX(-50%);font-family:var(--mono);font-size:12px;line-height:16px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;color:var(--w1);background:rgba(0,0,0,.72);border:1px solid rgba(255,213,0,.35);padding:8px 18px;border-radius:9999px;pointer-events:none;opacity:0;transition:opacity .35s,bottom .25s ease;white-space:nowrap;max-width:calc(100% - 32px);overflow:hidden;text-overflow:ellipsis;box-shadow:0 8px 24px rgba(0,0,0,.45)}
 #hint.show{opacity:1}
 #canvas-container.arcade-active #hint{bottom:114px}
-#arcade-game-dock{position:absolute;left:50%;bottom:60px;transform:translateX(-50%);z-index:12;display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:8px;background:rgba(10,12,18,.9);border:1.5px solid rgba(255,213,0,.55);box-shadow:0 12px 32px rgba(0,0,0,.78),0 0 22px rgba(255,77,0,.28);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);flex-wrap:wrap;justify-content:center;max-width:calc(100vw - 24px)}
+#arcade-game-dock{position:absolute;left:50%;bottom:128px;transform:translateX(-50%);z-index:12;display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:8px;background:rgba(10,12,18,.9);border:1.5px solid rgba(255,213,0,.55);box-shadow:0 12px 32px rgba(0,0,0,.78),0 0 22px rgba(255,77,0,.28);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);flex-wrap:wrap;justify-content:center;max-width:calc(100vw - 24px)}
 #arcade-game-dock[hidden]{display:none !important}
 .agd-label{font-family:var(--mono);font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#ffd500;padding:0 6px 0 2px;white-space:nowrap}
 .agd-btn{appearance:none;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:7px 11px;border-radius:5px;background:rgba(255,255,255,.07);color:#e6e6e6;border:1px solid rgba(255,255,255,.18);cursor:pointer;transition:all .15s ease;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
@@ -3381,7 +3381,7 @@ function setMode(m, arg) {
   document.documentElement.style.overflow = m === 'home' ? '' : 'hidden';
   if (m !== 'home') window.scrollTo(0, 0);
   game.on = m === 'arcade';
-  if (arcadeDock) arcadeDock.classList.toggle('show', m === 'arcade');
+  if (arcadeDock) { arcadeDock.hidden = m !== 'arcade'; arcadeDock.classList.toggle('show', m === 'arcade'); }
   if (game.on) { gameStart(); }
   ball.mesh.visible = m === 'hoop'; ball.held = true; ball.live = false;
   hudEl.hidden = m !== 'hoop'; hudMsg.textContent = '';
