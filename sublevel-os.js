@@ -2250,13 +2250,13 @@ function frame(){
 
   mouse.x += (mouse.tx-mouse.x)*Math.min(1,dt*3.0);
   mouse.y += (mouse.ty-mouse.y)*Math.min(1,dt*3.0);
-  const idle = REDUCED ? 0 : 1;
+  const idle = 0;
   const rise = 1 - intro;
-  group.rotation.y = dragYaw + mouse.x*0.16 + Math.sin(t*0.23)*0.045*idle;
-  group.rotation.x = dragPitch - mouse.y*0.11 + Math.sin(t*0.19)*0.026*idle + rise*0.28;
-  group.rotation.z = Math.sin(t*0.27)*0.018*idle;
-  group.position.y = Math.sin(t*0.36)*0.06*idle - rise*0.7;
-  group.position.x = Math.sin(t*0.21)*0.05*idle + mouse.x*0.10;
+  group.rotation.y = dragYaw;
+  group.rotation.x = dragPitch + rise*0.28;
+  group.rotation.z = 0;
+  group.position.y = -rise*0.7;
+  group.position.x = 0;
   group.updateMatrixWorld();
 
   hover += (hoverTarget - hover) * Math.min(1, dt*4.5);
