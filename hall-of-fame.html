@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>function __threeuiStorageImage(...args){const image=new Image(...args);const property=Object.getOwnPropertyDescriptor(HTMLImageElement.prototype,"src");Object.defineProperty(image,"src",{configurable:true,get(){return property.get.call(this)},set(value){try{const url=new URL(value,document.baseURI);if(this.crossOrigin===null&&(url.href.startsWith("https://ublctyddhtbgaersvxxb.supabase.co/storage/v1/object/public/threeui-media/scene-images/")||url.origin===new URL(document.baseURI).origin))this.crossOrigin="anonymous"}catch{}property.set.call(this,value)}});return image;}</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hall of Fame — Vihaan's World</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23FFD500'/><circle cx='30' cy='32' r='10' fill='%231E50C8'/><circle cx='70' cy='32' r='10' fill='%23E3000B'/><circle cx='30' cy='70' r='10' fill='%23E3000B'/><circle cx='70' cy='70' r='10' fill='%231E50C8'/></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="sublevel-os.css" />
+<style>
+  /* ================= LEGO LAB ENHANCEMENTS (SUBLEVEL STUDIO OS THEME) ================= */
+  .lego-hero-banner {
+    padding: 1.5rem 0 2rem !important;
+    margin-bottom: 1.75rem;
+    border-bottom: 1px solid rgba(230, 230, 230, 0.12);
+  }
+  .lego-hero-banner .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--o, #ff4d00);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .lego-hero-banner .eyebrow .rule {
+    flex: 1;
+    margin: 0;
+    height: 1px;
+    background: rgba(230, 230, 230, 0.12);
+    border: 0;
+  }
+  .lego-hero-banner .hero-box {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 16px;
+    align-items: stretch;
+  }
+  @media (max-width: 860px) {
+    .lego-hero-banner .hero-box {
+      grid-template-columns: 1fr;
+    }
+  }
+  .lego-hero-banner .title-frame {
+    padding: 22px 26px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: linear-gradient(180deg, rgba(255, 213, 0, 0.05), rgba(255, 77, 0, 0.02));
+  }
+  .lego-hero-banner .title-frame h1 {
+    font-family: var(--sans) !important;
+    font-size: clamp(1.9rem, 3.6vw, 2.9rem) !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.035em !important;
+    line-height: 1.05 !important;
+    color: #fff !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .lego-hero-banner .title-frame h1 .pop {
+    color: var(--yellow, #ffd500);
+  }
+  .lego-hero-banner .sub-frame {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+    color: var(--w2, #c4c4c4);
+    font-size: 0.94rem;
+    line-height: 1.55;
+  }
+  .hero-stat-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .hero-stat-pill {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-radius: 3px;
+    background: rgba(255, 213, 0, 0.12);
+    border: 1px solid rgba(255, 213, 0, 0.4);
+    color: var(--yellow, #ffd500);
+  }
+
+  /* ---------- 1. HALL OF FAME — FEATURED PROJECTS ---------- */
+  .hof-section {
+    padding: 0 0 2.5rem !important;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(230, 230, 230, 0.14);
+  }
+  .hof-header {
+    margin-bottom: 20px;
+  }
+  .hof-header .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: var(--o, #ff4d00);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .hof-header .eyebrow .rule {
+    flex: 1;
+    margin: 0;
+    height: 1px;
+    border: 0;
+    background: rgba(230, 230, 230, 0.14);
+  }
+  .hof-header-frames {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 14px;
+    align-items: stretch;
+  }
+  @media (max-width: 820px) {
+    .hof-header-frames {
+      grid-template-columns: 1fr;
+    }
+  }
+  .hof-header .title-frame {
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: linear-gradient(135deg, rgba(255, 213, 0, 0.08), rgba(15, 18, 26, 0.92));
+  }
+  .hof-header .title-frame h2 {
+    font-family: var(--sans) !important;
+    font-size: clamp(1.65rem, 3vw, 2.35rem) !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.03em !important;
+    color: #fff !important;
+    margin: 0 !important;
+  }
+  .hof-crown-badge {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-radius: 3px;
+    background: rgba(255, 77, 0, 0.18);
+    border: 1px solid rgba(255, 77, 0, 0.5);
+    color: #ff854d;
+    white-space: nowrap;
+  }
+  .hof-header .sub-frame {
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    color: var(--w2, #c4c4c4);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    background: rgba(14, 16, 23, 0.88);
+  }
+
+  .hof-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    align-items: stretch;
+  }
+  @media (max-width: 1024px) {
+    .hof-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 640px) {
+    .hof-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .hof-card {
+    position: relative;
+    display: flex !important;
+    flex-direction: column !important;
+    background: linear-gradient(180deg, rgba(20, 23, 32, 0.95) 0%, rgba(9, 11, 16, 0.99) 100%) !important;
+    border: 1px solid rgba(230, 230, 230, 0.16) !important;
+    border-radius: 4px !important;
+    padding: 0 !important;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), border-color 200ms ease, box-shadow 220ms ease !important;
+    box-shadow: 0 16px 38px rgba(0, 0, 0, 0.65) !important;
+  }
+  .hof-card:hover {
+    transform: translateY(-5px) !important;
+    border-color: var(--yellow, #ffd500) !important;
+    box-shadow: 0 22px 48px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 213, 0, 0.35), 0 0 28px rgba(255, 213, 0, 0.15) !important;
+  }
+  .hof-card .corner {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border: 1.5px solid rgba(255, 213, 0, 0.65);
+    pointer-events: none;
+    z-index: 6;
+  }
+  .hof-card .corner.tl { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+  .hof-card .corner.tr { top: 0; right: 0; border-left: 0; border-bottom: 0; }
+  .hof-card .corner.bl { bottom: 0; left: 0; border-right: 0; border-top: 0; }
+  .hof-card .corner.br { bottom: 0; right: 0; border-left: 0; border-top: 0; }
+
+  .hof-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(230, 230, 230, 0.11);
+    background: rgba(255, 255, 255, 0.02);
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--yellow, #ffd500);
+  }
+  .hof-card-top .hof-num {
+    color: var(--o, #ff4d00);
+    background: rgba(255, 77, 0, 0.14);
+    border: 1px solid rgba(255, 77, 0, 0.4);
+    padding: 2px 6px;
+    border-radius: 2px;
+  }
+
+  .hof-photo {
+    position: relative;
+    height: 235px;
+    width: 100%;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 50%, #1c2233 0%, #090b10 100%);
+    border-bottom: 1px solid rgba(230, 230, 230, 0.11);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hof-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .hof-photo img.contain-img {
+    object-fit: contain;
+    padding: 10px;
+    background: radial-gradient(circle at 50% 50%, #1d2334 0%, #0a0c12 100%);
+  }
+  .hof-card:hover .hof-photo img {
+    transform: scale(1.06);
+  }
+
+  .hof-diag-strip {
+    height: 8px;
+    width: 100%;
+    border-bottom: 1px solid rgba(230, 230, 230, 0.1);
+    background-color: rgba(255, 213, 0, 0.04);
+  }
+
+  .hof-body {
+    padding: 16px 16px 14px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 8px;
+  }
+  .hof-meta {
+    font-family: var(--mono);
+    font-size: 0.69rem;
+    color: #ff9d6e;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+  }
+  .hof-title {
+    font-family: var(--sans) !important;
+    font-size: 1.25rem !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.02em !important;
+    color: #fff !important;
+    margin: 0 !important;
+    line-height: 1.2;
+  }
+  .hof-desc {
+    font-family: var(--sans);
+    font-size: 0.86rem;
+    line-height: 1.5;
+    color: var(--w2, #c4c4c4);
+    margin: 0;
+    flex: 1;
+  }
+  .hof-foot {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(230, 230, 230, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .hof-foot .hof-builder {
+    color: var(--g1, #8a8f9c);
+    font-size: 0.66rem;
+  }
+  .hof-foot .hof-cta {
+    color: var(--yellow, #ffd500);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: transform 160ms ease, color 160ms ease;
+  }
+  .hof-card:hover .hof-foot .hof-cta {
+    color: var(--o, #ff4d00);
+    transform: translateX(3px);
+  }
+
+  /* ---------- 2. UNIVERSAL "CLICK TO EXPAND" BADGE & LIGHTBOX MODAL ---------- */
+  .hof-card, .lego-card, .card, .boat-card, .wish-card {
+    cursor: pointer !important;
+  }
+  .click-expand-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 5;
+    font-family: var(--mono);
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 3px;
+    background: rgba(8, 10, 16, 0.84);
+    color: var(--yellow, #ffd500);
+    border: 1px solid rgba(255, 213, 0, 0.45);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+    pointer-events: none;
+  }
+  .hof-card:hover .click-expand-badge,
+  .lego-card:hover .click-expand-badge,
+  .boat-card:hover .click-expand-badge,
+  .wish-card:hover .click-expand-badge {
+    background: var(--yellow, #ffd500);
+    color: #000;
+    transform: scale(1.04);
+  }
+  .boat-photo, .wish-card {
+    position: relative !important;
+  }
+
+  /* Full-Screen LEGO Build Inspector Modal (#lego-lightbox-modal) */
+  #lego-lightbox-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2500;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(12px, 2.5vw, 28px);
+    background: rgba(4, 6, 11, 0.9);
+    backdrop-filter: blur(16px) saturate(130%);
+    -webkit-backdrop-filter: blur(16px) saturate(130%);
+  }
+  #lego-lightbox-modal.open {
+    display: flex;
+    animation: lbFadeIn 200ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  @keyframes lbFadeIn {
+    from { opacity: 0; transform: scale(0.98); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .lb-shell {
+    position: relative;
+    width: min(1220px, 96vw);
+    max-height: 92vh;
+    display: grid;
+    grid-template-columns: 1.25fr 0.95fr;
+    background: linear-gradient(180deg, #141824 0%, #0b0d14 100%);
+    border: 1.5px solid rgba(255, 213, 0, 0.5);
+    border-radius: 8px;
+    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.9), 0 0 40px rgba(255, 213, 0, 0.14);
+    overflow: hidden;
+  }
+  @media (max-width: 900px) {
+    .lb-shell {
+      grid-template-columns: 1fr;
+      max-height: 95vh;
+      overflow-y: auto;
+    }
+  }
+  .lb-image-stage {
+    position: relative;
+    background: radial-gradient(circle at 50% 50%, #1d2436 0%, #07090e 100%);
+    border-right: 1px solid rgba(230, 230, 230, 0.14);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 420px;
+    max-height: 92vh;
+    overflow: auto;
+    padding: 24px;
+  }
+  @media (max-width: 900px) {
+    .lb-image-stage {
+      min-height: 290px;
+      max-height: 46vh;
+      border-right: 0;
+      border-bottom: 1px solid rgba(230, 230, 230, 0.14);
+    }
+  }
+  .lb-image-stage img {
+    max-width: 100%;
+    max-height: 80vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 4px;
+    transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+    transform-origin: center center;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.65);
+  }
+  .lb-image-stage.zoomed img {
+    transform: scale(1.5);
+    cursor: zoom-out;
+  }
+  .lb-stage-controls {
+    position: absolute;
+    bottom: 14px;
+    left: 14px;
+    right: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    pointer-events: none;
+  }
+  .lb-stage-btn {
+    pointer-events: auto;
+    appearance: none;
+    background: rgba(10, 12, 18, 0.88);
+    border: 1px solid rgba(255, 213, 0, 0.45);
+    color: var(--yellow, #ffd500);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 7px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 150ms ease;
+  }
+  .lb-stage-btn:hover {
+    background: var(--yellow, #ffd500);
+    color: #000;
+  }
+  .lb-counter-pill {
+    pointer-events: auto;
+    background: rgba(10, 12, 18, 0.88);
+    border: 1px solid rgba(230, 230, 230, 0.2);
+    color: var(--w1, #e6e6e6);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 6px 11px;
+    border-radius: 4px;
+    letter-spacing: 0.06em;
+  }
+
+  .lb-details {
+    padding: 26px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 16px;
+    overflow-y: auto;
+    max-height: 92vh;
+  }
+  @media (max-width: 900px) {
+    .lb-details {
+      max-height: none;
+      padding: 20px;
+    }
+  }
+  .lb-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .lb-cat-badge {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-radius: 3px;
+    background: rgba(255, 77, 0, 0.16);
+    border: 1px solid rgba(255, 77, 0, 0.5);
+    color: #ff854d;
+  }
+  .lb-close-btn {
+    appearance: none;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(230, 230, 230, 0.22);
+    color: #fff;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 150ms ease;
+  }
+  .lb-close-btn:hover {
+    background: var(--o, #ff4d00);
+    color: #000;
+    border-color: var(--o, #ff4d00);
+  }
+  .lb-title {
+    font-family: var(--sans) !important;
+    font-size: clamp(1.5rem, 2.5vw, 2.1rem) !important;
+    font-weight: 700 !important;
+    color: var(--yellow, #ffd500) !important;
+    letter-spacing: -0.025em !important;
+    line-height: 1.15 !important;
+    margin: 4px 0 8px !important;
+  }
+  .lb-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-bottom: 6px;
+  }
+  .lb-pill {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(230, 230, 230, 0.16);
+    color: var(--w1, #e6e6e6);
+  }
+  .lb-pill.builder {
+    background: rgba(255, 213, 0, 0.12);
+    border-color: rgba(255, 213, 0, 0.4);
+    color: var(--yellow, #ffd500);
+  }
+  .lb-quote-box {
+    background: rgba(255, 213, 0, 0.06);
+    border-left: 3px solid var(--yellow, #ffd500);
+    border-radius: 4px;
+    padding: 12px 14px;
+  }
+  .lb-quote-label {
+    font-family: var(--mono);
+    font-size: 0.64rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--o, #ff4d00);
+    margin-bottom: 4px;
+  }
+  .lb-quote-text {
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.45;
+    margin: 0;
+  }
+  .lb-desc {
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--w2, #c4c4c4);
+    margin: 0;
+  }
+  .lb-specs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  @media (max-width: 520px) {
+    .lb-specs-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .lb-spec-card {
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(230, 230, 230, 0.12);
+    border-radius: 5px;
+    padding: 10px 12px;
+  }
+  .lb-spec-card small {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--yellow, #ffd500);
+    margin-bottom: 4px;
+  }
+  .lb-spec-card p {
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: var(--w1, #e6e6e6);
+    margin: 0;
+  }
+  .lb-nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(230, 230, 230, 0.12);
+  }
+  .lb-nav-btn {
+    flex: 1;
+    appearance: none;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(230, 230, 230, 0.2);
+    color: #fff;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 10px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 150ms ease;
+  }
+  .lb-nav-btn:hover {
+    background: var(--yellow, #ffd500);
+    color: #000;
+    border-color: var(--yellow, #ffd500);
+  }
+
+  /* ---------- 3. SUPERCHARGED LEGO MASTER BUILDER IDEA LAB ---------- */
+  .idea-gen-wrap {
+    background: linear-gradient(180deg, rgba(20, 23, 34, 0.96) 0%, rgba(10, 12, 18, 0.99) 100%) !important;
+    border: 1px solid rgba(255, 213, 0, 0.32) !important;
+    border-radius: 8px !important;
+    padding: clamp(20px, 3vw, 32px) !important;
+    margin: 24px 0 32px !important;
+    text-align: left !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7) !important;
+  }
+  .idea-lab-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 14px;
+    padding-bottom: 18px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid rgba(230, 230, 230, 0.12);
+  }
+  .idea-lab-header h3 {
+    font-family: var(--sans) !important;
+    font-size: clamp(1.45rem, 2.6vw, 2rem) !important;
+    font-weight: 700 !important;
+    color: var(--yellow, #ffd500) !important;
+    margin: 4px 0 6px !important;
+  }
+  .idea-lab-header p {
+    color: var(--w2, #c4c4c4) !important;
+    font-size: 0.92rem !important;
+    margin: 0 !important;
+  }
+  .idea-filter-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 14px 16px;
+    background: rgba(6, 8, 13, 0.78);
+    border: 1px solid rgba(230, 230, 230, 0.11);
+    border-radius: 6px;
+  }
+  .idea-filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+  }
+  .idea-filter-label {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--o, #ff4d00);
+    margin-right: 6px;
+    min-width: 82px;
+  }
+  .idea-pill-btn {
+    appearance: none;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(230, 230, 230, 0.14);
+    color: var(--w2, #c4c4c4);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 6px 11px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 140ms ease;
+  }
+  .idea-pill-btn:hover {
+    background: rgba(255, 255, 255, 0.11);
+    color: #fff;
+  }
+  .idea-pill-btn.active {
+    background: var(--yellow, #ffd500);
+    color: #000;
+    border-color: var(--yellow, #ffd500);
+    font-weight: 700;
+    box-shadow: 0 0 14px rgba(255, 213, 0, 0.28);
+  }
+
+  .blueprint-card {
+    position: relative;
+    background:
+      linear-gradient(rgba(30, 80, 200, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(30, 80, 200, 0.07) 1px, transparent 1px),
+      linear-gradient(180deg, #0d1322 0%, #080b14 100%) !important;
+    background-size: 24px 24px, 24px 24px, 100% 100% !important;
+    border: 1.5px solid rgba(90, 150, 255, 0.35) !important;
+    border-radius: 8px !important;
+    padding: 24px !important;
+    max-width: 100% !important;
+    margin: 0 0 18px 0 !important;
+    display: grid !important;
+    grid-template-columns: auto 1fr;
+    gap: 22px !important;
+    align-items: start !important;
+    text-align: left !important;
+  }
+  @media (max-width: 720px) {
+    .blueprint-card {
+      grid-template-columns: 1fr;
+    }
+  }
+  .blueprint-icon-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .blueprint-emoji {
+    width: 96px;
+    height: 96px;
+    border-radius: 8px;
+    background: rgba(255, 213, 0, 0.12);
+    border: 1.5px solid rgba(255, 213, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.6rem;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+  }
+  .blueprint-code {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #7fb4ff;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .blueprint-main {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-width: 0;
+  }
+  .blueprint-badges {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+  .bp-badge {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #fff;
+  }
+  .bp-badge.cat {
+    background: var(--yellow, #ffd500);
+    color: #000;
+    border-color: var(--yellow, #ffd500);
+  }
+  .bp-badge.pieces {
+    background: rgba(255, 77, 0, 0.18);
+    border-color: rgba(255, 77, 0, 0.5);
+    color: #ff986b;
+  }
+
+  .blueprint-title {
+    font-family: var(--sans) !important;
+    font-size: clamp(1.35rem, 2.3vw, 1.75rem) !important;
+    font-weight: 700 !important;
+    color: #fff !important;
+    margin: 0 !important;
+    line-height: 1.2;
+  }
+
+  .bp-parts-box {
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(230, 230, 230, 0.13);
+    border-radius: 6px;
+    padding: 12px 14px;
+  }
+  .bp-section-label {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--yellow, #ffd500);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .bp-parts-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+  .bp-part-pill {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 3px;
+    background: rgba(30, 80, 200, 0.22);
+    border: 1px solid rgba(100, 160, 255, 0.4);
+    color: #dbe9ff;
+  }
+
+  .bp-steps-list {
+    margin: 0;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    color: var(--w1, #e6e6e6);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+  .bp-steps-list li::marker {
+    color: var(--yellow, #ffd500);
+    font-family: var(--mono);
+    font-weight: 700;
+  }
+
+  .bp-callouts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 680px) {
+    .bp-callouts-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .bp-callout {
+    padding: 12px 14px;
+    border-radius: 6px;
+    background: rgba(255, 213, 0, 0.07);
+    border: 1px solid rgba(255, 213, 0, 0.3);
+  }
+  .bp-callout.secret {
+    background: rgba(255, 77, 0, 0.09);
+    border-color: rgba(255, 77, 0, 0.38);
+  }
+  .bp-callout strong {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--yellow, #ffd500);
+    margin-bottom: 4px;
+  }
+  .bp-callout.secret strong {
+    color: #ff8c5a;
+  }
+  .bp-callout p {
+    font-size: 0.85rem;
+    line-height: 1.45;
+    color: #fff;
+    margin: 0;
+  }
+
+  .bp-twist-banner {
+    display: none;
+    padding: 12px 16px;
+    border-radius: 6px;
+    background: linear-gradient(90deg, rgba(255, 77, 0, 0.26), rgba(255, 213, 0, 0.2));
+    border: 1.5px solid var(--yellow, #ffd500);
+    color: #fff;
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    font-weight: 700;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    box-shadow: 0 6px 20px rgba(255, 140, 0, 0.25);
+  }
+  .bp-twist-banner.show {
+    display: flex;
+    animation: lbFadeIn 180ms ease-out;
+  }
+
+  .idea-actions-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+  }
+  .idea-actions-row .btn {
+    flex: 1 1 210px;
+    min-height: 48px !important;
+    font-weight: 700 !important;
+    cursor: pointer;
+  }
+
+  .all-ideas-drawer {
+    display: none;
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(230, 230, 230, 0.14);
+  }
+  .all-ideas-drawer.open {
+    display: block;
+  }
+  .all-ideas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .mini-idea-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(230, 230, 230, 0.14);
+    border-radius: 5px;
+    padding: 11px 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 150ms ease;
+    text-align: left;
+  }
+  .mini-idea-card:hover, .mini-idea-card.active {
+    background: rgba(255, 213, 0, 0.14);
+    border-color: var(--yellow, #ffd500);
+    transform: translateY(-2px);
+  }
+  .mini-idea-card .mi-em {
+    font-size: 1.75rem;
+    flex: 0 0 auto;
+  }
+  .mini-idea-card .mi-txt {
+    min-width: 0;
+  }
+  .mini-idea-card b {
+    display: block;
+    font-family: var(--sans);
+    font-size: 0.86rem;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .mini-idea-card small {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.64rem;
+    color: var(--g1, #8a8f9c);
+    margin-top: 2px;
+  }
+</style>
+</head>
+<body>
+
+<div class="os-page-wrap">
+  <main class="os-workspace" id="hall">
+
+    <!-- ================= 1. HALL OF FAME — FEATURED PROJECTS ================= -->
+    <section class="hof-section" id="hall-of-fame" aria-label="Hall of Fame Featured Projects">
+      <div class="hof-header">
+        <div class="eyebrow">
+          <span>// 00 — HALL OF FAME</span>
+          <hr class="rule" />
+          <span>FLAGSHIP MASTERWORKS · 01—06</span>
+        </div>
+        <div class="hof-header-frames">
+          <div class="framed title-frame">
+            <i class="corner tl" aria-hidden="true"></i><i class="corner tr" aria-hidden="true"></i><i class="corner bl" aria-hidden="true"></i><i class="corner br" aria-hidden="true"></i>
+            <h2>Hall of Fame</h2>
+            <span class="hof-crown-badge">👑 Featured Projects</span>
+          </div>
+          <div class="framed sub-frame">
+            <i class="corner tl" aria-hidden="true"></i><i class="corner tr" aria-hidden="true"></i><i class="corner bl" aria-hidden="true"></i><i class="corner br" aria-hidden="true"></i>
+            <p style="margin:0">Vihaan's biggest, most legendary flagship creations — from Hogwarts Castle to 800-piece starships and world monuments.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="hof-grid">
+        <!-- 1. Hogwarts Castle -->
+        <article class="hof-card card" tabindex="0" role="button" aria-label="Inspect Hogwarts Castle in full screen"
+          data-img="images/hogwarts.jpg"
+          data-title="Hogwarts Castle"
+          data-category="WIZARDING WORLD · HALL OF FAME #01 · MASTER BUILD"
+          data-meta="🏰 Magic Architecture · ⭐ Featured Masterpiece · 🧩 2,660 Pieces · ⏱ 2 Months"
+          data-fav="The Great Hall, soaring wizard towers, bridges, and tiny boat on the cliffside lake"
+          data-quote="Vihaan's legendary Hogwarts Castle masterpiece — complete with the Great Hall, soaring wizard towers, bridges, and magical details along the rocky cliffs!"
+          data-desc="Vihaan's #1 flagship masterpiece! Built over 2 months with 2,660 pieces, this detailed Hogwarts Castle features rocky cliff foundations, the Great Hall, astronomy and wizard towers, arched bridges, and micro-scale magical details."
+          data-technique="Micro-scale SNOT cliff sculpting, multi-angle tower framing & layered spire assembly"
+          data-funfact="At 2,660 pieces, this is Vihaan's largest and most detailed LEGO build of all time!">
+          <i class="corner tl" aria-hidden="true"></i><i class="corner tr" aria-hidden="true"></i><i class="corner bl" aria-hidden="true"></i><i class="corner br" aria-hidden="true"></i>
+          <div class="hof-card-top">
+            <span>WIZARDING WORLD · HALL OF FAME #01 · MASTER BUILD</span>
+            <span class="hof-num">#01</span>
+          </div>
+          <div class="hof-photo">
+            <img src="images/hogwarts.jpg" alt="Vihaan's LEGO Hogwarts Castle Masterpiece" loading="lazy">
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+          </div>
+          <div class="hof-diag-strip with-diagonal-lines" aria-hidden="true"></div>
+          <div class="hof-body">
+            <div class="hof-meta">🏰 Magic Architecture · ⭐ Featured Masterpiece</div>
+            <h3 class="hof-title">Hogwarts Castle</h3>
+            <p class="hof-desc">"Vihaan's legendary Hogwarts Castle masterpiece — complete with the Great Hall, soaring wizard towers, bridges, and magical details along the rocky cliffs!"</p>
+            <div class="hof-foot">
+              <span class="hof-builder">Built by Vihaan, Age 8</span>
+              <span class="hof-cta">View project →</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. Millennium Falcon (75375) -->
+        <article class="hof-card card" tabindex="0" role="button" aria-label="Inspect Millennium Falcon (75375) in full screen"
+          data-img="images/millennium-falcon.jpg"
+          data-title="Millennium Falcon (75375)"
+          data-category="STAR WARS · 800 PIECES · 5 HOURS"
+          data-meta="🚀 Starship Class · 🧩 800 Pieces · ⏱ 5 Hours"
+          data-fav="The grey greebling details, cockpit dish, and glowing hyperdrive vents"
+          data-quote="My biggest Star Wars build! It has so many cool grey details, cockpit Dish, and hyperdrive vents — it looks like it's ready to jump to hyperspace!"
+          data-desc="Vihaan's flagship Star Wars YT-1300 Corellian freighter! Packed with 800 pieces of intricate hull plating, sensor dish, quad laser cannons, side cockpit, and hyperdrive thrusters."
+          data-technique="Angled wedge hull sub-assemblies, surface greebling & Technic core frame"
+          data-funfact="The Millennium Falcon made the Kessel Run in less than 12 parsecs!">
+          <i class="corner tl" aria-hidden="true"></i><i class="corner tr" aria-hidden="true"></i><i class="corner bl" aria-hidden="true"></i><i class="corner br" aria-hidden="true"></i>
+          <div class="hof-card-top">
+            <span>STAR WARS · 800 PIECES · 5 HOURS</span>
+            <span class="hof-num">#02</span>
+          </div>
+          <div class="hof-photo">
+            <img src="images/millennium-falcon.jpg" alt="Vihaan's LEGO Star Wars Millennium Falcon" loading="lazy">
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+          </div>
+          <div class="hof-diag-strip with-diagonal-lines" aria-hidden="true"></div>
+          <div class="hof-body">
+            <div class="hof-meta">🚀 Starship Showcase · ⭐ Flagship #02</div>
+            <h3 class="hof-title">Millennium Falcon (75375)</h3>
+            <p class="hof-desc">"My biggest Star Wars build! It has so many cool grey details, cockpit Dish, and hyperdrive vents — it looks like it's ready to jump to hyperspace!"</p>
+            <div class="hof-foot">
+              <span class="hof-builder">Built by Vihaan, Age 8</span>
+              <span class="hof-cta">View project →</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3. The Mandalorian Helmet (75328) -->
+        <article class="hof-card card" tabindex="0" role="button" aria-label="Inspect The Mandalorian Helmet (75328) in full screen"
+          data-img="images/set-mando-helmet-75328.jpg"
+          data-title="The Mandalorian Helmet (75328)"
+          data-category="STAR WARS · 584 PIECES · 2.5 DAYS"
+          data-meta="🪖 Helmet Collection · 🧩 584 Pieces · ⏱ 2.5 Days"
+          data-fav="The drum-lacquered metallic silver beskar tiles and T-shaped visor"
+          data-quote="Building Mando's shiny metallic beskar helmet with drum-lacquered silver tiles — this is the way!"
+          data-desc="LEGO Star Wars The Mandalorian Helmet (Set 75328, 584 pieces) — a collector's display sculpture capturing the contours of Din Djarin's beskar armor and T-visor on a custom nameplate pedestal."
+          data-technique="4-way SNOT bracket core with stepped slope shading & metallic tile contouring"
+          data-funfact="Set 75328 is rated 18+ on the box, and Vihaan mastered it at age 8!">
+          <i class="corner tl" aria-hidden="true"></i><i class="corner tr" aria-hidden="true"></i><i class="corner bl" aria-hidden="true"></i><i class="corner br" aria-hidden="true"></i>
+          <div class="hof-card-top">
+            <span>STAR WARS · 584 PIECES · 2.5 DAYS</span>
+            <span class="hof-num">#03</span>
+          </div>
+          <div class="hof-photo">
+            <img src="images/set-mando-helmet-75328.jpg" alt="LEGO Star Wars 75328 The Mandalorian Helmet" class="contain-img" loading="lazy">
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+          </div>
+          <div class="hof-diag-strip with-diagonal-lines" aria-hidden="true"></div>
+          <div class="hof-body">
+            <div class="hof-meta">🪖 Beskar Sculpture · ⭐ Flagship #03</div>
+            <h3 class="hof-title">The Mandalorian Helmet (75328)</h3>
+            <p class="hof-desc">"Building Mando's shiny metallic beskar helmet with drum-lacquered silver tiles — this is the way!"</p>
+            <div class="hof-foot">
+              <span class="hof-builder">Built by Vihaan, Age 8</span>
+              <span class="hof-cta">View project →</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4. Eiffel Tower — Paris -->
+        <article class="hof-card card" tabindex="0" role="button" aria-label="Inspect Eiffel Tower — Paris in full screen"
+          data-img="images/eiffel-tower.jpg"
+          data-title="Eiffel Tower — Paris"
+          data-category="WORLD ARCHITECTURE · 472 PIECES · 3 DAYS"
+          data-meta="🗼 World Monument · 🧩 472 Pieces · ⏱ 3 Days"
+          data-fav="The four curved base legs, observation decks, and tall spire on top"
+          data-quote="Super tall with four curved legs, French flag on top, and tiny trees at the base — my tallest tower ever!"
+          data-desc="Vihaan's tallest architectural landmark build! Standing proud with 472 pieces, four wide-stanced legs, multi-stage observation platforms, and a soaring pinnacle spire."
+          data-technique="Tapered structural stacking, symmetrical 4-leg weight distribution & spire alignment"
+          data-funfact="The real Eiffel Tower in Paris is 1,083 feet tall and was the tallest structure in the world for 41 years!">
+          <i class="corner tl" aria-hidden="true"></i><i class="corner tr" aria-hidden="true"></i><i class="corner bl" aria-hidden="true"></i><i class="corner br" aria-hidden="true"></i>
+          <div class="hof-card-top">
+            <span>WORLD ARCHITECTURE · 472 PIECES · 3 DAYS</span>
+            <span class="hof-num">#04</span>
+          </div>
+          <div class="hof-photo">
+            <img src="images/eiffel-tower.jpg" alt="Vihaan's LEGO Eiffel Tower — Paris" class="contain-img" loading="lazy">
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+          </div>
+          <div class="hof-diag-strip with-diagonal-lines" aria-hidden="true"></div>
+          <div class="hof-body">
+            <div class="hof-meta">🗼 Tallest Tower · ⭐ Flagship #04</div>
+            <h3 class="hof-title">Eiffel Tower — Paris</h3>
+            <p class="hof-desc">"Super tall with four curved legs, French flag on top, and tiny trees at the base — my tallest tower ever!"</p>
+            <div class="hof-foot">
+              <span class="hof-builder">Built by Vihaan, Age 8</span>
+              <span class="hof-cta">View project →</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 5. Taj Mahal Monument -->
+        <article class="hof-card card" tabindex="0" role="button" aria-label="Inspect Taj Mahal Monument in full screen"
+          data-img="images/taj-mahal.jpg"
+          data-title="Taj Mahal Monument"
+          data-category="WORLD ARCHITECTURE · 392 PIECES · 2 DAYS"
+          data-meta="🕌 World Wonder · 🧩 392 Pieces · ⏱ 2 Days"
+          data-fav="The central crown dome and the four symmetrical corner minarets"
+          data-quote="The white domes and four minarets look just like the real monument in India!"
+          data-desc="A tribute to one of the Seven Wonders of the World in Agra, India! Features the grand central onion dome, four corner minaret towers, and a raised terrace foundation."
+          data-technique="4-fold rotational symmetry, dome curvature layering & corner minaret pillars"
+          data-funfact="Over 20,000 artisans worked for 22 years to build the real marble Taj Mahal in India!">
+          <i class="corner tl" aria-hidden="true"></i><i class="corner tr" aria-hidden="true"></i><i class="corner bl" aria-hidden="true"></i><i class="corner br" aria-hidden="true"></i>
+          <div class="hof-card-top">
+            <span>WORLD ARCHITECTURE · 392 PIECES · 2 DAYS</span>
+            <span class="hof-num">#05</span>
+          </div>
+          <div class="hof-photo">
+            <img src="images/taj-mahal.jpg" alt="Vihaan's LEGO Taj Mahal Monument" loading="lazy">
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+          </div>
+          <div class="hof-diag-strip with-diagonal-lines" aria-hidden="true"></div>
+          <div class="hof-body">
+            <div class="hof-meta">🕌 Indian Heritage Wonder · ⭐ Flagship #05</div>
+            <h3 class="hof-title">Taj Mahal Monument</h3>
+            <p class="hof-desc">"The white domes and four minarets look just like the real monument in India!"</p>
+            <div class="hof-foot">
+              <span class="hof-builder">Built by Vihaan, Age 8</span>
+              <span class="hof-cta">View project →</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 6. 200-Pc Custom Mega Spaceship -->
+        <article class="hof-card card" tabindex="0" role="button" aria-label="Inspect 200-Pc Custom Mega Spaceship in full screen"
+          data-img="images/mega-build.jpg"
+          data-title="200-Pc Custom Mega Spaceship"
+          data-category="100% ORIGINAL DESIGN · 200+ PIECES · NO MANUAL"
+          data-meta="🛸 Original MOC · 🧩 200+ Pieces · ⏱ Freestyle Build"
+          data-fav="The sweeping multi-color wingspan and custom command bridge"
+          data-quote="My biggest free-build creation ever — designed completely from my imagination with zero instructions!"
+          data-desc="100% original LEGO MOC (My Own Creation)! Engineered completely without a manual, combining long Reinforced Plates for an ultra-wide wingspan, twin thruster pods, and a central command deck."
+          data-technique="Cantilevered wing plate interlocking & freestyle structural balancing without instructions"
+          data-funfact="In the LEGO community, a build made from your own imagination with no instructions is called a MOC (My Own Creation)!">
+          <i class="corner tl" aria-hidden="true"></i><i class="corner tr" aria-hidden="true"></i><i class="corner bl" aria-hidden="true"></i><i class="corner br" aria-hidden="true"></i>
+          <div class="hof-card-top">
+            <span>100% ORIGINAL DESIGN · 200+ PIECES · NO MANUAL</span>
+            <span class="hof-num">#06</span>
+          </div>
+          <div class="hof-photo">
+            <img src="images/mega-build.jpg" alt="Vihaan's 200-Pc Custom Mega Spaceship" loading="lazy">
+            <span class="click-expand-badge">🔍 Click to Expand</span>
+          </div>
+          <div class="hof-diag-strip with-diagonal-lines" aria-hidden="true"></div>
+          <div class="hof-body">
+            <div class="hof-meta">🛸 100% Original MOC · ⭐ Flagship #06</div>
+            <h3 class="hof-title">200-Pc Custom Mega Spaceship</h3>
+            <p class="hof-desc">"My biggest free-build creation ever — designed completely from my imagination with zero instructions!"</p>
+            <div class="hof-foot">
+              <span class="hof-builder">Built by Vihaan, Age 8</span>
+              <span class="hof-cta">View project →</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- ================= 2. FULL-SCREEN LEGO BUILD INSPECTOR MODAL (#lego-lightbox-modal) ================= -->
+<div id="lego-lightbox-modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Full-Screen LEGO Build Inspector">
+  <div class="lb-shell">
+    <div class="lb-image-stage" id="lbImageStage">
+      <img id="modalImg" src="" alt="" />
+      <div class="lb-stage-controls">
+        <button type="button" class="lb-stage-btn" id="lightboxZoomBtn" aria-pressed="false">🔍 Zoom 1.5x</button>
+        <span class="lb-counter-pill" id="lightboxCounter">BUILD 01 / 32</span>
+      </div>
+    </div>
+    <div class="lb-details">
+      <div>
+        <div class="lb-top-row">
+          <span class="lb-cat-badge" id="modalCategory">LEGO MASTER BUILD</span>
+          <button type="button" class="lb-close-btn" id="modalClose" aria-label="Close Inspector">✕ ESC</button>
+        </div>
+        <h3 class="lb-title" id="modalTitle">Build Title</h3>
+        <div class="lb-pills" id="modalMeta"></div>
+      </div>
+
+      <div class="lb-quote-box">
+        <div class="lb-quote-label">💬 Vihaan's Builder Story — Why I Loved Building It</div>
+        <p class="lb-quote-text" id="modalQuote"></p>
+      </div>
+
+      <p class="lb-desc" id="modalDesc"></p>
+
+      <div class="lb-specs-grid">
+        <div class="lb-spec-card">
+          <small>⭐ Favorite Part &amp; Technique</small>
+          <p id="modalFav"></p>
+        </div>
+        <div class="lb-spec-card">
+          <small>💡 Master Builder Spec &amp; Fun Fact</small>
+          <p id="modalFunFact"></p>
+        </div>
+      </div>
+
+      <div class="lb-nav-bar">
+        <button type="button" class="lb-nav-btn" id="modalPrev">← Prev Build</button>
+        <button type="button" class="lb-nav-btn" id="modalNext">Next Build →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="sublevel-os.js"></script>
+<script>
+  /* ================= 3. FULL-SCREEN LEGO BUILD INSPECTOR LIGHTBOX ================= */
+  (function initLegoLightbox(){
+    const modal = document.getElementById('lego-lightbox-modal');
+    if (!modal) return;
+    const stage = document.getElementById('lbImageStage');
+    const img = document.getElementById('modalImg');
+    const catEl = document.getElementById('modalCategory');
+    const titleEl = document.getElementById('modalTitle');
+    const metaEl = document.getElementById('modalMeta');
+    const quoteEl = document.getElementById('modalQuote');
+    const favEl = document.getElementById('modalFav');
+    const factEl = document.getElementById('modalFunFact');
+    const descEl = document.getElementById('modalDesc');
+    const counterEl = document.getElementById('lightboxCounter');
+    const zoomBtn = document.getElementById('lightboxZoomBtn');
+    const closeBtn = document.getElementById('modalClose');
+    const prevBtn = document.getElementById('modalPrev');
+    const nextBtn = document.getElementById('modalNext');
+
+    const cards = Array.from(document.querySelectorAll('.hof-card, .lego-card, .boat-card, .wish-card'));
+    let currentIndex = 0;
+    let lastFocused = null;
+    let isZoomed = false;
+
+    // Update total build count badge dynamically
+    const countBadge = document.getElementById('legoBuildCount');
+    if (countBadge) countBadge.textContent = cards.length;
+
+    function makeEmojiPosterDataURI(emoji, title, subtitle) {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560">
+        <defs>
+          <radialGradient id="g" cx="50%" cy="45%" r="65%">
+            <stop offset="0%" stop-color="#1e3b70"/>
+            <stop offset="100%" stop-color="#090d18"/>
+          </radialGradient>
+          <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+            <path d="M 32 0 L 0 0 0 32" fill="none" stroke="rgba(255,213,0,0.1)" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="800" height="560" fill="url(#g)"/>
+        <rect width="800" height="560" fill="url(#grid)"/>
+        <rect x="28" y="28" width="744" height="504" rx="16" fill="none" stroke="#ffd500" stroke-width="2" stroke-opacity="0.45"/>
+        <text x="400" y="265" font-size="165" text-anchor="middle">${emoji || '🧱'}</text>
+        <text x="400" y="385" font-family="Geist, system-ui, sans-serif" font-size="34" font-weight="700" fill="#ffffff" text-anchor="middle">${(title || '').replace(/[<>&"]/g, '')}</text>
+        <text x="400" y="430" font-family="Geist Mono, monospace" font-size="17" font-weight="600" fill="#ffd500" letter-spacing="3" text-anchor="middle">${(subtitle || 'BUILT BY VIHAAN, AGE 8').replace(/[<>&"]/g, '')}</text>
+      </svg>`;
+      return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+    }
+
+    function setZoom(zoomState) {
+      isZoomed = zoomState;
+      stage.classList.toggle('zoomed', isZoomed);
+      zoomBtn.setAttribute('aria-pressed', String(isZoomed));
+      zoomBtn.textContent = isZoomed ? '📐 Fit to Screen' : '🔍 Zoom 1.5x';
+    }
+
+    function renderCardAtIndex(idx) {
+      currentIndex = (idx + cards.length) % cards.length;
+      const card = cards[currentIndex];
+      setZoom(false);
+
+      const title = card.dataset.title || card.querySelector('h3, .b-name, figcaption')?.textContent?.trim() || 'LEGO Creation';
+      const category = card.dataset.category || card.querySelector('.glass-badge, .hof-card-top span, .b-tag')?.textContent?.trim() || 'VIHAAN LEGO LAB';
+      const imgSrc = card.dataset.img || card.querySelector('img')?.getAttribute('src') || makeEmojiPosterDataURI(card.dataset.emoji || '🚤', title, category);
+      const quote = card.dataset.quote || card.querySelector('.why-text, .hof-desc')?.textContent?.replace(/^"|"$/g, '') || 'One of my favorite LEGO creations to engineer and test!';
+      const desc = card.dataset.desc || quote;
+      const fav = card.dataset.fav || 'Custom brick geometry & sturdy interlocking structure';
+      const tech = card.dataset.technique || 'Interlocking stud-and-tube framing & SNOT detailing';
+      const fact = card.dataset.funfact || 'Engineered and tested in Vihaan\'s LEGO Lab!';
+
+      img.src = imgSrc;
+      img.alt = title;
+      catEl.textContent = category;
+      titleEl.textContent = title;
+      quoteEl.textContent = '"' + quote + '"';
+      descEl.textContent = desc;
+      favEl.textContent = 'Favorite detail: ' + fav + '. Technique: ' + tech + '.';
+      factEl.textContent = fact;
+
+      metaEl.innerHTML = '';
+      const rawMeta = card.dataset.meta || '';
+      rawMeta.split('·').forEach(part => {
+        const t = part.trim();
+        if (!t) return;
+        const s = document.createElement('span');
+        s.className = 'lb-pill';
+        s.textContent = t;
+        metaEl.appendChild(s);
+      });
+      const builderPill = document.createElement('span');
+      builderPill.className = 'lb-pill builder';
+      builderPill.textContent = '👷 Built by Vihaan, Age 8';
+      metaEl.appendChild(builderPill);
+
+      counterEl.textContent = `BUILD ${String(currentIndex + 1).padStart(2, '0')} / ${String(cards.length).padStart(2, '0')}`;
+    }
+
+    function openAt(idx, triggerEl) {
+      lastFocused = triggerEl || document.activeElement;
+      renderCardAtIndex(idx);
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      closeBtn.focus();
+    }
+
+    function close() {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      setZoom(false);
+      if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+    }
+
+    cards.forEach((card, idx) => {
+      card.addEventListener('click', () => openAt(idx, card));
+      card.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openAt(idx, card);
+        }
+      });
+    });
+
+    zoomBtn.addEventListener('click', () => setZoom(!isZoomed));
+    img.addEventListener('click', () => setZoom(!isZoomed));
+    prevBtn.addEventListener('click', () => renderCardAtIndex(currentIndex - 1));
+    nextBtn.addEventListener('click', () => renderCardAtIndex(currentIndex + 1));
+    closeBtn.addEventListener('click', close);
+    modal.addEventListener('click', e => {
+      if (e.target === modal) close();
+    });
+    document.addEventListener('keydown', e => {
+      if (!modal.classList.contains('open')) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowLeft') renderCardAtIndex(currentIndex - 1);
+      else if (e.key === 'ArrowRight') renderCardAtIndex(currentIndex + 1);
+    });
+  })();
+</script>
+</body>
+</html>

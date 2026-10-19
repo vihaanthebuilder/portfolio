@@ -1637,6 +1637,7 @@ window.ThreeUITerrainPlume = { mountTerrainPlume, TERRAIN_PLUME_DEFAULTS, SCENE_
   const path = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
   const NAV_ITEMS = [
     { href: 'lego.html', label: 'LEGO Lab' },
+    { href: 'hall-of-fame.html', label: 'Hall of Fame' },
     { href: 'chess.html', label: 'Chess' },
     { href: 'notebook.html', label: 'Notebook' },
     { href: 'goals.html', label: 'Goals' },
@@ -1676,7 +1677,6 @@ window.ThreeUITerrainPlume = { mountTerrainPlume, TERRAIN_PLUME_DEFAULTS, SCENE_
       </div>
       <button class="menu-close" type="button" aria-label="Close Trump Card"><span class="wordmark">vihaan<i>.</i></span> &nbsp;✕</button>
       <div class="menu-links" role="region" aria-label="Vihaan Top Trumps Super Card">
-        <img crossorigin="anonymous" class="menu-ill" src="https://ublctyddhtbgaersvxxb.supabase.co/storage/v1/object/public/threeui-media/scene-images/embedded/faffa858930f6901e16271424a7b32687d9d86dde0e5dbd7c305959f25eac76c.webp" alt="" aria-hidden="true">
 
         <div class="tt-top-banner">
           <span class="tt-series-pill">★ TOP TRUMPS · SUPER SERIES</span>
@@ -2455,14 +2455,17 @@ window.__sheet = {group, mat, uni, renderer, scene, camera, mesh,
       const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,1,1]), gl.STATIC_DRAW); gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
       const U = {}; ['uRes','uTime','uSwitching','uSwitchHeight','uAcBeat','uGrain','uScanlines','uJitter','uScroll'].forEach(n => U[n] = gl.getUniformLocation(prog, n));
       let time = 0, last = performance.now();
+      let lastDraw = 0;
       function frame(now) {
-        const dpr = Math.min(devicePixelRatio || 1, 2); const w = Math.round(innerWidth * dpr), h = Math.round(innerHeight * dpr);
+        requestAnimationFrame(frame);
+        if (document.hidden || now - lastDraw < 33) { last = now; return; }
+        lastDraw = now;
+        const dpr = 0.5; const w = Math.round(innerWidth * dpr), h = Math.round(innerHeight * dpr);
         if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; }
         const c = cfg(); const dt = Math.min((now - last) / 1000, 1 / 30); last = now; time += dt * c.speed;
         gl.viewport(0, 0, w, h); gl.useProgram(prog);
         gl.uniform2f(U.uRes, w, h); gl.uniform1f(U.uTime, time); gl.uniform1f(U.uSwitching, c.switching); gl.uniform1f(U.uSwitchHeight, c.switchingHeight); gl.uniform1f(U.uAcBeat, c.acBeat); gl.uniform1f(U.uGrain, c.grain); gl.uniform1f(U.uScanlines, c.scanlines); gl.uniform1f(U.uJitter, c.jitter); gl.uniform1f(U.uScroll, scrollY);
         gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-        requestAnimationFrame(frame);
       }
       requestAnimationFrame(frame);
     }

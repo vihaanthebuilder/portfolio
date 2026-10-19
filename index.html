@@ -947,8 +947,7 @@ body.menu-open #layout{visibility:hidden}
   transform-origin:0 0;will-change:transform;opacity:0;transition:opacity .5s ease;
   display:flex;flex-direction:column;justify-content:space-between;padding:24px 28px 20px;overflow:hidden;border-radius:16px;
   pointer-events:none;
-  -webkit-backdrop-filter:blur(16px) saturate(130%);backdrop-filter:blur(16px) saturate(130%);
-  background:linear-gradient(160deg,rgba(18,22,34,.76) 0%,rgba(10,12,20,.84) 52%,rgba(22,18,12,.78) 100%);
+  background:linear-gradient(160deg,rgba(18,22,34,.88) 0%,rgba(10,12,20,.92) 52%,rgba(22,18,12,.88) 100%);
   border:2px solid rgba(255,213,0,.55);
   box-shadow:inset 0 0 0 2px rgba(255,255,255,.14),inset 0 1px 0 rgba(255,255,255,.55),0 18px 48px rgba(0,0,0,.65)}
 .menu-links.on{opacity:1}
@@ -966,7 +965,7 @@ body.menu-open #layout{visibility:hidden}
 .tt-name{font-family:var(--sans);font-size:34px;line-height:1;font-weight:800;letter-spacing:-.04em;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.6)}
 .tt-name i{font-style:normal;color:#ffd500}
 .tt-sub{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#ff9e5e}
-.tt-pwr-badge{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:78px;padding:6px 10px;border-radius:8px;background:linear-gradient(145deg,rgba(255,77,0,.28),rgba(255,213,0,.22));border:1.5px solid #ffd500;box-shadow:0 4px 14px rgba(255,140,0,.25);margin-right:86px}
+.tt-pwr-badge{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:78px;padding:6px 10px;border-radius:8px;background:linear-gradient(145deg,rgba(255,77,0,.28),rgba(255,213,0,.22));border:1.5px solid #ffd500;box-shadow:0 4px 14px rgba(255,140,0,.25)}
 .tt-pwr-badge small{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#ffd500}
 .tt-pwr-badge b{font-family:var(--mono);font-size:22px;line-height:1.05;font-weight:900;color:#fff}
 
@@ -1014,7 +1013,6 @@ body.menu-open #layout{visibility:hidden}
 .sblvl-menu #paper-stage:active{cursor:grabbing}
 #paper-stage{--ink:#f2f2f0;--dim:rgba(242,242,240,.38)}
 #paper-stage #pp-dof{position:fixed;inset:-30px;z-index:2;pointer-events:none;
-     backdrop-filter:blur(2.4px);-webkit-backdrop-filter:blur(2.4px);
      background:rgba(8,8,10,.05)}
 #paper-stage #pp-gl{position:fixed;top:0;left:0;width:100%;height:100%;z-index:3;
     pointer-events:none;display:block}
@@ -1146,6 +1144,7 @@ body.machine #topnav,body.machine #layout{display:none}
   <div id="tvcap" hidden><span class="idx"></span><span class="ttl"></span><span class="desc"></span><a class="tv-open btn btn-yellow" href="lego.html" style="margin-top:12px;min-height:36px;padding:0 14px;font-size:.76rem;font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;border-radius:3px">OPEN PAGE →</a></div>
   <div id="hero-quick-bar">
     <a href="lego.html">01 · 🧱 LEGO Lab</a>
+    <a href="hall-of-fame.html">🏆 Hall of Fame</a>
     <a href="chess.html">02 · ♟️ Chess</a>
     <a href="notebook.html">03 · 📓 Notebook</a>
     <a href="goals.html">04 · 🎯 Goals</a>
@@ -1166,6 +1165,7 @@ body.machine #topnav,body.machine #layout{display:none}
     <a class="logo" href="index.html" aria-label="Vihaan's World"><span class="wordmark">vihaan<i>.</i></span></a>
     <div class="center">
       <a href="lego.html">LEGO Lab</a>
+      <a href="hall-of-fame.html">Hall of Fame</a>
       <a href="chess.html">Chess</a>
       <a href="notebook.html">Notebook</a>
       <a href="goals.html">Goals</a>
@@ -1194,7 +1194,6 @@ body.machine #topnav,body.machine #layout{display:none}
   </div>
   <button class="menu-close" type="button" aria-label="Close Trump Card"><span class="wordmark">vihaan<i>.</i></span> &nbsp;✕</button>
   <div class="menu-links" role="region" aria-label="Vihaan Top Trumps Super Card">
-    <img crossorigin="anonymous" class="menu-ill" src="https://ublctyddhtbgaersvxxb.supabase.co/storage/v1/object/public/threeui-media/scene-images/embedded/faffa858930f6901e16271424a7b32687d9d86dde0e5dbd7c305959f25eac76c.webp" alt="" aria-hidden="true">
 
     <div class="tt-top-banner">
       <span class="tt-series-pill">★ TOP TRUMPS · SUPER SERIES</span>
@@ -1321,7 +1320,7 @@ body.machine #topnav,body.machine #layout{display:none}
         <h1 class="f-h0">Welcome to <span class="pop">Vihaan's World.</span></h1>
         <p class="lede">I'm <b>Vihaan</b> — an 8-year-old <b>LEGO Master Builder</b> (23+ builds including the 2,660-piece Hogwarts Castle &amp; 800-piece Millennium Falcon), <b>USCF Tournament Chess Player</b> (715 Regular · 1687 Lichess Puzzles), and <b>Arcade &amp; Comic Creator</b>. Play 5 games on the 3D arcade cabinet above, shoot hoops under the LED ticker, or explore my Hall of Fame below!</p>
         <div class="cta">
-          <a class="btn btn-yellow" href="#hall-of-fame">🏛️ Hall of Fame Builds</a>
+          <a class="btn btn-yellow" href="hall-of-fame.html">🏛️ Hall of Fame Builds</a>
           <a class="btn btn-blue" href="lego.html">🧱 Explore LEGO Lab (23+)</a>
           <a class="btn btn-red" href="chess.html">♟️ Chess Journey (715 USCF)</a>
           <button class="btn btn-white" type="button" onclick="window.openVihaanNftCard&&window.openVihaanNftCard()">🃏 Open 3D Card</button>
@@ -1438,6 +1437,7 @@ body.machine #topnav,body.machine #layout{display:none}
         <div class="sblvl-footer-brand">VIHAAN<i>.</i>08</div>
         <nav class="sblvl-footer-nav" aria-label="Footer">
           <a href="lego.html">01 · LEGO Lab</a>
+          <a href="hall-of-fame.html">🏆 Hall of Fame</a>
           <a href="chess.html">02 · Chess</a>
           <a href="notebook.html">03 · Notebook</a>
           <a href="goals.html">04 · Goals</a>
@@ -4743,9 +4743,12 @@ window.__sheet = {group, mat, uni, renderer, scene, camera, mesh,
     const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,1,1]), gl.STATIC_DRAW); gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
     const U = {}; ['uRes','uTime','uSwitching','uSwitchHeight','uAcBeat','uGrain','uScanlines','uJitter','uScroll'].forEach(n => U[n] = gl.getUniformLocation(prog, n));
     let time = 0, last = performance.now();
+    let lastDraw = 0;
     function frame(now) {
+      if (document.hidden || now - lastDraw < 33) { last = now; requestAnimationFrame(frame); return; }
+      lastDraw = now;
       if (window.scrollY <= window.innerHeight * 1.1 || document.body.classList.contains('machine')) {
-        const dpr = Math.min(devicePixelRatio || 1, 2); const w = Math.round(innerWidth * dpr), h = Math.round(innerHeight * dpr);
+        const dpr = 0.5; const w = Math.round(innerWidth * dpr), h = Math.round(innerHeight * dpr);
         if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; }
         const c = cfg(); const dt = Math.min((now - last) / 1000, 1 / 30); last = now; time += dt * c.speed;
         gl.viewport(0, 0, w, h); gl.useProgram(prog);
