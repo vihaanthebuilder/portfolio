@@ -1121,12 +1121,13 @@ footer.sblvl-footer .copy{grid-column:1/13;margin-top:6px;text-align:left;color:
 @media (max-width:1023px){
   #topnav .pillbar{grid-template-columns:auto 1fr;padding-left:14px}
   #topnav .center{display:none}
-  #topnav .right{gap:5px;min-width:0}
-  #topnav .term{min-width:0;padding:0 9px}
-  #topnav .term .prompt{display:none}
-  #topnav .term .txt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:104px}
+  #topnav .right{gap:6px;min-width:0}
+  .mobile-menu-btn{display:inline-flex !important}
   .vrules{grid-template-columns:repeat(2,minmax(0,1fr))}
   footer.sblvl-footer .links{grid-column:1/-1}
+}
+@media (max-width:860px){
+  #topnav .term{display:none !important}
 }
 
 /* Sublevel OS Typography & Hero Alignment Polish */
@@ -2618,4 +2619,340 @@ header.os-workspace-bar {
   line-height: 1.45;
   color: var(--w2);
 }
+
+/* ==========================================================================
+   VIHAAN'S WORLD — UX AUDIT ENHANCEMENTS (PRINCIPAL UX POLISH)
+   - Mobile Navigation Drawer with 48px+ touch targets
+   - Responsive Topnav Pillbar & Overflow Prevention
+   - Tactile Game D-Pad for Touch Devices (iPad / Mobile)
+   - High-Contrast WCAG AA Readability & Keyboard Focus Rings
+   - Breadcrumb Navigation & Orientation Indicators
+   ========================================================================== */
+
+/* 1. Mobile Navigation Toggle Button */
+#topnav .mobile-menu-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 32px;
+  padding: 0 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #fff !important;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #2c303c, #161822) !important;
+  border: 1px solid rgba(255, 213, 0, 0.5) !important;
+  box-shadow: 0 3px 0 #0e1018, 0 4px 10px rgba(0, 0, 0, 0.5) !important;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+#topnav .mobile-menu-btn:hover {
+  background: linear-gradient(180deg, #3d4253, #1e212f) !important;
+  border-color: var(--yellow) !important;
+}
+#topnav .mobile-menu-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #0e1018, 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+}
+#topnav .mobile-menu-btn .m-ic {
+  font-size: 13px;
+  color: var(--yellow);
+}
+
+@media (max-width: 1023px) {
+  #topnav .mobile-menu-btn {
+    display: inline-flex !important;
+  }
+}
+
+@media (max-width: 640px) {
+  #topnav .pillbar {
+    width: calc(100% - 16px);
+    padding: 0 6px 0 10px;
+    height: 44px;
+    gap: 6px;
+  }
+  #topnav .logo {
+    height: 44px;
+  }
+  #topnav .wordmark {
+    font-size: 18px;
+  }
+  #topnav .term {
+    display: none !important;
+  }
+  #topnav .nft-trigger {
+    padding: 0 8px;
+    font-size: 10px;
+    height: 30px;
+  }
+  #topnav .mobile-menu-btn {
+    height: 30px;
+    padding: 0 8px;
+    font-size: 10px;
+  }
+  #topnav .icon {
+    width: 30px;
+    height: 30px;
+    font-size: 12px !important;
+  }
+}
+
+/* 2. Full-Screen Mobile Navigation Drawer */
+.mobile-nav-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 2100;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+  pointer-events: auto;
+}
+.mobile-nav-drawer[hidden] {
+  display: none !important;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.mnd-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 6, 12, 0.88);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  z-index: 1;
+}
+.mnd-panel {
+  position: relative;
+  z-index: 2;
+  width: min(540px, 94vw);
+  margin: 12px auto 0;
+  max-height: 88vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: linear-gradient(180deg, rgba(18, 22, 32, 0.98), rgba(10, 12, 18, 0.99));
+  border: 1.5px solid rgba(255, 213, 0, 0.45);
+  border-radius: 14px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(255, 77, 0, 0.22);
+  padding: 18px 18px 24px;
+  animation: mndSlideDown 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes mndSlideDown {
+  from { transform: translateY(-16px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.mnd-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(230, 230, 230, 0.12);
+  margin-bottom: 14px;
+}
+.mnd-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.mnd-subtitle {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  color: var(--yellow);
+  text-transform: uppercase;
+}
+.mnd-close-btn {
+  width: 36px;
+  height: 36px;
+  display: inline-grid;
+  place-items: center;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 4px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.mnd-close-btn:hover {
+  background: rgba(255, 77, 0, 0.3);
+  border-color: var(--o);
+}
+.mnd-links {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+@media (min-width: 480px) {
+  .mnd-links {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.mnd-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  min-height: 50px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(230, 230, 230, 0.12);
+  border-radius: 8px;
+  color: #f0f0f0;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  font-family: var(--sans);
+  cursor: pointer;
+}
+.mnd-link:hover {
+  background: rgba(255, 213, 0, 0.12);
+  border-color: rgba(255, 213, 0, 0.6);
+  transform: translateY(-1px);
+}
+.mnd-link:active {
+  transform: translateY(1px);
+}
+.mnd-link.active {
+  background: linear-gradient(135deg, rgba(255, 213, 0, 0.2), rgba(255, 77, 0, 0.12));
+  border-color: var(--yellow);
+  box-shadow: 0 0 14px rgba(255, 213, 0, 0.25);
+}
+.mnd-icon {
+  font-size: 22px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.mnd-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.mnd-title {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mnd-link.active .mnd-title {
+  color: var(--yellow);
+}
+.mnd-desc {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: #b2b9c7;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mnd-card-btn {
+  appearance: none;
+  text-align: left;
+  border-color: rgba(255, 213, 0, 0.4);
+}
+
+/* 3. Orientation & Breadcrumbs */
+.os-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #ffd500;
+  padding: 6px 12px;
+  border-radius: 4px;
+  background: rgba(255, 213, 0, 0.08);
+  border: 1px solid rgba(255, 213, 0, 0.35);
+  text-decoration: none;
+  transition: all 0.15s ease;
+  margin-bottom: 12px;
+}
+.os-back-link:hover {
+  background: rgba(255, 213, 0, 0.22);
+  border-color: #ffd500;
+  transform: translateX(-2px);
+  color: #ffffff;
+}
+
+/* 4. Touch D-Pad Polish for Games */
+@media (max-width: 980px), (pointer: coarse) {
+  .game-dpad {
+    display: flex !important;
+  }
+}
+.game-dpad {
+  margin-top: 14px;
+  gap: 8px;
+}
+.dpad-mid {
+  display: flex;
+  gap: 8px;
+}
+.game-dpad button {
+  width: 54px !important;
+  height: 50px !important;
+  border-radius: 8px !important;
+  border: 1.5px solid rgba(255, 213, 0, 0.45) !important;
+  background: linear-gradient(180deg, #242838, #141724) !important;
+  color: #ffd500 !important;
+  font-size: 1.25rem !important;
+  font-weight: 800 !important;
+  box-shadow: 0 4px 0 #0c0e18, 0 6px 12px rgba(0,0,0,0.5) !important;
+  cursor: pointer;
+  transition: all 0.08s ease !important;
+}
+.game-dpad button:active {
+  transform: translateY(3px) !important;
+  box-shadow: 0 1px 0 #0c0e18 !important;
+  background: var(--yellow) !important;
+  color: #0c0e18 !important;
+}
+
+/* 5. Subtab Scrolling on Mobile */
+@media (max-width: 768px) {
+  .os-subtabs {
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    justify-content: flex-start !important;
+    padding: 4px !important;
+  }
+  .os-subtabs::-webkit-scrollbar {
+    display: none !important;
+  }
+  .os-subtab {
+    flex-shrink: 0 !important;
+    min-height: 40px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    padding: 8px 14px !important;
+  }
+}
+
+/* 6. Keyboard Accessibility & WCAG AA Focus Visibility */
+:focus-visible {
+  outline: 2px solid #ffd500 !important;
+  outline-offset: 3px !important;
+}
+
+/* 7. Readability & Contrast Polish */
+.chart-note, .qa-q, .meta span, .hof-card .hof-desc, .why-text {
+  color: #cbd2df !important;
+}
+
 

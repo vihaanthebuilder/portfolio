@@ -1660,11 +1660,93 @@ window.ThreeUITerrainPlume = { mountTerrainPlume, TERRAIN_PLUME_DEFAULTS, SCENE_
         </div>
         <div class="right">
           <button class="nft-trigger arcade" id="nft-card-btn" type="button" title="Open Vihaan's 3D Top Trumps Super Card">🃏 CARD</button>
+          <button class="mobile-menu-btn arcade metal" id="mobile-nav-toggle" type="button" aria-label="Open Navigation Menu" aria-expanded="false" title="Explore Pages"><span class="m-ic">☰</span> <b>MENU</b></button>
           <button class="term arcade metal" id="termstatus" aria-pressed="false" title="Open Vihaan's machine-readable CRT index"><span class="led"></span><span class="prompt">vihaan@world</span><span class="txt">online</span><span class="cur"></span></button>
           <a class="icon arcade metal" href="index.html" aria-label="3D Lobby" title="Back to 3D Lobby">🏠</a>
         </div>
       </div>
     </nav>
+    <div id="mobile-nav-drawer" class="mobile-nav-drawer" hidden aria-label="Mobile Navigation Menu">
+      <div class="mnd-backdrop"></div>
+      <div class="mnd-panel">
+        <div class="mnd-header">
+          <div class="mnd-brand"><span class="wordmark">vihaan<i>.</i></span><span class="mnd-subtitle">PAGES</span></div>
+          <button type="button" class="mnd-close-btn arcade metal" id="mobile-nav-close" aria-label="Close Navigation Menu">✕</button>
+        </div>
+        <div class="mnd-links">
+          <a href="index.html" class="mnd-link ${path === 'index.html' ? 'active' : ''}">
+            <span class="mnd-icon">🏠</span>
+            <div class="mnd-info">
+              <span class="mnd-title">3D Lobby</span>
+              <span class="mnd-desc">Arcade games, hoop &amp; CRT TVs</span>
+            </div>
+          </a>
+          <a href="lego.html" class="mnd-link ${path === 'lego.html' ? 'active' : ''}">
+            <span class="mnd-icon">🧱</span>
+            <div class="mnd-info">
+              <span class="mnd-title">LEGO Lab</span>
+              <span class="mnd-desc">23+ builds &amp; Idea Lab</span>
+            </div>
+          </a>
+          <a href="hall-of-fame.html" class="mnd-link ${path === 'hall-of-fame.html' ? 'active' : ''}">
+            <span class="mnd-icon">🏆</span>
+            <div class="mnd-info">
+              <span class="mnd-title">Hall of Fame</span>
+              <span class="mnd-desc">Flagship masterworks &amp; Hogwarts</span>
+            </div>
+          </a>
+          <a href="chess.html" class="mnd-link ${path === 'chess.html' ? 'active' : ''}">
+            <span class="mnd-icon">♟️</span>
+            <div class="mnd-info">
+              <span class="mnd-title">Chess Journey</span>
+              <span class="mnd-desc">715 USCF rating &amp; tournaments</span>
+            </div>
+          </a>
+          <a href="games.html" class="mnd-link ${path === 'games.html' ? 'active' : ''}">
+            <span class="mnd-icon">👾</span>
+            <div class="mnd-info">
+              <span class="mnd-title">Games Arcade</span>
+              <span class="mnd-desc">Pac-Man, Penalty, Geo Dash &amp; more</span>
+            </div>
+          </a>
+          <a href="notebook.html" class="mnd-link ${path === 'notebook.html' ? 'active' : ''}">
+            <span class="mnd-icon">📓</span>
+            <div class="mnd-info">
+              <span class="mnd-title">Notebook</span>
+              <span class="mnd-desc">Coach checklist &amp; game reviews</span>
+            </div>
+          </a>
+          <a href="goals.html" class="mnd-link ${path === 'goals.html' ? 'active' : ''}">
+            <span class="mnd-icon">🎯</span>
+            <div class="mnd-info">
+              <span class="mnd-title">2026 Goals</span>
+              <span class="mnd-desc">Big dreams &amp; learning targets</span>
+            </div>
+          </a>
+          <a href="badges.html" class="mnd-link ${path === 'badges.html' ? 'active' : ''}">
+            <span class="mnd-icon">🏅</span>
+            <div class="mnd-info">
+              <span class="mnd-title">Badges &amp; Honors</span>
+              <span class="mnd-desc">Achievements &amp; story timeline</span>
+            </div>
+          </a>
+          <a href="comics.html" class="mnd-link ${path === 'comics.html' ? 'active' : ''}">
+            <span class="mnd-icon">💬</span>
+            <div class="mnd-info">
+              <span class="mnd-title">Comic Studio</span>
+              <span class="mnd-desc">Vihaan's funny 4-panel comic creator</span>
+            </div>
+          </a>
+          <button type="button" class="mnd-link mnd-card-btn" id="mnd-open-card">
+            <span class="mnd-icon">🃏</span>
+            <div class="mnd-info">
+              <span class="mnd-title">Top Trumps Card</span>
+              <span class="mnd-desc">3D spinning mythic card #01</span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
     <div class="sblvl-menu" hidden>
       <div id="paper-stage">
         <div id="pp-dof"></div>
@@ -1811,6 +1893,100 @@ window.ThreeUITerrainPlume = { mountTerrainPlume, TERRAIN_PLUME_DEFAULTS, SCENE_
       rightEl.insertAdjacentHTML('afterbegin', `<button class="nft-trigger arcade" id="nft-card-btn" type="button" title="Open Vihaan's 3D Top Trumps Super Card">🃏 CARD</button>`);
     } else if (document.getElementById('nft-card-btn')) {
       document.getElementById('nft-card-btn').textContent = '🃏 CARD';
+    }
+    if (rightEl && !document.getElementById('mobile-nav-toggle')) {
+      const termBtn = document.getElementById('termstatus');
+      const toggleHtml = `<button class="mobile-menu-btn arcade metal" id="mobile-nav-toggle" type="button" aria-label="Open Navigation Menu" aria-expanded="false" title="Explore Pages"><span class="m-ic">☰</span> <b>MENU</b></button>`;
+      if (termBtn) {
+        termBtn.insertAdjacentHTML('beforebegin', toggleHtml);
+      } else {
+        rightEl.insertAdjacentHTML('beforeend', toggleHtml);
+      }
+    }
+    if (!document.getElementById('mobile-nav-drawer')) {
+      const drawerHtml = `
+      <div id="mobile-nav-drawer" class="mobile-nav-drawer" hidden aria-label="Mobile Navigation Menu">
+        <div class="mnd-backdrop"></div>
+        <div class="mnd-panel">
+          <div class="mnd-header">
+            <div class="mnd-brand"><span class="wordmark">vihaan<i>.</i></span><span class="mnd-subtitle">PAGES</span></div>
+            <button type="button" class="mnd-close-btn arcade metal" id="mobile-nav-close" aria-label="Close Navigation Menu">✕</button>
+          </div>
+          <div class="mnd-links">
+            <a href="index.html" class="mnd-link ${path === 'index.html' ? 'active' : ''}">
+              <span class="mnd-icon">🏠</span>
+              <div class="mnd-info">
+                <span class="mnd-title">3D Lobby</span>
+                <span class="mnd-desc">Arcade games, hoop &amp; CRT TVs</span>
+              </div>
+            </a>
+            <a href="lego.html" class="mnd-link ${path === 'lego.html' ? 'active' : ''}">
+              <span class="mnd-icon">🧱</span>
+              <div class="mnd-info">
+                <span class="mnd-title">LEGO Lab</span>
+                <span class="mnd-desc">23+ builds &amp; Idea Lab</span>
+              </div>
+            </a>
+            <a href="hall-of-fame.html" class="mnd-link ${path === 'hall-of-fame.html' ? 'active' : ''}">
+              <span class="mnd-icon">🏆</span>
+              <div class="mnd-info">
+                <span class="mnd-title">Hall of Fame</span>
+                <span class="mnd-desc">Flagship masterworks &amp; Hogwarts</span>
+              </div>
+            </a>
+            <a href="chess.html" class="mnd-link ${path === 'chess.html' ? 'active' : ''}">
+              <span class="mnd-icon">♟️</span>
+              <div class="mnd-info">
+                <span class="mnd-title">Chess Journey</span>
+                <span class="mnd-desc">715 USCF rating &amp; tournaments</span>
+              </div>
+            </a>
+            <a href="games.html" class="mnd-link ${path === 'games.html' ? 'active' : ''}">
+              <span class="mnd-icon">👾</span>
+              <div class="mnd-info">
+                <span class="mnd-title">Games Arcade</span>
+                <span class="mnd-desc">Pac-Man, Penalty, Geo Dash &amp; more</span>
+              </div>
+            </a>
+            <a href="notebook.html" class="mnd-link ${path === 'notebook.html' ? 'active' : ''}">
+              <span class="mnd-icon">📓</span>
+              <div class="mnd-info">
+                <span class="mnd-title">Notebook</span>
+                <span class="mnd-desc">Coach checklist &amp; game reviews</span>
+              </div>
+            </a>
+            <a href="goals.html" class="mnd-link ${path === 'goals.html' ? 'active' : ''}">
+              <span class="mnd-icon">🎯</span>
+              <div class="mnd-info">
+                <span class="mnd-title">2026 Goals</span>
+                <span class="mnd-desc">Big dreams &amp; learning targets</span>
+              </div>
+            </a>
+            <a href="badges.html" class="mnd-link ${path === 'badges.html' ? 'active' : ''}">
+              <span class="mnd-icon">🏅</span>
+              <div class="mnd-info">
+                <span class="mnd-title">Badges &amp; Honors</span>
+                <span class="mnd-desc">Achievements &amp; story timeline</span>
+              </div>
+            </a>
+            <a href="comics.html" class="mnd-link ${path === 'comics.html' ? 'active' : ''}">
+              <span class="mnd-icon">💬</span>
+              <div class="mnd-info">
+                <span class="mnd-title">Comic Studio</span>
+                <span class="mnd-desc">Vihaan's funny 4-panel comic creator</span>
+              </div>
+            </a>
+            <button type="button" class="mnd-link mnd-card-btn" id="mnd-open-card">
+              <span class="mnd-icon">🃏</span>
+              <div class="mnd-info">
+                <span class="mnd-title">Top Trumps Card</span>
+                <span class="mnd-desc">3D spinning mythic card #01</span>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>`;
+      document.body.insertAdjacentHTML('beforeend', drawerHtml);
     }
     const heroRow = document.querySelector('.menu-links .tt-hero-row');
     if (heroRow && !heroRow.querySelector('.tt-avatar')) {
@@ -2509,6 +2685,61 @@ window.__sheet = {group, mat, uni, renderer, scene, camera, mesh,
       document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.classList.contains('open')) set(false); });
       window.openVihaanNftCard = () => set(true);
       if (location.hash === '#trump' || location.hash === '#nft') set(true);
+    }
+  })();
+
+  // Mobile Navigation Drawer Controller
+  (function initMobileNavDrawer() {
+    function wire() {
+      const toggleBtn = document.getElementById('mobile-nav-toggle');
+      const drawer = document.getElementById('mobile-nav-drawer');
+      const closeBtn = document.getElementById('mobile-nav-close');
+      const backdrop = drawer?.querySelector('.mnd-backdrop');
+      const cardBtn = document.getElementById('mnd-open-card');
+      if (!drawer || drawer.dataset.wired) return;
+      drawer.dataset.wired = 'true';
+
+      function setDrawer(open) {
+        if (open) {
+          drawer.hidden = false;
+          toggleBtn?.setAttribute('aria-expanded', 'true');
+          document.body.style.overflow = 'hidden';
+        } else {
+          drawer.hidden = true;
+          toggleBtn?.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        }
+      }
+
+      toggleBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setDrawer(drawer.hidden);
+      });
+      closeBtn?.addEventListener('click', () => setDrawer(false));
+      backdrop?.addEventListener('click', () => setDrawer(false));
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !drawer.hidden) setDrawer(false);
+      });
+
+      cardBtn?.addEventListener('click', () => {
+        setDrawer(false);
+        if (window.openVihaanNftCard) window.openVihaanNftCard();
+      });
+
+      // Close drawer when clicking any page link
+      drawer.querySelectorAll('.mnd-link').forEach(link => {
+        if (link.id !== 'mnd-open-card') {
+          link.addEventListener('click', () => {
+            document.body.style.overflow = '';
+          });
+        }
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', wire);
+    } else {
+      wire();
     }
   })();
 })();
