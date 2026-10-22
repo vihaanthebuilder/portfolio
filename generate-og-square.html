@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 800px;
+    height: 800px;
+    background: #090a0f;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #fff;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 36px 40px;
+  }
+  .grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(255, 213, 0, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 213, 0, 0.06) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+  }
+  .radial-glow {
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(255, 77, 0, 0.28) 0%, rgba(255, 213, 0, 0.12) 45%, transparent 70%);
+    pointer-events: none;
+  }
+  .radial-glow-2 {
+    position: absolute;
+    bottom: -150px;
+    left: -100px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(30, 80, 200, 0.3) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .frame-border {
+    position: absolute;
+    inset: 14px;
+    border: 2px solid rgba(255, 213, 0, 0.45);
+    border-radius: 12px;
+    pointer-events: none;
+  }
+  .corner {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-color: #ffd500;
+    border-style: solid;
+  }
+  .tl { top: 10px; left: 10px; border-width: 4px 0 0 4px; }
+  .tr { top: 10px; right: 10px; border-width: 4px 4px 0 0; }
+  .bl { bottom: 10px; left: 10px; border-width: 0 0 4px 4px; }
+  .br { bottom: 10px; right: 10px; border-width: 0 4px 4px 0; }
+
+  /* Header */
+  .header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .avatar {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3.5px solid #ffd500;
+    box-shadow: 0 0 24px rgba(255, 213, 0, 0.6);
+  }
+  .brand-text h2 {
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+  .brand-text h2 span { color: #ffd500; }
+  .brand-text p {
+    font-size: 14px;
+    font-family: ui-monospace, monospace;
+    letter-spacing: 0.1em;
+    color: #ff6a2b;
+    text-transform: uppercase;
+    font-weight: 800;
+  }
+  .badge {
+    padding: 8px 16px;
+    border-radius: 8px;
+    background: rgba(255, 213, 0, 0.15);
+    border: 1.5px solid rgba(255, 213, 0, 0.55);
+    color: #ffd500;
+    font-family: ui-monospace, monospace;
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+  }
+
+  /* Main Hero Focus */
+  .hero-focus {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    margin: 8px 0;
+  }
+  .tagline {
+    display: inline-block;
+    background: linear-gradient(135deg, #ff4d00, #ff8800);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    font-family: ui-monospace, monospace;
+  }
+  .title {
+    font-size: 56px;
+    line-height: 1.05;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    margin-bottom: 8px;
+  }
+  .title .highlight {
+    background: linear-gradient(135deg, #ffd500 0%, #ff9500 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Two Big Featured Builds */
+  .photos-row {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+  }
+  .photo-card {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.06);
+    border: 2px solid rgba(255, 213, 0, 0.45);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 16px 36px rgba(0,0,0,0.7);
+  }
+  .photo-card img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    display: block;
+    background: #111;
+  }
+  .photo-card-info {
+    padding: 10px 12px 12px;
+    text-align: center;
+    background: rgba(10, 12, 18, 0.9);
+  }
+  .photo-card-info b {
+    display: block;
+    font-size: 16px;
+    font-weight: 800;
+    color: #fff;
+  }
+  .photo-card-info span {
+    font-size: 12px;
+    font-family: ui-monospace, monospace;
+    color: #ffd500;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+  }
+
+  /* Footer */
+  .footer {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 14px;
+    border-top: 1.5px solid rgba(255, 255, 255, 0.15);
+  }
+  .stat-pills {
+    display: flex;
+    gap: 10px;
+  }
+  .pill {
+    padding: 8px 14px;
+    border-radius: 9999px;
+    font-size: 14px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1.5px solid rgba(255, 255, 255, 0.18);
+  }
+  .pill-yellow {
+    background: rgba(255, 213, 0, 0.18);
+    border-color: rgba(255, 213, 0, 0.55);
+    color: #ffd500;
+  }
+  .pill-orange {
+    background: rgba(255, 77, 0, 0.18);
+    border-color: rgba(255, 77, 0, 0.55);
+    color: #ff6a2b;
+  }
+  .url {
+    font-family: ui-monospace, monospace;
+    font-size: 14px;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.75);
+  }
+</style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+  <div class="radial-glow"></div>
+  <div class="radial-glow-2"></div>
+  <div class="frame-border"></div>
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="brand">
+      <img src="images/vihaan-photo.png" alt="Vihaan" class="avatar">
+      <div class="brand-text">
+        <h2>VIHAAN<span>.</span>WORLD</h2>
+        <p>Age 8 · LEGO Master Builder</p>
+      </div>
+    </div>
+    <div class="badge">🧱 32+ BUILDS</div>
+  </div>
+
+  <!-- Center Hero -->
+  <div class="hero-focus">
+    <div class="tagline">Official Portfolio Showcase</div>
+    <h1 class="title">LEGO Master Builds <br><span class="highlight">&amp; 9-Boat Fleet</span></h1>
+  </div>
+
+  <!-- Two Big Featured Builds -->
+  <div class="photos-row">
+    <div class="photo-card">
+      <img src="images/hogwarts.jpg" alt="Hogwarts Castle">
+      <div class="photo-card-info">
+        <b>Hogwarts Castle</b>
+        <span>2,660 PIECES</span>
+      </div>
+    </div>
+    <div class="photo-card">
+      <img src="images/millennium-falcon.jpg" alt="Millennium Falcon">
+      <div class="photo-card-info">
+        <b>Falcon 75375</b>
+        <span>800 PIECES</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="stat-pills">
+      <div class="pill pill-yellow">🧱 32 Builds</div>
+      <div class="pill pill-orange">⛵ 9 Boats</div>
+      <div class="pill">♟️ USCF 715</div>
+    </div>
+    <div class="url">vihaanthebuilder.github.io</div>
+  </div>
+</body>
+</html>
