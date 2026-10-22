@@ -76,39 +76,39 @@
   .brand {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 18px;
   }
   .avatar {
-    width: 64px;
-    height: 64px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2.5px solid #ffd500;
-    box-shadow: 0 0 20px rgba(255, 213, 0, 0.45);
+    border: 3.5px solid #ffd500;
+    box-shadow: 0 0 25px rgba(255, 213, 0, 0.55);
   }
   .brand-text h2 {
-    font-size: 26px;
-    font-weight: 800;
+    font-size: 32px;
+    font-weight: 900;
     letter-spacing: -0.02em;
     color: #fff;
   }
   .brand-text h2 span { color: #ffd500; }
   .brand-text p {
-    font-size: 13px;
+    font-size: 15px;
     font-family: ui-monospace, monospace;
     letter-spacing: 0.12em;
     color: #ff6a2b;
     text-transform: uppercase;
-    font-weight: 700;
+    font-weight: 800;
   }
   .edition-badge {
-    padding: 8px 16px;
-    border-radius: 6px;
-    background: rgba(255, 213, 0, 0.12);
-    border: 1px solid rgba(255, 213, 0, 0.45);
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: rgba(255, 213, 0, 0.15);
+    border: 1.5px solid rgba(255, 213, 0, 0.6);
     color: #ffd500;
     font-family: ui-monospace, monospace;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 800;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -122,82 +122,84 @@
     align-items: center;
     justify-content: space-between;
     gap: 36px;
-    margin-top: 10px;
+    margin-top: 6px;
   }
   .hero-info {
-    max-width: 540px;
+    max-width: 580px;
   }
   .tagline {
     display: inline-block;
     background: linear-gradient(135deg, #ff4d00, #ff8800);
     color: #fff;
-    font-size: 13px;
+    font-size: 16px;
     font-weight: 800;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    padding: 6px 14px;
-    border-radius: 4px;
+    padding: 7px 18px;
+    border-radius: 6px;
     margin-bottom: 14px;
     font-family: ui-monospace, monospace;
+    box-shadow: 0 4px 12px rgba(255, 77, 0, 0.4);
   }
   .main-title {
-    font-size: 54px;
+    font-size: 68px;
     line-height: 1.05;
     font-weight: 900;
     letter-spacing: -0.04em;
     margin-bottom: 14px;
   }
   .main-title .highlight {
-    background: linear-gradient(135deg, #ffd500 0%, #ff8800 100%);
+    background: linear-gradient(135deg, #ffd500 0%, #ff9500 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
   .description {
-    font-size: 17px;
-    line-height: 1.45;
-    color: #b2b9c7;
-    font-weight: 500;
+    font-size: 21px;
+    line-height: 1.4;
+    color: #cbd5e1;
+    font-weight: 600;
   }
 
-  /* Showcase Photo Cards */
+  /* Showcase Photo Cards - 2 Large High-Impact Cards */
   .showcase-grid {
     display: flex;
-    gap: 16px;
+    gap: 18px;
   }
   .build-card {
-    width: 165px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1.5px solid rgba(255, 213, 0, 0.35);
-    border-radius: 10px;
+    width: 235px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 2px solid rgba(255, 213, 0, 0.45);
+    border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 16px 32px rgba(0,0,0,0.6);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.7);
   }
   .build-card img {
     width: 100%;
-    height: 170px;
+    height: 220px;
     object-fit: cover;
     display: block;
     background: #111;
   }
   .build-card-info {
-    padding: 10px 10px 12px;
+    padding: 12px 14px 14px;
     text-align: center;
   }
   .build-card-info b {
     display: block;
-    font-size: 13px;
-    font-weight: 700;
+    font-size: 17px;
+    font-weight: 800;
     color: #fff;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-bottom: 4px;
   }
   .build-card-info span {
-    font-size: 10px;
+    font-size: 13px;
     font-family: ui-monospace, monospace;
     color: #ffd500;
-    font-weight: 700;
-    letter-spacing: 0.04em;
+    font-weight: 800;
+    letter-spacing: 0.06em;
   }
 
   /* Footer bar */
@@ -208,39 +210,39 @@
     align-items: center;
     justify-content: space-between;
     padding-top: 14px;
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
   }
   .stat-pills {
     display: flex;
-    gap: 12px;
+    gap: 14px;
   }
   .pill {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    padding: 7px 14px;
+    border: 1.5px solid rgba(255, 255, 255, 0.18);
+    padding: 10px 18px;
     border-radius: 9999px;
-    font-size: 13px;
-    font-weight: 700;
+    font-size: 16px;
+    font-weight: 800;
     color: #fff;
   }
   .pill-yellow {
-    background: rgba(255, 213, 0, 0.15);
-    border-color: rgba(255, 213, 0, 0.45);
+    background: rgba(255, 213, 0, 0.18);
+    border-color: rgba(255, 213, 0, 0.55);
     color: #ffd500;
   }
   .pill-orange {
-    background: rgba(255, 77, 0, 0.15);
-    border-color: rgba(255, 77, 0, 0.45);
+    background: rgba(255, 77, 0, 0.18);
+    border-color: rgba(255, 77, 0, 0.55);
     color: #ff6a2b;
   }
   .domain {
     font-family: ui-monospace, monospace;
-    font-size: 14px;
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.65);
+    font-size: 16px;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.8);
     letter-spacing: 0.06em;
   }
 </style>
@@ -277,7 +279,7 @@
       </p>
     </div>
 
-    <!-- Showcase Cards -->
+    <!-- Showcase Cards (2 Huge Master Builds) -->
     <div class="showcase-grid">
       <div class="build-card">
         <img src="images/hogwarts.jpg" alt="Hogwarts Castle">
@@ -291,13 +293,6 @@
         <div class="build-card-info">
           <b>Falcon 75375</b>
           <span>800 PIECES</span>
-        </div>
-      </div>
-      <div class="build-card">
-        <img src="images/set-mando-helmet-75328.jpg" alt="Mando Helmet">
-        <div class="build-card-info">
-          <b>Mando Helmet</b>
-          <span>584 PIECES</span>
         </div>
       </div>
     </div>
