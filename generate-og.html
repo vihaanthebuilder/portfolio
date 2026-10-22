@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 1200px;
+    height: 630px;
+    background: #090a0f;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #fff;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 44px 56px;
+  }
+  /* Cyber grid background */
+  .grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(255, 213, 0, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 213, 0, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+  .radial-glow {
+    position: absolute;
+    top: -150px;
+    right: -100px;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(255, 77, 0, 0.22) 0%, rgba(255, 213, 0, 0.08) 45%, transparent 70%);
+    pointer-events: none;
+  }
+  .radial-glow-2 {
+    position: absolute;
+    bottom: -200px;
+    left: -100px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(30, 80, 200, 0.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  /* Outer frame */
+  .frame-border {
+    position: absolute;
+    inset: 16px;
+    border: 1.5px solid rgba(255, 213, 0, 0.4);
+    border-radius: 8px;
+    pointer-events: none;
+  }
+  .corner {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-color: #ffd500;
+    border-style: solid;
+  }
+  .tl { top: 12px; left: 12px; border-width: 3px 0 0 3px; }
+  .tr { top: 12px; right: 12px; border-width: 3px 3px 0 0; }
+  .bl { bottom: 12px; left: 12px; border-width: 0 0 3px 3px; }
+  .br { bottom: 12px; right: 12px; border-width: 0 3px 3px 0; }
+
+  /* Top bar */
+  .top-bar {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2.5px solid #ffd500;
+    box-shadow: 0 0 20px rgba(255, 213, 0, 0.45);
+  }
+  .brand-text h2 {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+  .brand-text h2 span { color: #ffd500; }
+  .brand-text p {
+    font-size: 13px;
+    font-family: ui-monospace, monospace;
+    letter-spacing: 0.12em;
+    color: #ff6a2b;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .edition-badge {
+    padding: 8px 16px;
+    border-radius: 6px;
+    background: rgba(255, 213, 0, 0.12);
+    border: 1px solid rgba(255, 213, 0, 0.45);
+    color: #ffd500;
+    font-family: ui-monospace, monospace;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* Center Content */
+  .center-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 36px;
+    margin-top: 10px;
+  }
+  .hero-info {
+    max-width: 540px;
+  }
+  .tagline {
+    display: inline-block;
+    background: linear-gradient(135deg, #ff4d00, #ff8800);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 4px;
+    margin-bottom: 14px;
+    font-family: ui-monospace, monospace;
+  }
+  .main-title {
+    font-size: 54px;
+    line-height: 1.05;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    margin-bottom: 14px;
+  }
+  .main-title .highlight {
+    background: linear-gradient(135deg, #ffd500 0%, #ff8800 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .description {
+    font-size: 17px;
+    line-height: 1.45;
+    color: #b2b9c7;
+    font-weight: 500;
+  }
+
+  /* Showcase Photo Cards */
+  .showcase-grid {
+    display: flex;
+    gap: 16px;
+  }
+  .build-card {
+    width: 165px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1.5px solid rgba(255, 213, 0, 0.35);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 16px 32px rgba(0,0,0,0.6);
+  }
+  .build-card img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    display: block;
+    background: #111;
+  }
+  .build-card-info {
+    padding: 10px 10px 12px;
+    text-align: center;
+  }
+  .build-card-info b {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .build-card-info span {
+    font-size: 10px;
+    font-family: ui-monospace, monospace;
+    color: #ffd500;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  /* Footer bar */
+  .footer-bar {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .stat-pills {
+    display: flex;
+    gap: 12px;
+  }
+  .pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 7px 14px;
+    border-radius: 9999px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .pill-yellow {
+    background: rgba(255, 213, 0, 0.15);
+    border-color: rgba(255, 213, 0, 0.45);
+    color: #ffd500;
+  }
+  .pill-orange {
+    background: rgba(255, 77, 0, 0.15);
+    border-color: rgba(255, 77, 0, 0.45);
+    color: #ff6a2b;
+  }
+  .domain {
+    font-family: ui-monospace, monospace;
+    font-size: 14px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.65);
+    letter-spacing: 0.06em;
+  }
+</style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+  <div class="radial-glow"></div>
+  <div class="radial-glow-2"></div>
+  <div class="frame-border"></div>
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="brand">
+      <img src="images/vihaan-photo.png" alt="Vihaan" class="avatar">
+      <div class="brand-text">
+        <h2>vihaan<span>.</span>world</h2>
+        <p>Age 8 · LEGO Master Builder & Chess Tactician</p>
+      </div>
+    </div>
+    <div class="edition-badge">⚡ Official Portfolio</div>
+  </div>
+
+  <!-- Center Content -->
+  <div class="center-content">
+    <div class="hero-info">
+      <div class="tagline">🧱 LEGO Lab &amp; Flagship Builds</div>
+      <h1 class="main-title">32+ Master Builds <br><span class="highlight">&amp; 9-Boat Fleet</span></h1>
+      <p class="description">
+        Explore Hogwarts Castle, Millennium Falcon, Mando's Helmet, 9 Bentonville library boats, and the interactive Master Builder Idea Lab!
+      </p>
+    </div>
+
+    <!-- Showcase Cards -->
+    <div class="showcase-grid">
+      <div class="build-card">
+        <img src="images/hogwarts.jpg" alt="Hogwarts Castle">
+        <div class="build-card-info">
+          <b>Hogwarts Castle</b>
+          <span>2,660 PIECES</span>
+        </div>
+      </div>
+      <div class="build-card">
+        <img src="images/millennium-falcon.jpg" alt="Millennium Falcon">
+        <div class="build-card-info">
+          <b>Falcon 75375</b>
+          <span>800 PIECES</span>
+        </div>
+      </div>
+      <div class="build-card">
+        <img src="images/set-mando-helmet-75328.jpg" alt="Mando Helmet">
+        <div class="build-card-info">
+          <b>Mando Helmet</b>
+          <span>584 PIECES</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Bar -->
+  <div class="footer-bar">
+    <div class="stat-pills">
+      <div class="pill pill-yellow">🧱 32+ Builds</div>
+      <div class="pill pill-orange">⛵ 9-Boat Fleet</div>
+      <div class="pill">♟️ USCF 715</div>
+      <div class="pill">👾 5 Arcade Games</div>
+    </div>
+    <div class="domain">vihaanthebuilder.github.io/portfolio</div>
+  </div>
+</body>
+</html>
