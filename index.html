@@ -1102,7 +1102,7 @@ body.menu-open #layout{visibility:hidden}
 .sblvl-hof-head h2{font-family:var(--sans);font-size:clamp(2rem,4vw,3.2rem);line-height:1.05;letter-spacing:-.035em;font-weight:700;color:#fff}
 .sblvl-hof-head h2 .pop{color:var(--yellow)}
 .sblvl-hof-head p{font-family:var(--sans);color:var(--w2);font-size:1rem;max-width:38rem;margin-top:6px}
-.sblvl-hof-grid{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:8px}
+.sblvl-hof-grid{grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-top:8px}
 @media(max-width:960px){.sblvl-hof-grid{grid-template-columns:1fr}}
 .sblvl-hof-card{position:relative;background:linear-gradient(180deg,rgba(18,22,32,.9),rgba(10,12,18,.96));border:1px solid rgba(255,213,0,.28);border-radius:6px;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease;box-shadow:0 16px 40px rgba(0,0,0,.6)}
 .sblvl-hof-card:hover{transform:translateY(-6px);border-color:var(--yellow);box-shadow:0 24px 52px rgba(0,0,0,.8),0 0 26px rgba(255,213,0,.18)}
@@ -1687,13 +1687,16 @@ body.machine #topnav,body.machine #layout{display:none}
   <section class="sblvl-hof-section" id="hall-of-fame">
     <div class="vrules" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
     <div class="grid-layout" id="lego">
-      <div class="eyebrow"><span>01 // HALL OF FAME — FEATURED PROJECTS</span><hr class="rule" /><span>CROWN JEWEL BUILDS</span></div>
+      <div class="eyebrow"><span>01 // HALL OF FAME — FEATURED PROJECTS</span><hr class="rule" /><span>CROWN JEWELS &amp; TROPHIES</span></div>
       <div class="sblvl-hof-head">
         <div>
           <h2>Hall of Fame <span class="pop">Featured Projects</span></h2>
-          <p>My three biggest, most detailed LEGO masterpieces — click any card to inspect full-screen or jump into the LEGO Lab!</p>
+          <p>My biggest LEGO masterpieces &amp; tournament trophies — click any card to inspect full-screen or jump into the LEGO Lab &amp; Chess Journey!</p>
         </div>
-        <a class="btn btn-yellow" href="lego.html" style="min-height:44px;padding:0 18px;font-size:.9rem">🧱 View All 32+ Builds (Includes 9 Boats!) →</a>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <a class="btn btn-yellow" href="hall-of-fame.html" style="min-height:44px;padding:0 18px;font-size:.9rem">🏛️ View Full Hall of Fame →</a>
+          <a class="btn btn-blue" href="chess.html" style="min-height:44px;padding:0 18px;font-size:.9rem">♟️ Chess Journey (715) →</a>
+        </div>
       </div>
 
       <div class="sblvl-hof-grid">
@@ -1774,6 +1777,33 @@ body.machine #topnav,body.machine #layout{display:none}
             <div class="sblvl-hof-foot">
               <span>Built by Vihaan · Age 8</span>
               <span>Inspect Build ↗</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4. 1st Place Chess Championship Trophy -->
+        <article class="sblvl-hof-card card" tabindex="0" role="button" aria-label="Open 1st Place Chess Championship Trophy full screen"
+          data-img="images/chess-trophy.jpg" data-title="1st Place Chess Championship Trophy"
+          data-meta="🏆 Tournament Champion · ♟️ USCF 715 Rating · ⚡ +130 Surge"
+          data-fav="Winning 5 tough matches at Crowder Open and taking home 1st place gold!"
+          data-desc="Vihaan's official 1st Place Scholastic Chess Championship Trophy! Awarded for his dominant performance at the 2026 Crowder College Open in Joplin, MO, surging his official US Chess regular rating from 585 to 715 (+130) and ranking #281 overall in Arkansas.">
+          <i class="corner tl" aria-hidden="true"></i><i class="corner tr" aria-hidden="true"></i><i class="corner bl" aria-hidden="true"></i><i class="corner br" aria-hidden="true"></i>
+          <div class="sblvl-hof-photo">
+            <img src="images/chess-trophy.jpg" alt="Vihaan's 1st Place Chess Championship Trophy" loading="lazy">
+            <span class="sblvl-hof-badge">🏆 Hall of Fame #04</span>
+            <div class="sblvl-hof-fade"></div>
+            <h3 class="sblvl-hof-title">1st Place Chess Trophy</h3>
+          </div>
+          <div class="sblvl-hof-body">
+            <div class="sblvl-hof-pills">
+              <span class="sblvl-hof-pill">🏆 1st Place</span>
+              <span class="sblvl-hof-pill">♟️ USCF 715</span>
+              <span class="sblvl-hof-pill">⚡ +130 Surge</span>
+            </div>
+            <p class="sblvl-hof-quote">"5 tough tournament rounds at Crowder College, won 1st place, and jumped +130 rating points!"</p>
+            <div class="sblvl-hof-foot">
+              <span>Won by Vihaan · Age 8</span>
+              <span>Inspect Trophy ↗</span>
             </div>
           </div>
         </article>
