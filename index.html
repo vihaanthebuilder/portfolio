@@ -2138,10 +2138,19 @@ const neonTex = canvasTex(2048, 512, (g, w, h) => {
   g.clearRect(0, 0, w, h);
   g.font = '700 300px "Geist", Arial, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
   g.lineJoin = 'round'; g.lineCap = 'round';
-  g.shadowColor = 'rgba(255,255,255,0.95)'; g.shadowBlur = 60;
-  g.strokeStyle = 'rgba(255,255,255,0.6)'; g.lineWidth = 12; g.strokeText('vihaan.', w / 2, h / 2 + 8);
-  g.shadowBlur = 0; g.strokeStyle = '#ffffff'; g.lineWidth = 5; g.strokeText('vihaan.', w / 2, h / 2 + 8);
-  g.fillStyle = 'rgba(255,255,255,0.12)'; g.fillText('vihaan.', w / 2, h / 2 + 8);
+  // Reduced brightness: crisp, warm amber/white glass neon tubing without blinding bloom
+  g.shadowColor = 'rgba(255, 230, 180, 0.45)'; g.shadowBlur = 18;
+  g.strokeStyle = 'rgba(255, 245, 225, 0.9)'; g.lineWidth = 8; g.strokeText('vihaan.', w / 2, h / 2 + 8);
+  g.shadowBlur = 0; g.strokeStyle = '#ffffff'; g.lineWidth = 3.5; g.strokeText('vihaan.', w / 2, h / 2 + 8);
+});
+const neonOffTex = canvasTex(2048, 512, (g, w, h) => {
+  g.clearRect(0, 0, w, h);
+  g.font = '700 300px "Geist", Arial, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  g.lineJoin = 'round'; g.lineCap = 'round';
+  // Realistic unlit neon glass tubing: dark translucent glass with subtle specular highlight
+  g.shadowBlur = 0;
+  g.strokeStyle = 'rgba(28, 25, 22, 0.8)'; g.lineWidth = 8.5; g.strokeText('vihaan.', w / 2, h / 2 + 8);
+  g.strokeStyle = 'rgba(110, 100, 90, 0.4)'; g.lineWidth = 2.5; g.strokeText('vihaan.', w / 2, h / 2 + 6);
 });
 const marqueeTex = canvasTex(1024, 256, (g, w, h) => { g.fillStyle = '#0c0504'; g.fillRect(0, 0, w, h); });
 const MARQUEE_SUBS = {
@@ -3192,16 +3201,258 @@ const tvTextures = [];
 const TV = [];
 const tvHit = [];
 const neon = { plane: null, light: null, glow: null, off: 0 };
+const matBrass = std({ color: 0xd8b24a, roughness: 0.28, metalness: 0.88 });
+const neonStringHit = [];
+let neonAudioCtx = null;
+function playNeonSound(type) {
+  try {
+    if (!neonAudioCtx) neonAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (neonAudioCtx.state === 'suspended') neonAudioCtx.resume();
+    const now = neonAudioCtx.currentTime;
+    if (type === 'pull') {
+      for (let i = 0; i < 3; i++) {
+        const osc = neonAudioCtx.createOscillator();
+        const gain = neonAudioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(2400 + i * 400 + Math.random() * 200, now + i * 0.022);
+        gain.gain.setValueAtTime(0.04, now + i * 0.022);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.022 + 0.035);
+        osc.connect(gain); gain.connect(neonAudioCtx.destination);
+        osc.start(now + i * 0.022); osc.stop(now + i * 0.022 + 0.04);
+      }
+    } else if (type === 'click') {
+      const osc = neonAudioCtx.createOscillator();
+      const gain = neonAudioCtx.createGain();
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(920, now);
+      osc.frequency.exponentialRampToValueAtTime(140, now + 0.026);
+      gain.gain.setValueAtTime(0.24, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.034);
+      osc.connect(gain); gain.connect(neonAudioCtx.destination);
+      osc.start(now); osc.stop(now + 0.04);
+
+      const osc2 = neonAudioCtx.createOscillator();
+      const gain2 = neonAudioCtx.createGain();
+      osc2.type = 'sine';
+      osc2.frequency.setValueAtTime(220, now);
+      osc2.frequency.exponentialRampToValueAtTime(45, now + 0.06);
+      gain2.gain.setValueAtTime(0.2, now);
+      gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
+      osc2.connect(gain2); gain2.connect(neonAudioCtx.destination);
+      osc2.start(now); osc2.stop(now + 0.07);
+    } else if (type === 'hum') {
+      const osc = neonAudioCtx.createOscillator();
+      const filter = neonAudioCtx.createBiquadFilter();
+      const gain = neonAudioCtx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(120, now + 0.03);
+      filter.type = 'lowpass'; filter.frequency.setValueAtTime(360, now);
+      gain.gain.setValueAtTime(0.001, now);
+      gain.gain.linearRampToValueAtTime(0.06, now + 0.08);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
+      osc.connect(filter); filter.connect(gain); gain.connect(neonAudioCtx.destination);
+      osc.start(now + 0.03); osc.stop(now + 0.30);
+    }
+  } catch (e) {}
+}
+
+const neonSwitch = {
+  anchor: new THREE.Vector3(6.55, 2.44, -5.72),
+  length: 0.54,
+  pullDist: 0,
+  pullVel: 0,
+  thetaX: 0,
+  thetaZ: 0,
+  omegaX: 0,
+  omegaZ: 0,
+  isDragging: false,
+  dragStartY: 0,
+  dragStartDist: 0,
+  hasToggledThisDrag: false,
+  autoPullT: -1,
+  autoToggled: false,
+  group: null,
+  hitMesh: null,
+  beads: [],
+  line: null,
+  fob: null,
+  on: true,
+  flickerT: 0,
+  targetIntensity: 1.8 // Reduced comfortable brightness (was 7.0!)
+};
+
+function toggleNeon() {
+  neonSwitch.on = !neonSwitch.on;
+  playNeonSound('click');
+  if (neonSwitch.on) {
+    playNeonSound('hum');
+    neonSwitch.flickerT = 0.26;
+    if (neon.plane) {
+      neon.plane.material.map = neonTex;
+      neon.plane.material.opacity = 0.95;
+      neon.plane.material.needsUpdate = true;
+    }
+  } else {
+    neonSwitch.flickerT = 0;
+    if (neon.light) neon.light.intensity = 0;
+    if (neon.glow) neon.glow.material.opacity = 0;
+    if (neon.plane) {
+      neon.plane.material.map = neonOffTex;
+      neon.plane.material.opacity = 0.35;
+      neon.plane.material.needsUpdate = true;
+    }
+  }
+}
+
+function updateNeonStringVisuals() {
+  if (!neonSwitch.line || !neonSwitch.fob) return;
+  const A = neonSwitch.anchor;
+  const L = Math.max(0.2, neonSwitch.length + neonSwitch.pullDist);
+  const tx = neonSwitch.thetaX, tz = neonSwitch.thetaZ;
+  
+  const tipX = A.x + L * Math.sin(tx) * Math.cos(tz);
+  const tipY = A.y - L * Math.cos(tx) * Math.cos(tz);
+  const tipZ = A.z + L * Math.sin(tz);
+  
+  const posArr = neonSwitch.line.geometry.attributes.position.array;
+  const nBeads = neonSwitch.beads.length;
+  for (let i = 0; i <= nBeads; i++) {
+    const s = i / nBeads;
+    const bend = Math.sin(Math.PI * s) * 0.024;
+    const px = A.x + s * (tipX - A.x) - neonSwitch.omegaX * bend;
+    const py = A.y + s * (tipY - A.y);
+    const pz = A.z + s * (tipZ - A.z) - neonSwitch.omegaZ * bend;
+    posArr[i * 3] = px; posArr[i * 3 + 1] = py; posArr[i * 3 + 2] = pz;
+    if (i < nBeads) {
+      neonSwitch.beads[i].position.set(px, py, pz);
+    }
+  }
+  neonSwitch.line.geometry.attributes.position.needsUpdate = true;
+  
+  neonSwitch.fob.position.set(tipX, tipY, tipZ);
+  neonSwitch.fob.rotation.z = -tx;
+  neonSwitch.fob.rotation.x = tz;
+
+  if (neonSwitch.hitMesh) {
+    neonSwitch.hitMesh.position.set((A.x + tipX) * 0.5, (A.y + tipY) * 0.5, (A.z + tipZ) * 0.5);
+    neonSwitch.hitMesh.rotation.z = -tx;
+    neonSwitch.hitMesh.rotation.x = tz;
+  }
+}
+
+function stepNeonSwitch(dt) {
+  const cdt = Math.min(dt, 0.05);
+
+  if (neonSwitch.autoPullT >= 0) {
+    neonSwitch.autoPullT += cdt;
+    if (neonSwitch.autoPullT < 0.08) {
+      neonSwitch.pullDist = (neonSwitch.autoPullT / 0.08) * 0.14;
+    } else if (neonSwitch.autoPullT < 0.12) {
+      if (!neonSwitch.autoToggled) {
+        toggleNeon();
+        neonSwitch.autoToggled = true;
+      }
+      neonSwitch.pullDist = 0.14;
+    } else {
+      neonSwitch.pullDist = 0.14;
+      neonSwitch.pullVel = -2.4;
+      neonSwitch.omegaX += (Math.random() - 0.5) * 2.8 + (Math.random() < 0.5 ? 1.5 : -1.5);
+      neonSwitch.omegaZ += 1.8 + Math.random() * 0.7;
+      neonSwitch.autoPullT = -1;
+    }
+  }
+
+  if (!neonSwitch.isDragging && neonSwitch.autoPullT < 0) {
+    const kSpring = 280, dSpring = 18;
+    const springAcc = -kSpring * neonSwitch.pullDist - dSpring * neonSwitch.pullVel;
+    neonSwitch.pullVel += springAcc * cdt;
+    neonSwitch.pullDist += neonSwitch.pullVel * cdt;
+    if (Math.abs(neonSwitch.pullDist) < 0.001 && Math.abs(neonSwitch.pullVel) < 0.005) {
+      neonSwitch.pullDist = 0; neonSwitch.pullVel = 0;
+    }
+  }
+
+  const effLen = Math.max(0.2, neonSwitch.length + neonSwitch.pullDist);
+  const g = 9.81, damp = 1.35;
+  const accX = -(g / effLen) * Math.sin(neonSwitch.thetaX) - damp * neonSwitch.omegaX;
+  neonSwitch.omegaX += accX * cdt;
+  neonSwitch.thetaX += neonSwitch.omegaX * cdt;
+
+  const accZ = -(g / effLen) * Math.sin(neonSwitch.thetaZ) - damp * neonSwitch.omegaZ;
+  neonSwitch.omegaZ += accZ * cdt;
+  neonSwitch.thetaZ += neonSwitch.omegaZ * cdt;
+
+  neonSwitch.thetaX = Math.max(-1.15, Math.min(1.15, neonSwitch.thetaX));
+  neonSwitch.thetaZ = Math.max(-0.25, Math.min(1.15, neonSwitch.thetaZ));
+
+  updateNeonStringVisuals();
+
+  if (neonSwitch.flickerT > 0) {
+    neonSwitch.flickerT -= cdt;
+    const prog = 1 - Math.max(0, neonSwitch.flickerT / 0.26);
+    let fVal = 1;
+    if (prog < 0.15) fVal = 0.2;
+    else if (prog < 0.35) fVal = 1.35;
+    else if (prog < 0.50) fVal = 0.15;
+    else if (prog < 0.70) fVal = 1.15;
+    else if (prog < 0.85) fVal = 0.45;
+    else fVal = 1.0;
+
+    if (neon.light) neon.light.intensity = neonSwitch.targetIntensity * fVal;
+    if (neon.glow) neon.glow.material.opacity = 0.035 * fVal;
+    if (neon.plane) neon.plane.material.opacity = 0.45 + 0.5 * fVal;
+  }
+}
+
 // LED ticker spanning all the way across the mezzanine fascia (-1.55 to 9.65)
 const ticker = plane(11.2, 0.28, basic({ map: tickerTex, color: 0xff4d00, toneMapped: false }), 4.05, 3.3, -1.27); ticker.castShadow = false;
 rbox(11.3, 0.36, 0.05, 0.01, std({ color: 0x0a0a0a, roughness: 0.6 }), 4.05, 3.3, -1.3);
 const tickerLight = new THREE.PointLight(0xff4d00, 2.5, 6, 2); tickerLight.position.set(3.2, 3.15, -0.9); scene.add(tickerLight);
 (function rightWall() {
   const z = -5.8;
-  const np = plane(3.3, 0.83, basic({ map: neonTex, transparent: true, depthWrite: false, toneMapped: false }), 5.75, 2.85, z + 0.06); np.castShadow = false; neon.plane = np;
-  const glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: softTex, color: 0xffffff, transparent: true, opacity: 0.12, blending: THREE.AdditiveBlending, depthWrite: false })); glow.position.set(5.75, 2.8, z + 0.1); glow.scale.set(5.0, 2.5, 1); scene.add(glow);
-  const nl = new THREE.PointLight(0xffffff, 7, 9, 2); nl.position.set(5.7, 2.8, z + 0.8); scene.add(nl);
+  // Reduced brightness: toneMapped true, soft ambient glow, intensity 1.8 (was 7.0)
+  const np = plane(3.3, 0.83, basic({ map: neonTex, transparent: true, depthWrite: false, toneMapped: true }), 5.75, 2.85, z + 0.06); np.castShadow = false; neon.plane = np;
+  const glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: softTex, color: 0xfff0db, transparent: true, opacity: 0.035, blending: THREE.AdditiveBlending, depthWrite: false })); glow.position.set(5.75, 2.8, z + 0.1); glow.scale.set(3.2, 1.5, 1); scene.add(glow);
+  const nl = new THREE.PointLight(0xfff3e2, neonSwitch.targetIntensity, 7.5, 2); nl.position.set(5.7, 2.8, z + 0.8); scene.add(nl);
   neon.light = nl; neon.glow = glow;
+
+  // Vintage industrial pull-switch box mounted right under the '.' in 'vihaan.'
+  box(0.065, 0.055, 0.045, matBrass, 6.55, 2.45, z + 0.08);
+  cyl(0.012, 0.012, 0.02, matBrass, 6.55, 2.42, z + 0.08);
+
+  // Beaded pull chain and brass acorn handle
+  neonSwitch.group = new THREE.Group(); scene.add(neonSwitch.group);
+  const chainLineGeo = new THREE.BufferGeometry();
+  const chainPositions = new Float32Array(11 * 3);
+  chainLineGeo.setAttribute('position', new THREE.BufferAttribute(chainPositions, 3));
+  const chainLine = new THREE.Line(chainLineGeo, new THREE.LineBasicMaterial({ color: 0xc89e3a, linewidth: 2 }));
+  neonSwitch.group.add(chainLine);
+  neonSwitch.line = chainLine;
+
+  neonSwitch.beads = [];
+  for (let i = 0; i < 10; i++) {
+    const b = sphere(0.0075, matBrass, 0, 0, 0, neonSwitch.group, 8, 6);
+    b.castShadow = false;
+    neonSwitch.beads.push(b);
+  }
+
+  // Brass acorn pull handle (fob) at the bottom
+  const fobGroup = new THREE.Group();
+  cyl(0.016, 0.010, 0.05, matBrass, 0, -0.025, 0, fobGroup, 12);
+  sphere(0.010, matBrass, 0, 0, 0, fobGroup, 10, 8);
+  const ring = new THREE.Mesh(new THREE.TorusGeometry(0.012, 0.0026, 8, 16), matBrass);
+  ring.position.set(0, -0.05, 0); ring.rotation.y = Math.PI / 2;
+  fobGroup.add(ring);
+  neonSwitch.group.add(fobGroup);
+  neonSwitch.fob = fobGroup;
+
+  // Hit proxy for raycasting
+  const hitMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.09, 0.72, 8), new THREE.MeshBasicMaterial({ visible: false }));
+  hitMesh.position.set(6.55, 2.05, z + 0.12);
+  scene.add(hitMesh);
+  neonSwitch.hitMesh = hitMesh;
+  neonStringHit.push(hitMesh);
+  updateNeonStringVisuals();
   /* The heights used to be hand-set, which left the upper sets hanging in the air.
      Each box is now dropped instead: it falls until it lands on the tatami or on
      whatever it overlaps below, and a box that leans is lifted by the drop of its
@@ -3649,7 +3900,7 @@ function targets() {
   if (state.mode === 'tv') return tvCam();
   return [tmpA.copy(camBase), tmpB.copy(camLook)];
 }
-const HINTS = { home: 'Click arcade to play 5 games &nbsp;·&nbsp; click hoop to shoot &nbsp;·&nbsp; click CRT TVs for Vihaan\'s builds &nbsp;·&nbsp; scroll down for Hall of Fame', arcade: 'ARROWS / WASD move &nbsp;·&nbsp; SPACE action &nbsp;·&nbsp; pick any of the 5 games below &nbsp;·&nbsp; ESC leave', hoop: 'Drag up on the ball to shoot &nbsp;·&nbsp; ESC leave', tv: '← → browse Vihaan\'s builds &nbsp;·&nbsp; click another CRT &nbsp;·&nbsp; ESC leave' };
+const HINTS = { home: 'Click arcade to play 5 games &nbsp;·&nbsp; click hoop to shoot &nbsp;·&nbsp; click CRT TVs for Vihaan\'s builds &nbsp;·&nbsp; pull string to toggle neon &nbsp;·&nbsp; scroll down for Hall of Fame', arcade: 'ARROWS / WASD move &nbsp;·&nbsp; SPACE action &nbsp;·&nbsp; pick any of the 5 games below &nbsp;·&nbsp; ESC leave', hoop: 'Drag up on the ball to shoot &nbsp;·&nbsp; ESC leave', tv: '← → browse Vihaan\'s builds &nbsp;·&nbsp; click another CRT &nbsp;·&nbsp; ESC leave' };
 hintEl.innerHTML = HINTS.home; hintEl.classList.add('show');
 const tvcap = document.getElementById('tvcap');
 document.getElementById('tvcap-close')?.addEventListener('click', () => setMode('home'));
@@ -3689,21 +3940,27 @@ const ndc = new THREE.Vector2();
 function pick(e) {
   const r = canvas.getBoundingClientRect(); ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
   ray.setFromCamera(ndc, camera);
+  if (ray.intersectObjects(neonStringHit, false).length) return 'neonString';
   if (ray.intersectObjects(arcadeHit, false).length) return 'arcade';
   if (ray.intersectObjects(hoopHit, false).length) return 'hoop';
   const tvI = ray.intersectObjects(tvHit, false); if (tvI.length) { state.pickTV = tvI[0].object.userData.tv; return 'tv'; }
   return null;
 }
-/* the pendants and the sliding door react to the pointer without being clickable */
+/* the pendants, neon string, and sliding door react to pointer movement */
 let lastPtr = null;
 function hoverProps(e) {
   const r = canvas.getBoundingClientRect();
   ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
   ray.setFromCamera(ndc, camera);
   slider.want = ray.intersectObjects(doorHit, false).length ? 1 : 0;
+  const strHit = ray.intersectObjects(neonStringHit, false);
+  if (strHit.length && lastPtr && !neonSwitch.isDragging) {
+    const dx = (e.clientX - lastPtr.x) / r.width;
+    neonSwitch.omegaX += Math.max(-1.8, Math.min(1.8, dx * 16));
+    neonSwitch.omegaZ += 0.45;
+  }
   const hits = ray.intersectObjects(pendantHit, false);
   if (hits.length && lastPtr) {
-    // push the fitting the way the pointer is travelling, scaled by how fast
     const dx = (e.clientX - lastPtr.x) / r.width, dy = (e.clientY - lastPtr.y) / r.height;
     const hit = hits[0].object;
     const p = pendants.find(q => q.pv === hit.parent);
@@ -3713,16 +3970,61 @@ function hoverProps(e) {
 }
 window.addEventListener('pointermove', (e) => {
   mouse.tx = (e.clientX / innerWidth) * 2 - 1; mouse.ty = (e.clientY / innerHeight) * 2 - 1;
-  if ((state.mode === 'home' || state.mode === 'tv') && (window.scrollY || 0) < 40 && e.target === canvas) { state.hover = pick(e); canvas.style.cursor = state.hover ? 'pointer' : ''; hoverProps(e); }
-  else { slider.want = 0; lastPtr = null; }
+  if (neonSwitch.isDragging) {
+    const dy = (e.clientY - neonSwitch.dragStartY);
+    const stretch = Math.max(0, Math.min(0.24, neonSwitch.dragStartDist + dy * 0.0018));
+    neonSwitch.pullDist = stretch;
+    if (lastPtr) {
+      const dx = (e.clientX - lastPtr.x) / innerWidth;
+      neonSwitch.thetaX += dx * 2.5;
+    }
+    if (stretch >= 0.11 && !neonSwitch.hasToggledThisDrag) {
+      neonSwitch.hasToggledThisDrag = true;
+      toggleNeon();
+    }
+    canvas.style.cursor = 'grabbing';
+    lastPtr = { x: e.clientX, y: e.clientY };
+    return;
+  }
+  if ((state.mode === 'home' || state.mode === 'tv') && (window.scrollY || 0) < 40 && e.target === canvas) {
+    state.hover = pick(e);
+    canvas.style.cursor = state.hover === 'neonString' ? 'grab' : (state.hover ? 'pointer' : '');
+    hoverProps(e);
+  } else {
+    slider.want = 0; lastPtr = null;
+  }
 }, { passive: true });
 canvas.addEventListener('pointerdown', (e) => {
-  if (state.mode === 'home') { const h = pick(e); if (h) setMode(h, h === 'tv' ? state.pickTV : undefined); return; }
-  if (state.mode === 'tv') { const h = pick(e); if (h === 'tv') showTV(state.pickTV); return; }
+  const h = pick(e);
+  if (h === 'neonString') {
+    neonSwitch.isDragging = true;
+    neonSwitch.dragStartY = e.clientY;
+    neonSwitch.dragStartDist = neonSwitch.pullDist;
+    neonSwitch.hasToggledThisDrag = false;
+    playNeonSound('pull');
+    canvas.style.cursor = 'grabbing';
+    return;
+  }
+  if (state.mode === 'home') { if (h) setMode(h, h === 'tv' ? state.pickTV : undefined); return; }
+  if (state.mode === 'tv') { if (h === 'tv') showTV(state.pickTV); return; }
   if (state.mode === 'hoop' && ball.held) { state.dragStart = { x: e.clientX, y: e.clientY, t: performance.now() }; canvas.style.cursor = 'grabbing'; }
   if (state.mode === 'arcade' && !game.running) gameStart();
 });
 window.addEventListener('pointerup', (e) => {
+  if (neonSwitch.isDragging) {
+    neonSwitch.isDragging = false;
+    canvas.style.cursor = state.hover === 'neonString' ? 'grab' : '';
+    if (!neonSwitch.hasToggledThisDrag && Math.abs(e.clientY - neonSwitch.dragStartY) < 14) {
+      neonSwitch.autoPullT = 0;
+      neonSwitch.autoToggled = false;
+      playNeonSound('pull');
+    } else {
+      neonSwitch.pullVel = -2.6;
+      neonSwitch.omegaX += (Math.random() - 0.5) * 2.4;
+      neonSwitch.omegaZ += 1.6 + Math.random() * 0.7;
+    }
+    return;
+  }
   if (state.mode === 'hoop' && state.dragStart && ball.held) {
     const dx = e.clientX - state.dragStart.x, dy = e.clientY - state.dragStart.y;
     canvas.style.cursor = 'grab';
@@ -3842,8 +4144,19 @@ function render(now) {
   gameStep(dt); gameDraw(t);
   if (frame % 2 === 1) { drawMarquee(t); drawTicker(t); }
   if (frame % 4 === 2) drawPhone(t);
-  // Steady, warm ambient neon glow (no 60Hz rapid flicker or blackouts)
-  if (neon.plane) { neon.plane.material.opacity = 1.0; neon.light.intensity = 7; neon.glow.material.opacity = 0.14; }
+  // Pull string physics & comfortable warm neon lighting (reduced brightness & interactive toggle)
+  stepNeonSwitch(dt);
+  if (neon.plane && neonSwitch.flickerT <= 0) {
+    if (neonSwitch.on) {
+      neon.plane.material.opacity = 0.95;
+      neon.light.intensity = neonSwitch.targetIntensity;
+      neon.glow.material.opacity = 0.035;
+    } else {
+      neon.plane.material.opacity = 0.35;
+      neon.light.intensity = 0;
+      neon.glow.material.opacity = 0;
+    }
+  }
   if (state.mode === 'hoop') ballStep(dt);
   // Crisp TV screens with zero static snow fuzz
   TV.forEach((tv, i) => {
