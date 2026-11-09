@@ -853,6 +853,77 @@
   #hero-quick-bar a{flex-shrink:0;padding:8px 12px;min-height:38px;display:inline-flex;align-items:center}
 }
 
+/* ---------- 3D Vihaan Avatar Action Bar (Sally UX Lead) ---------- */
+#avatar-action-bar{position:absolute;left:50%;bottom:64px;transform:translateX(-50%);z-index:6;display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:24px;background:rgba(14,20,32,.88);border:1.5px solid rgba(255,213,0,.5);box-shadow:0 12px 32px rgba(0,0,0,.6),0 0 16px rgba(30,80,200,.3);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);flex-wrap:wrap;justify-content:center;max-width:calc(100vw - 24px)}
+.aab-label{font-family:var(--mono);font-size:11px;font-weight:800;letter-spacing:.08em;color:var(--yellow);padding:0 6px 0 2px;white-space:nowrap}
+.aab-btn{appearance:none;border:none;cursor:pointer;font-family:'Baloo 2',var(--sans);font-size:13px;font-weight:700;padding:6px 14px;border-radius:16px;background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.2);display:inline-flex;align-items:center;gap:6px;transition:all .18s ease;white-space:nowrap;min-height:36px}
+.aab-btn:hover{background:rgba(255,213,0,.22);border-color:var(--yellow);transform:translateY(-2px);color:#fff}
+.aab-btn.active{background:linear-gradient(135deg,#1e50c8,#0b3fa0);border-color:var(--yellow);box-shadow:0 0 14px rgba(255,213,0,.45)}
+.aab-btn.aab-chess{background:linear-gradient(135deg,rgba(255,213,0,.22),rgba(255,168,0,.35));border-color:#ffd500;color:#ffd500}
+.aab-btn.aab-chess:hover{background:linear-gradient(135deg,#ffd500,#ffaa00);color:#10243f}
+.aab-btn.aab-stairs{background:linear-gradient(135deg,rgba(30,80,200,.25),rgba(42,95,224,.4));border-color:#6ea8ff;color:#dce8ff}
+.aab-btn.aab-stairs:hover{background:linear-gradient(135deg,#1e50c8,#2a5fe0);color:#fff}
+.aab-hint{font-family:var(--mono);font-size:10px;color:#a0b2cc;padding:0 6px;white-space:nowrap}
+@media (max-width:860px){
+  #avatar-action-bar{bottom:62px;border-radius:14px;padding:6px 8px;gap:4px}
+  .aab-hint{display:none}
+  .aab-btn{font-size:12px;padding:5px 10px;min-height:34px}
+}
+
+/* ---------- Interactive Chess Match HUD vs Robo-Pawn (Sally UX Lead) ---------- */
+#chess-hud-modal{position:absolute;inset:16px;z-index:25;display:flex;align-items:center;justify-content:center;pointer-events:none}
+#chess-hud-modal[hidden]{display:none !important}
+.chm-panel{pointer-events:auto;width:min(860px,calc(100vw - 24px));max-height:calc(100vh - 32px);overflow-y:auto;background:rgba(13,20,34,.94);border:2px solid rgba(255,213,0,.65);border-radius:18px;box-shadow:0 24px 60px rgba(0,0,0,.85),0 0 35px rgba(30,80,200,.4);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:18px 22px;color:#fff;animation:chm-pop .25s cubic-bezier(.16,1,.3,1)}
+@keyframes chm-pop{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}
+.chm-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;border-bottom:1px solid rgba(255,255,255,.12);padding-bottom:12px;margin-bottom:14px}
+.chm-players{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.chm-pbadge{display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);font-family:'Baloo 2',var(--sans);font-size:14px}
+.chm-pbadge.p-vihaan{border-color:rgba(255,213,0,.5);background:rgba(255,213,0,.12);color:#ffd500}
+.chm-pbadge.p-bot{border-color:rgba(45,197,161,.5);background:rgba(45,197,161,.12);color:#2dc5a1}
+.chm-vs{font-family:var(--mono);font-size:11px;font-weight:800;color:#ff8800}
+.chm-levels{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.chm-lvl{appearance:none;border:none;cursor:pointer;font-family:var(--mono);font-size:10px;font-weight:700;padding:5px 9px;border-radius:6px;background:rgba(255,255,255,.08);color:#ccc;border:1px solid rgba(255,255,255,.15);transition:all .15s}
+.chm-lvl:hover{background:rgba(255,213,0,.18);color:#fff}
+.chm-lvl.active{background:#ffd500;color:#10243f;border-color:#ffd500;font-weight:800}
+.chm-close{appearance:none;background:none;border:none;color:#aaa;font-size:22px;cursor:pointer;width:34px;height:34px;border-radius:8px;display:grid;place-items:center;transition:all .15s}
+.chm-close:hover{color:#fff;background:rgba(255,255,255,.15)}
+
+.chm-robot-bubble{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:12px;background:rgba(45,197,161,.14);border:1.5px solid rgba(45,197,161,.45);margin-bottom:14px}
+.chm-rb-avatar{font-size:28px;line-height:1}
+.chm-rb-text{font-family:'Baloo 2',var(--sans);font-size:14px;color:#d4fbf1;line-height:1.35;flex:1}
+.chm-rb-text b{color:#ffd500}
+
+.chm-body{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start}
+@media (max-width:760px){
+  .chm-body{grid-template-columns:1fr}
+}
+.chm-board-wrap{display:flex;flex-direction:column;align-items:center;gap:8px}
+.chm-captures{display:flex;align-items:center;gap:4px;min-height:24px;font-size:18px;color:#ffd500;flex-wrap:wrap}
+.chm-board{display:grid;grid-template-columns:repeat(8,minmax(32px,52px));grid-template-rows:repeat(8,minmax(32px,52px));border:3px solid #3e2415;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.6);overflow:hidden;background:#3e2415;user-select:none}
+.chm-sq{display:grid;place-items:center;font-size:clamp(22px,4vw,36px);cursor:pointer;position:relative;transition:background .15s}
+.chm-sq.light{background:#e2cca6;color:#111}
+.chm-sq.dark{background:#8a5933;color:#fff}
+.chm-sq.selected{background:#ffd500 !important;box-shadow:inset 0 0 0 3px #ff8800}
+.chm-sq.last-move{box-shadow:inset 0 0 0 3px rgba(45,197,161,.85)}
+.chm-sq.legal::after{content:"";width:14px;height:14px;border-radius:50%;background:rgba(45,197,161,.85);box-shadow:0 0 8px rgba(45,197,161,1);pointer-events:none}
+.chm-sq.capture::after{content:"";width:26px;height:26px;border-radius:50%;background:transparent;border:3px solid rgba(255,77,0,.9);box-shadow:0 0 10px rgba(255,77,0,.8);pointer-events:none}
+
+.chm-info-panel{display:flex;flex-direction:column;gap:12px}
+.chm-status-card{padding:10px 14px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:space-between}
+.chm-turn{font-family:'Baloo 2',var(--sans);font-size:15px;font-weight:700;display:flex;align-items:center;gap:6px}
+.chm-turn.w{color:#ffd500}
+.chm-turn.b{color:#2dc5a1}
+.chm-eval{font-family:var(--mono);font-size:11px;color:#a0b2cc}
+
+.chm-moves-box{height:120px;overflow-y:auto;padding:8px 10px;border-radius:8px;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.08);font-family:var(--mono);font-size:11px;color:#ccc;display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start}
+.chm-move-chip{padding:2px 6px;border-radius:4px;background:rgba(255,255,255,.06);color:#fff}
+
+.chm-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.chm-act-btn{appearance:none;border:none;cursor:pointer;font-family:'Baloo 2',var(--sans);font-size:13px;font-weight:700;padding:8px 14px;border-radius:10px;background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);display:inline-flex;align-items:center;gap:6px;transition:all .15s}
+.chm-act-btn:hover{background:rgba(255,213,0,.22);border-color:var(--yellow);color:#ffd500}
+.chm-act-btn.primary{background:linear-gradient(135deg,#1e50c8,#2a5fe0);border-color:#6ea8ff}
+.chm-act-btn.primary:hover{background:linear-gradient(135deg,#2a5fe0,#1e50c8);color:#fff}
+
 /* ---------- top nav: floating glass pill ---------- */
 #topnav{position:fixed;top:12px;left:0;right:0;z-index:1000;display:flex;flex-direction:column;align-items:center;pointer-events:none;font-family:var(--sans);font-size:.75rem;line-height:1rem;font-weight:600;perspective:1300px}
 #topnav button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
@@ -1413,6 +1484,63 @@ body.machine #topnav,body.machine #layout{display:none}
     <a href="games.html" class="agd-btn agd-link">🕹️ ALL FULL GAMES →</a>
   </div>
   <div id="tvcap" hidden><button type="button" id="tvcap-close" class="tvcap-close" aria-label="Close TV Preview">✕</button><span class="idx"></span><span class="ttl"></span><span class="desc"></span><a class="tv-open btn btn-yellow" href="lego.html" style="margin-top:12px;min-height:36px;padding:0 14px;font-size:.76rem;font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;border-radius:3px">OPEN PAGE →</a></div>
+  
+  <!-- 3D Vihaan Character Avatar Action Bar (Sally UX Lead) -->
+  <div id="avatar-action-bar" aria-label="Vihaan 3D Character Actions">
+    <span class="aab-label">👦 VIHAAN:</span>
+    <button type="button" class="aab-btn aab-chess" id="btn-action-chess" title="Walk to Tea Room table & play chess with Robo-Pawn">♟️ PLAY CHESS WITH BOT</button>
+    <button type="button" class="aab-btn aab-stairs" id="btn-action-stairs" title="Climb all 14 wooden steps to the top balcony">🪜 CLIMB STAIRS</button>
+    <button type="button" class="aab-btn" id="btn-action-sit" title="Sit down on step beside LEGO builds & trophy">🏠 SIT ON STAIRS</button>
+    <button type="button" class="aab-btn" id="btn-action-hoop" title="Walk to basketball court">🏀 HOOP</button>
+    <button type="button" class="aab-btn" id="btn-action-arcade" title="Walk to arcade cabinet">🕹️ ARCADE</button>
+    <span class="aab-hint">WASD / Arrows / Click Ground to Walk</span>
+  </div>
+
+  <!-- Interactive Chess Match HUD vs Robo-Pawn (Sally UX Lead) -->
+  <div id="chess-hud-modal" hidden aria-label="Chess Match vs Robo-Pawn">
+    <div class="chm-panel">
+      <div class="chm-header">
+        <div class="chm-players">
+          <div class="chm-pbadge p-vihaan">👦 <b>Vihaan</b> <span style="font-family:var(--mono);font-size:11px;opacity:0.85">USCF 715</span></div>
+          <span class="chm-vs">VS</span>
+          <div class="chm-pbadge p-bot">🤖 <b>Robo-Pawn</b></div>
+        </div>
+        <div class="chm-levels">
+          <span style="font-family:var(--mono);font-size:10px;color:#a0b2cc;margin-right:2px">BOT LEVEL:</span>
+          <button type="button" class="chm-lvl" data-lvl="500">🟢 PAWN (500)</button>
+          <button type="button" class="chm-lvl active" data-lvl="750">🟡 KNIGHT (750 · VIHAAN)</button>
+          <button type="button" class="chm-lvl" data-lvl="1000">🔴 MASTER (1000)</button>
+        </div>
+        <button type="button" class="chm-close" id="chm-close-btn" aria-label="Close Chess Match">✕</button>
+      </div>
+      <div class="chm-robot-bubble">
+        <div class="chm-rb-avatar">🤖</div>
+        <div class="chm-rb-text" id="chm-bubble-msg">Beep boop! Ready for a friendly match, Vihaan? Show me your Crowder College Open tactics!</div>
+      </div>
+      <div class="chm-body">
+        <div class="chm-board-wrap">
+          <div class="chm-captures" id="chm-black-captures" title="Captured Black Pieces"></div>
+          <div class="chm-board" id="chm-board" role="grid" aria-label="Chess Board"></div>
+          <div class="chm-captures" id="chm-white-captures" title="Captured White Pieces"></div>
+        </div>
+        <div class="chm-info-panel">
+          <div class="chm-status-card">
+            <span class="chm-turn w" id="chm-turn-indicator">⚪ Vihaan's Turn</span>
+            <span class="chm-eval" id="chm-eval-text">Equal position · Game start</span>
+          </div>
+          <div class="chm-moves-box" id="chm-moves-history" aria-label="Move History">
+            <span style="color:#71829e">Moves will appear here...</span>
+          </div>
+          <div class="chm-actions">
+            <button type="button" class="chm-act-btn" id="chm-btn-new">🔄 New Game</button>
+            <button type="button" class="chm-act-btn" id="chm-btn-hint">💡 Tactical Hint</button>
+            <button type="button" class="chm-act-btn primary" id="chm-btn-stand">🏃 Stand Up & Explore</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div id="hero-quick-bar">
     <a href="lego.html">01 · 🧱 LEGO Lab</a>
     <a href="hall-of-fame.html">🏆 Hall of Fame</a>
@@ -2496,26 +2624,65 @@ const STEP_TOP = (i) => BASE + i * RISE;   // tread height of step i (0 = bottom
   for (let i = 0; i < 5; i++) cyl(0.018, 0.018, 1.05, matMetal, X_BOTTOM - len - 0.3 - i * 0.5, STEP_TOP(STEPS) + 0.52, Z1 - 0.02, rail, 10);
 })();
 
-/* ---------- Vihaan on the stairs (8-year-old boy builder & chess player) ---------- */
+/* ---------- Vihaan: Articulated 3D Character (Sally UX Lead) ---------- */
 const personGroup = new THREE.Group();
 let vihaanHeadGroup = null, vihaanLeftLeg = null, vihaanRightLeg = null, vihaanTabletGroup = null;
+const vihaanRig = {
+  g: personGroup,
+  torso: null,
+  head: null,
+  leftLeg: null,
+  rightLeg: null,
+  leftArm: null,
+  rightArm: null,
+  phone: null,
+  sitProgress: 1.0, // 1 = sitting, 0 = standing/walking
+};
+
+const vihaanState = {
+  x: -0.18,
+  y: BASE + 0.015,
+  z: -1.05,
+  yaw: -0.28,
+  speed: 2.3,
+  isWalking: false,
+  isSitting: true,
+  seat: 'stairs', // 'stairs' | 'table' | 'none'
+  walkT: 0,
+  queue: [],
+  keys: { left: false, right: false, up: false, down: false },
+  stepSoundTimer: 0
+};
+
+// Ground click target reticle
+let groundTargetMarker = null;
+
 (function vihaanCharacter() {
-  // Sit on the front edge of the bottom step (step 0, top = BASE = 0.39) facing forward-right toward the lobby & dog
   const g = personGroup;
   g.position.set(-0.18, BASE + 0.015, -1.05);
   g.rotation.y = -0.28;
   g.scale.setScalar(1.06);
   scene.add(g);
 
+  // Ground click target reticle
+  const markerTex = canvasTex(128, 128, (ctx) => {
+    ctx.strokeStyle = '#ffd500';
+    ctx.lineWidth = 10;
+    ctx.beginPath(); ctx.arc(64, 64, 52, 0, Math.PI * 2); ctx.stroke();
+    ctx.fillStyle = 'rgba(255, 213, 0, 0.4)';
+    ctx.beginPath(); ctx.arc(64, 64, 28, 0, Math.PI * 2); ctx.fill();
+  });
+  groundTargetMarker = plane(0.52, 0.52, basic({ map: markerTex, transparent: true, opacity: 0 }), 0, 0.02, 0);
+  groundTargetMarker.rotation.x = -Math.PI / 2;
+  groundTargetMarker.visible = false;
+  scene.add(groundTargetMarker);
+
   // Vihaan's varsity hoodie texture: Royal Blue (#1E50C8) with LEGO Yellow (#FFD500) & Red (#E3000B) stripes + 'V' crest
   const hoodieTex = canvasTex(512, 512, (ctx, w, h) => {
     ctx.fillStyle = '#1e50c8'; ctx.fillRect(0, 0, w, h);
-    // subtle fabric weave
     for (let y = 0; y < h; y += 4) { ctx.fillStyle = 'rgba(255,255,255,0.03)'; ctx.fillRect(0, y, w, 2); }
-    // varsity chest stripes
     ctx.fillStyle = '#ffd500'; ctx.fillRect(0, h * 0.28, w, 18);
     ctx.fillStyle = '#e3000b'; ctx.fillRect(0, h * 0.28 + 22, w, 12);
-    // Gold 'V' badge on chest
     ctx.fillStyle = '#ffd500';
     ctx.beginPath(); ctx.arc(w * 0.5, h * 0.56, 56, 0, Math.PI * 2); ctx.fill();
     ctx.lineWidth = 6; ctx.strokeStyle = '#ffffff'; ctx.stroke();
@@ -2536,13 +2703,14 @@ let vihaanHeadGroup = null, vihaanLeftLeg = null, vihaanRightLeg = null, vihaanT
   const irisM = std({ color: 0x24160e, roughness: 0.2 });
   const smileM = std({ color: 0x7a2822, roughness: 0.5 });
 
-  // Pelvis / shorts on the step
+  // Pelvis / shorts
   sphere(0.155, jeans, 0, 0.045, 0, g).scale.set(1, 0.68, 1.12);
 
   // Kid-proportioned torso in Royal Blue varsity hoodie
   const prof = [[0.115, 0.0], [0.175, 0.05], [0.185, 0.18], [0.19, 0.33], [0.182, 0.43], [0.145, 0.49], [0.068, 0.52]].map(([r, y]) => new THREE.Vector2(r, y));
   const torso = add(new THREE.Mesh(new THREE.LatheGeometry(prof, 28), hoodieM), g);
   torso.position.set(0.02, 0.07, 0); torso.rotation.z = -0.12; torso.scale.set(0.76, 1, 1.04);
+  vihaanRig.torso = torso;
 
   // Cozy hood resting behind neck + yellow inner lining
   const hoodBack = sphere(0.105, blueSleeveM, -0.05, 0.53, 0, g, 20, 14); hoodBack.scale.set(0.85, 0.55, 1.25);
@@ -2554,13 +2722,14 @@ let vihaanHeadGroup = null, vihaanLeftLeg = null, vihaanRightLeg = null, vihaanT
   sphere(0.068, blueSleeveM, 0.04, 0.53, -0.185, g);
   cyl(0.044, 0.048, 0.09, skin, 0.07, 0.59, 0, g);
 
-  // Head group (animated in render loop for friendly kid life!)
+  // Head group
   const headG = new THREE.Group();
   headG.position.set(0.09, 0.72, 0);
   g.add(headG);
   vihaanHeadGroup = headG;
+  vihaanRig.head = headG;
 
-  // Kid head (rounder, youthful proportions, NO beard!)
+  // Kid head
   const headSphere = sphere(0.128, skin, 0, 0, 0, headG, 32, 24);
   headSphere.scale.set(1.02, 1.04, 0.98);
 
@@ -2568,81 +2737,82 @@ let vihaanHeadGroup = null, vihaanLeftLeg = null, vihaanRightLeg = null, vihaanT
   sphere(0.027, skin, -0.01, -0.005, 0.124, headG, 12, 10);
   sphere(0.027, skin, -0.01, -0.005, -0.124, headG, 12, 10);
 
-  // Cute button nose & rosy cheeks
+  // Button nose & rosy cheeks
   sphere(0.021, skin, 0.125, -0.01, 0, headG, 14, 12);
   sphere(0.022, blushM, 0.102, -0.028, 0.068, headG, 12, 10).scale.set(0.6, 0.75, 1);
   sphere(0.022, blushM, 0.102, -0.028, -0.068, headG, 12, 10).scale.set(0.6, 0.75, 1);
 
-  // Big expressive kid eyes with white sclera, dark iris, and bright catchlights
+  // Expressive kid eyes
   for (const s of [-1, 1]) {
     const ew = sphere(0.022, eyeWhite, 0.112, 0.018, s * 0.046, headG, 14, 12);
     ew.scale.set(0.65, 1.05, 1.0);
     sphere(0.013, irisM, 0.122, 0.018, s * 0.045, headG, 12, 10).scale.set(0.55, 1.0, 1.0);
     const glint = sphere(0.0048, eyeWhite, 0.128, 0.024, s * 0.041, headG, 8, 8);
     glint.castShadow = false;
-    // Eyebrow
     const brow = rbox(0.008, 0.009, 0.036, 0.003, hairM, 0.116, 0.052, s * 0.046, headG);
     brow.rotation.x = s * 0.12;
   }
 
   // Cheerful smile
   const smile = add(new THREE.Mesh(new THREE.TorusGeometry(0.032, 0.0065, 8, 20, Math.PI * 0.85), smileM), headG);
-  smile.position.set(0.113, -0.032, 0);
-  smile.rotation.y = Math.PI / 2;
-  smile.rotation.x = Math.PI * 0.08;
+  smile.position.set(0.113, -0.032, 0); smile.rotation.y = Math.PI / 2; smile.rotation.x = Math.PI * 0.08;
 
   // Tousled dark hair under cap
   const hairBack = add(new THREE.Mesh(new THREE.SphereGeometry(0.133, 28, 18, 0, Math.PI * 2, 0, Math.PI * 0.62), hairM), headG);
   hairBack.position.set(-0.012, 0.015, 0); hairBack.rotation.z = 0.25;
-  // Front hair bangs peeking out
   for (const bz of [-0.055, -0.02, 0.02, 0.055]) {
     sphere(0.026, hairM, 0.095, 0.072, bz, headG, 10, 8).scale.set(0.8, 0.65, 0.9);
   }
 
-  // Sporty LEGO-Red & Royal-Blue Baseball Cap with Yellow emblem
+  // Baseball Cap
   const capCrown = add(new THREE.Mesh(new THREE.SphereGeometry(0.136, 28, 16, 0, Math.PI * 2, 0, Math.PI * 0.52), redM), headG);
   capCrown.position.set(-0.004, 0.032, 0); capCrown.rotation.z = -0.12;
-  // Cap button on top
   sphere(0.016, yellowM, -0.02, 0.168, 0, headG, 10, 8);
-  // Cap front gold 'V' stud badge
-  const capStud = cyl(0.024, 0.024, 0.012, yellowM, 0.126, 0.095, 0, headG, 18);
-  capStud.rotation.z = Math.PI / 2 - 0.12;
-  // Curved cap visor pointing forward
-  const visor = rbox(0.11, 0.012, 0.17, 0.005, blueSleeveM, 0.145, 0.066, 0, headG);
-  visor.rotation.z = -0.18;
+  const capStud = cyl(0.024, 0.024, 0.012, yellowM, 0.126, 0.095, 0, headG, 18); capStud.rotation.z = Math.PI / 2 - 0.12;
+  const visor = rbox(0.11, 0.012, 0.17, 0.005, blueSleeveM, 0.145, 0.066, 0, headG); visor.rotation.z = -0.18;
 
-  // Arms in royal-blue hoodie sleeves with yellow/white cuffs holding glowing tablet
+  // Articulated Arms
   for (const s of [-1, 1]) {
-    const sh = V3(0.04, 0.51, s * 0.20), el = V3(0.19, 0.30, s * 0.22), wrist = V3(0.35, 0.34, s * 0.11), hd = V3(0.39, 0.35, s * 0.09);
-    limb(0.044, sh, el, blueSleeveM, g);
-    sphere(0.044, blueSleeveM, el.x, el.y, el.z, g, 14, 10);
-    limb(0.038, el, wrist, blueSleeveM, g);
-    // Yellow varsity cuff ring
-    limb(0.040, wrist.clone().lerp(el, 0.18), wrist, yellowM, g);
-    sphere(0.042, skin, hd.x, hd.y, hd.z, g, 14, 10);
+    const armG = new THREE.Group();
+    armG.position.set(0.04, 0.51, s * 0.20);
+    g.add(armG);
+    if (s === -1) vihaanRig.leftArm = armG; else vihaanRig.rightArm = armG;
+
+    const sh = V3(0, 0, 0), el = V3(0.15, -0.21, s * 0.02), wrist = V3(0.31, -0.17, -s * 0.09), hd = V3(0.35, -0.16, -s * 0.11);
+    limb(0.044, sh, el, blueSleeveM, armG);
+    sphere(0.044, blueSleeveM, el.x, el.y, el.z, armG, 14, 10);
+    limb(0.038, el, wrist, blueSleeveM, armG);
+    limb(0.040, wrist.clone().lerp(el, 0.18), wrist, yellowM, armG);
+    sphere(0.042, skin, hd.x, hd.y, hd.z, armG, 14, 10);
   }
 
-  // Vihaan's glowing tablet (showing mini chessboard & LEGO blocks)
+  // Vihaan's glowing tablet
   const phone = rbox(0.088, 0.165, 0.014, 0.008, std({ color: 0x1e50c8, roughness: 0.3, metalness: 0.3 }), 0.43, 0.38, 0, g);
   phone.rotation.set(0.08, 0, 0.55);
   vihaanTabletGroup = phone;
-  const scr = plane(0.074, 0.148, basic({ map: phoneTex, toneMapped: false }), 0.0, 0, 0.008, phone); scr.castShadow = false;
+  vihaanRig.phone = phone;
+  plane(0.074, 0.148, basic({ map: phoneTex, toneMapped: false }), 0.0, 0, 0.008, phone).castShadow = false;
   const phoneLight = new THREE.PointLight(0xffd500, 0.65, 1.4, 2); phoneLight.position.set(0.38, 0.46, 0); g.add(phoneLight);
 
-  // Kid legs + white striped crew socks + Red & White High-Top Sneakers resting on the floor
+  // Articulated Kid Legs with High-Top Sneakers
   for (const s of [-1, 1]) {
-    const hip = V3(0.04, 0.03, s * 0.105), knee = V3(0.39, 0.04, s * 0.12), ank = V3(0.45, -0.31, s * 0.12);
-    limb(0.068, hip, knee, jeans, g);
-    sphere(0.066, jeans, knee.x, knee.y, knee.z, g, 16, 12);
-    // Lower leg + white crew sock
-    const shinMid = V3(0.425, -0.15, s * 0.12);
-    limb(0.054, knee, shinMid, jeans, g);
-    limb(0.048, shinMid, ank, whiteM, g);
-    // High-top sneaker group
+    const legG = new THREE.Group();
+    legG.position.set(0.04, 0.03, s * 0.105);
+    g.add(legG);
+    if (s === -1) { vihaanRig.leftLeg = legG; vihaanLeftLeg = legG; }
+    else { vihaanRig.rightLeg = legG; vihaanRightLeg = legG; }
+
+    const hip = V3(0, 0, 0), knee = V3(0.35, 0.01, s * 0.015), ank = V3(0.41, -0.34, s * 0.015);
+    limb(0.068, hip, knee, jeans, legG);
+    sphere(0.066, jeans, knee.x, knee.y, knee.z, legG, 16, 12);
+    const shinMid = V3(0.385, -0.17, s * 0.015);
+    limb(0.054, knee, shinMid, jeans, legG);
+    limb(0.048, shinMid, ank, whiteM, legG);
+
+    // High-top sneaker
     const shoeG = new THREE.Group();
-    shoeG.position.set(0.50, -0.34, s * 0.12);
-    g.add(shoeG);
-    if (s === -1) vihaanLeftLeg = shoeG; else vihaanRightLeg = shoeG;
+    shoeG.position.set(0.46, -0.37, s * 0.015);
+    legG.add(shoeG);
     const shoeUpper = add(new THREE.Mesh(new THREE.CapsuleGeometry(0.052, 0.13, 6, 16), redM), shoeG);
     shoeUpper.rotation.z = Math.PI / 2;
     const toeCap = sphere(0.051, whiteM, 0.065, -0.005, 0, shoeG, 14, 10);
@@ -2651,12 +2821,12 @@ let vihaanHeadGroup = null, vihaanLeftLeg = null, vihaanRightLeg = null, vihaanT
     rbox(0.245, 0.010, 0.112, 0.004, yellowM, 0.01, -0.062, 0, shoeG);
   }
 
-  // Props right beside Vihaan on the stairs:
-  // 1) A stack of oversized colorful 3D LEGO bricks with cylindrical studs!
+  // Props permanently displayed on step 0 beside where Vihaan sits:
+  // 1) LEGO Bricks Stack
   const legoG = new THREE.Group();
-  legoG.position.set(-0.04, -0.01, -0.38);
+  legoG.position.set(-0.22, BASE + 0.005, -1.45);
   legoG.rotation.y = 0.35;
-  g.add(legoG);
+  scene.add(legoG);
   function addLegoBrick(bw, bh, bd, studsX, studsZ, mat, bx, by, bz) {
     rbox(bw, bh, bd, 0.006, mat, bx, by + bh / 2, bz, legoG);
     const sx0 = bx - (studsX - 1) * 0.032, sz0 = bz - (studsZ - 1) * 0.032;
@@ -2668,10 +2838,10 @@ let vihaanHeadGroup = null, vihaanLeftLeg = null, vihaanRightLeg = null, vihaanT
   addLegoBrick(0.13, 0.085, 0.13, 2, 2, yellowM, -0.03, 0.085, 0);
   addLegoBrick(0.13, 0.085, 0.13, 2, 2, blueSleeveM, 0.03, 0.17, 0);
 
-  // 2) A golden Chess Trophy sitting beside Vihaan on the other side of the step!
+  // 2) Golden Chess Championship Trophy on the other side of step 0
   const trophyG = new THREE.Group();
-  trophyG.position.set(-0.05, -0.01, 0.36);
-  g.add(trophyG);
+  trophyG.position.set(-0.23, BASE + 0.005, -0.68);
+  scene.add(trophyG);
   const goldM = std({ color: 0xffd500, roughness: 0.22, metalness: 0.85, emissive: 0xffa800, emissiveIntensity: 0.12 });
   rbox(0.11, 0.035, 0.11, 0.006, std({ color: 0x22160c, roughness: 0.6 }), 0, 0.017, 0, trophyG);
   cyl(0.018, 0.028, 0.07, goldM, 0, 0.065, 0, trophyG, 16);
@@ -2931,7 +3101,9 @@ const ARC = { screenPos: V3(), screenNormal: V3() };
 })();
 
 const doorHit = [];
+const chessHit = [];
 const slider = { front: null, shut: 0, open: 0, t: 0, want: 0 };
+let teaRoomGroup = null;
 /* ---------- sliding door, standing open onto the play room ---------- */
 (function door() {
   const g = new THREE.Group(); g.position.set(1.35, 0, -3.5); scene.add(g);
@@ -2953,6 +3125,7 @@ const slider = { front: null, shut: 0, open: 0, t: 0, want: 0 };
   const zab = std({ color: 0x2f4a6b, roughness: 0.95 });
   rbox(0.5, 0.09, 0.5, 0.03, zab, -0.62, 0.07, -1.35, room);
   rbox(0.5, 0.09, 0.5, 0.03, zab, 0.72, 0.07, -1.72, room);
+  teaRoomGroup = room;
   // a chochin lantern, the warm source that makes the doorway glow
   const lant = cyl(0.16, 0.16, 0.36, std({ color: 0xfff0d2, emissive: 0xffd9a0, emissiveIntensity: 2.4, roughness: 1 }), 0.1, 1.62, -1.5, room, 18);
   lant.castShadow = false;
@@ -2997,6 +3170,1024 @@ const slider = { front: null, shut: 0, open: 0, t: 0, want: 0 };
   doorHit.push(plane(fw, fh, basic({ visible: false }), 0, fh / 2, 0.12, g));   // a catcher over the whole opening
   plane(1.0, 1.4, basic({ map: signTex, transparent: true }), fw / 2 + 0.72, 1.6, 0.02, g).castShadow = false;
 })();
+
+/* ========================================================================
+   TEA ROOM 3D CHESS TABLE & ROBO-PAWN (SALLY UX LEAD)
+   ======================================================================== */
+const piece3DMeshes = Array(8).fill(null).map(() => Array(8).fill(null));
+const active3DAnimations = [];
+let roboFaceCtx = null, roboFaceTex = null, roboPawnGroup = null, roboAntennaLight = null;
+let currentRoboMood = 'happy';
+
+function drawRoboFace(mood) {
+  currentRoboMood = mood;
+  if (!roboFaceCtx) return;
+  const ctx = roboFaceCtx;
+  ctx.fillStyle = '#091522';
+  ctx.fillRect(0, 0, 256, 256);
+  ctx.strokeStyle = '#2dc5a1';
+  ctx.fillStyle = '#2dc5a1';
+  ctx.shadowColor = '#2dc5a1';
+  ctx.shadowBlur = 14;
+  ctx.lineWidth = 14;
+  ctx.lineCap = 'round';
+
+  if (mood === 'thinking') {
+    for (const cx of [80, 176]) {
+      ctx.beginPath();
+      ctx.arc(cx, 128, 28, 0, Math.PI * 1.55);
+      ctx.stroke();
+    }
+  } else if (mood === 'check') {
+    ctx.beginPath(); ctx.arc(80, 128, 28, 0, Math.PI * 2); ctx.stroke();
+    ctx.beginPath(); ctx.arc(176, 128, 28, 0, Math.PI * 2); ctx.stroke();
+  } else if (mood === 'win' || mood === 'celebrate') {
+    ctx.font = '84px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('★', 80, 128); ctx.fillText('★', 176, 128);
+  } else {
+    // Happy chevron eyes: ^  ^
+    ctx.beginPath();
+    ctx.moveTo(56, 142); ctx.lineTo(80, 110); ctx.lineTo(104, 142);
+    ctx.moveTo(152, 142); ctx.lineTo(176, 110); ctx.lineTo(200, 142);
+    ctx.stroke();
+  }
+  ctx.beginPath();
+  ctx.arc(128, 178, 24, 0.2, Math.PI - 0.2);
+  ctx.stroke();
+
+  if (roboFaceTex) roboFaceTex.needsUpdate = true;
+}
+
+function create3DPiece(type, color, matWhite, matBlack) {
+  const g = new THREE.Group();
+  const isW = color === 'w';
+  const mat = isW ? matWhite : matBlack;
+  const matGoldTrim = std({ color: 0xffd500, metalness: 0.85, roughness: 0.25, emissive: 0xffa800, emissiveIntensity: 0.1 });
+
+  cyl(0.016, 0.019, 0.006, mat, 0, 0.003, 0, g, 14);
+  cyl(0.014, 0.016, 0.003, matGoldTrim, 0, 0.0075, 0, g, 14);
+
+  if (type === 'P') {
+    cyl(0.008, 0.013, 0.018, mat, 0, 0.018, 0, g, 12);
+    cyl(0.012, 0.012, 0.003, matGoldTrim, 0, 0.027, 0, g, 12);
+    sphere(0.010, mat, 0, 0.035, 0, g, 12, 10);
+  } else if (type === 'R') {
+    cyl(0.011, 0.014, 0.026, mat, 0, 0.021, 0, g, 12);
+    cyl(0.015, 0.013, 0.007, mat, 0, 0.036, 0, g, 14);
+    sphere(0.006, matGoldTrim, 0, 0.040, 0, g, 8, 8);
+  } else if (type === 'N') {
+    cyl(0.010, 0.014, 0.018, mat, 0, 0.017, 0, g, 12);
+    const head = rbox(0.018, 0.024, 0.014, 0.003, mat, 0.004, 0.032, 0, g);
+    head.rotation.z = isW ? -0.2 : 0.2;
+    rbox(0.012, 0.010, 0.010, 0.002, mat, isW ? 0.014 : -0.014, 0.034, 0, g);
+  } else if (type === 'B') {
+    cyl(0.009, 0.014, 0.024, mat, 0, 0.020, 0, g, 12);
+    cyl(0.012, 0.012, 0.003, matGoldTrim, 0, 0.032, 0, g, 12);
+    sphere(0.009, mat, 0, 0.040, 0, g, 12, 10).scale.set(0.85, 1.3, 0.85);
+    sphere(0.004, matGoldTrim, 0, 0.052, 0, g, 8, 8);
+  } else if (type === 'Q') {
+    cyl(0.010, 0.014, 0.032, mat, 0, 0.024, 0, g, 14);
+    cyl(0.014, 0.010, 0.006, matGoldTrim, 0, 0.042, 0, g, 14);
+    sphere(0.008, mat, 0, 0.048, 0, g, 12, 10);
+    sphere(0.004, matGoldTrim, 0, 0.056, 0, g, 8, 8);
+  } else if (type === 'K') {
+    cyl(0.011, 0.015, 0.036, mat, 0, 0.026, 0, g, 14);
+    cyl(0.015, 0.011, 0.007, matGoldTrim, 0, 0.046, 0, g, 14);
+    sphere(0.009, mat, 0, 0.053, 0, g, 12, 10);
+    box(0.003, 0.012, 0.003, matGoldTrim, 0, 0.064, 0, g);
+    box(0.009, 0.003, 0.003, matGoldTrim, 0, 0.065, 0, g);
+  }
+  g.rotation.y = isW ? 0 : Math.PI;
+  return g;
+}
+
+function setupTeaRoomChess(room) {
+  const chessBoardG = new THREE.Group();
+  chessBoardG.position.set(0.05, 0.328, -1.5);
+  room.add(chessBoardG);
+
+  const matWalnut = std({ color: 0x2e1a10, roughness: 0.45 });
+  const matGoldTrim = std({ color: 0xffd500, metalness: 0.75, roughness: 0.28 });
+  rbox(0.48, 0.024, 0.48, 0.008, matWalnut, 0, 0.012, 0, chessBoardG);
+  box(0.42, 0.003, 0.42, matGoldTrim, 0, 0.0245, 0, chessBoardG);
+
+  const matLightSq = std({ color: 0xe5ceab, roughness: 0.38 });
+  const matDarkSq = std({ color: 0x4a2e1d, roughness: 0.38 });
+  const SQ_SZ = 0.048;
+
+  for (let r = 0; r < 8; r++) {
+    for (let c = 0; c < 8; c++) {
+      const sqX = (3.5 - r) * SQ_SZ;
+      const sqZ = (c - 3.5) * SQ_SZ;
+      const isDark = (r + c) % 2 === 1;
+      const sqMesh = box(SQ_SZ - 0.002, 0.004, SQ_SZ - 0.002, isDark ? matDarkSq : matLightSq, sqX, 0.026, sqZ, chessBoardG);
+      sqMesh.userData = { isChessSquare: true, r, c };
+      chessHit.push(sqMesh);
+    }
+  }
+
+  const boardCatcher = box(0.48, 0.08, 0.48, basic({ visible: false }), 0, 0.04, 0, chessBoardG);
+  boardCatcher.userData = { isChessBoard: true };
+  chessHit.push(boardCatcher);
+
+  const matWhitePiece = std({ color: 0xf6f1e8, roughness: 0.25, metalness: 0.15 });
+  const matBlackPiece = std({ color: 0x181720, roughness: 0.28, metalness: 0.45, emissive: 0x100e16, emissiveIntensity: 0.2 });
+  const initialLayout = [
+    ['bR','bN','bB','bQ','bK','bB','bN','bR'],
+    ['bP','bP','bP','bP','bP','bP','bP','bP'],
+    Array(8).fill(null), Array(8).fill(null), Array(8).fill(null), Array(8).fill(null),
+    ['wP','wP','wP','wP','wP','wP','wP','wP'],
+    ['wR','wN','wB','wQ','wK','wB','wN','wR']
+  ];
+
+  for (let r = 0; r < 8; r++) {
+    for (let c = 0; c < 8; c++) {
+      const p = initialLayout[r][c];
+      if (!p) continue;
+      const color = p[0], type = p[1];
+      const pMesh = create3DPiece(type, color, matWhitePiece, matBlackPiece);
+      const sqX = (3.5 - r) * SQ_SZ;
+      const sqZ = (c - 3.5) * SQ_SZ;
+      pMesh.position.set(sqX, 0.028, sqZ);
+      pMesh.userData = { isPiece: true, r, c, type, color };
+      chessBoardG.add(pMesh);
+      piece3DMeshes[r][c] = pMesh;
+    }
+  }
+
+  const rg = new THREE.Group();
+  rg.position.set(0.72, 0.115, -1.72);
+  rg.rotation.y = -Math.PI / 2 - 0.25;
+  room.add(rg);
+  roboPawnGroup = rg;
+
+  const roboTeal = std({ color: 0x1ea896, roughness: 0.35, metalness: 0.35 });
+  const roboSilver = std({ color: 0xd8e0e8, roughness: 0.25, metalness: 0.65 });
+  const roboGold = std({ color: 0xffd500, roughness: 0.25, metalness: 0.85, emissive: 0xffa800, emissiveIntensity: 0.15 });
+  const roboDark = std({ color: 0x0c141e, roughness: 0.6 });
+
+  cyl(0.14, 0.17, 0.16, roboTeal, 0, 0.08, 0, rg, 20);
+  cyl(0.172, 0.172, 0.025, roboGold, 0, 0.02, 0, rg, 20);
+
+  const chest = add(new THREE.Mesh(new THREE.CapsuleGeometry(0.12, 0.12, 6, 18), roboTeal), rg);
+  chest.position.set(0, 0.24, 0); chest.scale.set(1.1, 1, 0.85);
+  rbox(0.14, 0.12, 0.02, 0.008, roboSilver, 0.07, 0.24, 0, rg);
+  sphere(0.016, roboGold, 0.082, 0.265, 0, rg, 12, 10);
+  cyl(0.012, 0.022, 0.035, roboGold, 0.082, 0.235, 0, rg, 14);
+
+  cyl(0.055, 0.055, 0.03, roboGold, 0, 0.34, 0, rg, 16);
+  rbox(0.17, 0.15, 0.15, 0.02, roboTeal, 0, 0.44, 0, rg);
+  rbox(0.015, 0.115, 0.12, 0.006, roboDark, 0.085, 0.44, 0, rg);
+
+  roboFaceTex = canvasTex(256, 256, (ctx) => {
+    roboFaceCtx = ctx;
+    drawRoboFace('happy');
+  });
+  const faceScreen = plane(0.11, 0.105, basic({ map: roboFaceTex, toneMapped: false }), 0.094, 0.44, 0, rg);
+  faceScreen.rotation.y = Math.PI / 2;
+
+  cyl(0.008, 0.008, 0.09, roboGold, 0, 0.55, 0, rg, 10);
+  sphere(0.025, std({ color: 0xffd500, emissive: 0xffaa00, emissiveIntensity: 0.9, roughness: 0.2 }), 0, 0.60, 0, rg, 16, 12);
+  const orbLight = new THREE.PointLight(0xffd500, 0.8, 1.5, 2);
+  orbLight.position.set(0, 0.60, 0); rg.add(orbLight);
+  roboAntennaLight = orbLight;
+
+  for (const s of [-1, 1]) {
+    sphere(0.035, roboSilver, 0, 0.27, s * 0.13, rg, 12, 10);
+    limb(0.022, V3(0, 0.27, s * 0.13), V3(0.12, 0.21, s * 0.11), roboTeal, rg);
+    sphere(0.024, roboGold, 0.12, 0.21, s * 0.11, rg, 10, 8);
+    limb(0.018, V3(0.12, 0.21, s * 0.11), V3(0.24, 0.23, s * 0.06), roboTeal, rg);
+    const hand = cyl(0.018, 0.018, 0.02, roboSilver, 0.24, 0.23, s * 0.06, rg, 12);
+    hand.rotation.z = Math.PI / 2;
+  }
+
+  rg.traverse(o => { if (o.isMesh) chessHit.push(o); });
+}
+
+if (teaRoomGroup) {
+  setupTeaRoomChess(teaRoomGroup);
+}
+
+function move3DPiece(fromR, fromC, toR, toC, isCaptured) {
+  const mesh = piece3DMeshes[fromR][fromC];
+  if (!mesh) return;
+
+  const targetX = (3.5 - toR) * 0.048;
+  const targetZ = (toC - 3.5) * 0.048;
+  const startX = mesh.position.x;
+  const startZ = mesh.position.z;
+  const startY = mesh.position.y;
+
+  const destMesh = piece3DMeshes[toR][toC];
+  if (destMesh) {
+    const isW = destMesh.userData.color === 'w';
+    const sideX = isW ? -0.26 : 0.26;
+    const sideZ = -0.16 + (Math.random() * 0.32);
+    active3DAnimations.push({
+      mesh: destMesh,
+      x0: destMesh.position.x, y0: destMesh.position.y, z0: destMesh.position.z,
+      x1: sideX, y1: startY, z1: sideZ,
+      arcH: 0.04, t: 0, dur: 0.42
+    });
+  }
+
+  active3DAnimations.push({
+    mesh,
+    x0: startX, y0: startY, z0: startZ,
+    x1: targetX, y1: startY, z1: targetZ,
+    arcH: 0.035, t: 0, dur: 0.38,
+    onDone: () => {
+      mesh.position.set(targetX, startY, targetZ);
+    }
+  });
+
+  piece3DMeshes[toR][toC] = mesh;
+  piece3DMeshes[fromR][fromC] = null;
+  mesh.userData.r = toR;
+  mesh.userData.c = toC;
+}
+
+/* ========================================================================
+   WEB AUDIO SOUND SYNTHESIZER FOR CHESS & MOVEMENT
+   ======================================================================== */
+let chessAudioCtx = null;
+function playChessSound(type) {
+  try {
+    if (!chessAudioCtx) chessAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (chessAudioCtx.state === 'suspended') chessAudioCtx.resume();
+    const t = chessAudioCtx.currentTime;
+    if (type === 'move') {
+      const osc = chessAudioCtx.createOscillator();
+      const gain = chessAudioCtx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(190, t);
+      osc.frequency.exponentialRampToValueAtTime(75, t + 0.075);
+      gain.gain.setValueAtTime(0.28, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.075);
+      osc.connect(gain); gain.connect(chessAudioCtx.destination);
+      osc.start(t); osc.stop(t + 0.075);
+    } else if (type === 'capture') {
+      const osc = chessAudioCtx.createOscillator();
+      const gain = chessAudioCtx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(260, t);
+      osc.frequency.exponentialRampToValueAtTime(60, t + 0.11);
+      gain.gain.setValueAtTime(0.32, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.11);
+      osc.connect(gain); gain.connect(chessAudioCtx.destination);
+      osc.start(t); osc.stop(t + 0.11);
+    } else if (type === 'check') {
+      [ [440, 0], [660, 0.09] ].forEach(([freq, delay]) => {
+        const osc = chessAudioCtx.createOscillator();
+        const gain = chessAudioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, t + delay);
+        gain.gain.setValueAtTime(0.22, t + delay);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + delay + 0.11);
+        osc.connect(gain); gain.connect(chessAudioCtx.destination);
+        osc.start(t + delay); osc.stop(t + delay + 0.11);
+      });
+    } else if (type === 'bot') {
+      const osc = chessAudioCtx.createOscillator();
+      const gain = chessAudioCtx.createGain();
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(520, t);
+      osc.frequency.linearRampToValueAtTime(880, t + 0.08);
+      gain.gain.setValueAtTime(0.12, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.08);
+      osc.connect(gain); gain.connect(chessAudioCtx.destination);
+      osc.start(t); osc.stop(t + 0.08);
+    } else if (type === 'win') {
+      [523.25, 659.25, 783.99, 1046.50].forEach((f, idx) => {
+        const osc = chessAudioCtx.createOscillator();
+        const gain = chessAudioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(f, t + idx * 0.11);
+        gain.gain.setValueAtTime(0.28, t + idx * 0.11);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + idx * 0.11 + 0.22);
+        osc.connect(gain); gain.connect(chessAudioCtx.destination);
+        osc.start(t + idx * 0.11); osc.stop(t + idx * 0.11 + 0.22);
+      });
+    } else if (type === 'step') {
+      const osc = chessAudioCtx.createOscillator();
+      const gain = chessAudioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(140, t);
+      osc.frequency.exponentialRampToValueAtTime(60, t + 0.045);
+      gain.gain.setValueAtTime(0.06, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.045);
+      osc.connect(gain); gain.connect(chessAudioCtx.destination);
+      osc.start(t); osc.stop(t + 0.045);
+    }
+  } catch(e) {}
+}
+
+/* ========================================================================
+   FULL CHESS ENGINE & ROBO-PAWN AI (SALLY UX LEAD)
+   ======================================================================== */
+const PIECE_GLYPHS = {
+  wK: '♔', wQ: '♕', wR: '♖', wB: '♗', wN: '♘', wP: '♙',
+  bK: '♚', bQ: '♛', bR: '♜', bB: '♝', bN: '♞', bP: '♟'
+};
+
+const PIECE_VALUES = { P: 100, N: 320, B: 330, R: 500, Q: 900, K: 20000 };
+
+const chessGame = {
+  board: [],
+  turn: 'w',
+  selectedSquare: null,
+  legalMoves: [],
+  history: [],
+  capturedW: [],
+  capturedB: [],
+  botLevel: 750, // 500, 750, 1000
+  isThinking: false,
+  gameOver: false,
+  status: "Vihaan's turn! Make your move.",
+  hintSquares: null,
+
+  init() {
+    this.board = [
+      ['bR','bN','bB','bQ','bK','bB','bN','bR'],
+      ['bP','bP','bP','bP','bP','bP','bP','bP'],
+      Array(8).fill(null), Array(8).fill(null), Array(8).fill(null), Array(8).fill(null),
+      ['wP','wP','wP','wP','wP','wP','wP','wP'],
+      ['wR','wN','wB','wQ','wK','wB','wN','wR']
+    ];
+    this.turn = 'w';
+    this.selectedSquare = null;
+    this.legalMoves = [];
+    this.history = [];
+    this.capturedW = [];
+    this.capturedB = [];
+    this.isThinking = false;
+    this.gameOver = false;
+    this.hintSquares = null;
+    this.status = "Vihaan's turn! Make your move.";
+    drawRoboFace('happy');
+    this.updateSpeech("Beep boop! Ready for a friendly match, Vihaan? Show me your Crowder College Open tactics!");
+    this.render();
+  },
+
+  updateSpeech(msg) {
+    const el = document.getElementById('chm-bubble-msg');
+    if (el) el.innerHTML = msg;
+  },
+
+  inBounds(r, c) { return r >= 0 && r < 8 && c >= 0 && c < 8; },
+
+  generatePseudoMoves(b, color) {
+    const moves = [];
+    const opp = color === 'w' ? 'b' : 'w';
+    for (let r = 0; r < 8; r++) {
+      for (let c = 0; c < 8; c++) {
+        const p = b[r][c];
+        if (!p || p[0] !== color) continue;
+        const type = p[1];
+        if (type === 'P') {
+          const dir = color === 'w' ? -1 : 1;
+          const startR = color === 'w' ? 6 : 1;
+          if (this.inBounds(r + dir, c) && !b[r + dir][c]) {
+            moves.push({ from: [r, c], to: [r + dir, c] });
+            if (r === startR && !b[r + 2 * dir][c]) {
+              moves.push({ from: [r, c], to: [r + 2 * dir, c] });
+            }
+          }
+          for (const dc of [-1, 1]) {
+            const nr = r + dir, nc = c + dc;
+            if (this.inBounds(nr, nc) && b[nr][nc] && b[nr][nc][0] === opp) {
+              moves.push({ from: [r, c], to: [nr, nc], capture: b[nr][nc] });
+            }
+          }
+        } else if (type === 'N') {
+          const deltas = [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]];
+          for (const [dr, dc] of deltas) {
+            const nr = r + dr, nc = c + dc;
+            if (this.inBounds(nr, nc) && (!b[nr][nc] || b[nr][nc][0] === opp)) {
+              moves.push({ from: [r, c], to: [nr, nc], capture: b[nr][nc] });
+            }
+          }
+        } else if (type === 'B' || type === 'R' || type === 'Q') {
+          const dirs = [];
+          if (type === 'B' || type === 'Q') dirs.push([-1,-1],[-1,1],[1,-1],[1,1]);
+          if (type === 'R' || type === 'Q') dirs.push([-1,0],[1,0],[0,-1],[0,1]);
+          for (const [dr, dc] of dirs) {
+            let nr = r + dr, nc = c + dc;
+            while (this.inBounds(nr, nc)) {
+              if (!b[nr][nc]) {
+                moves.push({ from: [r, c], to: [nr, nc] });
+              } else {
+                if (b[nr][nc][0] === opp) moves.push({ from: [r, c], to: [nr, nc], capture: b[nr][nc] });
+                break;
+              }
+              nr += dr; nc += dc;
+            }
+          }
+        } else if (type === 'K') {
+          const deltas = [[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]];
+          for (const [dr, dc] of deltas) {
+            const nr = r + dr, nc = c + dc;
+            if (this.inBounds(nr, nc) && (!b[nr][nc] || b[nr][nc][0] === opp)) {
+              moves.push({ from: [r, c], to: [nr, nc], capture: b[nr][nc] });
+            }
+          }
+        }
+      }
+    }
+    return moves;
+  },
+
+  isKingInCheck(b, color) {
+    let kr = -1, kc = -1;
+    const opp = color === 'w' ? 'b' : 'w';
+    for (let r = 0; r < 8; r++) {
+      for (let c = 0; c < 8; c++) {
+        if (b[r][c] === color + 'K') { kr = r; kc = c; break; }
+      }
+      if (kr !== -1) break;
+    }
+    if (kr === -1) return false;
+
+    // Knight attacks
+    const kDeltas = [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]];
+    for (const [dr, dc] of kDeltas) {
+      const nr = kr + dr, nc = kc + dc;
+      if (this.inBounds(nr, nc) && b[nr][nc] === opp + 'N') return true;
+    }
+    // Pawn attacks
+    const pDir = color === 'w' ? -1 : 1;
+    for (const dc of [-1, 1]) {
+      const nr = kr + pDir, nc = kc + dc;
+      if (this.inBounds(nr, nc) && b[nr][nc] === opp + 'P') return true;
+    }
+    // Straight attacks
+    for (const [dr, dc] of [[-1,0],[1,0],[0,-1],[0,1]]) {
+      let nr = kr + dr, nc = kc + dc;
+      while (this.inBounds(nr, nc)) {
+        if (b[nr][nc]) {
+          if (b[nr][nc] === opp + 'R' || b[nr][nc] === opp + 'Q') return true;
+          break;
+        }
+        nr += dr; nc += dc;
+      }
+    }
+    // Diagonal attacks
+    for (const [dr, dc] of [[-1,-1],[-1,1],[1,-1],[1,1]]) {
+      let nr = kr + dr, nc = kc + dc;
+      while (this.inBounds(nr, nc)) {
+        if (b[nr][nc]) {
+          if (b[nr][nc] === opp + 'B' || b[nr][nc] === opp + 'Q') return true;
+          break;
+        }
+        nr += dr; nc += dc;
+      }
+    }
+    // King adjacent
+    for (const [dr, dc] of [[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]]) {
+      const nr = kr + dr, nc = kc + dc;
+      if (this.inBounds(nr, nc) && b[nr][nc] === opp + 'K') return true;
+    }
+    return false;
+  },
+
+  getLegalMoves(color) {
+    const pseudo = this.generatePseudoMoves(this.board, color);
+    const legal = [];
+    for (const m of pseudo) {
+      const [fr, fc] = m.from, [tr, tc] = m.to;
+      const savedDest = this.board[tr][tc];
+      const savedSrc = this.board[fr][fc];
+      this.board[tr][tc] = savedSrc;
+      this.board[fr][fc] = null;
+      if (!this.isKingInCheck(this.board, color)) {
+        legal.push(m);
+      }
+      this.board[fr][fc] = savedSrc;
+      this.board[tr][tc] = savedDest;
+    }
+    return legal;
+  },
+
+  makeMove(fromR, fromC, toR, toC) {
+    if (this.gameOver) return;
+    const piece = this.board[fromR][fromC];
+    if (!piece) return;
+    const destPiece = this.board[toR][toC];
+    const isW = piece[0] === 'w';
+
+    // Promotion
+    let finalPiece = piece;
+    if (piece[1] === 'P') {
+      if ((isW && toR === 0) || (!isW && toR === 7)) finalPiece = piece[0] + 'Q';
+    }
+
+    if (destPiece) {
+      if (destPiece[0] === 'w') this.capturedW.push(destPiece);
+      else this.capturedB.push(destPiece);
+    }
+
+    this.board[toR][toC] = finalPiece;
+    this.board[fromR][fromC] = null;
+    this.selectedSquare = null;
+    this.legalMoves = [];
+    this.hintSquares = null;
+
+    // Notation
+    const files = 'abcdefgh', ranks = '87654321';
+    const moveNotation = (destPiece ? (piece[1] === 'P' ? files[fromC] : piece[1]) + 'x' : (piece[1] === 'P' ? '' : piece[1])) + files[toC] + ranks[toR];
+    this.history.push({ color: piece[0], move: moveNotation, from: [fromR, fromC], to: [toR, toC] });
+
+    // 3D Piece animation
+    move3DPiece(fromR, fromC, toR, toC, destPiece);
+
+    // Audio
+    if (destPiece) playChessSound('capture');
+    else playChessSound('move');
+
+    // Check next turn
+    const nextColor = isW ? 'b' : 'w';
+    this.turn = nextColor;
+    const nextLegal = this.getLegalMoves(nextColor);
+    const inCheck = this.isKingInCheck(this.board, nextColor);
+
+    if (inCheck) {
+      playChessSound('check');
+      drawRoboFace('check');
+      if (nextColor === 'b') {
+        this.updateSpeech("BEEP BEEP! Check! Let me calculate my escape...");
+      } else {
+        this.updateSpeech("Check, Vihaan! Watch your King!");
+      }
+    }
+
+    if (nextLegal.length === 0) {
+      this.gameOver = true;
+      if (inCheck) {
+        if (nextColor === 'b') {
+          playChessSound('win');
+          drawRoboFace('win');
+          this.status = "🏆 CHECKMATE! VIHAAN WINS!";
+          this.updateSpeech("CHECKMATE! 🏆 Wow, Vihaan, +130 Rating Surge! Outstanding tactics!");
+        } else {
+          this.status = "CHECKMATE! Robo-Pawn wins!";
+          this.updateSpeech("Checkmate! Beep boop! Fantastic battle, Vihaan! Rematch?");
+        }
+      } else {
+        this.status = "STALEMATE! Game drawn.";
+        this.updateSpeech("Stalemate! A hard-fought draw! High Elo defense!");
+      }
+      this.render();
+      return;
+    }
+
+    this.status = this.turn === 'w' ? "Vihaan's turn! Make your move." : "Robo-Pawn is calculating...";
+    this.render();
+
+    if (this.turn === 'b' && !this.gameOver) {
+      this.isThinking = true;
+      drawRoboFace('thinking');
+      setTimeout(() => this.makeBotMove(), 650);
+    }
+  },
+
+  evalBoard(b) {
+    let score = 0;
+    for (let r = 0; r < 8; r++) {
+      for (let c = 0; c < 8; c++) {
+        const p = b[r][c];
+        if (!p) continue;
+        const val = PIECE_VALUES[p[1]] || 0;
+        const centerDist = Math.abs(r - 3.5) + Math.abs(c - 3.5);
+        const centerBonus = Math.max(0, 18 - centerDist * 4);
+        const total = val + centerBonus;
+        if (p[0] === 'b') score += total;
+        else score -= total;
+      }
+    }
+    return score;
+  },
+
+  makeBotMove() {
+    if (this.gameOver || this.turn !== 'b') return;
+    const legal = this.getLegalMoves('b');
+    if (!legal.length) return;
+
+    let chosenMove = null;
+    const scoredMoves = [];
+
+    for (const m of legal) {
+      const [fr, fc] = m.from, [tr, tc] = m.to;
+      const savedDest = this.board[tr][tc];
+      const savedSrc = this.board[fr][fc];
+      this.board[tr][tc] = savedSrc;
+      this.board[fr][fc] = null;
+      let score = this.evalBoard(this.board);
+      if (m.capture) score += (PIECE_VALUES[m.capture[1]] || 0) * 1.5;
+      if (this.isKingInCheck(this.board, 'w')) score += 80;
+      this.board[fr][fc] = savedSrc;
+      this.board[tr][tc] = savedDest;
+      scoredMoves.push({ move: m, score });
+    }
+
+    scoredMoves.sort((a, b) => b.score - a.score);
+
+    if (this.botLevel === 500) {
+      // Pawn-Bot: 60% chance best move, 40% random move
+      chosenMove = Math.random() < 0.60 ? scoredMoves[0].move : scoredMoves[Math.floor(Math.random() * scoredMoves.length)].move;
+    } else if (this.botLevel === 750) {
+      // Knight-Bot: 85% chance top move (matches Vihaan 715)
+      chosenMove = Math.random() < 0.85 ? scoredMoves[0].move : (scoredMoves[1]?.move || scoredMoves[0].move);
+    } else {
+      // Master-Bot: always best move
+      chosenMove = scoredMoves[0].move;
+    }
+
+    this.isThinking = false;
+    drawRoboFace('happy');
+    playChessSound('bot');
+
+    const botLines = [
+      "Beep boop! Knight into action!",
+      "Calculated! Defend your pieces, Vihaan!",
+      "Pawn advance! Taking the center!",
+      "Boop! Analyzing 715 Elo counter-attacks!",
+      "Solid scholastic tactics! My move!"
+    ];
+    this.updateSpeech(botLines[Math.floor(Math.random() * botLines.length)]);
+
+    this.makeMove(chosenMove.from[0], chosenMove.from[1], chosenMove.to[0], chosenMove.to[1]);
+  },
+
+  getTacticalHint() {
+    if (this.turn !== 'w' || this.gameOver) return;
+    const legal = this.getLegalMoves('w');
+    if (!legal.length) return;
+
+    let bestMove = null, bestScore = 999999;
+    for (const m of legal) {
+      const [fr, fc] = m.from, [tr, tc] = m.to;
+      const savedDest = this.board[tr][tc];
+      const savedSrc = this.board[fr][fc];
+      this.board[tr][tc] = savedSrc;
+      this.board[fr][fc] = null;
+      let score = this.evalBoard(this.board);
+      if (m.capture) score -= (PIECE_VALUES[m.capture[1]] || 0) * 1.5;
+      if (this.isKingInCheck(this.board, 'b')) score -= 80;
+      this.board[fr][fc] = savedSrc;
+      this.board[tr][tc] = savedDest;
+      if (score < bestScore) {
+        bestScore = score;
+        bestMove = m;
+      }
+    }
+
+    if (bestMove) {
+      this.hintSquares = { from: bestMove.from, to: bestMove.to };
+      const pieceName = { P: 'Pawn', N: 'Knight', B: 'Bishop', R: 'Rook', Q: 'Queen', K: 'King' }[this.board[bestMove.from[0]][bestMove.from[1]][1]];
+      const files = 'abcdefgh', ranks = '87654321';
+      const toSquare = files[bestMove.to[1]] + ranks[bestMove.to[0]];
+      this.updateSpeech(`💡 Hint: Move your <b>${pieceName}</b> to <b>${toSquare}</b> for great tactical control!`);
+      this.render();
+    }
+  },
+
+  render() {
+    const boardEl = document.getElementById('chm-board');
+    if (!boardEl) return;
+    boardEl.innerHTML = '';
+
+    const lastMove = this.history[this.history.length - 1];
+
+    for (let r = 0; r < 8; r++) {
+      for (let c = 0; c < 8; c++) {
+        const sq = document.createElement('div');
+        sq.className = 'chm-sq ' + ((r + c) % 2 === 0 ? 'light' : 'dark');
+        const p = this.board[r][c];
+        if (p) sq.textContent = PIECE_GLYPHS[p] || '';
+
+        if (this.selectedSquare && this.selectedSquare[0] === r && this.selectedSquare[1] === c) {
+          sq.classList.add('selected');
+        }
+        if (lastMove && ((lastMove.from[0] === r && lastMove.from[1] === c) || (lastMove.to[0] === r && lastMove.to[1] === c))) {
+          sq.classList.add('last-move');
+        }
+
+        const isLegal = this.legalMoves.some(m => m.to[0] === r && m.to[1] === c);
+        if (isLegal) {
+          sq.classList.add(p ? 'capture' : 'legal');
+        }
+
+        if (this.hintSquares && ((this.hintSquares.from[0] === r && this.hintSquares.from[1] === c) || (this.hintSquares.to[0] === r && this.hintSquares.to[1] === c))) {
+          sq.style.boxShadow = 'inset 0 0 0 3px #ffd500';
+        }
+
+        sq.addEventListener('click', () => this.onSquareClick(r, c));
+        boardEl.appendChild(sq);
+      }
+    }
+
+    // Turn indicator
+    const turnEl = document.getElementById('chm-turn-indicator');
+    if (turnEl) {
+      turnEl.className = 'chm-turn ' + this.turn;
+      turnEl.textContent = this.turn === 'w' ? "⚪ Vihaan's Turn" : "🤖 Robo-Pawn Thinking...";
+    }
+    const evalEl = document.getElementById('chm-eval-text');
+    if (evalEl) evalEl.textContent = this.status;
+
+    // Captures
+    const capWEl = document.getElementById('chm-white-captures');
+    const capBEl = document.getElementById('chm-black-captures');
+    if (capWEl) capWEl.textContent = this.capturedB.map(p => PIECE_GLYPHS[p]).join(' ');
+    if (capBEl) capBEl.textContent = this.capturedW.map(p => PIECE_GLYPHS[p]).join(' ');
+
+    // History
+    const histEl = document.getElementById('chm-moves-history');
+    if (histEl) {
+      if (!this.history.length) {
+        histEl.innerHTML = '<span style="color:#71829e">Moves will appear here...</span>';
+      } else {
+        histEl.innerHTML = '';
+        for (let i = 0; i < this.history.length; i += 2) {
+          const moveNum = Math.floor(i / 2) + 1;
+          const wMove = this.history[i] ? this.history[i].move : '';
+          const bMove = this.history[i + 1] ? this.history[i + 1].move : '';
+          const chip = document.createElement('span');
+          chip.className = 'chm-move-chip';
+          chip.textContent = `${moveNum}. ${wMove} ${bMove}`;
+          histEl.appendChild(chip);
+        }
+        histEl.scrollTop = histEl.scrollHeight;
+      }
+    }
+  },
+
+  onSquareClick(r, c) {
+    if (this.gameOver || this.turn !== 'w' || this.isThinking) return;
+    const p = this.board[r][c];
+
+    if (this.selectedSquare) {
+      const [sr, sc] = this.selectedSquare;
+      const matchedMove = this.legalMoves.find(m => m.to[0] === r && m.to[1] === c);
+      if (matchedMove) {
+        this.makeMove(sr, sc, r, c);
+        return;
+      }
+    }
+
+    if (p && p[0] === 'w') {
+      this.selectedSquare = [r, c];
+      const allLegal = this.getLegalMoves('w');
+      this.legalMoves = allLegal.filter(m => m.from[0] === r && m.from[1] === c);
+      this.render();
+    } else {
+      this.selectedSquare = null;
+      this.legalMoves = [];
+      this.render();
+    }
+  }
+};
+
+/* ========================================================================
+   VIHAAN AVATAR MOVEMENT, STAIRS NAVIGATION & WAYPOINTS (SALLY UX LEAD)
+   ======================================================================== */
+function getWalkHeight(x, z) {
+  // Stairs corridor: x from 0 down to -10.8, z from -2.8 to -0.4
+  if (x <= 0.05 && x >= -11.0 && z >= -2.8 && z <= -0.4) {
+    if (x < -8.4) return 3.835; // Top landing balcony deck
+    const step = Math.min(13, Math.max(0, Math.floor((-x) / 0.6)));
+    const frac = ((-x) % 0.6) / 0.6;
+    const baseH = 0.39 + step * 0.265;
+    const nextH = 0.39 + Math.min(13, step + 1) * 0.265;
+    return frac > 0.82 ? baseH + (nextH - baseH) * ((frac - 0.82) / 0.18) : baseH;
+  }
+  // Inside Tea Room through sliding door
+  if (z <= -3.3 && x >= 0.2 && x <= 2.8) {
+    return 0.02; // Tatami floor height
+  }
+  // Lobby ground floor
+  return 0.0;
+}
+
+function showGroundReticle(x, y, z) {
+  if (!groundTargetMarker) return;
+  groundTargetMarker.position.set(x, y + 0.02, z);
+  groundTargetMarker.material.opacity = 0.9;
+  groundTargetMarker.visible = true;
+}
+
+function walkVihaanTo(targetX, targetZ, onReach) {
+  vihaanState.isSitting = false;
+  vihaanState.seat = 'none';
+  vihaanState.queue.push({ x: targetX, z: targetZ, onReach });
+}
+
+function walkVihaanToStairsTop() {
+  vihaanState.queue = [];
+  vihaanState.isSitting = false;
+  vihaanState.seat = 'none';
+  // Route cleanly if currently inside tea room
+  if (vihaanState.z < -3.2) {
+    vihaanState.queue.push({ x: 1.35, z: -3.2 });
+    vihaanState.queue.push({ x: 0.5, z: -1.57 });
+  } else {
+    vihaanState.queue.push({ x: 0.4, z: -1.57 });
+  }
+  vihaanState.queue.push({ x: -0.2, z: -1.57 });
+  vihaanState.queue.push({ x: -4.2, z: -1.57 });
+  vihaanState.queue.push({
+    x: -9.2, z: -1.57,
+    onReach: () => {
+      vihaanState.yaw = Math.PI / 2; // Face out toward the entire lobby
+      playChessSound('win');
+    }
+  });
+}
+
+function walkVihaanToStairsBottom() {
+  vihaanState.queue = [];
+  vihaanState.isSitting = false;
+  vihaanState.seat = 'none';
+  if (vihaanState.x < -0.4) {
+    vihaanState.queue.push({ x: -0.2, z: -1.57 });
+  }
+  vihaanState.queue.push({
+    x: -0.18, z: -1.05,
+    onReach: () => {
+      vihaanState.yaw = -0.28;
+      vihaanState.isSitting = true;
+      vihaanState.seat = 'stairs';
+    }
+  });
+}
+
+function walkVihaanToChessTable() {
+  vihaanState.queue = [];
+  vihaanState.isSitting = false;
+  vihaanState.seat = 'none';
+  if (vihaanState.x < -0.4) {
+    vihaanState.queue.push({ x: 0.4, z: -1.57 });
+  }
+  vihaanState.queue.push({ x: 1.35, z: -2.8 });
+  vihaanState.queue.push({ x: 1.35, z: -3.8 });
+  vihaanState.queue.push({
+    x: 0.73, z: -4.85,
+    onReach: () => {
+      vihaanState.yaw = 1.32; // Face table and Robo-Pawn
+      vihaanState.isSitting = true;
+      vihaanState.seat = 'table';
+      setMode('chess');
+    }
+  });
+}
+
+function updateVihaanMovement(dt, t) {
+  // 1. Direct keyboard walking when in home mode
+  const keys = vihaanState.keys;
+  let moveX = 0, moveZ = 0;
+  if (state.mode === 'home') {
+    if (keys.left) moveX -= 1;
+    if (keys.right) moveX += 1;
+    if (keys.up) moveZ -= 1;
+    if (keys.down) moveZ += 1;
+  }
+
+  if (moveX !== 0 || moveZ !== 0) {
+    vihaanState.queue = [];
+    vihaanState.isSitting = false;
+    vihaanState.seat = 'none';
+    const len = Math.hypot(moveX, moveZ);
+    const speed = vihaanState.speed;
+    vihaanState.x += (moveX / len) * speed * dt;
+    vihaanState.z += (moveZ / len) * speed * dt;
+    const targetYaw = Math.atan2(moveX, moveZ);
+    vihaanState.yaw += (targetYaw - vihaanState.yaw) * Math.min(1, dt * 12);
+    vihaanState.isWalking = true;
+  } else if (vihaanState.queue.length > 0) {
+    const tgt = vihaanState.queue[0];
+    const dx = tgt.x - vihaanState.x, dz = tgt.z - vihaanState.z;
+    const dist = Math.hypot(dx, dz);
+    if (dist < 0.09) {
+      vihaanState.x = tgt.x; vihaanState.z = tgt.z;
+      const reached = vihaanState.queue.shift();
+      if (reached.onReach) reached.onReach();
+      if (vihaanState.queue.length === 0) vihaanState.isWalking = false;
+    } else {
+      const speed = vihaanState.speed;
+      vihaanState.x += (dx / dist) * speed * dt;
+      vihaanState.z += (dz / dist) * speed * dt;
+      const targetYaw = Math.atan2(dx, dz);
+      vihaanState.yaw += (targetYaw - vihaanState.yaw) * Math.min(1, dt * 10);
+      vihaanState.isWalking = true;
+    }
+  } else {
+    vihaanState.isWalking = false;
+  }
+
+  // Auto door opening when Vihaan approaches tea room
+  if (vihaanState.z < -2.6 && vihaanState.x > 0.4 && vihaanState.x < 2.4) {
+    slider.want = 1;
+  }
+
+  // Height tracking: smooth elevation on stairs or tatami
+  const groundH = getWalkHeight(vihaanState.x, vihaanState.z);
+  const targetY = vihaanState.isSitting ? (vihaanState.seat === 'table' ? 0.095 : BASE + 0.015) : (groundH + 0.38);
+  vihaanState.y += (targetY - vihaanState.y) * Math.min(1, dt * 14);
+
+  // Position personGroup
+  personGroup.position.set(vihaanState.x, vihaanState.y, vihaanState.z);
+  personGroup.rotation.y = vihaanState.yaw;
+
+  // Stride animation
+  if (vihaanState.isWalking) {
+    vihaanState.walkT += dt * 10.5;
+    vihaanRig.sitProgress = Math.max(0, vihaanRig.sitProgress - dt * 6);
+    vihaanState.stepSoundTimer += dt;
+    if (vihaanState.stepSoundTimer > 0.32) {
+      vihaanState.stepSoundTimer = 0;
+      playChessSound('step');
+    }
+  } else if (vihaanState.isSitting) {
+    vihaanRig.sitProgress = Math.min(1, vihaanRig.sitProgress + dt * 5);
+  }
+
+  const sp = vihaanRig.sitProgress; // 1 = sitting, 0 = walking/standing
+  const walkT = vihaanState.walkT;
+
+  if (vihaanRig.leftLeg && vihaanRig.rightLeg) {
+    // Sitting: legs fold forward (rotation.z = 0)
+    // Standing: legs point down (rotation.z = -1.25) and swing
+    const standZ = -1.25;
+    vihaanRig.leftLeg.rotation.z = (standZ * (1 - sp)) + (Math.sin(walkT) * 0.52 * (1 - sp));
+    vihaanRig.rightLeg.rotation.z = (standZ * (1 - sp)) - (Math.sin(walkT) * 0.52 * (1 - sp));
+  }
+
+  if (vihaanRig.leftArm && vihaanRig.rightArm) {
+    // Sitting: arms hold tablet in front
+    // Walking: arms swing in opposition
+    vihaanRig.leftArm.rotation.z = -Math.sin(walkT) * 0.42 * (1 - sp);
+    vihaanRig.rightArm.rotation.z = Math.sin(walkT) * 0.42 * (1 - sp);
+  }
+
+  if (vihaanRig.torso) {
+    vihaanRig.torso.position.y = 0.07 + (Math.abs(Math.sin(walkT * 2)) * 0.02 * (1 - sp));
+    vihaanRig.torso.rotation.z = -0.12 * sp;
+  }
+
+  if (vihaanHeadGroup) {
+    vihaanHeadGroup.rotation.y = Math.sin(t * 1.35) * 0.14 + mouse.x * 0.12;
+    vihaanHeadGroup.rotation.z = Math.sin(t * 2.1) * 0.035;
+  }
+
+  // 3D Piece slide animations
+  for (let i = active3DAnimations.length - 1; i >= 0; i--) {
+    const anim = active3DAnimations[i];
+    anim.t += dt / anim.dur;
+    const p = Math.min(1, anim.t);
+    const easeP = p < 0.5 ? 2 * p * p : -1 + (4 - 2 * p) * p;
+    anim.mesh.position.x = anim.x0 + (anim.x1 - anim.x0) * easeP;
+    anim.mesh.position.z = anim.z0 + (anim.z1 - anim.z0) * easeP;
+    anim.mesh.position.y = anim.y0 + Math.sin(p * Math.PI) * anim.arcH;
+    if (p >= 1) {
+      if (anim.onDone) anim.onDone();
+      active3DAnimations.splice(i, 1);
+    }
+  }
+
+  // Robo-Pawn idle animations: antenna light pulse & head bob
+  if (roboAntennaLight) {
+    roboAntennaLight.intensity = 0.7 + Math.sin(t * 4.5) * 0.35;
+  }
+  if (roboPawnGroup && currentRoboMood === 'thinking') {
+    roboPawnGroup.rotation.z = Math.sin(t * 6) * 0.04;
+  }
+
+  // Fade ground click marker
+  if (groundTargetMarker && groundTargetMarker.visible) {
+    groundTargetMarker.material.opacity -= dt * 1.5;
+    if (groundTargetMarker.material.opacity <= 0) groundTargetMarker.visible = false;
+  }
+}
+
+function startChessMatch() {
+  const modal = document.getElementById('chess-hud-modal');
+  if (modal) modal.hidden = false;
+  chessGame.init();
+}
+
+function closeChessMatch() {
+  const modal = document.getElementById('chess-hud-modal');
+  if (modal) modal.hidden = true;
+  setMode('home');
+}
+
+window.startChessMatch = startChessMatch;
+window.closeChessMatch = closeChessMatch;
+window.walkVihaanToChessTable = walkVihaanToChessTable;
+window.walkVihaanToStairsTop = walkVihaanToStairsTop;
+window.walkVihaanToStairsBottom = walkVihaanToStairsBottom;
+window.walkVihaanTo = walkVihaanTo;
+
 
 /* ---------- shoji bay, timber frame and noren ---------- */
 (function kyoto() {
@@ -3924,13 +5115,21 @@ const tmpA = new THREE.Vector3(), tmpB = new THREE.Vector3();
 function arcadeCam() { const look = arcadeGroup.localToWorld(ARC.screenPos.clone()); const pos = arcadeGroup.localToWorld(ARC.screenPos.clone().addScaledVector(ARC.screenNormal, 1.3).add(V3(0, 0.1, 0))); look.y += 0.12; return [pos, look]; }
 function hoopCam() { return [V3(HOOP.x + 0.05, 1.65, 3.0), V3(HOOP.x, HOOP.rimY - 0.2, HOOP.rimZ)]; }
 function tvCam() { const tv = TV[state.tvIndex]; const c = tv.group.localToWorld(tv.screenPos.clone()); const n = V3(Math.sin(tv.group.rotation.y), 0, Math.cos(tv.group.rotation.y)); return [c.clone().addScaledVector(n, 0.5 + tv.w * 0.5), c]; }
+function chessCam() { return [V3(0.52, 1.15, -4.05), V3(1.40, 0.42, -5.0)]; }
 function targets() {
   if (state.mode === 'arcade') return arcadeCam();
   if (state.mode === 'hoop') return hoopCam();
   if (state.mode === 'tv') return tvCam();
+  if (state.mode === 'chess') return chessCam();
   return [tmpA.copy(camBase), tmpB.copy(camLook)];
 }
-const HINTS = { home: 'Click arcade to play 5 games &nbsp;·&nbsp; click hoop to shoot &nbsp;·&nbsp; click CRT TVs for Vihaan\'s builds &nbsp;·&nbsp; pull string to toggle neon &nbsp;·&nbsp; scroll down for Hall of Fame', arcade: 'ARROWS / WASD move &nbsp;·&nbsp; SPACE action &nbsp;·&nbsp; pick any of the 5 games below &nbsp;·&nbsp; ESC leave', hoop: 'Drag up on the ball to shoot &nbsp;·&nbsp; ESC leave', tv: '← → browse Vihaan\'s builds &nbsp;·&nbsp; click another CRT &nbsp;·&nbsp; ESC leave' };
+const HINTS = {
+  home: '♟️ Play Chess with Bot &nbsp;·&nbsp; Click floor/stairs to walk &nbsp;·&nbsp; WASD keys &nbsp;·&nbsp; Click arcade, hoop & CRT TVs',
+  arcade: 'ARROWS / WASD move &nbsp;·&nbsp; SPACE action &nbsp;·&nbsp; pick any of the 5 games below &nbsp;·&nbsp; ESC leave',
+  hoop: 'Drag up on the ball to shoot &nbsp;·&nbsp; ESC leave',
+  tv: '← → browse Vihaan\'s builds &nbsp;·&nbsp; click another CRT &nbsp;·&nbsp; ESC leave',
+  chess: 'Click a white piece to view moves &nbsp;·&nbsp; Play vs Robo-Pawn 🤖 &nbsp;·&nbsp; ESC or Stand Up to leave'
+};
 hintEl.innerHTML = HINTS.home; hintEl.classList.add('show');
 const tvcap = document.getElementById('tvcap');
 document.getElementById('tvcap-close')?.addEventListener('click', () => setMode('home'));
@@ -3950,7 +5149,7 @@ function setMode(m, arg) {
   if (m === 'tv' && arg !== undefined && state.mode === 'tv') { showTV(arg); return; }
   if (m === state.mode) return;
   state.camFrom.copy(camera.position); state.lookFrom.copy(state.lookCur); state.transT = 0; state.mode = m;
-  hintEl.innerHTML = HINTS[m]; hintEl.classList.add('show');
+  hintEl.innerHTML = HINTS[m] || ''; hintEl.classList.add('show');
   document.documentElement.style.overflow = m === 'home' ? '' : 'hidden';
   if (m !== 'home') window.scrollTo(0, 0);
   game.on = m === 'arcade';
@@ -3961,6 +5160,33 @@ function setMode(m, arg) {
   canvas.style.cursor = m === 'home' ? '' : (m === 'hoop' ? 'grab' : 'default');
   canvas.classList.toggle('mode', m !== 'home');
   if (m === 'tv') showTV(arg === undefined ? state.tvIndex : arg); else tvcap.hidden = true;
+
+  const chessHud = document.getElementById('chess-hud-modal');
+  const actionBar = document.getElementById('avatar-action-bar');
+  if (actionBar) {
+    actionBar.hidden = (m !== 'home');
+  }
+  if (chessHud) {
+    if (m === 'chess') {
+      chessHud.hidden = false;
+      chessHud.classList.add('show');
+      if (typeof vihaanState !== 'undefined') {
+        vihaanState.queue = [];
+        vihaanState.x = 0.73;
+        vihaanState.z = -4.85;
+        vihaanState.yaw = 1.32;
+        vihaanState.isSitting = true;
+        vihaanState.seat = 'table';
+        if (typeof vihaanRig !== 'undefined') vihaanRig.sitProgress = 1.0;
+      }
+      if (typeof chessGame !== 'undefined') {
+        chessGame.init();
+      }
+    } else {
+      chessHud.classList.remove('show');
+      chessHud.hidden = true;
+    }
+  }
 }
 
 
@@ -3973,6 +5199,7 @@ function pick(e) {
   if (ray.intersectObjects(neonStringHit, false).length) return 'neonString';
   if (ray.intersectObjects(arcadeHit, false).length) return 'arcade';
   if (ray.intersectObjects(hoopHit, false).length) return 'hoop';
+  if (typeof chessHit !== 'undefined' && ray.intersectObjects(chessHit, true).length) return 'chess';
   const tvI = ray.intersectObjects(tvHit, false); if (tvI.length) { state.pickTV = tvI[0].object.userData.tv; return 'tv'; }
   return null;
 }
@@ -4035,7 +5262,32 @@ canvas.addEventListener('pointerdown', (e) => {
     canvas.style.cursor = 'grabbing';
     return;
   }
-  if (state.mode === 'home') { if (h) setMode(h, h === 'tv' ? state.pickTV : undefined); return; }
+  if (state.mode === 'home') {
+    if (h === 'chess') {
+      walkVihaanToChessTable();
+      return;
+    }
+    if (h) {
+      setMode(h, h === 'tv' ? state.pickTV : undefined);
+      return;
+    }
+    // Ground click to walk Vihaan
+    const r = canvas.getBoundingClientRect();
+    ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    const hits = ray.intersectObjects(scene.children, true).filter(hit => {
+      if (!hit.point) return false;
+      if (hit.point.y < -0.05 || hit.point.y > 4.2) return false;
+      if (typeof groundReticle !== 'undefined' && hit.object === groundReticle) return false;
+      return true;
+    });
+    if (hits.length) {
+      const pt = hits[0].point;
+      showGroundReticle(pt.x, pt.y, pt.z);
+      walkVihaanTo(pt.x, pt.z);
+    }
+    return;
+  }
   if (state.mode === 'tv') { if (h === 'tv') showTV(state.pickTV); return; }
   if (state.mode === 'hoop' && ball.held) { state.dragStart = { x: e.clientX, y: e.clientY, t: performance.now() }; canvas.style.cursor = 'grabbing'; }
   if (state.mode === 'arcade' && !game.running) gameStart();
@@ -4064,6 +5316,12 @@ window.addEventListener('pointerup', (e) => {
 });
 window.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && state.mode !== 'home') { setMode('home'); return; }
+  if (state.mode === 'home') {
+    if (['ArrowLeft', 'a', 'A'].includes(e.key)) { vihaanState.keys.left = true; vihaanState.navTarget = null; }
+    if (['ArrowRight', 'd', 'D'].includes(e.key)) { vihaanState.keys.right = true; vihaanState.navTarget = null; }
+    if (['ArrowUp', 'w', 'W'].includes(e.key)) { vihaanState.keys.forward = true; vihaanState.navTarget = null; }
+    if (['ArrowDown', 's', 'S'].includes(e.key)) { vihaanState.keys.backward = true; vihaanState.navTarget = null; }
+  }
   if (state.mode === 'arcade') {
     if (['ArrowLeft', 'a', 'A'].includes(e.key)) game.keys.left = true;
     if (['ArrowRight', 'd', 'D'].includes(e.key)) game.keys.right = true;
@@ -4076,6 +5334,12 @@ window.addEventListener('keydown', (e) => {
   if (state.mode === 'tv') { if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); showTV(state.tvIndex + 1); } if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); showTV(state.tvIndex - 1); } }
 });
 window.addEventListener('keyup', (e) => {
+  if (state.mode === 'home') {
+    if (['ArrowLeft', 'a', 'A'].includes(e.key)) vihaanState.keys.left = false;
+    if (['ArrowRight', 'd', 'D'].includes(e.key)) vihaanState.keys.right = false;
+    if (['ArrowUp', 'w', 'W'].includes(e.key)) vihaanState.keys.forward = false;
+    if (['ArrowDown', 's', 'S'].includes(e.key)) vihaanState.keys.backward = false;
+  }
   if (['ArrowLeft', 'a', 'A'].includes(e.key)) game.keys.left = false;
   if (['ArrowRight', 'd', 'D'].includes(e.key)) game.keys.right = false;
   if (['ArrowUp', 'w', 'W'].includes(e.key)) game.keys.up = false;
@@ -4160,16 +5424,12 @@ function render(now) {
     p.pv.rotation.z = -p.ax; p.pv.rotation.x = p.az;
   }
   if (slider.front) {
-    slider.t += ((state.mode === 'home' ? slider.want : 0) - slider.t) * Math.min(1, dt * 5);
+    const doorWant = (state.mode === 'home' ? (slider.want || (typeof vihaanState !== 'undefined' && vihaanState.z < -2.6 ? 1 : 0)) : (state.mode === 'chess' ? 1 : 0));
+    slider.t += (doorWant - slider.t) * Math.min(1, dt * 5);
     slider.front.position.x = slider.shut + (slider.open - slider.shut) * slider.t;
   }
-  if (vihaanHeadGroup) {
-    vihaanHeadGroup.rotation.y = Math.sin(t * 1.35) * 0.14 + mouse.x * 0.12;
-    vihaanHeadGroup.rotation.z = Math.sin(t * 2.1) * 0.035;
-  }
-  if (vihaanLeftLeg && vihaanRightLeg) {
-    vihaanLeftLeg.position.y = -0.34 + Math.sin(t * 2.8) * 0.012;
-    vihaanRightLeg.position.y = -0.34 - Math.sin(t * 2.8) * 0.012;
+  if (typeof updateVihaanMovement === 'function') {
+    updateVihaanMovement(dt, t);
   }
   gameStep(dt); gameDraw(t);
   if (frame % 2 === 1) { drawMarquee(t); drawTicker(t); }
@@ -4221,8 +5481,64 @@ render(performance.now());
 loaderEl.classList.add('done');
 requestAnimationFrame(loop);
 
+/* Avatar Action Bar buttons */
+document.getElementById('btn-action-chess')?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  setMode('chess');
+});
+document.getElementById('btn-action-stairs')?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  walkVihaanToStairsTop();
+});
+document.getElementById('btn-action-sit')?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  walkVihaanToStairsBottom();
+});
+document.getElementById('btn-action-hoop')?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  setMode('hoop');
+});
+document.getElementById('btn-action-arcade')?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  setMode('arcade');
+});
+
+/* Chess HUD buttons */
+document.getElementById('chm-close-btn')?.addEventListener('click', () => {
+  setMode('home');
+});
+document.getElementById('chm-btn-stand')?.addEventListener('click', () => {
+  setMode('home');
+  walkVihaanTo(0.9, -2.5);
+});
+document.getElementById('chm-btn-new')?.addEventListener('click', () => {
+  if (typeof chessGame !== 'undefined') chessGame.init();
+});
+document.getElementById('chm-btn-hint')?.addEventListener('click', () => {
+  if (typeof chessGame !== 'undefined') chessGame.getTacticalHint();
+});
+document.querySelectorAll('.chm-lvl').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    document.querySelectorAll('.chm-lvl').forEach(b => b.classList.remove('active'));
+    e.currentTarget.classList.add('active');
+    if (typeof chessGame !== 'undefined') {
+      chessGame.botTier = parseInt(e.currentTarget.dataset.tier || '2', 10);
+      playChessSound('step');
+    }
+  });
+});
+
 window.__slider = slider; window.__pend = () => pendants.map(p => ({ x: +p.ax.toFixed(4), z: +p.az.toFixed(4) }));
-window.__sblvl = { scene, camera, renderer, state, game, ball, TV, characters, bounds() { return characters.map(g => { const b = new THREE.Box3().setFromObject(g); return { min: b.min.toArray().map(v => +v.toFixed(3)), max: b.max.toArray().map(v => +v.toFixed(3)) }; }); }, steps: Array.from({ length: STEPS }, (_, i) => ({ min: [X_BOTTOM - (i + 1) * RUN, 0, Z0], max: [X_BOTTOM - i * RUN, STEP_TOP(i), i < 3 ? Z1 + 0.55 - i * 0.12 : Z1] })), setMode, showTV, throwBall, render: () => render(performance.now()), setMouse(x, y) { mouse.x = mouse.tx = x; mouse.y = mouse.ty = y; }, step(n) { for (let i = 0; i < n; i++) { gameStep(1 / 60); if (state.mode === 'hoop') ballStep(1 / 60); state.transT = Math.min(1, state.transT + 1 / 69); } }, get dpr() { return DPR; }, set dpr(v) { DPR = v; }, rt };
+window.__sblvl = {
+  scene, camera, renderer, state, game, ball, TV, characters,
+  vihaanState, chessGame, walkVihaanTo, walkVihaanToStairsTop, walkVihaanToStairsBottom, walkVihaanToChessTable,
+  bounds() { return characters.map(g => { const b = new THREE.Box3().setFromObject(g); return { min: b.min.toArray().map(v => +v.toFixed(3)), max: b.max.toArray().map(v => +v.toFixed(3)) }; }); },
+  steps: Array.from({ length: STEPS }, (_, i) => ({ min: [X_BOTTOM - (i + 1) * RUN, 0, Z0], max: [X_BOTTOM - i * RUN, STEP_TOP(i), i < 3 ? Z1 + 0.55 - i * 0.12 : Z1] })),
+  setMode, showTV, throwBall, render: () => render(performance.now()),
+  setMouse(x, y) { mouse.x = mouse.tx = x; mouse.y = mouse.ty = y; },
+  step(n) { for (let i = 0; i < n; i++) { gameStep(1 / 60); if (state.mode === 'hoop') ballStep(1 / 60); state.transT = Math.min(1, state.transT + 1 / 69); } },
+  get dpr() { return DPR; }, set dpr(v) { DPR = v; }, rt
+};
 
 </script>
 <script>
