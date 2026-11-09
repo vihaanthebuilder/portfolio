@@ -14,14 +14,113 @@ Claude Code) can pick the work up cold from this file.
   lego.html, chess.html, hall-of-fame.html, badges.html, games.html,
   goals.html, comics.html, notebook.html, build-of-the-week.html.
 
-## Open question — answer this before you edit
+## Worker verification — Nov 9, 2026
+
+### Publish run — starting state (Nov 9, 2026)
+
+- Received and read `PUBLISH-BRIEF.md`; publishing is explicitly authorized.
+- Before code changes: branch `feature/3d-trophy-cabinet-showcase`, HEAD
+  `9ff6e2f`; only HANDOFF.md modified and PUBLISH-BRIEF.md untracked.
+- GitHub `main` still points to `e9def6c`; no remote feature branch exists yet.
+- Scope: current ratings in index.html and chess.html only, preserving historical
+  tournament results. Trophy captions and unused portrait remain as directed.
+- Will commit ready files, push feature, fast-forward main if possible, push
+  main, verify GitHub Pages, and record the outcome below.
+
+### Publish run — rating changes and pre-push checks
+
+- Updated current ratings in index.html and chess.html to 811 Regular / 814
+  Quick. This includes homepage hero, navigation, card, ticker, 3D screens,
+  chess HUD, current/peak stat cards, official rating panel, and social metadata.
+- Preserved the May 30 result 585→715 (+130), historical chart data, and trophy
+  recap. As directed, ambiguous past-tense chess.html wording “reached a 715
+  USCF rating ... within 6 months” (line 59) and “climbed to 715 across my first
+  ... tournaments” (line 73) remains for coordinator review. The trophy badge
+  at line 116 is within that historical recap and also remains 715.
+- Next-goal labels of 800/800+ are unchanged: selecting a new goal is outside
+  the rating-only brief. Other pages and shared sublevel-os.js still contain
+  old rating text and are outside the two-file content scope. Social preview
+  image artwork was not regenerated.
+- Local Chrome/Playwright checks passed for both pages: hero contains 811
+  Regular and 814 Quick, homepage trophy metadata contains 811, chess current
+  stat is 811, and official panel shows 811/814. No page exceptions observed.
+  `git diff --check` passed; fetched origin and confirmed local main matches it.
+- Port 8765 was occupied by an unrelated server; the first browser attempt
+  returned a different page and failed its assertion. Re-ran successfully using
+  a dedicated server on 8876 serving this checkout.
+
+Goku (Muse) remains the coordinator. The worker completed the five First tasks
+below and reported state before changing any files. Site code was not changed.
+
+### Verified
+
+- **Repository and sync path:** this folder is already the Git working tree at
+  `/Users/Nishant/Documents/antigravity/friendly-oppenheimer`. Its `origin` is
+  `https://github.com/vihaanthebuilder/portfolio.git`. No intermediate copy or
+  sync folder is needed. The path is: edit here → commit → push a branch to
+  origin → merge to `main` (or push `main`) → `.github/workflows/pages.yml`
+  deploys the repository root to https://vihaanthebuilder.github.io/portfolio/.
+  The workflow also supports manual dispatch. Local edits alone do not publish.
+- At receipt, the current branch was `feature/3d-trophy-cabinet-showcase`, HEAD
+  `e9def6c8d3eab9e54b468a042b238a6c6c00a7c6`. A read-only `git ls-remote`
+  confirmed GitHub `main` at that same commit; the feature branch had no remote
+  ref. No push or deployment was performed.
+- Initial uncommitted files: modified `images/chess-trophy.jpg`, untracked
+  `images/outstanding-performance-trophy.jpg`, and untracked `HANDOFF.md`.
+- **Robo-Pawn:** `images/robo_pawn.jpg` exists (777,877 bytes), but `index.html`
+  does not reference it anywhere. Robo-Pawn appears as a 3D character and in UI
+  text; those are not uses of this JPEG.
+- **Trophies:** opened both images. Both show the same gold chess trophy with
+  an `OUTSTANDING PERFORMANCE` plaque. Both are 168,880 bytes and have SHA-256
+  `f8d68fe2db0646ffe9954be72968e290556329e04e26129c403c1397bf550e59`.
+  `index.html:1914` and `index.html:1920` use `images/chess-trophy.jpg` while
+  labeling it a “1st Place Chess Championship Trophy.” The photograph alone
+  does not establish first place.
+- **Browser check:** served the folder locally and opened
+  `http://127.0.0.1:8765/index.html` in headless Google Chrome using Playwright.
+  HTTP 200, document ready state `complete`, 3 canvases, and the 3D room
+  rendered in screenshots at 1440×1000 and 390×844. Scrolled through the page
+  to load lazy images. No uncaught JavaScript exceptions, console errors,
+  failed requests, or HTTP errors were observed during this check.
+- One console warning: `WARNING: Multiple instances of Three.js being imported.`
+  All content images loaded; the closed photo modal's intentionally empty
+  `#modalImg` (`index.html:1974`) was the only image without natural dimensions.
+- Local evidence is in `/tmp/vihaan-handoff-check/`: `report.json`,
+  `homepage-desktop.png`, and `homepage-mobile.png`. These are temporary,
+  machine-local artifacts. The check covers initial rendering and scrolling,
+  not all game interactions, real phone behavior, or the deployed site.
+
+### Fixed / preserved
+
+- Corrected this handoff's outdated claim that the folder has no Git repo.
+- Created baseline commit `9ff6e2f` before editing this document, preserving
+  the received handoff and both existing trophy image changes as requested.
+  Used an explicit `Codex Worker <codex@localhost>` commit identity because
+  this checkout had no configured user identity; no Git identity settings changed.
+- No HTML, JavaScript, CSS, or image content was changed by the worker.
+
+### Remaining for Goku
+
+- Decide whether/how to use the Robo-Pawn portrait; it is currently unused by
+  the homepage.
+- Resolve the trophy photo/caption mismatch using family confirmation or the
+  correct photo. The duplicate images were preserved, not guessed at or replaced.
+- The known chess rating fix below remains pending: 811 Regular and 814 Quick
+  as of Oct 24, 2026. `chess.html` still shows 715. The homepage and other pages
+  also have stale current-rating text; preserve legitimate historical results
+  when updating ratings.
+- Investigate the duplicate Three.js import warning if further work touches
+  the 3D scene, and test individual interactions as needed.
+- Changes are local. Goku coordinates any further edits, push, PR, and publishing.
+
+## Original open question — resolved above
 
 - This folder is a working copy in an Antigravity folder. It has NO git repo.
 - The sync path from this folder to the GitHub repo is NOT documented.
 - Do not assume that edits here publish to the live site.
 - First task: find and state the exact path from this folder to the repo.
 
-## State found on Nov 9, 2026 (verified from the files, not from chat history)
+## Original state found on Nov 9, 2026 (before worker verification)
 
 - `index.html` was rewritten today between 11:53 AM and 12:00 PM CST.
 - The `images/` folder was touched today at 12:02 PM CST.
@@ -47,7 +146,7 @@ Claude Code) can pick the work up cold from this file.
 4. Open both trophy images. Report whether they show the same picture.
 5. Open `index.html` in a browser. Verify that the page loads with no errors.
 
-## Warning
+## Original warning — superseded by worker verification
 
 - This folder has NO git repo. There is no history and no undo.
 - Run `git init` and make one commit of the current state before you edit.
