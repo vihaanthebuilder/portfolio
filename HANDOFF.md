@@ -1,5 +1,36 @@
 # HANDOFF — Vihaan's Portfolio (Vihaan's World)
 
+## Latest status — published Nov 9, 2026
+
+- Executed Goku's PUBLISH-BRIEF.md. Rating/content commit:
+  `404d5d10f6e8bafd3836267f5f04cae6b7f65666`, following baseline
+  `9ff6e2f3dfdc2ed07347ed49e737fa288a2e523d`.
+- Pushed `feature/3d-trophy-cabinet-showcase` to origin, fast-forwarded local
+  `main` from `e9def6c` to `404d5d1`, and pushed main successfully. No merge
+  conflicts, force pushes, or separate merge commit.
+- GitHub Pages run **42685835238** completed successfully (deploy job 1m30s):
+  https://github.com/vihaanthebuilder/portfolio/actions/runs/42685835238
+- Live fetch attempt 1 during deployment still returned the old pages. Attempt
+  2 after deployment returned HTTP 200 for both homepage and chess.html. Both
+  responses matched the corresponding local files byte-for-byte. Live hero
+  contains **811 Regular · 814 Quick**; homepage has no `USCF 715` or
+  `715 Regular` current labels. Chess current stat is 811 and official panel
+  is 811 Regular / 814 Quick, dated Oct 24, 2026. Historical 715 results remain.
+- Live HTML evidence: `/tmp/vihaan-publish-check/index.html` and `chess.html`.
+- This final results update is documentation-only and is committed/pushed
+  after the verified content deployment. The website content is unchanged by
+  that follow-up commit. Its hash is available in Git history under
+  `docs: record successful portfolio publication`.
+- Nothing from the authorized publishing scope is left unpublished. Remaining
+  follow-ups are deliberately unchanged: trophy caption/photo mismatch,
+  unused Robo-Pawn photo, ambiguous past-tense wording listed below, outdated
+  800 goals, and rating text in other pages/shared JS outside the two-file brief.
+- Existing Three.js warning remains. Deployment also reported non-blocking
+  action-runtime/runner migration notices; workflow maintenance was outside scope.
+
+Earlier sections below describe the initial verification and pre-publication
+state; this latest status supersedes their pending-rating/publishing notes.
+
 Written by Goku (Muse) on Nov 9, 2026, after the Antigravity session on this
 project stopped mid-work (budget expired). Purpose: any coding agent (Codex,
 Claude Code) can pick the work up cold from this file.
