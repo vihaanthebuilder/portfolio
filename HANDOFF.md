@@ -1,5 +1,47 @@
 # HANDOFF — Vihaan's Portfolio (Vihaan's World)
 
+## Published trophy-rack build — Nov 9, 2026
+
+- Nishant approved publishing through Goku. Goku reported independent VQA
+  passed for desktop landing/mid-stair captures and both trophy cards, with
+  planted soles, visible labeled awards, and correct family-record stats.
+  This supersedes the local-only/publish-pending status in the feature log below.
+- Approved content commit: **d004977d2cd02075842596d398c45509b113c58d**.
+- Pushed `feature/3d-trophy-cabinet-showcase` from
+  fd9334386b13dc6f814d5b552ac6ac103c39c3c4 to that commit successfully.
+- Fast-forward merged the feature into `main`, moving main from
+  fd9334386b13dc6f814d5b552ac6ac103c39c3c4 to
+  d004977d2cd02075842596d398c45509b113c58d, then pushed main successfully.
+  Both remote refs were read back at d004977. No conflicts, force pushes,
+  or separate merge commit.
+- GitHub Pages deployment **42698689679** completed with **success**:
+  https://github.com/vihaanthebuilder/portfolio/actions/runs/42698689679
+- Live verification at **2026-11-09 21:03:46 UTC** fetched
+  https://vihaanthebuilder.github.io/portfolio/ with HTTP 200. Live HTML
+  matched the approved local index.html **byte-for-byte**, SHA-256
+  `68b8f848e21644af44fc76f769fdb81a4f898015ac118a1438c8279cce9edaa7`.
+- Opened the live build in Chrome: both rack trophies rendered, TROPHIES
+  opened the Crowder 1st Place card with the historical 585→715 (+130) note;
+  switching awards showed Peace Academy Outstanding Performance, Section 3
+  (K-12 U900), 4th place, 4.0/5. Escape closed the card. No uncaught page
+  exceptions were observed.
+- Live caveat identified, preserved outside this approved publish: the existing
+  `images/dog.bin` request returns **404**, so the procedural fallback dog is
+  displayed. The file is ignored by .gitignore and absent in both the previous
+  fd93343 tree and approved d004977 tree; this is not a newly deleted asset.
+  The existing duplicate-Three.js warning also remains. Trophy verification
+  passed with these recorded caveats; no product code was changed during publish.
+- Evidence: `/tmp/vihaan-trophy-publish/live-verification.json`,
+  `/tmp/vihaan-trophy-publish/live-index.html`,
+  `/tmp/vihaan-trophy-publish/live-desktop-landing.png`,
+  `/tmp/vihaan-trophy-publish/live-card-crowder.png`, and
+  `/tmp/vihaan-trophy-publish/live-card-peace.png`.
+- This handoff result is a documentation-only follow-up commit, recorded in
+  Git history as `docs: record trophy rack deployment and live verification`.
+  It is pushed through the feature branch and main without changing site code.
+  Remaining family/review follow-ups below are unchanged; no approved feature
+  changes remain unpublished.
+
 ## Completed local feature — walk and trophies (Nov 9, 2026)
 
 - Read FEATURE-BRIEF-walk-and-trophies.md. User explicitly authorizes the full
