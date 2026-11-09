@@ -1,6 +1,6 @@
 # HANDOFF — Vihaan's Portfolio (Vihaan's World)
 
-## Correction in progress — real trophy photograph (Nov 9, 2026)
+## Correction published — real trophy photograph (Nov 9, 2026)
 
 - Goku relayed Nishant's HOLD + FIX after reviewing the published generic
   Peace card model. The publish had already pushed d004977 to main and then
@@ -37,6 +37,30 @@
   `/tmp/vihaan-trophy-photo-fix/after-desktop-card-peace-stats.png`, and
   `/tmp/vihaan-trophy-photo-fix/after-mobile-card-peace-stats.png`.
   Results: `/tmp/vihaan-trophy-photo-fix/verification.json`.
+- Prior worker VQA checked placement, contact, interactions, and stats, but
+  failed to check the Peace model's resemblance to the real trophy. Nishant
+  caught that mismatch; this correction uses the supplied photograph directly.
+- Fix commit **6fc86ef3afbd05a6b8209a0ccc0f56bfb7808100** was committed on
+  feature/3d-trophy-cabinet-showcase, pushed, fast-forward merged into main
+  from 7d0cdcc81e43f1ca06580854eea9901e542ac024, and pushed successfully.
+  Both remote refs were read back at 6fc86ef. No conflicts or force pushes.
+- Corrected Pages run **42699832860** completed successfully (deploy 3m42s):
+  https://github.com/vihaanthebuilder/portfolio/actions/runs/42699832860
+- Live Chrome verification at **2026-11-09 21:13:41 UTC** passed. Homepage
+  HTTP 200 and HTML exactly matched the corrected local build. Peace card's
+  photograph loaded with HTTP 200, was visible while its canvas was hidden,
+  and matched images/outstanding-performance-trophy.jpg byte-for-byte:
+  SHA-256 `f8d68fe2db0646ffe9954be72968e290556329e04e26129c403c1397bf550e59`.
+- All live award data exactly matched the pre-correction data. Switching back
+  to Crowder restored its rack model and hid the photo; Escape closed cleanly.
+  No page exceptions. The unrelated existing dog.bin 404 remains unchanged.
+- Live evidence, visually inspected:
+  `/tmp/vihaan-trophy-photo-fix/live-desktop-card-peace.png` and
+  `/tmp/vihaan-trophy-photo-fix/live-result.json`.
+- This final results entry is pushed as a documentation-only follow-up,
+  `docs: record real trophy photo correction and live result`, without changing
+  site content. Crowder's actual trophy photograph remains a family decision;
+  no Outstanding Performance photograph is presented as Crowder in these cards.
 
 ## Published trophy-rack build — Nov 9, 2026
 
