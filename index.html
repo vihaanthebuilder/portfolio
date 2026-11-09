@@ -1493,6 +1493,7 @@ body.machine #topnav,body.machine #layout{display:none}
     <button type="button" class="aab-btn" id="btn-action-sit" title="Sit down on step beside LEGO builds & trophy">🏠 SIT ON STAIRS</button>
     <button type="button" class="aab-btn" id="btn-action-hoop" title="Walk to basketball court">🏀 HOOP</button>
     <button type="button" class="aab-btn" id="btn-action-arcade" title="Walk to arcade cabinet">🕹️ ARCADE</button>
+    <button type="button" class="aab-btn" id="btn-action-trophies" title="Explore both chess trophies on the left rack">🏆 TROPHIES</button>
     <span class="aab-hint">WASD / Arrows / Click Ground to Walk</span>
   </div>
 
@@ -2551,7 +2552,7 @@ const wallR = plane(24, 8, matWallR, 13.6, 3.8, -1); wallR.rotation.y = -Math.PI
   for (let i = 0; i < cols; i++) for (let j = 0; j < rows; j++) { m.makeTranslation(x0 + (i + 0.5) * cw, y0 + (j + 0.5) * ch, z - depth + 0.02); glows.setMatrixAt(k++, m); }
   divs.castShadow = divs.receiveShadow = shelvesM.castShadow = shelvesM.receiveShadow = true;
   g.add(divs, shelvesM, glows);
-  const items = [[9, 7, 'poster'], [10, 6, 'poster'], [8, 5, 'bag'], [11, 5, 'can'], [9, 4, 'poster'], [10, 3, 'poster'], [11, 7, 'dark'], [7, 8, 'poster'], [6, 6, 'bag'], [7, 4, 'poster'], [5, 7, 'can'], [8, 8, 'can'], [6, 3, 'poster'], [4, 5, 'dark'], [3, 7, 'poster'], [10, 8, 'can'], [11, 4, 'poster']];
+  const items = [[9, 7, 'poster'], [10, 6, 'poster'], [8, 5, 'bag'], [11, 5, 'can'], [9, 4, 'poster'], [11, 7, 'dark'], [7, 8, 'poster'], [6, 6, 'bag'], [7, 4, 'poster'], [5, 7, 'can'], [8, 8, 'can'], [6, 3, 'poster'], [4, 5, 'dark'], [3, 7, 'poster'], [10, 8, 'can'], [11, 4, 'poster']];
   const posterMat = std({ map: posterTex, roughness: 0.8 }), bagMat = std({ color: 0xe48ab8, roughness: 0.6 }), canMat = std({ color: 0xcfcfcf, roughness: 0.4, metalness: 0.5 }), darkMat = std({ color: 0x0b0b0b });
   for (const [i, j, kind] of items) {
     if (i >= cols || j >= rows) continue;
@@ -2565,6 +2566,7 @@ const wallR = plane(24, 8, matWallR, 13.6, 3.8, -1); wallR.rotation.y = -Math.PI
   const banner = plane(0.4, 2.4, std({ map: bannerTex, roughness: 0.6 }), -4.05, 6.1, z - depth + 0.12); banner.rotation.y = 0.04;
 })();
 
+const walkableMeshes = [floor];
 /* ---------- stairs ---------- */
 const RISE = 0.265, RUN = 0.6, STEPS = 14, X_BOTTOM = 0.0, Z0 = -2.7, Z1 = -0.45, BASE = 0.39;
 const STEP_TOP = (i) => BASE + i * RISE;   // tread height of step i (0 = bottom plinth)
@@ -2593,7 +2595,7 @@ const STEP_TOP = (i) => BASE + i * RISE;   // tread height of step i (0 = bottom
     const below = i === 0 ? 0 : STEP_TOP(i - 1);
     box(0.028, top - TREAD - below, dz, matRiserB, xa + SETBACK, (below + top - TREAD) / 2, zc);
     // tread board, overhanging the riser on the front and both ends
-    box(RUN + OVER, TREAD, dz + 0.04, matTread, xa + RUN / 2 + OVER / 2, top - TREAD / 2, zc);
+    walkableMeshes.push(box(RUN + OVER, TREAD, dz + 0.04, matTread, xa + RUN / 2 + OVER / 2, top - TREAD / 2, zc));
     box(0.024, 0.014, dz + 0.04, nosing, xa + RUN + OVER - 0.012, top - TREAD - 0.007, zc);
   }
   // the bottom step needs a footing, and the top a landing deck rather than a solid mass
@@ -2607,7 +2609,7 @@ const STEP_TOP = (i) => BASE + i * RISE;   // tread height of step i (0 = bottom
 
   }
   const LTOP = STEP_TOP(STEPS - 1);
-  box(2.4, TREAD, Z1 - Z0, matTread, X_BOTTOM - len - 1.2, LTOP - TREAD / 2, (Z0 + Z1) / 2);
+  walkableMeshes.push(box(2.4, TREAD, Z1 - Z0, matTread, X_BOTTOM - len - 1.2, LTOP - TREAD / 2, (Z0 + Z1) / 2));
   box(2.4, 0.3, SW, matStringer, X_BOTTOM - len - 1.2, LTOP - 0.3 / 2 - TREAD, Z1 - SW / 2 - 0.01);
   box(2.4, 0.3, SW, matStringer, X_BOTTOM - len - 1.2, LTOP - 0.3 / 2 - TREAD, Z0 + SW / 2 + 0.01);
   for (let i = 0; i < 5; i++)                                   // posts holding the landing up
@@ -2623,6 +2625,111 @@ const STEP_TOP = (i) => BASE + i * RISE;   // tread height of step i (0 = bottom
   }
   for (let i = 0; i < 5; i++) cyl(0.018, 0.018, 1.05, matMetal, X_BOTTOM - len - 0.3 - i * 0.5, STEP_TOP(STEPS) + 0.52, Z1 - 0.02, rail, 10);
 })();
+
+/* ---------- verified family chess awards ---------- */
+const trophyAwards = [
+  { title: '1st Place', event: 'Crowder College Spring Open', date: 'May 30, 2026', venue: 'Not recorded', city: 'Joplin, MO', section: 'Not recorded', finish: '1st place', score: 'Not recorded', rating: '585 → 715 (+130) at this event' },
+  { title: 'Outstanding Performance', event: 'Peace Academy K-12 Open', date: 'October 24, 2026', venue: 'Not recorded', city: 'Not recorded', section: 'Section 3 (K-12 U900)', finish: '4th place', score: '4.0 / 5', rating: 'Not recorded', note: 'Awarded for scoring 4.0+ outside the top three.' }
+];
+const trophyHit = [];
+function makeAwardModel(index) {
+  const g = new THREE.Group();
+  const gold = std({ color: 0xffcc45, metalness: 0.65, roughness: 0.23, emissive: 0xb76b10, emissiveIntensity: 0.25 });
+  const black = std({ color: 0x172137, roughness: 0.4 });
+  rbox(0.42, 0.10, 0.29, 0.018, black, 0, 0.05, 0, g);
+  box(0.30, 0.055, 0.012, gold, 0, 0.061, 0.151, g);
+  cyl(0.12, 0.17, 0.035, gold, 0, 0.117, 0, g);
+  cyl(0.035, 0.065, 0.17, gold, 0, 0.21, 0, g);
+  if (index === 0) {
+    const cup = new THREE.Mesh(new THREE.LatheGeometry([[0,0],[0.07,0],[0.13,0.055],[0.17,0.19],[0.15,0.20],[0.12,0.065],[0.05,0.025]].map(p => new THREE.Vector2(...p)), 32), gold);
+    cup.position.y = 0.29; g.add(cup);
+    for (const side of [-1,1]) {
+      const handle = new THREE.Mesh(new THREE.TorusGeometry(0.10, 0.018, 8, 24), gold);
+      handle.position.set(side * 0.15, 0.39, 0); handle.scale.set(0.75,1,1); g.add(handle);
+    }
+    sphere(0.045, gold, 0, 0.54, 0, g);
+  } else {
+    cyl(0.055, 0.12, 0.13, gold, 0, 0.35, 0, g);
+    sphere(0.085, gold, 0, 0.455, 0, g);
+    cyl(0.10, 0.07, 0.025, gold, 0, 0.53, 0, g);
+    for (let i=0;i<5;i++) sphere(0.022, gold, Math.cos(i*Math.PI*2/5)*0.08, 0.56, Math.sin(i*Math.PI*2/5)*0.08, g);
+  }
+  return g;
+}
+for (let i=0;i<2;i++) {
+  const x = -11.4 + (10+i+0.5)*0.815, y = 3*0.83+0.035;
+  const model = makeAwardModel(i); model.position.set(x,y,-3.63); scene.add(model);
+  model.traverse(m => { if(m.isMesh) { m.userData.award = i; trophyHit.push(m); } });
+  const label = canvasTex(768,192,(ctx,w,h) => {
+    ctx.fillStyle='#172137';ctx.fillRect(0,0,w,h);ctx.strokeStyle='#ffcf45';ctx.lineWidth=8;ctx.strokeRect(4,4,w-8,h-8);
+    ctx.textAlign='center';ctx.fillStyle='#ffdf71';ctx.font='bold 43px Arial';ctx.fillText(trophyAwards[i].title.toUpperCase(),w/2,64);
+    ctx.fillStyle='#fff';ctx.font='30px Arial';ctx.fillText(i===0?'CROWDER · MAY 2026':'PEACE ACADEMY · OCT 2026',w/2,112);ctx.font='27px Arial';ctx.fillText('SELECT TO EXPLORE',w/2,157);
+  });
+  const plaque = plane(0.75,0.188,basic({map:label}),x,y-0.048,-3.30); plaque.userData.award=i; trophyHit.push(plaque);
+  const light = new THREE.PointLight(0xffe4a0, 1.8, 2.2);light.position.set(x,y+0.65,-2.9);scene.add(light);
+}
+const trophyStyle = document.createElement('style');
+trophyStyle.textContent = `#trophy-dialog{margin:auto;inset:0;background:#101827;color:#fff;border:1px solid #f6c84c;border-radius:20px;padding:22px;width:min(640px,calc(100vw - 28px));max-height:calc(100dvh - 28px);overflow:auto;box-sizing:border-box;box-shadow:0 30px 90px #000a}#trophy-dialog::backdrop{background:#020713c9}#trophy-dialog h2{font-size:1.5rem;color:#ffdb67;margin:16px 0 6px}#trophy-dialog p{margin:8px 0}#trophy-dialog button{font:inherit;color:#fff;background:#253658;border:1px solid #7585a4;border-radius:9px;padding:10px 12px;cursor:pointer;min-height:44px}#trophy-dialog button[aria-pressed=true]{border-color:#ffdb67;background:#4a3c17}#trophy-dialog button:focus-visible,#trophy-preview:focus-visible{outline:3px solid #ffdb67;outline-offset:3px}#trophy-choices{display:flex;gap:8px;flex-wrap:wrap}#trophy-preview{width:100%;height:230px;display:block;touch-action:none;border-radius:12px;background:#172238}#trophy-dialog dl{display:grid;grid-template-columns:100px 1fr;gap:9px;margin-bottom:0}#trophy-dialog dt{color:#b8c7df}#trophy-dialog dd{margin:0;overflow-wrap:anywhere}#trophy-close{float:right}#trophy-help{font-size:.85rem;color:#c4d1e7}@media(max-width:500px){#trophy-preview{height:190px}#trophy-dialog{padding:16px}#trophy-dialog dl{grid-template-columns:80px 1fr;font-size:.9rem}}`;
+document.head.append(trophyStyle);
+const trophyDialog = document.createElement('dialog'); trophyDialog.id='trophy-dialog';
+trophyDialog.setAttribute('aria-labelledby','trophy-title');
+trophyDialog.innerHTML = `<button id="trophy-close" type="button" aria-label="Close trophy details">✕</button><p>VIHAAN’S CHESS TROPHIES</p><div id="trophy-choices"><button type="button" data-award="0">1st Place</button><button type="button" data-award="1">Outstanding Performance</button></div><h2 id="trophy-title"></h2><p id="trophy-event"></p><canvas id="trophy-preview" tabindex="0" role="img" aria-label="Interactive 3D trophy. Drag or use arrow keys to rotate." aria-describedby="trophy-help"></canvas><p id="trophy-help">Drag to turn your trophy · Arrow keys rotate · Home resets</p><dl id="trophy-stats"></dl>`;
+document.body.append(trophyDialog);
+const trophyCanvas = document.getElementById('trophy-preview');
+let trophyPreview = null, trophyReturnFocus = null, trophyScroll = 0, trophyOverflow = '', trophyDrag = null;
+function ensureTrophyPreview() {
+  if(trophyPreview) return;
+  const r = new THREE.WebGLRenderer({canvas:trophyCanvas,antialias:true,alpha:true});
+  r.setPixelRatio(Math.min(devicePixelRatio,2));r.outputColorSpace=THREE.SRGBColorSpace;
+  const sc = new THREE.Scene(), cam = new THREE.PerspectiveCamera(35,1,0.01,20);
+  cam.position.set(0,0.65,1.65);cam.lookAt(0,0.28,0);
+  sc.add(new THREE.HemisphereLight(0xffffff,0x7590bb,3));
+  const key=new THREE.DirectionalLight(0xffe4b0,4);key.position.set(2,3,4);sc.add(key);
+  const models=trophyAwards.map((_,i)=>{const m=makeAwardModel(i);sc.add(m);return m;});
+  trophyPreview={renderer:r,scene:sc,camera:cam,models,index:0};
+}
+function renderTrophyPreview() {
+  if(!trophyDialog.open || !trophyPreview)return;
+  const p=trophyPreview,w=Math.max(1,trophyCanvas.clientWidth),h=Math.max(1,trophyCanvas.clientHeight);
+  if(trophyCanvas.width!==Math.round(w*p.renderer.getPixelRatio()) || trophyCanvas.height!==Math.round(h*p.renderer.getPixelRatio()))p.renderer.setSize(w,h,false);
+  p.camera.aspect=w/h;p.camera.updateProjectionMatrix();p.renderer.render(p.scene,p.camera);
+}
+function openTrophy(index=0) {
+  if(!trophyDialog.open) {
+    trophyReturnFocus=document.activeElement;trophyScroll=scrollY;trophyOverflow=document.documentElement.style.overflow;
+    resetMovement();trophyDialog.showModal();document.documentElement.style.overflow='hidden';
+  }
+  ensureTrophyPreview();trophyPreview.index=index;
+  trophyPreview.models.forEach((m,i)=>{m.visible=i===index;m.rotation.set(0,0,0);});
+  const a=trophyAwards[index];document.getElementById('trophy-title').textContent=a.title;document.getElementById('trophy-event').textContent=a.event;
+  const dl=document.getElementById('trophy-stats');dl.replaceChildren();
+  for(const [name,value] of Object.entries({Date:a.date,Venue:a.venue,City:a.city,Section:a.section,Finish:a.finish,Score:a.score,Rating:a.rating,...(a.note?{'Award rule':a.note}:{})})) {
+    const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=name;dd.textContent=value;dl.append(dt,dd);
+  }
+  trophyDialog.querySelectorAll('[data-award]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.award)===index)));
+  renderTrophyPreview();document.getElementById('trophy-close').focus();
+}
+function closeTrophy(){trophyDialog.close();}
+trophyDialog.addEventListener('keydown', e => {
+  if (e.key !== 'Tab') return;
+  const focusable = [...trophyDialog.querySelectorAll('button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])')]
+    .filter(el => !el.hidden && el.getClientRects().length > 0);
+  if (!focusable.length) { e.preventDefault(); trophyDialog.focus(); return; }
+  const first = focusable[0], last = focusable[focusable.length - 1];
+  if (e.shiftKey && (document.activeElement === first || !focusable.includes(document.activeElement))) {
+    e.preventDefault(); last.focus();
+  } else if (!e.shiftKey && (document.activeElement === last || !focusable.includes(document.activeElement))) {
+    e.preventDefault(); first.focus();
+  }
+});
+trophyDialog.addEventListener('close',()=>{trophyDrag=null;resetMovement();document.documentElement.style.overflow=trophyOverflow;window.scrollTo(0,trophyScroll);if(trophyReturnFocus?.isConnected)trophyReturnFocus.focus({preventScroll:true});});
+trophyDialog.addEventListener('click',e=>{if(e.target===trophyDialog){const r=trophyDialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)closeTrophy();}});
+document.getElementById('trophy-close').addEventListener('click',closeTrophy);
+trophyDialog.querySelectorAll('[data-award]').forEach(b=>b.addEventListener('click',()=>openTrophy(Number(b.dataset.award))));
+trophyCanvas.addEventListener('pointerdown',e=>{trophyDrag={x:e.clientX,y:e.clientY,id:e.pointerId};trophyCanvas.setPointerCapture(e.pointerId);});
+trophyCanvas.addEventListener('pointermove',e=>{if(!trophyDrag || trophyDrag.id!==e.pointerId)return;const m=trophyPreview.models[trophyPreview.index];m.rotation.y+=(e.clientX-trophyDrag.x)*0.012;m.rotation.x=Math.max(-0.6,Math.min(0.6,m.rotation.x+(e.clientY-trophyDrag.y)*0.008));trophyDrag.x=e.clientX;trophyDrag.y=e.clientY;});
+for(const name of ['pointerup','pointercancel','lostpointercapture'])trophyCanvas.addEventListener(name,()=>{trophyDrag=null;});
+trophyCanvas.addEventListener('keydown',e=>{const m=trophyPreview.models[trophyPreview.index];if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home'].includes(e.key)){e.preventDefault();e.stopPropagation();if(e.key==='Home')m.rotation.set(0,0,0);else if(e.key==='ArrowLeft'||e.key==='ArrowRight')m.rotation.y+=e.key==='ArrowLeft'?-0.15:0.15;else m.rotation.x=Math.max(-0.6,Math.min(0.6,m.rotation.x+(e.key==='ArrowUp'?-0.1:0.1)));}});
 
 /* ---------- Vihaan: Articulated 3D Character (Sally UX Lead) ---------- */
 const personGroup = new THREE.Group();
@@ -2794,6 +2901,7 @@ let groundTargetMarker = null;
   plane(0.074, 0.148, basic({ map: phoneTex, toneMapped: false }), 0.0, 0, 0.008, phone).castShadow = false;
   const phoneLight = new THREE.PointLight(0xffd500, 0.65, 1.4, 2); phoneLight.position.set(0.38, 0.46, 0); g.add(phoneLight);
 
+  vihaanRig.feet = [];
   // Articulated Kid Legs with High-Top Sneakers
   for (const s of [-1, 1]) {
     const legG = new THREE.Group();
@@ -2809,6 +2917,11 @@ let groundTargetMarker = null;
     limb(0.054, knee, shinMid, jeans, legG);
     limb(0.048, shinMid, ank, whiteM, legG);
 
+    const walking = new THREE.Group(); g.add(walking);
+    const thigh = cyl(0.059, 0.059, 1, jeans, 0, 0, 0, walking);
+    const shin = cyl(0.046, 0.053, 1, jeans, 0, 0, 0, walking);
+    const joint = sphere(0.061, jeans, 0, 0, 0, walking);
+    vihaanRig.feet.push({ side: s, sitting: legG, walking, thigh, shin, joint, position: null, swing: null });
     // High-top sneaker
     const shoeG = new THREE.Group();
     shoeG.position.set(0.46, -0.37, s * 0.015);
@@ -2819,6 +2932,9 @@ let groundTargetMarker = null;
     toeCap.scale.set(1.1, 0.85, 0.98);
     rbox(0.24, 0.026, 0.11, 0.01, whiteM, 0.01, -0.048, 0, shoeG);
     rbox(0.245, 0.010, 0.112, 0.004, yellowM, 0.01, -0.062, 0, shoeG);
+    const foot = vihaanRig.feet[vihaanRig.feet.length - 1];
+    foot.shoe = shoeG.clone(); walking.add(foot.shoe);
+
   }
 
   // Props permanently displayed on step 0 beside where Vihaan sits:
@@ -3951,22 +4067,136 @@ const chessGame = {
 /* ========================================================================
    VIHAAN AVATAR MOVEMENT, STAIRS NAVIGATION & WAYPOINTS (SALLY UX LEAD)
    ======================================================================== */
+const STAIR_FLOOR_BOUNDS = { minX: -11.02, maxX: 0.24, minZ: -2.90, maxZ: -0.25 };
+function onStairs(x, z) {
+  if (x >= -10.8 && x <= -8.4 && z >= Z0 && z <= Z1) return true;
+  return x > -8.4 && x <= 0.032 && z >= -2.635 && z <= -0.515;
+}
 function getWalkHeight(x, z) {
-  // Stairs corridor: x from 0 down to -10.8, z from -2.8 to -0.4
-  if (x <= 0.05 && x >= -11.0 && z >= -2.8 && z <= -0.4) {
-    if (x < -8.4) return 3.835; // Top landing balcony deck
-    const step = Math.min(13, Math.max(0, Math.floor((-x) / 0.6)));
-    const frac = ((-x) % 0.6) / 0.6;
-    const baseH = 0.39 + step * 0.265;
-    const nextH = 0.39 + Math.min(13, step + 1) * 0.265;
-    return frac > 0.82 ? baseH + (nextH - baseH) * ((frac - 0.82) / 0.18) : baseH;
+  if (onStairs(x, z)) {
+    if (x < -8.4) return STEP_TOP(13);
+    // Include the real 32mm tread overhang; never interpolate through a riser.
+    return STEP_TOP(Math.max(0, Math.min(13, Math.floor((-x + 0.032) / RUN))));
   }
-  // Inside Tea Room through sliding door
-  if (z <= -3.3 && x >= 0.2 && x <= 2.8) {
-    return 0.02; // Tatami floor height
+  return z <= -3.3 && x >= 0.2 && x <= 2.8 ? 0.02 : 0;
+}
+function resetMovement(clearQueue = true) {
+  for (const k of Object.keys(vihaanState.keys)) vihaanState.keys[k] = false;
+  if (clearQueue) vihaanState.queue = [];
+  vihaanState.velocity = 0; vihaanState.isWalking = false;
+}
+function guardedPosition(x, z) {
+  const v = vihaanState;
+  if (onStairs(v.x, v.z) && v.x < -0.12) {
+    x = Math.max(-10.6, x); z = Math.max(-2.42, Math.min(-0.73, z));
+  } else if (!onStairs(v.x, v.z) && x < -0.12 && x > STAIR_FLOOR_BOUNDS.minX && z > STAIR_FLOOR_BOUNDS.minZ && z < STAIR_FLOOR_BOUNDS.maxZ) {
+    return { x: v.x, z: v.z }; // Leave a whole-shoe margin at the sides and landing back.
   }
-  // Lobby ground floor
-  return 0.0;
+  return { x: Math.max(-14, Math.min(12, x)), z: Math.max(-8, Math.min(8, z)) };
+}
+function footDestination(side, lead = 0) {
+  const v = vihaanState;
+  const travelYaw = lead && (v.moveDX || v.moveDZ) ? Math.atan2(-v.moveDZ, v.moveDX) : v.yaw;
+  const c = Math.cos(travelYaw), sn = Math.sin(travelYaw);
+  let x = v.x + c * lead + sn * side * 0.12;
+  let z = v.z - sn * lead + c * side * 0.12;
+  const bodyOnFlight = onStairs(v.x, v.z);
+  const enteringBottom = v.x >= -0.12 && x < 0.23 && x > -0.6 && z > -2.42 && z < -0.73;
+  if (!bodyOnFlight && v.x < -0.12) {
+    // Side approaches stay on the floor, even if a forward swing would reach
+    // a high tread. Only the open bottom permits a floor-to-stair footfall.
+    if (v.x < -10.8 && v.z >= Z0 && v.z <= Z1) x = Math.min(x, -11.02);
+    else if (v.z >= Z1) z = Math.max(z, -0.25);
+    else if (v.z <= Z0) z = Math.min(z, -2.90);
+  }
+  if (bodyOnFlight || enteringBottom) {
+    z = Math.max(-2.43, Math.min(-0.72, z));
+    x = Math.max(-10.55, x);
+    if (x < 0.23 && x > -8.4) {
+      const i = Math.max(0, Math.min(13, Math.floor((-x + 0.032) / RUN)));
+      x = -(i + 0.5) * RUN; // Entire shoe fits the tread, including its toe.
+    }
+  }
+  return new THREE.Vector3(x, getWalkHeight(x, z), z);
+}
+function poseWalkingLeg(foot) {
+  const hip = new THREE.Vector3(0.04, 0.03, foot.side * 0.105);
+  const ankle = personGroup.worldToLocal(foot.position.clone().add(new THREE.Vector3(0, 0.105 * personGroup.scale.y, 0)));
+  const delta = ankle.clone().sub(hip), distance = delta.length();
+  foot.ankleReach = distance;
+  const direction = delta.clone().normalize();
+  const bend = new THREE.Vector3(1, 0, 0).addScaledVector(direction, -direction.x).normalize();
+  const knee = hip.clone().addScaledVector(direction, distance / 2).addScaledVector(bend, Math.sqrt(Math.max(0.001, 0.40 ** 2 - (distance / 2) ** 2)));
+  for (const [mesh, start, end] of [[foot.thigh, hip, knee], [foot.shin, knee, ankle]]) {
+    const d = end.clone().sub(start);
+    mesh.position.copy(start).add(end).multiplyScalar(0.5);
+    mesh.scale.y = d.length(); mesh.quaternion.setFromUnitVectors(UP, d.normalize());
+  }
+  foot.joint.position.copy(knee);
+  // A planted shoe keeps its world heading while the torso turns above it.
+  const shoeYaw = (foot.yaw ?? vihaanState.yaw) - vihaanState.yaw;
+  foot.shoe.rotation.y = shoeYaw;
+  foot.shoe.position.copy(ankle).add(new THREE.Vector3(0.04 * Math.cos(shoeYaw), -0.038, -0.04 * Math.sin(shoeYaw)));
+}
+function updateFeet(dt, moved) {
+  const v = vihaanState, feet = vihaanRig.feet;
+  for (const f of feet) if (!f.position) { f.position = footDestination(f.side); f.yaw = v.yaw; }
+  v.nextFoot ??= 0;
+  // Only one foot swings at a time. Stance feet stay fixed in world coordinates.
+  if (!feet.some(f => f.swing)) {
+    let chosen = v.nextFoot;
+    if (moved <= 0.0001) {
+      // At rest settle the less centered foot first, even if its partner is
+      // already home. Alternation alone can otherwise strand a trailing foot.
+      const offsets = feet.map(f => f.position.distanceTo(footDestination(f.side)) +
+        0.2 * Math.abs(Math.atan2(Math.sin(v.yaw - f.yaw), Math.cos(v.yaw - f.yaw))));
+      chosen = offsets[1] > offsets[0] ? 1 : 0;
+    }
+    const f = feet[chosen], target = footDestination(f.side, moved > 0.0001 ? 0.30 : 0);
+    const trailing = Math.hypot(f.position.x - target.x, f.position.z - target.z);
+    const yawDifference = Math.abs(Math.atan2(Math.sin(v.yaw - f.yaw), Math.cos(v.yaw - f.yaw)));
+    if (!v.isSitting && (trailing > (moved > 0.0001 ? 0.29 : 0.07) || (moved <= 0.0001 && yawDifference > 0.12))) {
+      const height = Math.max(f.position.y, target.y, getWalkHeight(v.x, v.z));
+      f.yaw = moved > 0.0001 && (v.moveDX || v.moveDZ) ? Math.atan2(-v.moveDZ, v.moveDX) : v.yaw;
+      f.swing = { from: f.position.clone(), to: target, t: 0, height, duration: onStairs(v.x, v.z) ? 0.30 : 0.24 };
+      v.nextFoot = 1 - chosen;
+    }
+  }
+  for (const f of feet) if (f.swing) {
+    const sw = f.swing; sw.t = Math.min(1, sw.t + dt / sw.duration);
+    // Lift vertically before crossing a riser, then lower onto the target tread.
+    const travel = THREE.MathUtils.smoothstep(sw.t, 0.22, 0.78);
+    f.position.lerpVectors(sw.from, sw.to, travel);
+    const clearance = sw.height + 0.19;
+    f.position.y = sw.t < 0.22 ? THREE.MathUtils.lerp(sw.from.y, clearance, THREE.MathUtils.smoothstep(sw.t, 0, 0.22)) : sw.t > 0.78 ? THREE.MathUtils.lerp(clearance, sw.to.y, THREE.MathUtils.smoothstep(sw.t, 0.78, 1)) : clearance;
+    if (sw.t === 1) { f.position.copy(sw.to); f.swing = null; }
+  }
+  const support = Math.max(...feet.map(f => f.swing ? THREE.MathUtils.lerp(f.swing.from.y, f.swing.to.y, THREE.MathUtils.smoothstep(f.swing.t, 0, 0.7)) : f.position.y));
+  // Choose the highest comfortable pelvis reachable by BOTH actual ankles.
+  // A lower planted stair foot limits elevation until the body moves above it;
+  // on a level landing both legs extend naturally rather than holding a squat.
+  const scale = personGroup.scale.y;
+  let reachableY = Infinity;
+  for (const f of feet) {
+    const hipX = v.x + Math.cos(v.yaw) * 0.04 * scale + Math.sin(v.yaw) * f.side * 0.105 * scale;
+    const hipZ = v.z - Math.sin(v.yaw) * 0.04 * scale + Math.cos(v.yaw) * f.side * 0.105 * scale;
+    const horizontal = Math.hypot(hipX - f.position.x, hipZ - f.position.z);
+    const vertical = Math.sqrt(Math.max(0.01, (0.79 * scale) ** 2 - horizontal ** 2));
+    reachableY = Math.min(reachableY, f.position.y + 0.105 * scale + vertical - 0.03 * scale);
+  }
+  const idealY = Math.min(support + 0.90, reachableY);
+  v.standY = v.standY == null ? idealY : Math.min(reachableY, THREE.MathUtils.damp(v.standY, idealY, 16, dt));
+  const standY = v.standY;
+  const sitY = v.seat === 'table' ? 0.095 : BASE + 0.015;
+  vihaanRig.sitProgress = THREE.MathUtils.damp(vihaanRig.sitProgress, v.isSitting ? 1 : 0, 12, dt);
+  const sp = vihaanRig.sitProgress;
+  v.y = THREE.MathUtils.lerp(standY, sitY, sp);
+  personGroup.position.set(v.x, v.y, v.z); personGroup.rotation.y = v.yaw;
+  personGroup.updateMatrixWorld(true);
+  for (const f of feet) {
+    f.sitting.visible = sp >= 0.5; f.walking.visible = sp < 0.5;
+    poseWalkingLeg(f);
+  }
 }
 
 function showGroundReticle(x, y, z) {
@@ -3976,64 +4206,79 @@ function showGroundReticle(x, y, z) {
   groundTargetMarker.visible = true;
 }
 
+// Route ground segments around the flight's footprint, using its open bottom.
+function floorRoute(from, to, queue) {
+  let enter = 0, exit = 1;
+  for (const [start, end, min, max] of [[from.x,to.x,STAIR_FLOOR_BOUNDS.minX,STAIR_FLOOR_BOUNDS.maxX],[from.z,to.z,STAIR_FLOOR_BOUNDS.minZ,STAIR_FLOOR_BOUNDS.maxZ]]) {
+    const delta = end - start;
+    if (Math.abs(delta) < 0.00001) { if (start < min || start > max) { enter = 2; break; } }
+    else { const t1=(min-start)/delta,t2=(max-start)/delta; enter=Math.max(enter,Math.min(t1,t2));exit=Math.min(exit,Math.max(t1,t2)); }
+  }
+  if (enter <= exit && enter <= 1 && exit >= 0) {
+    // First clear the side before moving across the front of the stairs.
+    const outsideZ = from.z < -1.57 ? Math.min(from.z,STAIR_FLOOR_BOUNDS.minZ) : Math.max(from.z,STAIR_FLOOR_BOUNDS.maxZ);
+    if (from.x < 0.42) {
+      if (outsideZ !== from.z) queue.push({x:from.x,z:outsideZ});
+      queue.push({x:0.42,z:outsideZ});
+    }
+    const targetSideZ = to.x < STAIR_FLOOR_BOUNDS.maxX && to.z >= STAIR_FLOOR_BOUNDS.minZ && to.z <= STAIR_FLOOR_BOUNDS.maxZ
+      ? (outsideZ < -1.57 ? STAIR_FLOOR_BOUNDS.minZ : STAIR_FLOOR_BOUNDS.maxZ) : to.z;
+    queue.push({x:0.42,z:targetSideZ});
+    if (targetSideZ !== to.z) queue.push({x:to.x,z:targetSideZ});
+  }
+}
 function walkVihaanTo(targetX, targetZ, onReach) {
-  vihaanState.isSitting = false;
-  vihaanState.seat = 'none';
-  vihaanState.queue.push({ x: targetX, z: targetZ, onReach });
+  if (trophyDialog.open) return;
+  resetMovement();
+  const v = vihaanState;
+  targetX = Math.max(-14,Math.min(12,targetX));
+  targetZ = Math.max(-8,Math.min(8,targetZ));
+  if (onStairs(targetX, targetZ) && targetX < -0.12) {
+    targetX = Math.max(-10.6, targetX);
+    targetZ = Math.max(-2.42, Math.min(-0.73, targetZ));
+  } else if (!onStairs(targetX, targetZ) && targetX < -0.12 && targetX > -11.02 && targetZ > -2.90 && targetZ < -0.25) {
+    if (targetX < -10.8 && targetZ >= Z0 && targetZ <= Z1) targetX = -11.02;
+    else targetZ = targetZ > -1.57 ? -0.25 : -2.90;
+  }
+  if (groundTargetMarker?.visible) showGroundReticle(targetX, getWalkHeight(targetX, targetZ), targetZ);
+  v.isSitting = false; v.seat = 'none';
+  const fromStair = onStairs(v.x, v.z), toStair = onStairs(targetX, targetZ);
+  let from = {x:v.x,z:v.z};
+  if (fromStair && !toStair) {
+    v.queue.push({ x: -0.18, z: -1.57 }, { x: 0.42, z: -1.57 });
+    from = {x:0.42,z:-1.57};
+  }
+  if (!fromStair && toStair) {
+    const entrance = {x:0.42,z:-1.57};
+    floorRoute(from,entrance,v.queue);
+    v.queue.push(entrance,{x:-0.18,z:-1.57});
+  } else if (!toStair) floorRoute(from,{x:targetX,z:targetZ},v.queue);
+  v.queue.push({ x: targetX, z: targetZ, onReach });
 }
 
 function walkVihaanToStairsTop() {
-  vihaanState.queue = [];
-  vihaanState.isSitting = false;
-  vihaanState.seat = 'none';
-  // Route cleanly if currently inside tea room
-  if (vihaanState.z < -3.2) {
-    vihaanState.queue.push({ x: 1.35, z: -3.2 });
-    vihaanState.queue.push({ x: 0.5, z: -1.57 });
-  } else {
-    vihaanState.queue.push({ x: 0.4, z: -1.57 });
-  }
-  vihaanState.queue.push({ x: -0.2, z: -1.57 });
-  vihaanState.queue.push({ x: -4.2, z: -1.57 });
-  vihaanState.queue.push({
-    x: -9.2, z: -1.57,
-    onReach: () => {
-      vihaanState.yaw = Math.PI / 2; // Face out toward the entire lobby
-      playChessSound('win');
-    }
+  walkVihaanTo(-9.2, -1.57, () => {
+    vihaanState.yaw = Math.PI / 2;
+    playChessSound('win');
   });
 }
 
 function walkVihaanToStairsBottom() {
-  vihaanState.queue = [];
-  vihaanState.isSitting = false;
-  vihaanState.seat = 'none';
-  if (vihaanState.x < -0.4) {
-    vihaanState.queue.push({ x: -0.2, z: -1.57 });
-  }
-  vihaanState.queue.push({
-    x: -0.18, z: -1.05,
-    onReach: () => {
-      vihaanState.yaw = -0.28;
-      vihaanState.isSitting = true;
-      vihaanState.seat = 'stairs';
-    }
+  walkVihaanTo(-0.18, -1.05, () => {
+    vihaanState.yaw = -0.28;
+    vihaanState.isSitting = true;
+    vihaanState.seat = 'stairs';
   });
 }
 
 function walkVihaanToChessTable() {
-  vihaanState.queue = [];
-  vihaanState.isSitting = false;
-  vihaanState.seat = 'none';
-  if (vihaanState.x < -0.4) {
-    vihaanState.queue.push({ x: 0.4, z: -1.57 });
-  }
-  vihaanState.queue.push({ x: 1.35, z: -2.8 });
+  walkVihaanTo(1.35, -2.8);
+  if (trophyDialog.open) return;
   vihaanState.queue.push({ x: 1.35, z: -3.8 });
   vihaanState.queue.push({
     x: 0.73, z: -4.85,
     onReach: () => {
-      vihaanState.yaw = 1.32; // Face table and Robo-Pawn
+      vihaanState.yaw = 1.32;
       vihaanState.isSitting = true;
       vihaanState.seat = 'table';
       setMode('chess');
@@ -4042,102 +4287,66 @@ function walkVihaanToChessTable() {
 }
 
 function updateVihaanMovement(dt, t) {
-  // 1. Direct keyboard walking when in home mode
-  const keys = vihaanState.keys;
-  let moveX = 0, moveZ = 0;
-  if (state.mode === 'home') {
-    if (keys.left) moveX -= 1;
-    if (keys.right) moveX += 1;
-    if (keys.up) moveZ -= 1;
-    if (keys.down) moveZ += 1;
+  dt = Math.min(0.05, Math.max(0, dt));
+  const v = vihaanState, keys = v.keys;
+  let dx = 0, dz = 0, target = null;
+  const enabled = state.mode === 'home' && !trophyDialog.open;
+  if (enabled) {
+    dx = Number(keys.right) - Number(keys.left); dz = Number(keys.down) - Number(keys.up);
+    if (dx || dz) { v.queue = []; v.isSitting = false; v.seat = 'none'; }
+    else if (v.queue.length) { target = v.queue[0]; dx = target.x - v.x; dz = target.z - v.z; }
   }
-
-  if (moveX !== 0 || moveZ !== 0) {
-    vihaanState.queue = [];
-    vihaanState.isSitting = false;
-    vihaanState.seat = 'none';
-    const len = Math.hypot(moveX, moveZ);
-    const speed = vihaanState.speed;
-    vihaanState.x += (moveX / len) * speed * dt;
-    vihaanState.z += (moveZ / len) * speed * dt;
-    const targetYaw = Math.atan2(moveX, moveZ);
-    vihaanState.yaw += (targetYaw - vihaanState.yaw) * Math.min(1, dt * 12);
-    vihaanState.isWalking = true;
-  } else if (vihaanState.queue.length > 0) {
-    const tgt = vihaanState.queue[0];
-    const dx = tgt.x - vihaanState.x, dz = tgt.z - vihaanState.z;
-    const dist = Math.hypot(dx, dz);
-    if (dist < 0.09) {
-      vihaanState.x = tgt.x; vihaanState.z = tgt.z;
-      const reached = vihaanState.queue.shift();
-      if (reached.onReach) reached.onReach();
-      if (vihaanState.queue.length === 0) vihaanState.isWalking = false;
-    } else {
-      const speed = vihaanState.speed;
-      vihaanState.x += (dx / dist) * speed * dt;
-      vihaanState.z += (dz / dist) * speed * dt;
-      const targetYaw = Math.atan2(dx, dz);
-      vihaanState.yaw += (targetYaw - vihaanState.yaw) * Math.min(1, dt * 10);
-      vihaanState.isWalking = true;
+  const distance = Math.hypot(dx, dz), previousX = v.x, previousZ = v.z;
+  const maxSpeed = onStairs(v.x, v.z) ? 1.15 : Math.min(v.speed, 1.35);
+  const directionYaw = distance > 0.001 ? Math.atan2(-dz, dx) : v.yaw;
+  const alignment = distance > 0.001 ? Math.max(0, Math.cos(directionYaw - v.yaw)) : 1;
+  const wanted = distance > 0.001 ? (target ? Math.min(maxSpeed, Math.sqrt(6 * distance)) : maxSpeed) : 0;
+  v.velocity = THREE.MathUtils.damp(v.velocity || 0, wanted * alignment, wanted ? 7 : 12, dt);
+  if (distance > 0.001 && enabled) {
+    v.moveDX = dx / distance; v.moveDZ = dz / distance;
+    const yaw = Math.atan2(-dz, dx), difference = Math.atan2(Math.sin(yaw - v.yaw), Math.cos(yaw - v.yaw));
+    v.yaw += difference * (1 - Math.exp(-12 * dt));
+  }
+  let travel = v.velocity * dt * alignment;
+  if (target) travel = Math.min(travel, distance);
+  if (enabled && travel > 0.00001 && !v.isSitting) {
+    const next = guardedPosition(v.x + (v.moveDX || 0) * travel, v.z + (v.moveDZ || 0) * travel);
+    // The pelvis cannot outrun the planted support foot, including turns.
+    // Continue the swing while briefly slowing the body if a sharp route change
+    // would exceed anatomical reach; the next footfall releases the constraint.
+    let allowed = 1;
+    for (const f of vihaanRig.feet) {
+      if (!f.position || f.swing) continue;
+      const reach = Math.hypot(next.x - f.position.x, next.z - f.position.z);
+      const limit = onStairs(v.x, v.z) ? 0.67 : 0.58;
+      if (reach > limit) {
+        let low = 0, high = allowed;
+        for (let i = 0; i < 10; i++) {
+          const fraction = (low + high) / 2;
+          const x = THREE.MathUtils.lerp(v.x, next.x, fraction), z = THREE.MathUtils.lerp(v.z, next.z, fraction);
+          if (Math.hypot(x - f.position.x, z - f.position.z) <= limit) low = fraction; else high = fraction;
+        }
+        allowed = low;
+      }
     }
-  } else {
-    vihaanState.isWalking = false;
+    v.x = THREE.MathUtils.lerp(v.x, next.x, allowed); v.z = THREE.MathUtils.lerp(v.z, next.z, allowed);
   }
-
-  // Auto door opening when Vihaan approaches tea room
-  if (vihaanState.z < -2.6 && vihaanState.x > 0.4 && vihaanState.x < 2.4) {
-    slider.want = 1;
+  if (target && Math.hypot(target.x - v.x, target.z - v.z) < 0.008) {
+    v.x = target.x; v.z = target.z; v.queue.shift();
+    if (target.onReach) target.onReach();
+    if (!v.queue.length) v.velocity = 0;
   }
-
-  // Height tracking: smooth elevation on stairs or tatami
-  const groundH = getWalkHeight(vihaanState.x, vihaanState.z);
-  const targetY = vihaanState.isSitting ? (vihaanState.seat === 'table' ? 0.095 : BASE + 0.015) : (groundH + 0.38);
-  vihaanState.y += (targetY - vihaanState.y) * Math.min(1, dt * 14);
-
-  // Position personGroup
-  personGroup.position.set(vihaanState.x, vihaanState.y, vihaanState.z);
-  personGroup.rotation.y = vihaanState.yaw;
-
-  // Stride animation
-  if (vihaanState.isWalking) {
-    vihaanState.walkT += dt * 10.5;
-    vihaanRig.sitProgress = Math.max(0, vihaanRig.sitProgress - dt * 6);
-    vihaanState.stepSoundTimer += dt;
-    if (vihaanState.stepSoundTimer > 0.32) {
-      vihaanState.stepSoundTimer = 0;
-      playChessSound('step');
-    }
-  } else if (vihaanState.isSitting) {
-    vihaanRig.sitProgress = Math.min(1, vihaanRig.sitProgress + dt * 5);
+  const moved = Math.hypot(v.x - previousX, v.z - previousZ);
+  v.isWalking = moved > 0.0001; v.walkT += moved * 9;
+  if (v.z < -2.6 && v.x > 0.4 && v.x < 2.4) slider.want = 1;
+  if (!trophyDialog.open) updateFeet(dt, moved);
+  const sp = vihaanRig.sitProgress, gait = v.isWalking ? Math.sin(v.walkT) : 0;
+  for (const [arm, side] of [[vihaanRig.leftArm, 1], [vihaanRig.rightArm, -1]]) {
+    arm.rotation.z = THREE.MathUtils.damp(arm.rotation.z, (1 - sp) * (-0.7 + side * gait * 0.24), 12, dt);
   }
-
-  const sp = vihaanRig.sitProgress; // 1 = sitting, 0 = walking/standing
-  const walkT = vihaanState.walkT;
-
-  if (vihaanRig.leftLeg && vihaanRig.rightLeg) {
-    // Sitting: legs fold forward (rotation.z = 0)
-    // Standing: legs point down (rotation.z = -1.25) and swing
-    const standZ = -1.25;
-    vihaanRig.leftLeg.rotation.z = (standZ * (1 - sp)) + (Math.sin(walkT) * 0.52 * (1 - sp));
-    vihaanRig.rightLeg.rotation.z = (standZ * (1 - sp)) - (Math.sin(walkT) * 0.52 * (1 - sp));
-  }
-
-  if (vihaanRig.leftArm && vihaanRig.rightArm) {
-    // Sitting: arms hold tablet in front
-    // Walking: arms swing in opposition
-    vihaanRig.leftArm.rotation.z = -Math.sin(walkT) * 0.42 * (1 - sp);
-    vihaanRig.rightArm.rotation.z = Math.sin(walkT) * 0.42 * (1 - sp);
-  }
-
-  if (vihaanRig.torso) {
-    vihaanRig.torso.position.y = 0.07 + (Math.abs(Math.sin(walkT * 2)) * 0.02 * (1 - sp));
-    vihaanRig.torso.rotation.z = -0.12 * sp;
-  }
-
-  if (vihaanHeadGroup) {
-    vihaanHeadGroup.rotation.y = Math.sin(t * 1.35) * 0.14 + mouse.x * 0.12;
-    vihaanHeadGroup.rotation.z = Math.sin(t * 2.1) * 0.035;
-  }
+  vihaanRig.phone.visible = sp > 0.5;
+  vihaanRig.torso.rotation.z = -0.12 * sp;
+  if (vihaanHeadGroup) { vihaanHeadGroup.rotation.y = Math.sin(t * 1.35) * 0.08; vihaanHeadGroup.rotation.z = Math.sin(t * 2.1) * 0.02; }
 
   // 3D Piece slide animations
   for (let i = active3DAnimations.length - 1; i >= 0; i--) {
@@ -5121,6 +5330,7 @@ function targets() {
   if (state.mode === 'hoop') return hoopCam();
   if (state.mode === 'tv') return tvCam();
   if (state.mode === 'chess') return chessCam();
+  if(innerWidth < 700) return [tmpA.set(-0.6,3.1,9.2),tmpB.set(-1.65,2.35,-3.4)];
   return [tmpA.copy(camBase), tmpB.copy(camLook)];
 }
 const HINTS = {
@@ -5147,6 +5357,7 @@ function showTV(i) {
 function setMode(m, arg) {
   if (window.markShadows) window.markShadows();
   if (m === 'tv' && arg !== undefined && state.mode === 'tv') { showTV(arg); return; }
+  resetMovement();
   if (m === state.mode) return;
   state.camFrom.copy(camera.position); state.lookFrom.copy(state.lookCur); state.transT = 0; state.mode = m;
   hintEl.innerHTML = HINTS[m] || ''; hintEl.classList.add('show');
@@ -5175,6 +5386,9 @@ function setMode(m, arg) {
         vihaanState.x = 0.73;
         vihaanState.z = -4.85;
         vihaanState.yaw = 1.32;
+        vihaanState.standY = null;
+        vihaanState.nextFoot = 0;
+        for (const foot of vihaanRig.feet) { foot.position = null; foot.swing = null; }
         vihaanState.isSitting = true;
         vihaanState.seat = 'table';
         if (typeof vihaanRig !== 'undefined') vihaanRig.sitProgress = 1.0;
@@ -5196,6 +5410,8 @@ const ndc = new THREE.Vector2();
 function pick(e) {
   const r = canvas.getBoundingClientRect(); ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
   ray.setFromCamera(ndc, camera);
+  const awardHit = ray.intersectObjects(trophyHit, false);
+  if (awardHit.length) { state.pickAward = awardHit[0].object.userData.award; return 'trophy'; }
   if (ray.intersectObjects(neonStringHit, false).length) return 'neonString';
   if (ray.intersectObjects(arcadeHit, false).length) return 'arcade';
   if (ray.intersectObjects(hoopHit, false).length) return 'hoop';
@@ -5252,6 +5468,7 @@ window.addEventListener('pointermove', (e) => {
   }
 }, { passive: true });
 canvas.addEventListener('pointerdown', (e) => {
+  if(trophyDialog.open)return;
   const h = pick(e);
   if (h === 'neonString') {
     neonSwitch.isDragging = true;
@@ -5263,6 +5480,7 @@ canvas.addEventListener('pointerdown', (e) => {
     return;
   }
   if (state.mode === 'home') {
+    if (h === 'trophy') { openTrophy(state.pickAward); return; }
     if (h === 'chess') {
       walkVihaanToChessTable();
       return;
@@ -5275,11 +5493,9 @@ canvas.addEventListener('pointerdown', (e) => {
     const r = canvas.getBoundingClientRect();
     ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
     ray.setFromCamera(ndc, camera);
-    const hits = ray.intersectObjects(scene.children, true).filter(hit => {
-      if (!hit.point) return false;
-      if (hit.point.y < -0.05 || hit.point.y > 4.2) return false;
-      if (typeof groundReticle !== 'undefined' && hit.object === groundReticle) return false;
-      return true;
+    const hits = ray.intersectObjects(walkableMeshes, false).filter(hit => {
+      return hit.face && (hit.object === floor || hit.face.normal.y > 0.9) && hit.point.y >= -0.01 &&
+        (hit.object !== floor || !onStairs(hit.point.x, hit.point.z));
     });
     if (hits.length) {
       const pt = hits[0].point;
@@ -5315,12 +5531,14 @@ window.addEventListener('pointerup', (e) => {
   }
 });
 window.addEventListener('keydown', (e) => {
+  if (trophyDialog.open || /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
+  if (state.mode === 'home' && ['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','w','a','s','d','W','A','S','D'].includes(e.key)) e.preventDefault();
   if (e.key === 'Escape' && state.mode !== 'home') { setMode('home'); return; }
   if (state.mode === 'home') {
     if (['ArrowLeft', 'a', 'A'].includes(e.key)) { vihaanState.keys.left = true; vihaanState.navTarget = null; }
     if (['ArrowRight', 'd', 'D'].includes(e.key)) { vihaanState.keys.right = true; vihaanState.navTarget = null; }
-    if (['ArrowUp', 'w', 'W'].includes(e.key)) { vihaanState.keys.forward = true; vihaanState.navTarget = null; }
-    if (['ArrowDown', 's', 'S'].includes(e.key)) { vihaanState.keys.backward = true; vihaanState.navTarget = null; }
+    if (['ArrowUp', 'w', 'W'].includes(e.key)) { vihaanState.keys.up = true; vihaanState.navTarget = null; }
+    if (['ArrowDown', 's', 'S'].includes(e.key)) { vihaanState.keys.down = true; vihaanState.navTarget = null; }
   }
   if (state.mode === 'arcade') {
     if (['ArrowLeft', 'a', 'A'].includes(e.key)) game.keys.left = true;
@@ -5337,8 +5555,8 @@ window.addEventListener('keyup', (e) => {
   if (state.mode === 'home') {
     if (['ArrowLeft', 'a', 'A'].includes(e.key)) vihaanState.keys.left = false;
     if (['ArrowRight', 'd', 'D'].includes(e.key)) vihaanState.keys.right = false;
-    if (['ArrowUp', 'w', 'W'].includes(e.key)) vihaanState.keys.forward = false;
-    if (['ArrowDown', 's', 'S'].includes(e.key)) vihaanState.keys.backward = false;
+    if (['ArrowUp', 'w', 'W'].includes(e.key)) vihaanState.keys.up = false;
+    if (['ArrowDown', 's', 'S'].includes(e.key)) vihaanState.keys.down = false;
   }
   if (['ArrowLeft', 'a', 'A'].includes(e.key)) game.keys.left = false;
   if (['ArrowRight', 'd', 'D'].includes(e.key)) game.keys.right = false;
@@ -5346,6 +5564,8 @@ window.addEventListener('keyup', (e) => {
   if (['ArrowDown', 's', 'S'].includes(e.key)) game.keys.down = false;
   if (e.key === ' ' || e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') game.keys.fire = false;
 });
+window.addEventListener('blur', () => resetMovement(false));
+document.addEventListener('visibilitychange', () => { if (document.hidden) resetMovement(false); });
 window.addEventListener('scroll', () => { if (state.mode !== 'home' && (window.scrollY || 0) > 60) setMode('home'); }, { passive: true });
 
 /* ---------- basketball physics ---------- */
@@ -5459,6 +5679,7 @@ function render(now) {
   syncVHS(dt);
   renderer.setRenderTarget(rt); renderer.render(scene, camera);
   renderer.setRenderTarget(null); renderer.render(postScene, postCam);
+  renderTrophyPreview();
   frame++;
 }
 renderer.shadowMap.autoUpdate = false;
@@ -5467,7 +5688,7 @@ let shadowDirty = 2;
 window.markShadows = () => { shadowDirty = 2; };
 function loop(now) {
   // the lobby is the backdrop for the machine screen now, so it keeps drawing there
-  const visible = (window.scrollY || 0) < lastH * 1.05 || document.body.classList.contains('machine');
+  const visible = trophyDialog.open || (window.scrollY || 0) < lastH * 1.05 || document.body.classList.contains('machine');
   if (visible) {
     if (ball.live || shadowDirty > 0) { renderer.shadowMap.needsUpdate = true; if (!ball.live) shadowDirty--; }
     const a = performance.now(); render(now); const cost = performance.now() - a;
@@ -5482,6 +5703,7 @@ loaderEl.classList.add('done');
 requestAnimationFrame(loop);
 
 /* Avatar Action Bar buttons */
+document.getElementById('btn-action-trophies').addEventListener('click',()=>openTrophy(0));
 document.getElementById('btn-action-chess')?.addEventListener('click', (e) => {
   e.stopPropagation();
   setMode('chess');
@@ -5532,6 +5754,9 @@ window.__slider = slider; window.__pend = () => pendants.map(p => ({ x: +p.ax.to
 window.__sblvl = {
   scene, camera, renderer, state, game, ball, TV, characters,
   vihaanState, chessGame, walkVihaanTo, walkVihaanToStairsTop, walkVihaanToStairsBottom, walkVihaanToChessTable,
+  getWalkHeight, trophyAwards, openTrophy,
+  movementStep(n=1,dt=1/60) { for(let i=0;i<n;i++)updateVihaanMovement(dt, i*dt); return this.movementSnapshot(); },
+  movementSnapshot() { return {x:vihaanState.x,y:vihaanState.y,z:vihaanState.z,yaw:vihaanState.yaw,walking:vihaanState.isWalking,queue:vihaanState.queue.length,feet:vihaanRig.feet.map(f=>({side:f.side,ankleReach:f.ankleReach,position:f.position?.toArray(),support:f.position?getWalkHeight(f.position.x,f.position.z):null,swing:!!f.swing,visible:f.walking.visible}))}; },
   bounds() { return characters.map(g => { const b = new THREE.Box3().setFromObject(g); return { min: b.min.toArray().map(v => +v.toFixed(3)), max: b.max.toArray().map(v => +v.toFixed(3)) }; }); },
   steps: Array.from({ length: STEPS }, (_, i) => ({ min: [X_BOTTOM - (i + 1) * RUN, 0, Z0], max: [X_BOTTOM - i * RUN, STEP_TOP(i), i < 3 ? Z1 + 0.55 - i * 0.12 : Z1] })),
   setMode, showTV, throwBall, render: () => render(performance.now()),

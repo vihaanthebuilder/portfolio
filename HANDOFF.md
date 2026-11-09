@@ -1,6 +1,121 @@
 # HANDOFF — Vihaan's Portfolio (Vihaan's World)
 
-## Latest status — published Nov 9, 2026
+## Completed local feature — walk and trophies (Nov 9, 2026)
+
+- Read FEATURE-BRIEF-walk-and-trophies.md. User explicitly authorizes the full
+  brief and mandatory VQA, superseding the earlier 3D pause. No publishing.
+- Starting HEAD: fd9334386b13dc6f814d5b552ac6ac103c39c3c4. Initially on main
+  with only the new brief untracked; switched to the requested existing
+  feature/3d-trophy-cabinet-showcase branch at the same revision.
+- Before changing code, reported state and diagnosed +X/+Z facing mismatch,
+  permanently bent seated leg geometry, insufficient standing root clearance,
+  interpolated/lagging stair support, and keyboard up/down naming mismatch.
+- Build spec: _bmad-output/implementation-artifacts/spec-walk-and-trophies.md.
+- Before-state evidence capture started under /tmp/vihaan-walk-vqa/.
+- Before captures completed and visually inspected. Bottom/mid show shoes
+  penetrating treads; top retains a bent/frozen leg pose. Exact screenshots:
+  `/tmp/vihaan-walk-vqa/before-desktop-bottom.png`,
+  `/tmp/vihaan-walk-vqa/before-desktop-mid.png`,
+  `/tmp/vihaan-walk-vqa/before-desktop-top.png`,
+  `/tmp/vihaan-walk-vqa/before-mobile-bottom.png`,
+  `/tmp/vihaan-walk-vqa/before-mobile-mid.png`,
+  `/tmp/vihaan-walk-vqa/before-mobile-top.png`.
+  Landing composition: `/tmp/vihaan-walk-vqa/before-desktop-landing.png`
+  and `/tmp/vihaan-walk-vqa/before-mobile-landing.png`.
+- Capture reproducibility: `/tmp/vihaan-walk-vqa/capture-before.cjs` and
+  `/tmp/vihaan-walk-vqa/baseline/index.html`. Browser-only instrumentation
+  freezes automatic RAF, advances the real scene render in 1/60s increments,
+  and uses a closer camera for stair contact inspection. Each stair screenshot
+  has a same-stem JSON with movement state; landing shots use default camera.
+- Photos and existing photo captions stay exactly as received; 3D models use
+  the two verified award records from the brief. Goku coordinates publishing.
+- Implementation written in index.html: articulated planted-foot gait, exact
+  tread support, movement/turn smoothing, corrected keyboard keys, guarded
+  stair routes, two labeled/lit rack trophies, responsive home camera, and
+  accessible rotatable 3D award cards with only verified facts.
+- VQA iterations caught and corrected ticker occlusion of the trophies,
+  excessive standing knee bend, incomplete stopped-foot settling, keyboard
+  focus escaping the dialog, uncentered dialog due to the global margin reset,
+  floor-stride ankle overstretch, and unreachable stair-edge click targets.
+  Final regression and after-capture checks are complete; no publish or push.
+
+### Final result for Goku
+
+- Worker implementation and independent code review are complete. All confirmed
+  findings were patched and checked. Goku's independent VQA and publish decision
+  remain next. Work is local on `feature/3d-trophy-cabinet-showcase`; `main`
+  remains at fd9334386b13dc6f814d5b552ac6ac103c39c3c4. No remote operations
+  were performed during this feature run.
+- Gait now uses articulated thigh/shin IK and independently planted shoes,
+  exact tread contact, travel-aware stride/turning, smooth speed changes, and
+  relaxed stopped poses. Stair/landing bounds and floor detours prevent side
+  entry and route stalls. Chess teleports reset foot caches; tab/background
+  changes clear held keys while preserving queued destinations.
+- Both verified awards are visible below the ticker on the left rack in the
+  default desktop and mobile landing views. Click/tap a model or use TROPHIES
+  to inspect it. Cards support pointer/touch dragging, keyboard rotation,
+  focus wrapping, Escape/close/backdrop dismissal, and restored scene input.
+- Unknown venue/city/section/score values are explicitly “Not recorded.” No
+  facts were inferred. Existing photo bytes and captions remain unchanged;
+  their duplicate-photo/1st-place-caption mismatch still needs the family.
+- **Verification passed:** all four repeatable Playwright scripts under tests/;
+  desktop 1440×1000 and mobile 390×844, real click/tap/drag/keyboard events,
+  both award cards, all WASD/arrows, click walking, ascent/descent, SIT/chess
+  routes from three exterior positions, teleport→standing, full landing edge,
+  side rejection, bottom entry/reversal, both rail boundaries, and blur behavior.
+- Independent actual-mesh rays checked **33,328** shoe-perimeter samples,
+  including corners and swinging feet, with zero violations. Max ankle reach
+  in the UI climb was **0.790** local units against a **0.800** anatomical
+  length. Planted soles met actual tread surfaces within numerical precision.
+  `git diff --check` passed. No browser console errors or page exceptions;
+  the existing duplicate-Three.js warning remains once per page, not worsened.
+- Final screenshots were visually inspected at bottom, mid-flight, and top:
+  no visible step penetration, soles on treads, raised feet clear the risers,
+  and upright settled posture. Some inspection shots use a closer camera and
+  hide HTML controls to reveal feet; default landing shots retain normal UI.
+  Mobile uses Chrome touch emulation; this is not a real-device performance test.
+- One review concern remains **unverified**, not a reproduced defect: the
+  legacy picking priority may select a trophy through another interactive
+  surface from some camera. Both default-view model click/tap checks passed.
+  Details and evidence needed are in
+  `_bmad-output/implementation-artifacts/deferred-work.md`.
+
+### Final VQA evidence — exact local paths
+
+Open `/tmp/vihaan-walk-vqa/review.html` for the before/after comparison gallery.
+Every screenshot path is also listed in
+`/tmp/vihaan-walk-vqa/evidence-manifest.json`. Before paths are listed above;
+the required after captures and unobstructed contact views are:
+
+| View | After screenshot | Foot-contact inspection |
+| --- | --- | --- |
+| Desktop bottom | `/tmp/vihaan-walk-vqa/after-desktop-bottom.png` | `/tmp/vihaan-walk-vqa/after-desktop-bottom-contact.png` |
+| Desktop mid-flight | `/tmp/vihaan-walk-vqa/after-desktop-mid.png` | `/tmp/vihaan-walk-vqa/after-desktop-mid-contact.png` |
+| Desktop top | `/tmp/vihaan-walk-vqa/after-desktop-top.png` | `/tmp/vihaan-walk-vqa/after-desktop-top-contact.png` |
+| Mobile bottom | `/tmp/vihaan-walk-vqa/after-mobile-bottom.png` | `/tmp/vihaan-walk-vqa/after-mobile-bottom-contact.png` |
+| Mobile mid-flight | `/tmp/vihaan-walk-vqa/after-mobile-mid.png` | `/tmp/vihaan-walk-vqa/after-mobile-mid-contact.png` |
+| Mobile top | `/tmp/vihaan-walk-vqa/after-mobile-top.png` | `/tmp/vihaan-walk-vqa/after-mobile-top-contact.png` |
+
+Default rack and both cards:
+
+- `/tmp/vihaan-walk-vqa/after-desktop-landing.png`
+- `/tmp/vihaan-walk-vqa/after-mobile-landing.png`
+- `/tmp/vihaan-walk-vqa/after-desktop-card-crowder.png`
+- `/tmp/vihaan-walk-vqa/after-desktop-card-peace.png`
+- `/tmp/vihaan-walk-vqa/after-mobile-card-crowder.png`
+- `/tmp/vihaan-walk-vqa/after-mobile-card-peace.png`
+- `/tmp/vihaan-walk-vqa/after-desktop-card-peace-stats.png`
+- `/tmp/vihaan-walk-vqa/after-mobile-card-peace-stats.png`
+
+Reports: `/tmp/vihaan-walk-vqa/verification.json`,
+`/tmp/vihaan-walk-vqa/physical-contact.json`,
+`/tmp/vihaan-walk-vqa/boundaries.json`, `/tmp/vihaan-walk-vqa/picking.json`,
+and `/tmp/vihaan-walk-vqa/after-capture-report.json`.
+Capture scripts: `/tmp/vihaan-walk-vqa/capture-before.cjs` and
+`/tmp/vihaan-walk-vqa/capture-after.cjs`. Temporary files remain machine-local;
+repeatable checks and dependency setup are committed under tests/.
+
+## Previous publish — ratings, Nov 9, 2026
 
 - Executed Goku's PUBLISH-BRIEF.md. Rating/content commit:
   `404d5d10f6e8bafd3836267f5f04cae6b7f65666`, following baseline
