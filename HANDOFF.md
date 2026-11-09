@@ -1,5 +1,71 @@
 # HANDOFF — Vihaan's Portfolio (Vihaan's World)
 
+## Completed local feature — Geometry Dash harder (Nov 9, 2026)
+
+- Goku dispatched FEATURE-BRIEF-geometry-dash-harder.md after Vihaan chose
+  double spikes and tight jumps and said yes. The trophy-photo correction is
+  already live-verified; this is the next separate change.
+- Starting state reported before edits: main at
+  a4b4afc7c3d8ac4eab89306302d66886bdbb2da5, only the new brief untracked.
+  Created feature/geometry-dash-harder. Local commit only; no publishing/push.
+- Game located in games.html, geoDash IIFE. Current physics: 24px cube,
+  speed 2.7px/frame, gravity .62, jump velocity -10.6. Floor is continuous;
+  later tight landings will use narrower existing-style platforms, not pits.
+- Preserve original first 44 pattern cells (through world X2100), keeping the
+  first 600 frames / approximately 10 seconds unchanged at nominal 60fps,
+  including what enters the 380px viewport. Character/physics/controls remain.
+- Baseline saved at /tmp/vihaan-geodash-harder/before-games.html. Preparing
+  complete-playthrough and per-obstacle proof using the actual game functions.
+- Level geometry implemented: 10 paired obstacles (44px wide) and 10 narrow
+  platforms (26px low / 32px high, versus the original 40px / 64px widths).
+  Low platforms are followed by a spike pair 80px from their leading edge;
+  high platforms have a pair 120px after their leading edge. No pits added.
+- Opening first 44 cells retained exactly; first changed object enters the
+  viewport at approximately 12.10 seconds at 60fps. Original finish position
+  X5540 and total level length remain unchanged. All gameplay functions,
+  character rendering, physics, and controls are byte-for-byte unchanged.
+- Node proof PASSED using extracted production jump/update/collision functions:
+  searched 51,254 transitions, found/replayed victory at frame 2052 (~34.2s at
+  60fps), with 26 jump inputs. Witness deliberately lands on ALL 10 new narrow
+  platforms and clears ALL 10 pairs. Each pair was checked across its complete
+  21–22 collision frames; minimum vertical clearance above the collision tip
+  threshold was 8.08px. Measured maximum ground-jump height: 85.34px.
+- Real Chrome replay PASSED with those same inputs delivered through canvas
+  mousedown handlers: reached the actual “Level Complete! 100%” overlay, plus
+  crash/restart and Space jump checks. No page exceptions. Browser-only
+  instrumentation/manual frame stepping is used for reproducibility; no test
+  hooks/autoplay are added to the shipped game.
+- Captures visually inspected:
+  `/tmp/vihaan-geodash-harder/double-spikes-game.png` (for Vihaan),
+  `/tmp/vihaan-geodash-harder/double-spikes-canvas.png`,
+  `/tmp/vihaan-geodash-harder/complete-game.png`, and
+  `/tmp/vihaan-geodash-harder/complete-canvas.png`.
+- Proof files: `/tmp/vihaan-geodash-harder/beatable-proof.json`,
+  `/tmp/vihaan-geodash-harder/jump-frames.json`, and
+  `/tmp/vihaan-geodash-harder/browser-proof.json`. Repeatable commands:
+  `node tests/geodash-harder.cjs`, then (with Playwright installed)
+  `node tests/geodash-browser.cjs`. Review results are recorded below.
+- Independent small-change review completed; all five verification/documentation
+  findings addressed, none deferred. Added source-hash binding between proof
+  and browser replay, complete test setup docs, normal-animation checks, touch
+  and ArrowUp input checks, and per-jump timing sweeps.
+- Timing proof: varied every later input by ±12 frames with all other inputs
+  fixed, replaying to actual victory each time. Successful tested windows span
+  3–22 input frames; tightest is three consecutive frames (~50ms at 60fps).
+  This demonstrates alternatives to a single perfect-frame sequence, not every
+  possible strategy or a human playtest. Vihaan can judge difficulty locally.
+- A separate browser run with ordinary RAF (not manual stepping) passed Start,
+  camera advancement, ArrowUp and touch jumping, crash, and restart advancement.
+  Mouse and Space passed in the deterministic full-playthrough run. No page
+  exceptions. Physics/full-game tests and git diff --check passed.
+- Setup, local server, dependencies, command order, and artifact paths are in
+  tests/README.md. No product debug hooks, physics/control changes, unrelated
+  game edits, pushes, merges to main, or publication. Main stays at
+  a4b4afc7c3d8ac4eab89306302d66886bdbb2da5; feature/geometry-dash-harder is
+  ready for Vihaan's screenshot review and Goku's next direction.
+- An unrelated untracked FEATURE-BRIEF-lichess-classical-1605.md appeared
+  during this run. Left it untouched and outside the Geometry Dash commit.
+
 ## Correction published — real trophy photograph (Nov 9, 2026)
 
 - Goku relayed Nishant's HOLD + FIX after reviewing the published generic
