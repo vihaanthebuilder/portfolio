@@ -14,6 +14,8 @@ for(const [device,w,h] of [['desktop',1440,1000],['mobile',390,844]]){
  const click=async sel=>{if(device==='mobile')await page.locator(sel).tap();else await page.locator(sel).click();};
  await click('#btn-action-trophies');await page.waitForFunction(()=>document.querySelector('#trophy-dialog').open);
  assert.match(await page.locator('#trophy-event').innerText(),/Crowder College Spring Open/);
+ assert(!(await page.locator('#trophy-photo').isVisible()),'Crowder has no mismatched photograph');
+ assert(await page.locator('#trophy-preview').isVisible(),'Crowder retains the rack model');
  assert.match(await page.locator('#trophy-stats').innerText(),/585 → 715 \(\+130\)/);
  await page.screenshot({path:`${evidenceDir}/after-${device}-card-crowder.png`});
  const frozen=await page.evaluate(()=>__sblvl.movementSnapshot());await page.keyboard.down('w');await page.waitForTimeout(200);await page.keyboard.up('w');
@@ -29,6 +31,12 @@ for(const [device,w,h] of [['desktop',1440,1000],['mobile',390,844]]){
  }else{await page.mouse.move(box.x+box.width*.3,box.y+box.height*.5);await page.mouse.down();await page.mouse.move(box.x+box.width*.7,box.y+box.height*.55,{steps:8});await page.mouse.up();}
  await page.waitForTimeout(120);assert(!dragBefore.equals(await page.locator('#trophy-preview').screenshot()),'pointer rotation must change preview');
  await click('[data-award="1"]');assert.match(await page.locator('#trophy-event').innerText(),/Peace Academy K-12 Open/);const stats=await page.locator('#trophy-stats').innerText();assert.match(stats,/4th place/);assert.match(stats,/4.0 \/ 5/);assert.match(stats,/Section 3 \(K-12 U900\)/);assert.match(stats,/Not recorded/);
+ assert(await page.locator('#trophy-photo').isVisible(),'Peace card shows the actual photo');
+ assert(!(await page.locator('#trophy-preview').isVisible()),'Peace card hides the invented preview');
+ await page.waitForFunction(()=>{const i=document.getElementById('trophy-photo');return i.complete&&i.naturalWidth>0;});
+ assert.equal(await page.locator('#trophy-photo').getAttribute('src'),'images/outstanding-performance-trophy.jpg');
+ for(let i=0;i<7;i++){await page.keyboard.press('Tab');assert(await page.evaluate(()=>!!document.activeElement.closest('#trophy-dialog')));}
+ await page.locator('#trophy-dialog').evaluate(e=>e.scrollTop=0);
  await page.screenshot({path:`${evidenceDir}/after-${device}-card-peace.png`});
  await page.locator('#trophy-dialog').evaluate(e=>e.scrollTop=e.scrollHeight);await page.screenshot({path:`${evidenceDir}/after-${device}-card-peace-stats.png`});
  await page.keyboard.press('Escape');await page.waitForFunction(()=>!document.querySelector('#trophy-dialog').open);assert.equal(await page.evaluate(()=>document.activeElement.id),'btn-action-trophies');

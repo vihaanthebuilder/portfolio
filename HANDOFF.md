@@ -1,5 +1,43 @@
 # HANDOFF — Vihaan's Portfolio (Vihaan's World)
 
+## Correction in progress — real trophy photograph (Nov 9, 2026)
+
+- Goku relayed Nishant's HOLD + FIX after reviewing the published generic
+  Peace card model. The publish had already pushed d004977 to main and then
+  pushed documentation commit 7d0cdcc81e43f1ca06580854eea9901e542ac024.
+  Feature Pages run 42698689679 had succeeded; documentation Pages run
+  42698983615 was still in progress when the correction began. This is a
+  correction and republish, not an unpublished change or a rolled-back deploy.
+- Starting tree clean at 7d0cdcc; switched to feature/3d-trophy-cabinet-showcase.
+- Correct Peace detail card to show the actual repository photo
+  images/outstanding-performance-trophy.jpg. Keep every award stat unchanged.
+- Crowder detail keeps its rack model and stats, with no mislabeled photograph.
+  Its actual trophy photo remains an open family decision: chess-trophy.jpg
+  is byte-identical to the Outstanding Performance photo and cannot establish
+  a photograph of the Crowder 1st Place trophy. Existing gallery captions/files
+  remain outside this targeted detail-card correction.
+- User explicitly authorizes local capture, commit, merge, push main, live
+  verification, and a results update after this correction. No force-push.
+- Cancellation was attempted under HOLD, but GitHub returned “Cannot cancel a
+  workflow run that is completed”; run 42698983615 finished successfully before
+  cancellation reached it. The old build therefore remained live until this fix.
+- Peace's detail now shows the real Outstanding Performance photograph; its
+  invented canvas and rotation hint are hidden, and preview rendering is skipped.
+  Crowder's detail retains the rotatable rack model with no photograph. Both
+  directions of award selection preserve the separate visual types.
+- Verified all trophyAwards data unchanged byte-for-byte against 7d0cdcc.
+  No trophy photo files or existing gallery captions were edited.
+- Updated tests/walk-and-trophies.cjs and ran it successfully on desktop and
+  mobile: real photo loads, correct source path, Peace canvas hidden, Crowder
+  photo hidden, focus/dismissal/rotation and existing movement checks pass.
+  No local page/console errors; existing Three.js warning unchanged.
+- Fresh screenshots visually inspected for Goku before commit:
+  `/tmp/vihaan-trophy-photo-fix/after-desktop-card-peace.png`,
+  `/tmp/vihaan-trophy-photo-fix/after-mobile-card-peace.png`,
+  `/tmp/vihaan-trophy-photo-fix/after-desktop-card-peace-stats.png`, and
+  `/tmp/vihaan-trophy-photo-fix/after-mobile-card-peace-stats.png`.
+  Results: `/tmp/vihaan-trophy-photo-fix/verification.json`.
+
 ## Published trophy-rack build — Nov 9, 2026
 
 - Nishant approved publishing through Goku. Goku reported independent VQA

@@ -2669,11 +2669,11 @@ for (let i=0;i<2;i++) {
   const light = new THREE.PointLight(0xffe4a0, 1.8, 2.2);light.position.set(x,y+0.65,-2.9);scene.add(light);
 }
 const trophyStyle = document.createElement('style');
-trophyStyle.textContent = `#trophy-dialog{margin:auto;inset:0;background:#101827;color:#fff;border:1px solid #f6c84c;border-radius:20px;padding:22px;width:min(640px,calc(100vw - 28px));max-height:calc(100dvh - 28px);overflow:auto;box-sizing:border-box;box-shadow:0 30px 90px #000a}#trophy-dialog::backdrop{background:#020713c9}#trophy-dialog h2{font-size:1.5rem;color:#ffdb67;margin:16px 0 6px}#trophy-dialog p{margin:8px 0}#trophy-dialog button{font:inherit;color:#fff;background:#253658;border:1px solid #7585a4;border-radius:9px;padding:10px 12px;cursor:pointer;min-height:44px}#trophy-dialog button[aria-pressed=true]{border-color:#ffdb67;background:#4a3c17}#trophy-dialog button:focus-visible,#trophy-preview:focus-visible{outline:3px solid #ffdb67;outline-offset:3px}#trophy-choices{display:flex;gap:8px;flex-wrap:wrap}#trophy-preview{width:100%;height:230px;display:block;touch-action:none;border-radius:12px;background:#172238}#trophy-dialog dl{display:grid;grid-template-columns:100px 1fr;gap:9px;margin-bottom:0}#trophy-dialog dt{color:#b8c7df}#trophy-dialog dd{margin:0;overflow-wrap:anywhere}#trophy-close{float:right}#trophy-help{font-size:.85rem;color:#c4d1e7}@media(max-width:500px){#trophy-preview{height:190px}#trophy-dialog{padding:16px}#trophy-dialog dl{grid-template-columns:80px 1fr;font-size:.9rem}}`;
+trophyStyle.textContent = `#trophy-dialog{margin:auto;inset:0;background:#101827;color:#fff;border:1px solid #f6c84c;border-radius:20px;padding:22px;width:min(640px,calc(100vw - 28px));max-height:calc(100dvh - 28px);overflow:auto;box-sizing:border-box;box-shadow:0 30px 90px #000a}#trophy-dialog::backdrop{background:#020713c9}#trophy-dialog h2{font-size:1.5rem;color:#ffdb67;margin:16px 0 6px}#trophy-dialog p{margin:8px 0}#trophy-dialog button{font:inherit;color:#fff;background:#253658;border:1px solid #7585a4;border-radius:9px;padding:10px 12px;cursor:pointer;min-height:44px}#trophy-dialog button[aria-pressed=true]{border-color:#ffdb67;background:#4a3c17}#trophy-dialog button:focus-visible,#trophy-preview:focus-visible{outline:3px solid #ffdb67;outline-offset:3px}#trophy-choices{display:flex;gap:8px;flex-wrap:wrap}#trophy-dialog [hidden]{display:none!important}#trophy-photo{display:block;width:100%;height:330px;object-fit:contain;border-radius:12px;background:#172238}#trophy-photo-view{margin:0}#trophy-photo-view figcaption{font-size:.85rem;color:#c4d1e7;margin-top:8px}#trophy-preview{width:100%;height:230px;display:block;touch-action:none;border-radius:12px;background:#172238}#trophy-dialog dl{display:grid;grid-template-columns:100px 1fr;gap:9px;margin-bottom:0}#trophy-dialog dt{color:#b8c7df}#trophy-dialog dd{margin:0;overflow-wrap:anywhere}#trophy-close{float:right}#trophy-help{font-size:.85rem;color:#c4d1e7}@media(max-width:500px){#trophy-preview{height:190px}#trophy-dialog{padding:16px}#trophy-dialog dl{grid-template-columns:80px 1fr;font-size:.9rem}}`;
 document.head.append(trophyStyle);
 const trophyDialog = document.createElement('dialog'); trophyDialog.id='trophy-dialog';
 trophyDialog.setAttribute('aria-labelledby','trophy-title');
-trophyDialog.innerHTML = `<button id="trophy-close" type="button" aria-label="Close trophy details">✕</button><p>VIHAAN’S CHESS TROPHIES</p><div id="trophy-choices"><button type="button" data-award="0">1st Place</button><button type="button" data-award="1">Outstanding Performance</button></div><h2 id="trophy-title"></h2><p id="trophy-event"></p><canvas id="trophy-preview" tabindex="0" role="img" aria-label="Interactive 3D trophy. Drag or use arrow keys to rotate." aria-describedby="trophy-help"></canvas><p id="trophy-help">Drag to turn your trophy · Arrow keys rotate · Home resets</p><dl id="trophy-stats"></dl>`;
+trophyDialog.innerHTML = `<button id="trophy-close" type="button" aria-label="Close trophy details">✕</button><p>VIHAAN’S CHESS TROPHIES</p><div id="trophy-choices"><button type="button" data-award="0">1st Place</button><button type="button" data-award="1">Outstanding Performance</button></div><h2 id="trophy-title"></h2><p id="trophy-event"></p><canvas id="trophy-preview" tabindex="0" role="img" aria-label="Interactive 3D trophy. Drag or use arrow keys to rotate." aria-describedby="trophy-help"></canvas><figure id="trophy-photo-view" hidden><img id="trophy-photo" src="images/outstanding-performance-trophy.jpg" alt="Vihaan’s actual Outstanding Performance trophy, with a chess emblem and Outstanding Performance plaque"><figcaption>Actual Outstanding Performance trophy</figcaption></figure><p id="trophy-help">Drag to turn your trophy · Arrow keys rotate · Home resets</p><dl id="trophy-stats"></dl>`;
 document.body.append(trophyDialog);
 const trophyCanvas = document.getElementById('trophy-preview');
 let trophyPreview = null, trophyReturnFocus = null, trophyScroll = 0, trophyOverflow = '', trophyDrag = null;
@@ -2689,7 +2689,7 @@ function ensureTrophyPreview() {
   trophyPreview={renderer:r,scene:sc,camera:cam,models,index:0};
 }
 function renderTrophyPreview() {
-  if(!trophyDialog.open || !trophyPreview)return;
+  if(!trophyDialog.open || !trophyPreview || trophyCanvas.hidden)return;
   const p=trophyPreview,w=Math.max(1,trophyCanvas.clientWidth),h=Math.max(1,trophyCanvas.clientHeight);
   if(trophyCanvas.width!==Math.round(w*p.renderer.getPixelRatio()) || trophyCanvas.height!==Math.round(h*p.renderer.getPixelRatio()))p.renderer.setSize(w,h,false);
   p.camera.aspect=w/h;p.camera.updateProjectionMatrix();p.renderer.render(p.scene,p.camera);
@@ -2699,8 +2699,15 @@ function openTrophy(index=0) {
     trophyReturnFocus=document.activeElement;trophyScroll=scrollY;trophyOverflow=document.documentElement.style.overflow;
     resetMovement();trophyDialog.showModal();document.documentElement.style.overflow='hidden';
   }
-  ensureTrophyPreview();trophyPreview.index=index;
-  trophyPreview.models.forEach((m,i)=>{m.visible=i===index;m.rotation.set(0,0,0);});
+  trophyDrag = null;
+  const showPhoto = index === 1;
+  trophyCanvas.hidden = showPhoto;
+  document.getElementById('trophy-photo-view').hidden = !showPhoto;
+  document.getElementById('trophy-help').hidden = showPhoto;
+  if (!showPhoto) {
+    ensureTrophyPreview();trophyPreview.index=index;
+    trophyPreview.models.forEach((m,i)=>{m.visible=i===index;m.rotation.set(0,0,0);});
+  }
   const a=trophyAwards[index];document.getElementById('trophy-title').textContent=a.title;document.getElementById('trophy-event').textContent=a.event;
   const dl=document.getElementById('trophy-stats');dl.replaceChildren();
   for(const [name,value] of Object.entries({Date:a.date,Venue:a.venue,City:a.city,Section:a.section,Finish:a.finish,Score:a.score,Rating:a.rating,...(a.note?{'Award rule':a.note}:{})})) {
