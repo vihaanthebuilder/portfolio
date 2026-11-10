@@ -34,6 +34,23 @@
    never invent a streak or puzzle count — if a day's puzzles can't be
    verified from the API, mark them "check your Lichess app".
 
+## Custom domain vihaanadhikari.com — IN PROGRESS, Nov 10, 2026
+
+- Pre-authorized by Nishant (FEATURE-BRIEF-custom-domain.md). Branched
+  feature/custom-domain from main 1bb1da1 (== origin/main). CNAME commit
+  12300f7 (one line: vihaanadhikari.com). Merging to main and pushing.
+- Cruise Ship Explorer is NOT in main: it lives only on local branch
+  feature/cruise-ship-explorer (135dbb3 + 0f67a25), awaiting publish go-ahead.
+  Its HANDOFF.md edits will need a manual merge with this entry later.
+- Pre-push check 00:40 CT: DNS NOT set. Porkbun authoritative NS
+  (curitiba.ns.porkbun.com) returns no A for vihaanadhikari.com and no CNAME
+  for www. Pages API: build_type=workflow, cname=null, https_enforced=true.
+- BLOCKER beyond this brief: with Actions ("workflow") Pages builds, GitHub
+  ignores the repo CNAME file — the domain must ALSO be set in repo Settings →
+  Pages → Custom domain (or `gh api -X PUT repos/vihaanthebuilder/portfolio/pages
+  -f cname=vihaanadhikari.com`). Not done: outside the brief ("repo side only"),
+  and doing it before DNS exists would redirect github.io to a dead domain.
+
 ## Game Room published — Nov 9, 2026
 
 - Goku explicitly dispatched publishing after the completed build/VQA; Nishant's
