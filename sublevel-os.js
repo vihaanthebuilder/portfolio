@@ -1638,6 +1638,7 @@ window.ThreeUITerrainPlume = { mountTerrainPlume, TERRAIN_PLUME_DEFAULTS, SCENE_
   const NAV_ITEMS = [
     { href: 'lego.html', label: 'LEGO Lab' },
     { href: 'cruise-ship.html', label: '⚓', name: 'Cruise Ship' },
+    { href: 'spelling-bee.html', label: '🐝', name: 'Spelling Bee Trainer' },
     { href: 'hall-of-fame.html', label: 'Hall of Fame' },
     { href: 'chess.html', label: 'Chess' },
     { href: 'gameroom.html', label: 'Game Room' },
@@ -1691,6 +1692,7 @@ window.ThreeUITerrainPlume = { mountTerrainPlume, TERRAIN_PLUME_DEFAULTS, SCENE_
             </div>
           </a>
           <a href="cruise-ship.html" class="mnd-link ${path === 'cruise-ship.html' ? 'active' : ''}"><span class="mnd-icon">⚓</span><div class="mnd-info"><span class="mnd-title">Cruise Ship</span><span class="mnd-desc">Explore your LEGO ship, deck by deck</span></div></a>
+          <a href="spelling-bee.html" class="mnd-link ${path === 'spelling-bee.html' ? 'active' : ''}"><span class="mnd-icon">🐝</span><div class="mnd-info"><span class="mnd-title">Spelling Bee</span><span class="mnd-desc">Practice words one at a time</span></div></a>
           <a href="hall-of-fame.html" class="mnd-link ${path === 'hall-of-fame.html' ? 'active' : ''}">
             <span class="mnd-icon">🏆</span>
             <div class="mnd-info">
@@ -1934,6 +1936,7 @@ window.ThreeUITerrainPlume = { mountTerrainPlume, TERRAIN_PLUME_DEFAULTS, SCENE_
               </div>
             </a>
             <a href="cruise-ship.html" class="mnd-link ${path === 'cruise-ship.html' ? 'active' : ''}"><span class="mnd-icon">⚓</span><div class="mnd-info"><span class="mnd-title">Cruise Ship</span><span class="mnd-desc">Explore your LEGO ship, deck by deck</span></div></a>
+            <a href="spelling-bee.html" class="mnd-link ${path === 'spelling-bee.html' ? 'active' : ''}"><span class="mnd-icon">🐝</span><div class="mnd-info"><span class="mnd-title">Spelling Bee</span><span class="mnd-desc">Practice words one at a time</span></div></a>
             <a href="hall-of-fame.html" class="mnd-link ${path === 'hall-of-fame.html' ? 'active' : ''}">
               <span class="mnd-icon">🏆</span>
               <div class="mnd-info">

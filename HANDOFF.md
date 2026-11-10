@@ -2,9 +2,11 @@
 
 ## Next briefs queue
 
-1. **Cruise Ship Explorer — FEATURE-BRIEF-cruise-ship-explorer.md** — PUBLISHED by Nishant's Nov 10, 2026 authorization. Merge `5add822`; GitHub Pages succeeded and the live page passed browser and asset checks. Cruise Ship only; the Author's Room and other feature branches stay unpublished.
+1. **Spelling Bee Trainer — FEATURE-BRIEF-spelling-bee-trainer.md** — COMPLETE locally by Goku's dispatch, Nov 10, 2026. Branch `feature/spelling-bee-trainer` from `main` at `22587348075decc1577b2e63b9099072b4a7e7f1`; local commits only. No push, merge, or publish. Implementation commit hash is recorded below after commit. Browser verification passed 118 checks; installed Chrome had no available voices, and the kind fallback passed.
 
-2. **Game Room — FEATURE-BRIEF-game-room.md** (queued by Goku, Nov 9, 2026,
+2. **Cruise Ship Explorer — FEATURE-BRIEF-cruise-ship-explorer.md** — PUBLISHED by Nishant's Nov 10, 2026 authorization. Merge `5add822`; GitHub Pages succeeded and the live page passed browser and asset checks. Cruise Ship only; the Author's Room and other feature branches stay unpublished.
+
+3. **Game Room — FEATURE-BRIEF-game-room.md** (queued by Goku, Nov 9, 2026,
    ~9:03 PM CT, at Nishant's request): build a new gameroom.html with live
    Lichess public-API data for vihaan_67 plus a baked snapshot fallback;
    rating chips kept visually separate from US Chess; The Climb chart,
@@ -793,6 +795,41 @@ below and reported state before changing any files. Site code was not changed.
 - The current ratings are 811 Regular and 814 Quick (Oct 24, 2026).
 - Update the chess page numbers when you next edit the chess pages.
 
+## Spelling Bee Trainer implementation — Nov 10, 2026
+
+- Implemented locally on `feature/spelling-bee-trainer`, baseline
+  `22587348075decc1577b2e63b9099072b4a7e7f1`. No remote operations or
+  publication were performed. The pre-existing HANDOFF changes and unrelated
+  untracked files were preserved.
+- Added a standalone accessible trainer, scoped responsive styling, a
+  testable offline state model, and 122 manually authored unique practice
+  words (40 Warm-Up, 41 Bee Ready, 41 Champion). The homepage quick bar,
+  compact desktop link, homepage mobile drawer, shared desktop navigation,
+  and both shared drawer templates now link to Spelling Bee.
+- Verification passed: `node tests/spelling-bee-model.cjs`;
+  JavaScript syntax checks for the app, model, word bank, and browser test;
+  `PLAYWRIGHT_MODULE=/Users/Nishant/.npm/_npx/e41f203b7505f1fb/node_modules/playwright
+  node tests/spelling-bee-browser.cjs` (118 checks across 1440px and 390px);
+  and `git diff --check`. Browser results are in
+  `/tmp/vihaan-spelling-bee/results.json`.
+- Visually inspected desktop level-pick and wrong-answer captures plus the
+  phone score capture. Captures: `/tmp/vihaan-spelling-bee/desktop-level-pick.png`,
+  `desktop-mid-round.png`, `desktop-correct-answer.png`,
+  `desktop-wrong-answer.png`, `desktop-score-card.png`,
+  `phone-level-pick.png`, `phone-mid-round.png`, and `phone-score-card.png`.
+- Local installed Chrome exposed `speechSynthesis` but returned no voices.
+  The no-voice fallback was verified; available speech was verified through
+  a local test voice stub. Real-device voice availability was not checked.
+- Final browser checks also cover rendered homepage/shared desktop and mobile
+  navigation, stale saved tricky words, and a full ten-word tricky round counting
+  toward the daily goal. Shorter tricky rounds remain excluded.
+- Browser captures were visually checked. Chrome exposes `speechSynthesis` but
+  has zero installed voices in this environment; a local test voice stub
+  verified the available-voice path. Real-device voice availability remains
+  unchecked.
+- Implementation commit hash: pending until the local commit is created below.
+  No push, merge, deploy, or publication occurred.
+
 ## First tasks for the receiving agent
 
 1. Report the current state against this handoff before you change code.
@@ -805,3 +842,9 @@ below and reported state before changing any files. Site code was not changed.
 
 - This folder has NO git repo. There is no history and no undo.
 - Run `git init` and make one commit of the current state before you edit.
+
+## Next briefs - overnight queue (Goku, Nov 10 2026, Nishant overnight order)
+Spelling Bee Trainer is complete locally. Work these briefs in order, local commits only, no publish:
+1. FEATURE-BRIEF-publish-bundle-check.md (verification only, no publish, no merge to main)
+2. FEATURE-BRIEF-road-to-state-countdown.md (local commit only)
+When one finishes, start the next without waiting. Update this HANDOFF as you go. Publishing stays on the morning call from Nishant.
