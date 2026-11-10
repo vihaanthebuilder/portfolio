@@ -1637,6 +1637,7 @@ window.ThreeUITerrainPlume = { mountTerrainPlume, TERRAIN_PLUME_DEFAULTS, SCENE_
   const path = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
   const NAV_ITEMS = [
     { href: 'lego.html', label: 'LEGO Lab' },
+    { href: 'cruise-ship.html', label: '⚓', name: 'Cruise Ship' },
     { href: 'hall-of-fame.html', label: 'Hall of Fame' },
     { href: 'chess.html', label: 'Chess' },
     { href: 'gameroom.html', label: 'Game Room' },
@@ -1657,7 +1658,7 @@ window.ThreeUITerrainPlume = { mountTerrainPlume, TERRAIN_PLUME_DEFAULTS, SCENE_
         <i class="cnr tl" aria-hidden="true"></i><i class="cnr tr" aria-hidden="true"></i><i class="cnr bl" aria-hidden="true"></i><i class="cnr br" aria-hidden="true"></i>
         <a class="logo" href="index.html" aria-label="Vihaan's World"><span class="wordmark">vihaan<i>.</i></span></a>
         <div class="center">
-          ${NAV_ITEMS.map(it => `<a class="${path === it.href ? 'active' : ''}" href="${it.href}">${it.label}</a>`).join('')}
+          ${NAV_ITEMS.map(it => `<a class="${path === it.href ? 'active' : ''}" href="${it.href}"${it.name ? ` aria-label="${it.name}" title="${it.name}" style="padding-inline:4px"` : ''}>${it.label}</a>`).join('')}
         </div>
         <div class="right">
           <button class="nft-trigger arcade" id="nft-card-btn" type="button" title="Open Vihaan's 3D Top Trumps Super Card">🃏 CARD</button>
@@ -1689,6 +1690,7 @@ window.ThreeUITerrainPlume = { mountTerrainPlume, TERRAIN_PLUME_DEFAULTS, SCENE_
               <span class="mnd-desc">32+ builds (incl. 9 boats) &amp; Idea Lab</span>
             </div>
           </a>
+          <a href="cruise-ship.html" class="mnd-link ${path === 'cruise-ship.html' ? 'active' : ''}"><span class="mnd-icon">⚓</span><div class="mnd-info"><span class="mnd-title">Cruise Ship</span><span class="mnd-desc">Explore your LEGO ship, deck by deck</span></div></a>
           <a href="hall-of-fame.html" class="mnd-link ${path === 'hall-of-fame.html' ? 'active' : ''}">
             <span class="mnd-icon">🏆</span>
             <div class="mnd-info">
@@ -1931,6 +1933,7 @@ window.ThreeUITerrainPlume = { mountTerrainPlume, TERRAIN_PLUME_DEFAULTS, SCENE_
                 <span class="mnd-desc">32+ builds (incl. 9 boats) &amp; Idea Lab</span>
               </div>
             </a>
+            <a href="cruise-ship.html" class="mnd-link ${path === 'cruise-ship.html' ? 'active' : ''}"><span class="mnd-icon">⚓</span><div class="mnd-info"><span class="mnd-title">Cruise Ship</span><span class="mnd-desc">Explore your LEGO ship, deck by deck</span></div></a>
             <a href="hall-of-fame.html" class="mnd-link ${path === 'hall-of-fame.html' ? 'active' : ''}">
               <span class="mnd-icon">🏆</span>
               <div class="mnd-info">
