@@ -2,7 +2,7 @@
 
 ## Next briefs queue
 
-1. **Spelling Bee Trainer — FEATURE-BRIEF-spelling-bee-trainer.md** — COMPLETE locally by Goku's dispatch, Nov 10, 2026. Branch `feature/spelling-bee-trainer` from `main` at `22587348075decc1577b2e63b9099072b4a7e7f1`; local commits only. No push, merge, or publish. Implementation commit hash is recorded below after commit. Browser verification passed 118 checks; installed Chrome had no available voices, and the kind fallback passed.
+1. **Spelling Bee Trainer — FEATURE-BRIEF-spelling-bee-trainer.md** — COMPLETE locally by Goku's dispatch, Nov 10, 2026. Branch `feature/spelling-bee-trainer` from `main` at `22587348075decc1577b2e63b9099072b4a7e7f1`; local commits only. No push, merge, or publish. Implementation commit `10daa3050556fa69961088ada6a05be7fdf8c842`. Browser verification passed 118 checks; installed Chrome had no available voices, and the kind fallback passed.
 
 2. **Cruise Ship Explorer — FEATURE-BRIEF-cruise-ship-explorer.md** — PUBLISHED by Nishant's Nov 10, 2026 authorization. Merge `5add822`; GitHub Pages succeeded and the live page passed browser and asset checks. Cruise Ship only; the Author's Room and other feature branches stay unpublished.
 
@@ -827,7 +827,8 @@ below and reported state before changing any files. Site code was not changed.
   has zero installed voices in this environment; a local test voice stub
   verified the available-voice path. Real-device voice availability remains
   unchecked.
-- Implementation commit hash: pending until the local commit is created below.
+- Implementation commit: `10daa3050556fa69961088ada6a05be7fdf8c842`.
+  The follow-up commit records this hash in HANDOFF only.
   No push, merge, deploy, or publication occurred.
 
 ## First tasks for the receiving agent
