@@ -1026,3 +1026,10 @@ for now. Record every merge in HANDOFF.md.
   ready for Vihaan's screenshot review and Goku's next direction.
 - An unrelated untracked FEATURE-BRIEF-lichess-classical-1605.md appeared
   during this run. Left it untouched and outside the Geometry Dash commit.
+
+## Publish bundle check — chess robot (Nov 10, 2026)
+
+- The merge conflicted in `HANDOFF.md` and `tests/README.md`. The branch's complete robot-fix handoff record is already present verbatim in current main, so retained that record and all later main entries. Appended the branch-specific robot test instructions to the full main test guide. No record or test instructions were dropped.
+- Re-ran `tests/chess-robot-input.cjs` on the merged source with Chrome/Playwright. Desktop 1440×1000 and touch-emulated mobile 390×844 passed: dragged `e2→e4` and got Robo-Pawn's `c7→c5` reply; repeated selected-knight drag `g1→f3` and second reply; click/tap; invalid `e4→e6`, off-board drops, robot-piece rejection, New Game, and touch cancellation where applicable. No page exceptions.
+- Results: `/tmp/vihaan-chess-robot-fix/verification.json`; visually inspected `/tmp/vihaan-chess-robot-fix/after-desktop-moved-piece.png`. The source handoff retains the scope caveat that the family's exact originally reported board/gesture is unconfirmed; this publish follows the approved bundle directive.
+- Resolved branch merge is ready on `feature/chess-robot-fix` after `git diff --check`.

@@ -246,3 +246,27 @@ Results are saved under `/tmp/vihaan-geodash-harder/` by default (or
 `VIHAAN_VQA_DIR`): `beatable-proof.json`, `jump-frames.json`, and
 `browser-proof.json`, alongside the screenshots. Run the Node proof before the
 browser proof whenever games.html changes.
+
+# Chess-vs-robot piece input
+
+From the repository root, start the local server on port 8876 as described
+above. With Google Chrome and Playwright installed, run:
+
+```sh
+PLAYWRIGHT_MODULE=/tmp/vihaan-test-deps/node_modules/playwright node tests/chess-robot-input.cjs
+```
+
+`VIHAAN_BASE_URL` can override the server URL. `VIHAAN_VQA_DIR` overrides the
+artifact directory, which defaults to `/tmp/vihaan-chess-robot-fix`.
+
+The check uses actual mouse pointer capture and emulated mobile touch to drag
+e2→e4, waits for the robot reply, then drags a previously selected knight
+g1→f3 and waits for another reply. It saves moved-piece screenshots and
+`verification.json`. It also checks click/tap, illegal and off-board drops,
+robot-piece rejection, touch cancellation, and New Game. It does not call the
+chess engine directly to submit moves. The exact originally reported gesture
+is not confirmed; baseline click/tap worked and dragging was reproduced broken.
+
+Chess mobile input is verified with Chrome touch emulation only; Safari/iOS
+and real hardware have not been exercised. The screenshot is the popup grid,
+not the small decorative 3D table board.
