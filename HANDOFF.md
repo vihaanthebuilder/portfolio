@@ -1041,3 +1041,53 @@ for now. Record every merge in HANDOFF.md.
 - GitHub Pages deploy succeeded for this push: [run 42838880268](https://github.com/vihaanthebuilder/portfolio/actions/runs/42838880268).
 - Live Chrome verification at `https://vihaanthebuilder.github.io/portfolio/` returned HTTP 200. Chess popup opened; dragging `e2→e4` produced the robot reply `c7→c5`; no page exceptions. Capture: `/tmp/vihaan-chess-robot-fix/live-after-robot-reply.png`.
 - The exact family-reported board/gesture remains unconfirmed as described in the original fix record. Lichess Classical remains next in the approved bundle order; the countdown remains local.
+
+## Publish bundle check — Lichess Classical 1605 (Nov 10, 2026)
+
+- The branch merge conflicted only in `HANDOFF.md`; `chess.html` merged cleanly. Kept the complete current-main handoff and appended the incoming Lichess feature-branch record verbatim below, preserving both records. There was no `tests/README.md` conflict.
+- Re-ran desktop 1440×1000 and mobile 390×844 Chrome checks on the merged branch. Both returned HTTP 200, displayed labeled Lichess Classical 1605, and retained US Chess Regular 811 / Quick 814. The live API showed Puzzles 1441; an API-unavailable check preserved the saved Puzzles 1687 fallback. No page exceptions.
+- Fresh evidence: `/tmp/vihaan-lichess-classical-1605/verification.json`, `ratings-desktop.png`, `ratings-mobile.png`, and `ratings-saved-fallback.png`. The desktop ratings capture was visually inspected. `git diff --check` passed.
+- Merge conflict resolution is committed locally on `feature/lichess-classical-1605`; ready for the approved publish step.
+
+## Preserved feature-branch record — Lichess Classical 1605 (pre-merge)
+
+## Completed local change — Lichess Classical 1605 (Nov 9, 2026)
+
+- Read the re-activated FEATURE-BRIEF-lichess-classical-1605.md. Vihaan
+  supplied and confirmed 1605 as his Lichess Classical GAME rating; puzzle
+  and over-the-board US Chess ratings are separate.
+- Starting checkout was feature/geometry-dash-harder at
+  d8f2eb2991603938860c9c3cd5ef400c33950248; only the two queued briefs were
+  untracked. Created feature/lichess-classical-1605 FROM MAIN at
+  a4b4afc7c3d8ac4eab89306302d66886bdbb2da5, not from the Geometry Dash commit.
+- Geometry Dash remains separately committed/unpublished on its own branch;
+  this branch does not include its changes. Do not publish or push either.
+- Before editing, verified chess.html had Classical 1504 in its profile and
+  online panel. Updated both to explicitly labeled Lichess Classical 1605,
+  using the existing stat styling next to the official ratings area. Retained
+  the existing live-refresh element ID and behavior; no script changes.
+- US Chess 811 Regular / 814 Quick and every Lichess Puzzles number are
+  unchanged. No other page/content edits. Screenshot/browser checks next.
+- Coordination history: the chess-robot brief was first queued and left
+  unread/unstarted, then dispatched by the coordinator on Nov 9, 2026 around
+  8:55 PM. Both original status records are retained here in sequence.
+- Chrome checks passed at desktop 1440×1000 and mobile 390×844; visually
+  inspected the existing-styled rating badge, clear online/Classical labeling,
+  and adjacent US Chess 811/814. No page exceptions; HTTP 200 locally.
+- Existing auto-load behavior remains intact: during normal verification the
+  Lichess API returned Classical 1605 and Puzzles 1441. The saved puzzle value
+  in the source and profile is still 1687. A separate API-unavailable check
+  confirmed the saved fallback shows Classical 1605 and Puzzles 1687. This
+  runtime live-data difference is pre-existing behavior, not a puzzle edit.
+- Exact diff check confirmed the ONLY chess.html changes are those two
+  Classical text/value substitutions; all scripts, puzzles, US Chess ratings,
+  and other content are unchanged. git diff --check passed.
+- Screenshots for Goku and Vihaan:
+  `/tmp/vihaan-lichess-classical-1605/ratings-desktop.png`,
+  `/tmp/vihaan-lichess-classical-1605/ratings-mobile.png`, and
+  `/tmp/vihaan-lichess-classical-1605/ratings-saved-fallback.png`.
+  Results: `/tmp/vihaan-lichess-classical-1605/verification.json`.
+- Branch isolation verified: games.html exactly matches main; Geometry Dash
+  commit d8f2eb2991603938860c9c3cd5ef400c33950248 is not an ancestor of this
+  branch. Main and feature/geometry-dash-harder remain unchanged. No push,
+  merge, deployment, or chess-robot work performed.
