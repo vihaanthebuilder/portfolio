@@ -1640,6 +1640,7 @@ window.ThreeUITerrainPlume = { mountTerrainPlume, TERRAIN_PLUME_DEFAULTS, SCENE_
     { href: 'hall-of-fame.html', label: 'Hall of Fame' },
     { href: 'chess.html', label: 'Chess' },
     { href: 'gameroom.html', label: 'Game Room' },
+    { href: 'authors-room.html', label: "Author's Room" },
     { href: 'notebook.html', label: 'Notebook' },
     { href: 'goals.html', label: 'Goals' },
     { href: 'badges.html', label: 'Badges' },
@@ -1705,6 +1706,9 @@ window.ThreeUITerrainPlume = { mountTerrainPlume, TERRAIN_PLUME_DEFAULTS, SCENE_
           </a>
           <a href="gameroom.html" class="mnd-link ${path === 'gameroom.html' ? 'active' : ''}">
             <span class="mnd-icon">♟</span><div class="mnd-info"><span class="mnd-title">Game Room</span><span class="mnd-desc">Your wins, daily quest &amp; road to State</span></div>
+          </a>
+          <a href="authors-room.html" class="mnd-link ${path === 'authors-room.html' ? 'active' : ''}">
+            <span class="mnd-icon">📖</span><div class="mnd-info"><span class="mnd-title">Author's Room</span><span class="mnd-desc">Vihaan's human body book</span></div>
           </a>
           <a href="games.html" class="mnd-link ${path === 'games.html' ? 'active' : ''}">
             <span class="mnd-icon">👾</span>
@@ -1947,6 +1951,9 @@ window.ThreeUITerrainPlume = { mountTerrainPlume, TERRAIN_PLUME_DEFAULTS, SCENE_
             </a>
             <a href="gameroom.html" class="mnd-link ${path === 'gameroom.html' ? 'active' : ''}">
               <span class="mnd-icon">♟</span><div class="mnd-info"><span class="mnd-title">Game Room</span><span class="mnd-desc">Your wins, daily quest &amp; road to State</span></div>
+            </a>
+            <a href="authors-room.html" class="mnd-link ${path === 'authors-room.html' ? 'active' : ''}">
+              <span class="mnd-icon">📖</span><div class="mnd-info"><span class="mnd-title">Author's Room</span><span class="mnd-desc">Vihaan's human body book</span></div>
             </a>
             <a href="games.html" class="mnd-link ${path === 'games.html' ? 'active' : ''}">
               <span class="mnd-icon">👾</span>

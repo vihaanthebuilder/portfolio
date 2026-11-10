@@ -48,6 +48,32 @@ The boundary check covers alternate SIT/chess starts, chess standing after
 teleport, the wider landing edge, keyboard side rejection/entry/reversal/rails,
 and preserving navigation while backgrounded.
 
+# Author's Room checks
+
+Requires Node, Playwright, and Google Chrome. Install Playwright outside the
+site checkout so the static site has no new runtime dependency:
+
+```sh
+npm install --prefix /tmp/vihaan-authors-room-tools --no-save playwright@1.64.1
+```
+
+Start the static server from the repository root:
+
+```sh
+python3 -m http.server 8876 --bind 127.0.0.1
+```
+
+In another terminal, run:
+
+```sh
+PLAYWRIGHT_MODULE=/tmp/vihaan-authors-room-tools/node_modules/playwright node tests/authors-room-browser.cjs
+```
+
+The check covers the 1440px desktop and 390px mobile layouts, all 19 chapter
+slots, chapter 1 and 2 native anchors, the three muscle panels, homepage and
+shared-menu routes, browser errors, horizontal overflow, and a sentence-to-
+record trace. Screenshots and trace output go to `/tmp/vihaan-authors-room/`.
+
 # Game Room checks
 
 Game Room verification uses Node's built-in assertions and Playwright with installed Google Chrome. It does not change any other page's statistics or contact private APIs.
