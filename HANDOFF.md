@@ -845,7 +845,24 @@ below and reported state before changing any files. Site code was not changed.
 - Run `git init` and make one commit of the current state before you edit.
 
 ## Next briefs - overnight queue (Goku, Nov 10 2026, Nishant overnight order)
-Spelling Bee Trainer is complete locally. Work these briefs in order, local commits only, no publish:
-1. FEATURE-BRIEF-publish-bundle-check.md (verification only, no publish, no merge to main)
-2. FEATURE-BRIEF-road-to-state-countdown.md (local commit only)
-When one finishes, start the next without waiting. Update this HANDOFF as you go. Publishing stays on the morning call from Nishant.
+Spelling Bee Trainer was completed locally, then published with Nishant's
+authorization. The publish-bundle check and Road to State countdown remain
+local; their branches are not included in this publication.
+
+## Spelling Bee Trainer published — Nov 10, 2026
+
+- Merged `feature/spelling-bee-trainer` (`f701f3712c0e3b79bb091483cbac814b1ca906c3`)
+  into `main` at `22587348075decc1577b2e63b9099072b4a7e7f1`. Merge commit:
+  `37606cea57563770746519d86ffa2641c6dc0ae8`. Normal push to `origin/main`
+  succeeded (`2258734..37606ce`); no force-push.
+- GitHub Pages workflow 42832858080 completed successfully for the merge.
+  https://github.com/vihaanthebuilder/portfolio/actions/runs/42832858080
+- Live Chrome verification of
+  `https://vihaanthebuilder.github.io/portfolio/spelling-bee.html` passed at
+  1440×1000 and 390×844: HTTP 200, page complete, three level buttons present,
+  no horizontal overflow, and no page, console, or failed-request errors.
+  Evidence: `/tmp/vihaan-spelling-bee-live/results.json`, `desktop.png`,
+  `phone.png`.
+- This push contains only the Spelling Bee branch and its HANDOFF record.
+  Authors' Room is the next separately authorized publish; Geometry Dash,
+  robot-fix, Lichess and the countdown are not included.
