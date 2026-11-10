@@ -1032,4 +1032,12 @@ for now. Record every merge in HANDOFF.md.
 - The merge conflicted in `HANDOFF.md` and `tests/README.md`. The branch's complete robot-fix handoff record is already present verbatim in current main, so retained that record and all later main entries. Appended the branch-specific robot test instructions to the full main test guide. No record or test instructions were dropped.
 - Re-ran `tests/chess-robot-input.cjs` on the merged source with Chrome/Playwright. Desktop 1440×1000 and touch-emulated mobile 390×844 passed: dragged `e2→e4` and got Robo-Pawn's `c7→c5` reply; repeated selected-knight drag `g1→f3` and second reply; click/tap; invalid `e4→e6`, off-board drops, robot-piece rejection, New Game, and touch cancellation where applicable. No page exceptions.
 - Results: `/tmp/vihaan-chess-robot-fix/verification.json`; visually inspected `/tmp/vihaan-chess-robot-fix/after-desktop-moved-piece.png`. The source handoff retains the scope caveat that the family's exact originally reported board/gesture is unconfirmed; this publish follows the approved bundle directive.
-- Resolved branch merge is ready on `feature/chess-robot-fix` after `git diff --check`.
+- Resolved branch merge is `0fb600b`; main merge commit and push are recorded below.
+
+
+## Chess vs robot published — Nov 10, 2026
+
+- Merged `feature/chess-robot-fix` into `main` as `ec5919e78d7943e7c47068cddd02bab1f4fd92ee`; pushed `9dc0f64..ec5919e` to `origin main` without force.
+- GitHub Pages deploy succeeded for this push: [run 42838880268](https://github.com/vihaanthebuilder/portfolio/actions/runs/42838880268).
+- Live Chrome verification at `https://vihaanthebuilder.github.io/portfolio/` returned HTTP 200. Chess popup opened; dragging `e2→e4` produced the robot reply `c7→c5`; no page exceptions. Capture: `/tmp/vihaan-chess-robot-fix/live-after-robot-reply.png`.
+- The exact family-reported board/gesture remains unconfirmed as described in the original fix record. Lichess Classical remains next in the approved bundle order; the countdown remains local.
