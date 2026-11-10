@@ -2,7 +2,9 @@
 
 ## Next briefs queue
 
-1. **Game Room — FEATURE-BRIEF-game-room.md** (queued by Goku, Nov 9, 2026,
+1. **Cruise Ship Explorer — FEATURE-BRIEF-cruise-ship-explorer.md** — PUBLISH AUTHORIZED by Nishant Nov 10, 2026. Branch `feature/cruise-ship-explorer`; merging to main and pushing main now. No force-push. Publish verification pending. Cruise Ship only; the Author's Room and other feature branches stay unpublished.
+
+2. **Game Room — FEATURE-BRIEF-game-room.md** (queued by Goku, Nov 9, 2026,
    ~9:03 PM CT, at Nishant's request): build a new gameroom.html with live
    Lichess public-API data for vihaan_67 plus a baked snapshot fallback;
    rating chips kept visually separate from US Chess; The Climb chart,
@@ -36,6 +38,9 @@
 
 ## Custom domain vihaanadhikari.com — CNAME PUBLISHED; STOPPED ON DNS, Nov 10, 2026
 
+- This is the 00:42 CT domain-check snapshot. Cruise Ship was not live then;
+  its later, separately authorized publication is recorded below.
+
 - Pre-authorized by Nishant (FEATURE-BRIEF-custom-domain.md). Branched
   feature/custom-domain from main 1bb1da1 (== origin/main). CNAME commit
   12300f7 (one line: vihaanadhikari.com). Merging to main and pushing.
@@ -66,6 +71,64 @@
   vihaanadhikari.com` shows them, set Settings → Pages → Custom domain to
   vihaanadhikari.com; (3) wait for cert, tick Enforce HTTPS, re-run the three
   live checks.
+
+## Cruise Ship Explorer in progress — Nov 9, 2026
+
+- Read AGENTS.md, HANDOFF.md and the complete cruise-ship brief. Reported
+  starting state before code changes; using bmad-build.
+- Started on main at 1bb1da1004a781774b0e6a84e230b9fd559d1aba, matching
+  origin/main, with only the new brief untracked. Created
+  feature/cruise-ship-explorer FROM MAIN. Other feature branches stay separate.
+- Investigation found no identifiable REAL cruise ship/Titanic photograph.
+  Using a clearly labeled SVG illustration, with only the brief's facts.
+- Scope: new interactive four-deck page, default Deck 2 Now Building; separate
+  undecided Captain's Plans; additive site nav/LEGO links only. No prices.
+  Verification and screenshot paths will follow; no publishing authorized.
+
+- Explorer matrix passed at desktop, boundary widths and phone: all four exact
+  deck panels, keyboard/touch, focus, no-JavaScript facts and reduced motion.
+  Initial final-browser run then found homepage nav overflow after added link;
+  correcting only discovery-link footprint before accepting final verification.
+
+## Cruise Ship Explorer COMPLETE (local commit only) — Nov 10, 2026
+
+- This records the completed local build before Nishant later authorized publishing; see the publish result below.
+
+- Nav overflow fix (resumed worker): the shared top bar link is now a compact
+  ⚓ icon (aria-label/title "Cruise Ship") in index.html and sublevel-os.js, so
+  the 1440px bar fits (right edge ≈1430 vs 1440; text "Cruise" pushed 🧱/🏠 to
+  ≈1446–1465). gameroom.html REVERTED to main byte-for-byte: its standalone nav
+  already fills the viewport at 1051–1100px on main, so any extra link overflows.
+  Cruise link lives in: shared top bar (⚓), mobile drawer, homepage quick bar,
+  LEGO page card, and the cruise page's own nav.
+- PRE-EXISTING on main 1bb1da1 (not caused by this branch, NOT fixed — needs a
+  separate go-ahead): shared top bar overflows at ~1100–1300px (1251px: right
+  edge 1291 on main, 1334–1341 now with the ⚓); Game Room nav overflows 4px at
+  1051px. The test records these as knownBaselineOverflow instead of failing.
+- Final run: tests/cruise-ship-browser.cjs — 22/22 checks, 0 errors, exit 0.
+  Results: /tmp/vihaan-cruise-ship/results.json. Visually inspected
+  desktop-explorer-deck2, mobile-explorer-planned and nav-lego-1440.
+- Screenshots: /tmp/vihaan-cruise-ship/desktop-full.png,
+  desktop-explorer-deck2.png, desktop-explorer-planned.png, mobile-full.png,
+  mobile-explorer-deck2.png, mobile-explorer-planned.png,
+  mobile-no-javascript.png, plus nav-{index,lego,chess,gameroom}-{1440,1251,1051,390}.png.
+- Commit: 135dbb3 local on feature/cruise-ship-explorer. NOT merged,
+  NOT pushed, NOT published — needs Nishant's separate go-ahead.
+
+## Cruise Ship Explorer publication — Nov 10, 2026 (in progress)
+
+- Nishant authorized publication after the local build. Merging only
+  `feature/cruise-ship-explorer` (HEAD `0f67a2568a1e8d63c3f77163c6729f043ca12bf5`)
+  onto `main` at `c540ef1cc95bfc9ecefcf552e8cd871a29ce8d43`.
+- Preflight rerun: 22/22 browser checks passed at 1440, 1251, 1051, and 390px;
+  no new errors. Existing shared-nav overflow at 1251px and Game Room overflow
+  at 1051px are unchanged baseline issues. Evidence:
+  `/tmp/vihaan-cruise-ship-publish-preflight/results.json`.
+- The expected HANDOFF.md conflict was resolved manually by retaining the full
+  custom-domain DNS record and the Cruise Ship build record. Merge/push,
+  GitHub Pages deployment, and live URL verification are pending.
+- `feature/authors-room` (implementation commit `5073d16`) is not an ancestor
+  and remains local/unpublished. No other feature branch is included.
 
 ## Game Room published — Nov 9, 2026
 

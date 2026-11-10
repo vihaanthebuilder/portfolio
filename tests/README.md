@@ -115,3 +115,37 @@ Outputs under `/tmp/vihaan-gameroom-vqa/`:
 - `results.json`: assertions, actual source dates/URLs, expected network messages and any errors.
 
 The parent performs this final browser run and visually inspects the eight section captures and fallback evidence before recording exact paths in HANDOFF. Screenshot existence alone is not visual verification. The automated run also checks existing index/chess Game Room navigation at desktop, medium (1100px), and mobile widths.
+
+# Cruise Ship Explorer checks
+
+Use the installed Chrome and the external Playwright installation described above.
+Reuse the local static server on port8876, or start it from the repository root:
+
+```sh
+python3 -m http.server 8876 --bind 127.0.0.1
+PLAYWRIGHT_MODULE=/tmp/vihaan-test-deps/node_modules/playwright node tests/cruise-ship-browser.cjs
+```
+
+`VIHAAN_BASE_URL` defaults to `http://127.0.0.1:8876`;
+`VIHAAN_VQA_DIR` defaults to `/tmp/vihaan-cruise-ship`.
+The suite uses the installed Chrome channel (override with `CHROME_CHANNEL`).
+It records Chrome's real identity and replaces only HeadlessChrome in the
+context user agent for existing Game Room compatibility.
+
+Checks cover exact contents/statuses for all decks, default Deck2, matching
+highlight/panel, pointer/touch and real keyboard activation, retained focus and
+visible focus rings, no prices, separate undecided Captain's Plans, reduced
+motion, no-JavaScript facts and anchor navigation, and navigation at1440,
+1251,1051 and390px. All existing destinations are checked on index, LEGO,
+chess and Game Room (Game Room's nav is unchanged from main and has no cruise
+link). Where main itself already overflows (shared top bar at 1251px, Game Room
+at 1051px) the right edge is recorded in `knownBaselineOverflow` instead of failing. The Game Room's public API responses use its existing
+snapshot fixture during these navigation-only checks; its dedicated browser
+suite owns real API verification. Existing-page network/console messages are
+recorded separately; page exceptions and cruise-page console errors fail.
+
+Captures include desktop/mobile full page, default Deck2 explorer, planned
+Deck3 explorer, mobile without JavaScript, and all existing-page navigation
+widths. `results.json` records assertions, errors and exact capture paths.
+The parent must run this suite and visually inspect the captures before
+recording completion in HANDOFF.md; capture existence is not visual approval.

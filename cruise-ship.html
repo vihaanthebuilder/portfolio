@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101218">
+<title>Your LEGO Cruise Ship — Vihaan's World</title>
+<meta name="description" content="Explore your LEGO cruise ship, one deck at a time. Four decks, room for 125 minifigure guests, and your next big build on Deck 2.">
+<link rel="canonical" href="https://vihaanthebuilder.github.io/portfolio/cruise-ship.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="gameroom.css">
+<link rel="stylesheet" href="cruise-ship.css">
+<script defer src="cruise-ship.js"></script>
+</head>
+<body class="game-room cruise-ship">
+<a class="gr-skip" href="#main">Skip to your cruise ship</a>
+<nav class="gr-nav" aria-label="Main"><a class="gr-wordmark" href="index.html">vihaan<span>.</span></a><div class="gr-nav-links" id="gr-nav-links"><a href="lego.html">LEGO Lab</a><a href="cruise-ship.html" aria-current="page">Cruise Ship</a><a href="hall-of-fame.html">Hall of Fame</a><a href="chess.html">Chess</a><a href="gameroom.html">Game Room</a><a href="notebook.html">Notebook</a><a href="goals.html">Goals</a><a href="badges.html">Badges</a><a href="games.html">Games</a><a href="comics.html">Comics</a></div><button type="button" id="gr-menu" aria-expanded="false" aria-controls="gr-nav-links" hidden>☰ Menu</button></nav>
+<main id="main" class="gr-main">
+<header class="gr-panel gr-hero cs-hero">
+  <div class="gr-hero-top"><span class="gr-eyebrow">VIHAAN.OS / LEGO / YOUR CRUISE SHIP</span><a href="lego.html">LEGO Lab ↗</a></div>
+  <p class="gr-kicker">Big ideas. Brick by brick.</p>
+  <h1>Your ship.<br><span>Your next adventure.</span></h1>
+  <p class="gr-lead">Step aboard your LEGO cruise ship — you call it the Titanic, too.<br>You're building a whole world, one deck at a time.</p>
+  <dl class="cs-stats" aria-label="Ship's stats">
+    <div><dt>Decks</dt><dd>4</dd></div>
+    <div><dt>Minifigure guests</dt><dd>Room for 125</dd></div>
+    <div><dt>Lounges</dt><dd>All done <small>A prize hidden in each</small></dd></div>
+    <div><dt>Now building</dt><dd>Deck 2 <small>Your next big step</small></dd></div>
+  </dl>
+</header>
+<section class="gr-panel cs-explorer" aria-labelledby="explorer-title">
+  <div class="gr-section-head"><div><span class="gr-eyebrow">01 / EXPLORE YOUR BUILD</span><h2 id="explorer-title">Pick a deck. Peek inside.</h2></div><span class="gr-tag">4 decks · one big idea</span></div>
+  <p class="cs-hint">Choose a deck to see what's there and what's still to come.</p>
+  <div class="cs-explorer-grid">
+    <figure class="cs-ship">
+      <div class="cs-blueprint-label" aria-hidden="true"><span>SIDE VIEW</span><span>VIHAAN'S BUILD</span></div>
+      <div class="cs-decks" aria-label="Choose a ship deck">
+        <a class="cs-deck cs-planned" data-deck="4" href="#deck-4"><span class="cs-deck-number">04</span><span class="cs-deck-name">Food Deck</span><span class="cs-status">Planned</span><span class="cs-selection" aria-hidden="true">↗</span></a>
+        <a class="cs-deck cs-planned" data-deck="3" href="#deck-3"><span class="cs-deck-number">03</span><span class="cs-deck-name">Fun Deck</span><span class="cs-status">Planned</span><span class="cs-selection" aria-hidden="true">↗</span></a>
+        <a class="cs-deck cs-building" data-deck="2" href="#deck-2"><span class="cs-deck-number">02</span><span class="cs-deck-name">Shops &amp; the Rich Lounge</span><span class="cs-status">Now Building</span><span class="cs-selection" aria-hidden="true">↗</span></a>
+        <a class="cs-deck cs-finished" data-deck="1" href="#deck-1"><span class="cs-deck-number">01</span><span class="cs-deck-name">Rooms</span><span class="cs-status">Finished</span><span class="cs-selection" aria-hidden="true">↗</span></a>
+      </div>
+      <svg class="cs-hull" viewBox="0 0 740 135" aria-hidden="true" focusable="false">
+        <defs><pattern id="bricks" width="64" height="28" patternUnits="userSpaceOnUse"><path d="M0 0H64V28H0ZM32 0V14M0 14H64M16 14V28M48 14V28" fill="none" stroke="#f6cf72" stroke-opacity=".12"/></pattern></defs>
+        <path d="M10 8H730L646 93H87L10 44Z" fill="#252a32" stroke="#8f794a" stroke-width="2"/>
+        <path d="M10 8H730L646 93H87L10 44Z" fill="url(#bricks)"/>
+        <path d="M23 29H706" stroke="#f6cf72" stroke-width="5"/>
+        <g fill="#11151b" stroke="#8f794a" stroke-width="2"><circle cx="124" cy="57" r="9"/><circle cx="189" cy="57" r="9"/><circle cx="254" cy="57" r="9"/><circle cx="319" cy="57" r="9"/><circle cx="384" cy="57" r="9"/><circle cx="449" cy="57" r="9"/><circle cx="514" cy="57" r="9"/><circle cx="579" cy="57" r="9"/></g>
+        <path d="M0 113Q46 101 92 113T184 113T276 113T368 113T460 113T552 113T644 113T736 113" fill="none" stroke="#647b8c" stroke-width="2"/>
+      </svg>
+      <figcaption>LEGO ship illustration · Your deck-by-deck guide</figcaption>
+    </figure>
+    <div class="cs-details" aria-label="Inside your decks">
+      <article class="cs-detail" id="deck-1" aria-labelledby="deck-1-title" data-status="Finished">
+        <div class="cs-detail-top"><span class="gr-eyebrow">DECK 1</span><span class="cs-status cs-finished">Finished</span></div>
+        <h3 id="deck-1-title">Rooms</h3><p>Your guests sleep here. Your lounges are all finished, and every lounge hides a prize.</p>
+        <ul class="cs-items"><li>Rooms for sleeping</li><li>Finished lounges</li><li>A hidden prize in every lounge</li></ul>
+        <p class="cs-detail-note">All done. Can you find each prize?</p>
+      </article>
+      <article class="cs-detail" id="deck-2" aria-labelledby="deck-2-title" data-status="Now Building">
+        <div class="cs-detail-top"><span class="gr-eyebrow">DECK 2</span><span class="cs-status cs-building">Now Building</span></div>
+        <h3 id="deck-2-title">Shops &amp; the Rich Lounge</h3><p>You're working on this deck now. There is so much to build!</p>
+        <ul class="cs-items"><li>Shops</li><li>A rich lounge with a dance floor</li><li>A doctor</li><li>A dentist</li><li>A jail for anyone who tries to steal something</li><li>A clothing store</li><li>A massage place</li></ul>
+        <p class="cs-detail-note">Your build is growing, brick by brick.</p>
+      </article>
+      <article class="cs-detail" id="deck-3" aria-labelledby="deck-3-title" data-status="Planned">
+        <div class="cs-detail-top"><span class="gr-eyebrow">DECK 3</span><span class="cs-status cs-planned">Planned</span></div>
+        <h3 id="deck-3-title">Fun Deck</h3><p>Your ideas are ready. This deck is not built yet.</p>
+        <ul class="cs-items"><li>Swimming pool</li><li>Golf</li><li>Badminton</li><li>A concert</li><li>The captain's own home</li><li>TVs in the rooms</li></ul>
+        <p class="cs-detail-note">A whole deck of fun to look forward to.</p>
+      </article>
+      <article class="cs-detail" id="deck-4" aria-labelledby="deck-4-title" data-status="Planned">
+        <div class="cs-detail-top"><span class="gr-eyebrow">DECK 4</span><span class="cs-status cs-planned">Planned</span></div>
+        <h3 id="deck-4-title">Food Deck</h3><p>Here's your plan for the food deck.</p>
+        <ul class="cs-items"><li>All the food</li><li>Security at the entrance</li></ul>
+        <p class="cs-detail-note">Still planned. Your next ideas can take shape here.</p>
+      </article>
+    </div>
+  </div>
+  <p id="cs-announcement" class="gr-sr-only" role="status" aria-atomic="true"></p>
+</section>
+<section class="gr-panel cs-plans" aria-labelledby="plans-title">
+  <div><span class="gr-eyebrow">02 / IDEAS ON THE HORIZON</span><h2 id="plans-title">Captain's Plans</h2><p>Coming soon. Which deck? That's for you, the captain, to decide.</p><span class="gr-tag">Deck not decided yet</span></div>
+  <ul class="cs-plan-list"><li><span aria-hidden="true">↗</span> A roller coaster</li><li><span aria-hidden="true">✦</span> Fair rides</li><li><span aria-hidden="true">ϟ</span> A tiny phone charger</li></ul>
+</section>
+<footer class="gr-footer"><a href="lego.html">← Back to your LEGO Lab</a><p>Your ideas. Your bricks. Your world.</p><a href="index.html">Vihaan's World ↗</a></footer>
+</main>
+</body>
+</html>
