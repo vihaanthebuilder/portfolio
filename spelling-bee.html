@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111318">
+  <meta name="description" content="A friendly, offline-ready spelling bee practice game.">
+  <link rel="icon" href="data:,">
+  <title>Spelling Bee Trainer — Vihaan's World</title>
+  <link rel="stylesheet" href="spelling-bee.css">
+  <script defer src="spelling-bee-model.js"></script>
+  <script defer src="assets/spelling-words.js"></script>
+  <script defer src="spelling-bee.js"></script>
+</head>
+<body class="bee-page">
+  <a class="bee-skip" href="#main">Skip to spelling practice</a>
+  <nav class="bee-nav" aria-label="Main navigation">
+    <a class="bee-wordmark" href="index.html">vihaan<span>.</span></a>
+    <button class="bee-menu-toggle" id="bee-menu-toggle" type="button" aria-expanded="false" aria-controls="bee-nav-links">☰ Pages</button>
+    <div class="bee-nav-links" id="bee-nav-links">
+      <a href="index.html">Home</a><a href="lego.html">LEGO Lab</a><a href="cruise-ship.html">Cruise Ship</a>
+      <a href="chess.html">Chess</a><a href="gameroom.html">Game Room</a><a href="spelling-bee.html" aria-current="page">Spelling Bee</a>
+    </div>
+  </nav>
+
+  <main id="main" class="bee-main">
+    <header class="bee-hero bee-panel">
+      <div>
+        <p class="bee-eyebrow">A little practice goes a long way</p>
+        <h1>Spelling Bee <span>Trainer</span></h1>
+        <p class="bee-lead">Practice like the real bee: listen, think, and spell one word at a time.</p>
+        <p class="bee-note">Practice words — your school list can be added any time.</p>
+      </div>
+      <aside class="bee-streak" aria-labelledby="streak-title">
+        <div class="bee-flame" aria-hidden="true">🔥</div>
+        <div class="bee-streak-head"><h2 id="streak-title">Your practice streak</h2><span class="bee-local-note">Saved on this device</span></div>
+        <div class="bee-streak-counts"><p><strong id="current-streak">0</strong><span>day streak</span></p><p><strong id="best-streak">0</strong><span>best streak</span></p></div>
+        <div id="streak-days" class="bee-days" aria-label="Practice in the last seven days"></div>
+        <p id="daily-message" class="bee-daily-message">Finish a full ten-word round to reach today's goal.</p>
+      </aside>
+    </header>
+
+    <section class="bee-panel" id="level-picker" aria-labelledby="level-title">
+      <div class="bee-section-heading"><div><p class="bee-eyebrow">Choose your challenge</p><h2 id="level-title">Pick a level</h2></div><span class="bee-tag">10 words · no repeats</span></div>
+      <div class="bee-levels">
+        <button class="bee-level" type="button" data-level="warm-up"><span class="bee-level-icon" aria-hidden="true">🌱</span><strong>Warm-Up</strong><span>Easy words to get rolling</span></button>
+        <button class="bee-level" type="button" data-level="bee-ready"><span class="bee-level-icon" aria-hidden="true">🐝</span><strong>Bee Ready</strong><span>A little more challenge</span></button>
+        <button class="bee-level" type="button" data-level="champion"><span class="bee-level-icon" aria-hidden="true">🏆</span><strong>Champion</strong><span>Brave words to stretch your skills</span></button>
+      </div>
+      <div class="bee-tricky-entry"><div><h3>Tricky Words</h3><p id="tricky-count">Your missed words are saved here for another try.</p></div><button type="button" class="bee-button bee-button-outline" id="practice-tricky" disabled>Practice my tricky words</button></div>
+    </section>
+
+    <section class="bee-panel bee-round" id="round-panel" aria-labelledby="round-heading" hidden>
+      <div class="bee-section-heading"><div><p class="bee-eyebrow" id="round-kind">Standard round</p><h2 id="round-heading">Listen for your word</h2></div><span class="bee-progress" id="round-progress">Word 1 of 10</span></div>
+      <div class="bee-prompt-card">
+        <div class="bee-prompt-icon" aria-hidden="true">🔊</div>
+        <p class="bee-prompt-title" id="prompt-title">Your word is ready.</p>
+        <button type="button" class="bee-button bee-button-gold" id="hear-again">Hear it again</button>
+        <div class="bee-hints">
+          <button type="button" class="bee-button bee-button-outline" id="show-definition">Definition, please</button>
+          <button type="button" class="bee-button bee-button-outline" id="show-sentence">Use it in a sentence, please</button>
+        </div>
+        <p class="bee-hint" id="hint-text" hidden></p>
+      </div>
+      <form id="answer-form" class="bee-answer-form" autocomplete="off">
+        <label for="answer-input">Type the word you hear</label>
+        <div class="bee-answer-row"><input id="answer-input" name="answer" type="text" inputmode="text" autocapitalize="none" spellcheck="false" aria-describedby="feedback" autocomplete="off"><button class="bee-button bee-button-gold" id="check-answer" type="submit">Check</button></div>
+      </form>
+      <div id="feedback" class="bee-feedback" role="status" aria-live="polite" aria-atomic="true"></div>
+      <div id="letter-feedback" class="bee-letters" aria-label="Letter position feedback" hidden></div>
+      <div class="bee-round-actions"><button type="button" class="bee-button bee-button-gold" id="next-word" hidden>Next</button><button type="button" class="bee-text-button" id="leave-round">Leave this round</button></div>
+    </section>
+
+    <section class="bee-panel bee-score" id="score-panel" aria-labelledby="score-title" hidden>
+      <p class="bee-eyebrow">Round complete</p><h2 id="score-title">You finished your round!</h2>
+      <p class="bee-score-line" id="score-line"></p>
+      <p id="score-message" class="bee-score-message"></p>
+      <div class="bee-score-tricky" id="score-tricky"></div>
+      <button type="button" class="bee-button bee-button-gold" id="new-round">Pick another round</button>
+    </section>
+    <p class="bee-footer-note">Your practice stays on this device. These practice words are not your school's official spelling list.</p>
+  </main>
+</body>
+</html>
