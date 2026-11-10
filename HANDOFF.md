@@ -36,6 +36,10 @@
 
 ## Game Room complete locally — Nov 9, 2026
 
+- Implementation commit: a8d859ef8da2f3fd2209911e608bc32cbdfcf9d5
+  (Codex Worker <codex@localhost>). A documentation-only follow-up records
+  this hash; publish the feature/game-room branch HEAD when Goku dispatches.
+  Confirmed none of the three other unpublished commits is an ancestor.
 - Read AGENTS.md and FEATURE-BRIEF-game-room.md in full, including amendments.
   Reported starting state before code changes. Used bmad-build with independent
   data investigation, implementation and three context-free reviews.
