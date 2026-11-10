@@ -1109,3 +1109,15 @@ for now. Record every merge in HANDOFF.md.
 | `feature/lichess-classical-1605` | `66d4f2d` | `a4b4afc` | HANDOFF conflicted; combined and resolved | Desktop/mobile ratings and API-unavailable fallback | YES | Original branch record appended verbatim; published as `22775d8` |
 
 The Road to State countdown remains local and unpublished. No other branches were published in this bundle.
+
+## Publish the Road to State countdown — GO (Goku, Nov 10 2026)
+The publish bundle is complete (Geometry Dash, robot-fix, Lichess all live). Next: publish feature/road-to-state-countdown (aa4408b + dfcf4a0, NWA Fall Scholastic, Sat Nov 28, 2026, Fayetteville, registered). First re-verify the branch against main and re-record its completion in HANDOFF.md (the earlier completion record was lost in a merge conflict; it was 20 checks, 0 errors at the time — verify fresh, don't copy the old numbers). Then merge into main, push, confirm the Pages deploy, and live-verify the countdown block in the Game Room. Publishing is approved for Vihaan's project. Record the merge in HANDOFF.md.
+
+## Road to State countdown — fresh publish preflight (Nov 10, 2026)
+
+- Rechecked `feature/road-to-state-countdown` at `dfcf4a03981c80cf8e30b0998486bd785ac0ed60` against current main `a7b7455b39981c2464b5a3e5c8a68278f6d37769`; branch merge base is `22587348075decc1577b2e63b9099072b4a7e7f1`. Feature implementation commit: `aa4408b50576985e2d07b71d7c791cc144a6ea7b`.
+- Scratch merge found documentation conflicts in `HANDOFF.md` and `tests/README.md`; Game Room code merged automatically. Kept the complete current-main handoff, retained the coordinator GO entry, and appended the countdown test instructions to the full main test guide.
+- Freshly ran `tests/road-to-state-countdown.cjs` against the merged candidate with Chrome/Playwright. **20 checks passed; zero page/console errors.** Desktop 1440×1000 and phone 390×844 both showed the expected **17 days** at 9:52 AM Central, Nov 10, 2026; neither had horizontal overflow. The event/date/registration, exactly three reminders, and all six existing Road to State belief steps passed.
+- Fresh boundary checks passed for under two days (`1 day · 12 hours · 0 minutes`), tournament day (“Tournament day is here — good luck, Vihaan!”), and post-event state (no negative countdown). These values come from this verification run, not the older local report.
+- Visually inspected `/tmp/vihaan-countdown-fresh/countdown-desktop.png` and `countdown-phone.png`. Full evidence: `/tmp/vihaan-countdown-fresh/results.json`. `node --check gameroom.js` and `git diff --check` passed.
+- Current countdown block shows the NWA Fall Scholastic on Saturday, Nov 28, 2026 in Fayetteville, AR; keeps the existing six belief steps; and adds only three general preparation tips. No venue or schedule details were added.

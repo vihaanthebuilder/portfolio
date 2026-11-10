@@ -13,6 +13,36 @@
   const stamp = time => date(time) + ' UTC';
   const validTimestamp = value => Number.isFinite(Date.parse(value));
   const state = { raw: {}, sources: {}, quest: {}, failures: [], ready: false };
+  function updateTournamentCountdown(now = new Date()) {
+    const value = $('countdown-values');
+    const status = $('countdown-status');
+    if (!value || !status) return;
+    const target = new Date(2026, 10, 28, 0, 0, 0, 0);
+    const nextDay = new Date(2026, 10, 29, 0, 0, 0, 0);
+    if (now >= target && now < nextDay) {
+      value.textContent = 'Tournament day';
+      status.textContent = 'Tournament day is here — good luck, Vihaan!';
+      return;
+    }
+    if (now >= nextDay) {
+      value.textContent = 'Fayetteville';
+      status.textContent = 'Tournament day has passed. Your next great move is ahead!';
+      return;
+    }
+    const minutesLeft = Math.ceil((target.getTime() - now.getTime()) / 60000);
+    const daysLeft = Math.floor(minutesLeft / (24 * 60));
+    if (daysLeft < 2) {
+      const hoursLeft = Math.floor((minutesLeft % (24 * 60)) / 60);
+      const minutesRemainder = minutesLeft % 60;
+      value.textContent = `${daysLeft} ${daysLeft === 1 ? 'day' : 'days'} · ${hoursLeft} ${hoursLeft === 1 ? 'hour' : 'hours'} · ${minutesRemainder} ${minutesRemainder === 1 ? 'minute' : 'minutes'}`;
+      status.textContent = 'Your next adventure is getting close. Keep making your next great move.';
+    } else {
+      value.textContent = `${daysLeft} days`;
+      status.textContent = 'You’re getting ready, one good move at a time.';
+    }
+  }
+  updateTournamentCountdown();
+  setInterval(updateTournamentCountdown, 60000);
   const source = key => {
     const item = state.sources[key];
     return item ? (item.live ? 'Live public API' : 'Saved public snapshot') + ' · retrieved ' + stamp(item.retrievedAt) : 'Public source unavailable';
