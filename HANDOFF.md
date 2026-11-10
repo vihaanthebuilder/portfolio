@@ -76,7 +76,7 @@
   desktop-explorer-deck2.png, desktop-explorer-planned.png, mobile-full.png,
   mobile-explorer-deck2.png, mobile-explorer-planned.png,
   mobile-no-javascript.png, plus nav-{index,lego,chess,gameroom}-{1440,1251,1051,390}.png.
-- Commit: local on feature/cruise-ship-explorer (hash in next entry). NOT merged,
+- Commit: 135dbb3 local on feature/cruise-ship-explorer. NOT merged,
   NOT pushed, NOT published — needs Nishant's separate go-ahead.
 
 ## Game Room published — Nov 9, 2026
