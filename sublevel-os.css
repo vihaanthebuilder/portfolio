@@ -2956,3 +2956,11 @@ header.os-workspace-bar {
 }
 
 
+
+/* One extra discovery link: use the existing menu before desktop labels crowd. */
+@media (min-width:1024px) and (max-width:1250px){
+  #topnav .pillbar{grid-template-columns:auto 1fr;padding-left:14px}
+  #topnav .center{display:none}
+  #topnav .right{gap:6px;min-width:0}
+  .mobile-menu-btn{display:inline-flex!important}
+}

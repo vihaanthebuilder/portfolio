@@ -1,0 +1,75 @@
+'use strict';
+const assert = require('node:assert/strict');
+const M = require('../gameroom-model.js');
+const snapshot = require('../data/vihaan-lichess-snapshot.json');
+const now = Date.parse(snapshot.retrievedAt);
+const summary = M.summarize(snapshot.raw.games, now);
+assert.equal(summary.total, 200);
+assert.equal(summary.wins, 118);
+assert.deepEqual([summary.white.games, summary.white.wins, summary.black.games, summary.black.wins], [99, 62, 101, 56]);
+assert.equal(summary.best.id, 'lJcdbKwT'); assert.equal(summary.best.opponent, 'KSM2023'); assert.equal(summary.best.rating, 1992);
+assert.equal(summary.recent.length, 10); assert.equal(summary.review.length, 5);
+assert.equal(summary.week, 2);
+assert.deepEqual(summary.openings.map(item => item[1]), [16, 11, 10]);
+assert.equal(snapshot.quest.current, null); assert.equal(snapshot.quest.best, null);
+const trail = M.ratingTrail(snapshot.raw.history, snapshot.raw.games);
+assert.equal(trail.derived, true); assert.equal(trail.points[0].rating, 1356); assert.equal(trail.points.at(-1).rating, 1605);
+assert.equal(M.ratingTrail([{ name: 'Classical', points: [[2026, 0, 1, 1200], [2026, 1, 2, 1300]] }], []).derived, false);
+assert.equal(M.ratingTrail([], []).points.length, 0);
+const original = snapshot.raw.games.find(game => game.id === summary.best.id);
+const coach = structuredClone(original); coach.id = 'COACH123'; coach.players.white.user = { id: 'JiShI03', name: 'JISHI03' }; coach.players.white.rating = 9999;
+assert.equal(M.summarize([coach, original], now).best.id, original.id);
+assert.equal(M.summarize([coach], now).best, null);
+assert.equal(M.gameURL('bad/<id>'), null); assert.equal(M.gameURL('javascript:alert(1)'), null);
+const invalid = [null, {}, { ...original, id: 'bad/' }, { ...original, rated: false }, { ...original, status: 'aborted' }, { ...original, winner: 'oops' }, { ...original, createdAt: NaN }, { ...original, createdAt: 9e17 }];
+assert.equal(M.summarize(invalid, now).total, 0);
+assert.equal(M.summarize([original, original], now).total, 1);
+assert.equal(M.summarize([], now).white.percent, null);
+const unknown = M.quest(snapshot.raw.activity, snapshot.raw.games, now);
+assert.equal(unknown.current, null); assert.equal(unknown.best, null); assert.equal(unknown.today.puzzles, null);
+assert(unknown.days.every(day => day.complete === null));
+const today = Date.UTC(2026, 10, 10);
+function activity(day, attempts = 10, game = true) {
+  return { interval: { start: day, end: day + M.DAY }, puzzles: { score: { win: attempts, loss: 0, draw: 0 } }, ...(game ? { games: { classical: { win: 1, loss: 0, draw: 0 } } } : {}) };
+}
+let quest = M.quest([activity(today - 2 * M.DAY), activity(today - M.DAY), activity(today)], [], today + 10000);
+assert.equal(quest.current, 3); assert.equal(quest.best, 3); assert.equal(quest.today.complete, true);
+quest = M.quest([activity(today - M.DAY)], [], today + 10000, { best: 8 });
+assert.equal(quest.current, 1); assert.equal(quest.best, 8); assert.equal(quest.today.puzzles, null);
+quest = M.quest([activity(today - 2 * M.DAY), activity(today - M.DAY, 2)], [], today + 10000, { best: 8 });
+assert.equal(quest.current, 0); assert.equal(quest.best, 8); // Verified incomplete yesterday resets quietly; best is preserved.
+quest = M.quest([activity(today, 9)], [], today + 10000);
+assert.equal(quest.today.complete, null); assert.equal(quest.today.puzzles, 9);
+quest = M.quest([activity(today, 10, false)], [], today + 10000);
+assert.equal(quest.today.complete, null); // Puzzle activity alone does not prove a game.
+const multiDay = activity(today); multiDay.interval.end += M.DAY;
+assert.equal(M.quest([multiDay], [], today + 10000).today.puzzles, null);
+const localDay = activity(today); localDay.interval.start += 6 * 3600000; localDay.interval.end += 6 * 3600000;
+assert.equal(M.quest([localDay], [], today + 7 * 3600000).today.puzzles, null);
+assert.equal(M.quest([], [], today, { best: 0 }).best, null);
+assert.equal(M.quest([], [], today, { best: null }).best, null);
+assert.equal(M.quest([{ interval: { start: today, end: today + M.DAY }, streak: { score: 400 }, puzzles: { score: { win: null } } }], [], today + 1).today.puzzles, null);
+assert.equal(M.quest([activity(today - M.DAY, 2)], [], today + 1, {}, today - 1000).current, null); // A snapshot taken before the day ended cannot verify incompletion.
+const retained = M.quest([activity(today - 3 * M.DAY), activity(today - 2 * M.DAY), activity(today - M.DAY)], [], today + 1);
+quest = M.quest([activity(today)], [], today + 2, retained);
+assert.equal(quest.current, 4); assert.equal(quest.best, 4);
+const cachedToday = M.quest([], [], today + 2, quest);
+assert.equal(cachedToday.today.savedComplete, true); assert.equal(cachedToday.today.puzzles, null); assert.equal(cachedToday.today.complete, true);
+assert.deepEqual(quest.earnedDays, ['2026-11-07', '2026-11-08', '2026-11-09', '2026-11-10']);
+quest = M.quest([], [], today + 1, { earnedDays: ['2026-02-30', 'garbage', '2027-01-01', null, '2026-11-09'] });
+assert.equal(quest.current, 1); assert.deepEqual(quest.earnedDays, ['2026-11-09']);
+assert.doesNotThrow(() => M.quest([{ interval: { start: -9e18, end: -9e18 + M.DAY } }], [], today));
+assert.equal(M.validDate(9e18), false); assert.equal(M.validDate(Infinity), false);
+const publicHistory = M.ratingTrail([{ name: 'Classical', points: [[2026, 0, 1, 1200], [2026, 1, 2, 1300]] }], []);
+assert.deepEqual(publicHistory.points, [{ date: Date.UTC(2026, 0, 1), rating: 1200 }, { date: Date.UTC(2026, 1, 2), rating: 1300 }]);
+const mixed = Array.from({ length: 18 }, (_, index) => {
+  const game = structuredClone(original); game.id = 'MIXED' + String(index).padStart(3, '0');
+  game.createdAt = today - index * 1000;
+  const color = M.ownColor(game);
+  if (index % 3 === 0) game.winner = color === 'white' ? 'black' : 'white';
+  else if (index % 3 === 1) game.winner = color;
+  else delete game.winner;
+  return game;
+}).reverse();
+assert.deepEqual(M.summarize(mixed, today).review.map(game => game.id), ['MIXED000', 'MIXED003', 'MIXED006', 'MIXED009', 'MIXED012']);
+console.log('Game Room model: snapshot, color/result scope, coach exclusion, safe IDs, empty/malformed input, history, UTC activity and verified streak matrix passed.');
