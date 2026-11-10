@@ -1,5 +1,412 @@
 # HANDOFF — Vihaan's Portfolio (Vihaan's World)
 
+## Next briefs queue
+
+1. **Spelling Bee Trainer — FEATURE-BRIEF-spelling-bee-trainer.md** — COMPLETE locally by Goku's dispatch, Nov 10, 2026. Branch `feature/spelling-bee-trainer` from `main` at `22587348075decc1577b2e63b9099072b4a7e7f1`; local commits only. No push, merge, or publish. Implementation commit `10daa3050556fa69961088ada6a05be7fdf8c842`. Browser verification passed 118 checks; installed Chrome had no available voices, and the kind fallback passed. This is the pre-publication status; see the published result below.
+
+2. **Cruise Ship Explorer — FEATURE-BRIEF-cruise-ship-explorer.md** — PUBLISHED by Nishant's Nov 10, 2026 authorization. Merge `5add822`; GitHub Pages succeeded and the live page passed browser and asset checks. Cruise Ship only; the Author's Room and other feature branches stay unpublished.
+
+3. **Author's Room — FEATURE-BRIEF-authors-room.md** (dispatched by Goku,
+   Nov 10, 2026; approved by Nishant): build `authors-room.html` for Vihaan's
+   19-chapter human-body book using the exact-word rules in the brief and the
+   two chapter records. Branch `feature/authors-room` from `main`. Status:
+   DONE LOCALLY. Branch `feature/authors-room` is based on `main` at
+   `c540ef1cc95bfc9ecefcf552e8cd871a29ce8d43`; feature commit
+   `5073d164fad28b3714a23516d2d9213c852a2630`. No push, merge, or publish
+   at the time of completion; see the published result below.
+
+4. **Game Room — FEATURE-BRIEF-game-room.md** (queued by Goku, Nov 9, 2026,
+   ~9:03 PM CT, at Nishant's request): build a new gameroom.html with live
+   Lichess public-API data for vihaan_67 plus a baked snapshot fallback;
+   rating chips kept visually separate from US Chess; The Climb chart,
+   Recent Games, By the Numbers, Games to Review, Best Win Spotlight, and
+   Road to State sections. Branch feature/game-room from main.
+   PUBLISH PRE-AUTHORIZED by Nishant Nov 9, 9:25 PM CT ("Once done
+   publish it"): when the build is complete and verification/VQA pass
+   and are recorded here, Goku dispatches the publish step (merge to
+   main, push, live-verify gameroom.html) without asking again. No
+   force-push; stop on merge conflicts. Covers the Game Room only —
+   the Lichess, Geometry Dash, and robot-fix branches stay unpublished. Status: PUBLISHED and live-verified by the worker (Nov 9, 2026); merge cede606, Pages successful. Read the brief file in full before starting. AMENDED Nov 9,
+   ~9:05 PM CT: the brief now carries a CONFIDENCE FIRST amendment from
+   Nishant (appended at the end of the brief file) — the page's real job
+   is belief: evidence over numbers, Kanishk win hero-adjacent, Road to
+   State steps checked off, losses only as treasure maps, victory
+   language, milestones over rankings, no rivals named. AMENDED AGAIN
+   Nov 9, ~9:10 PM CT: Amendment 2 in the brief file adds Belief Anchor
+   #2 — CORRECTED later Nov 9: the jishi03 game was an abandonment
+   (she left over a connection issue), NOT a win by play — do not
+   spotlight it, never call it beating his coach, and exclude jishi03
+   games from the Best Win Spotlight pick — plus a new tile,
+   "This Week's Reps" (games in the last 7 days; positive framing; if 0,
+   an inviting line, never a zero or a missed quota). AMENDED AGAIN
+   Nov 9, ~9:16 PM CT: Amendment 3 in the brief SUPERSEDES the
+   standalone Reps tile — it folds into a new "Daily Quest + Streak"
+   section placed SECOND on the page: daily quest = 10 puzzles + 1
+   game, Duolingo-style flame streak (current + best + last-7-days
+   dots), games-this-week line inside the Quest card. Honesty rule:
+   never invent a streak or puzzle count — if a day's puzzles can't be
+   verified from the API, mark them "check your Lichess app".
+
+## Author's Room implementation — Nov 10, 2026
+
+- Built `authors-room.html` and `authors-room.css` with the responsive cover,
+  19 chapter slots, native chapter anchors, source-based text, and CSS/emoji
+  illustrations. Added homepage links and the destination to both shared
+  navigation render paths. No source-record files are part of the website.
+- Text trace passed: every chapter sentence is mapped to a marked line or
+  summary point in the approved records. The final sentence in each chapter is
+  Vihaan's recorded conclusion. Artifact:
+  `/tmp/vihaan-authors-room/sentence-source-trace.json`.
+- The three-layer review was completed. It led to short fact lines for the
+  periosteum note, a visible ribs label, an “about 11%” progress label, and
+  click-level checks for the homepage quick bar and both chapter-map links.
+  Suggestions that conflicted with exact record wording or the brief's
+  required “Organs” placeholders were left unchanged.
+- Browser check passed with Playwright 1.64.1 and Chrome 154 at desktop
+  1440×1000 and mobile 390×844. Chapter 1/2 direct hashes, homepage and shared
+  menu links, planned-slot labels, muscle panels, no horizontal overflow, and
+  zero browser/console/local-resource errors passed. `node --check` and
+  `git diff --check` passed.
+- Visually inspected required screenshots:
+  `/tmp/vihaan-authors-room/cover.png`, `chapter-map.png`, `chapter-1.png`,
+  `chapter-2.png`, and `mobile.png`. The browser report is
+  `/tmp/vihaan-authors-room/results.json`.
+- Changes are committed locally on `feature/authors-room` in
+  `5073d164fad28b3714a23516d2d9213c852a2630` (based on `main` at
+  `c540ef1cc95bfc9ecefcf552e8cd871a29ce8d43`). No push, merge, or publish was
+  performed. The brief and chapter records are input material and are
+  intentionally excluded from the site commit.
+
+## Custom domain vihaanadhikari.com — CNAME PUBLISHED; STOPPED ON DNS, Nov 10, 2026
+
+- This is the 00:42 CT domain-check snapshot. Cruise Ship was not live then;
+  its later, separately authorized publication is recorded below.
+
+- Pre-authorized by Nishant (FEATURE-BRIEF-custom-domain.md). Branched
+  feature/custom-domain from main 1bb1da1 (== origin/main). CNAME commit
+  12300f7 (one line: vihaanadhikari.com). Merging to main and pushing.
+- Cruise Ship Explorer is NOT in main: it lives only on local branch
+  feature/cruise-ship-explorer (135dbb3 + 0f67a25), awaiting publish go-ahead.
+  Its HANDOFF.md edits will need a manual merge with this entry later.
+- Pre-push check 00:40 CT: DNS NOT set. Porkbun authoritative NS
+  (curitiba.ns.porkbun.com) returns no A for vihaanadhikari.com and no CNAME
+  for www. Pages API: build_type=workflow, cname=null, https_enforced=true.
+- BLOCKER beyond this brief: with Actions ("workflow") Pages builds, GitHub
+  ignores the repo CNAME file — the domain must ALSO be set in repo Settings →
+  Pages → Custom domain (or `gh api -X PUT repos/vihaanthebuilder/portfolio/pages
+  -f cname=vihaanadhikari.com`). Not done: outside the brief ("repo side only"),
+  and doing it before DNS exists would redirect github.io to a dead domain.
+- Merged: ea75599 (merge of feature/custom-domain) pushed to origin/main
+  (1bb1da1..ea75599). Pages workflow run for ea75599: completed/success.
+- Live verification 2026-11-10 00:42 CT:
+  - https://vihaanthebuilder.github.io/portfolio/ → 200, NO redirect (expected:
+    Pages cname still null).
+  - .../portfolio/gameroom.html → 200; .../portfolio/CNAME → 200 (file served).
+  - https://vihaanadhikari.com/, /gameroom.html, http:// → curl exit 6, name
+    does not resolve (no A records at Porkbun NS).
+  - cruise-ship.html NOT live (homepage has 0 cruise-ship refs).
+- Cert state: NOT STARTED — GitHub can't provision HTTPS until DNS resolves AND
+  the Pages custom domain is set. Stopped here per brief; nothing forced.
+- To finish (needs owner): (1) add Porkbun A records 185.199.108.153/.109/.110/
+  .111.153 + www CNAME vihaanthebuilder.github.io; (2) once `dig +short A
+  vihaanadhikari.com` shows them, set Settings → Pages → Custom domain to
+  vihaanadhikari.com; (3) wait for cert, tick Enforce HTTPS, re-run the three
+  live checks.
+
+## Cruise Ship Explorer in progress — Nov 9, 2026
+
+- Read AGENTS.md, HANDOFF.md and the complete cruise-ship brief. Reported
+  starting state before code changes; using bmad-build.
+- Started on main at 1bb1da1004a781774b0e6a84e230b9fd559d1aba, matching
+  origin/main, with only the new brief untracked. Created
+  feature/cruise-ship-explorer FROM MAIN. Other feature branches stay separate.
+- Investigation found no identifiable REAL cruise ship/Titanic photograph.
+  Using a clearly labeled SVG illustration, with only the brief's facts.
+- Scope: new interactive four-deck page, default Deck 2 Now Building; separate
+  undecided Captain's Plans; additive site nav/LEGO links only. No prices.
+  Verification and screenshot paths will follow; no publishing authorized.
+
+- Explorer matrix passed at desktop, boundary widths and phone: all four exact
+  deck panels, keyboard/touch, focus, no-JavaScript facts and reduced motion.
+  Initial final-browser run then found homepage nav overflow after added link;
+  correcting only discovery-link footprint before accepting final verification.
+
+## Cruise Ship Explorer COMPLETE (local commit only) — Nov 10, 2026
+
+- This records the completed local build before Nishant later authorized publishing; see the publish result below.
+
+- Nav overflow fix (resumed worker): the shared top bar link is now a compact
+  ⚓ icon (aria-label/title "Cruise Ship") in index.html and sublevel-os.js, so
+  the 1440px bar fits (right edge ≈1430 vs 1440; text "Cruise" pushed 🧱/🏠 to
+  ≈1446–1465). gameroom.html REVERTED to main byte-for-byte: its standalone nav
+  already fills the viewport at 1051–1100px on main, so any extra link overflows.
+  Cruise link lives in: shared top bar (⚓), mobile drawer, homepage quick bar,
+  LEGO page card, and the cruise page's own nav.
+- PRE-EXISTING on main 1bb1da1 (not caused by this branch, NOT fixed — needs a
+  separate go-ahead): shared top bar overflows at ~1100–1300px (1251px: right
+  edge 1291 on main, 1334–1341 now with the ⚓); Game Room nav overflows 4px at
+  1051px. The test records these as knownBaselineOverflow instead of failing.
+- Final run: tests/cruise-ship-browser.cjs — 22/22 checks, 0 errors, exit 0.
+  Results: /tmp/vihaan-cruise-ship/results.json. Visually inspected
+  desktop-explorer-deck2, mobile-explorer-planned and nav-lego-1440.
+- Screenshots: /tmp/vihaan-cruise-ship/desktop-full.png,
+  desktop-explorer-deck2.png, desktop-explorer-planned.png, mobile-full.png,
+  mobile-explorer-deck2.png, mobile-explorer-planned.png,
+  mobile-no-javascript.png, plus nav-{index,lego,chess,gameroom}-{1440,1251,1051,390}.png.
+- Commit: 135dbb3 local on feature/cruise-ship-explorer. NOT merged,
+  NOT pushed, NOT published — needs Nishant's separate go-ahead.
+
+## Cruise Ship Explorer publish dispatch and preflight — Nov 10, 2026
+
+- Nishant authorized publication after the local build. Merging only
+  `feature/cruise-ship-explorer` (HEAD `0f67a2568a1e8d63c3f77163c6729f043ca12bf5`)
+  onto `main` at `c540ef1cc95bfc9ecefcf552e8cd871a29ce8d43`.
+- Preflight rerun: 22/22 browser checks passed at 1440, 1251, 1051, and 390px;
+  no new errors. Existing shared-nav overflow at 1251px and Game Room overflow
+  at 1051px are unchanged baseline issues. Evidence:
+  `/tmp/vihaan-cruise-ship-publish-preflight/results.json`.
+- The expected HANDOFF.md conflict was resolved manually by retaining the full
+  custom-domain DNS record and the Cruise Ship build record. Final merge, push,
+  deployment, and live checks are recorded in the published result below.
+- `feature/authors-room` (implementation commit `5073d16`) is not an ancestor
+  and remains local/unpublished. No other feature branch is included.
+
+## Cruise Ship Explorer published — Nov 10, 2026
+
+- Nishant authorized publishing the completed Cruise Ship Explorer. Merged
+  `feature/cruise-ship-explorer` HEAD
+  `0f67a2568a1e8d63c3f77163c6729f043ca12bf5` into `main` at
+  `c540ef1cc95bfc9ecefcf552e8cd871a29ce8d43`. Merge commit:
+  `5add82221e6f325abc563d17b034c9e25588475b`. Normal push to `origin/main`
+  succeeded (`c540ef1..5add822`); no force-push. The HANDOFF.md merge conflict
+  was resolved manually; both this Cruise Ship record and the complete
+  custom-domain/DNS record remain in this file.
+- GitHub Pages workflow **42782317631** completed successfully for merge
+  `5add82221e6f325abc563d17b034c9e25588475b`:
+  https://github.com/vihaanthebuilder/portfolio/actions/runs/42782317631
+- Live verification: `https://vihaanthebuilder.github.io/portfolio/cruise-ship.html`
+  returned HTTP 200. The live HTML, CSS, JavaScript, and homepage SHA-256 values
+  matched the pushed files exactly. Production-browser cruise suite passed
+  22/22 checks at 1440, 1251, 1051, and 390px, with no page errors. Homepage
+  has three Cruise Ship links and no Author's Room link; live
+  `authors-room.html` returns 404. `feature/authors-room` commit `5073d16` is
+  not in `origin/main` ancestry and has no remote branch ref.
+- Matching SHA-256 values (local source = live response): HTML
+  `b4fc4837fdb1e8cd477c1e3ec3444250cc6713189be469df866c2ba655abace6`, CSS
+  `1c6d097125e7c1a1d9ca5cf408c8a2b286bebbd9748753db8b80870626e9a46a`, JS
+  `7342df20f646889b2014645188072e5b92a47b10a00f2356a33e40c7160d21db`, and
+  homepage `f6fe85eccbcbf21f84e9b4d81fd9d8d92cb6d20cac0b263b76935607a99d66fc`.
+- Live evidence: `/tmp/vihaan-cruise-ship-live-verification/` contains the
+  fetched page/assets and headers; `/tmp/vihaan-cruise-ship-live-vqa/results.json`
+  and its 23 desktop/mobile/navigation captures contain the browser results.
+- Pre-existing shared-nav overflow at 1251px on the homepage/LEGO/Chess pages
+  and 1051px on Game Room remains as recorded above. It is unchanged from the
+  prior main build and did not prevent the Cruise Ship page/nav checks.
+- The successful merge changed only the Cruise Ship page and its navigation,
+  supporting documentation/tests, and HANDOFF. The Author's Room and other
+  unpublished feature branches remain out of main.
+
+## Game Room published — Nov 9, 2026
+
+- Goku explicitly dispatched publishing after the completed build/VQA; Nishant's
+  existing authorization applies to Game Room only. No new approval needed.
+- Starting branch feature/game-room at 1f3cbb856ca6acbd78722a13c6a0e9732d0a345f;
+  the only working-tree change was Goku's dispatch note, preserved in this commit.
+- Fetched origin: main and origin/main both a4b4afc7c3d8ac4eab89306302d66886bdbb2da5.
+  Confirmed all three other unpublished commits are absent from Game Room ancestry.
+- Publishing this branch using normal pushes and an explicit merge commit.
+  Stop on any merge conflict. Deployment/live verification results follow below.
+- Pushed feature/game-room at e9e4f6fe4a6311592d41c2ef0f4b982ab2e9e520.
+- Merged cleanly into main with explicit merge cede6068579f8726c9193edafbe53c375446f50e;
+  normal push succeeded (origin/main matches). No force-push or conflicts.
+  Deployment and live verification succeeded as recorded below.
+- Merge deployment succeeded: https://github.com/vihaanthebuilder/portfolio/actions/runs/42754559615
+  (head cede6068579f8726c9193edafbe53c375446f50e).
+- Live HTTP verification at 2026-11-10T04:14:57Z: gameroom.html and eight
+  companion/navigation assets return 200 and match merged-source SHA256 exactly.
+  Evidence: /tmp/vihaan-gameroom-live-vqa/asset-verification.json.
+- Production-browser PASS against https://vihaanthebuilder.github.io/portfolio:
+  15 checks, 12 fresh captures, all four REAL Lichess APIs refreshed on desktop
+  and phone (04:14:57–04:15:16 UTC). Classical 1605, distinct US Chess 811/814,
+  Daily Quest, game sample, chart, recent/review selection and replay verified.
+  Blocked APIs preserve the dated fallback. Real external replay faces Black
+  with visible controls. Nav works at 1440 / 1100 / 390 px. Zero unexpected errors;
+  only deliberate fixture failures and the pre-existing index Three warning.
+- Visually inspected live desktop/mobile header and best-win captures; real
+  trophy photograph, rating groups, board orientation and controls all correct.
+  Live captures and reproducible results:
+  /tmp/vihaan-gameroom-live-vqa/desktop-header.png
+  /tmp/vihaan-gameroom-live-vqa/mobile-header.png
+  /tmp/vihaan-gameroom-live-vqa/desktop-quest.png
+  /tmp/vihaan-gameroom-live-vqa/mobile-quest.png
+  /tmp/vihaan-gameroom-live-vqa/desktop-climb.png
+  /tmp/vihaan-gameroom-live-vqa/mobile-climb.png
+  /tmp/vihaan-gameroom-live-vqa/desktop-recent.png
+  /tmp/vihaan-gameroom-live-vqa/mobile-recent.png
+  /tmp/vihaan-gameroom-live-vqa/desktop-best.png
+  /tmp/vihaan-gameroom-live-vqa/mobile-best.png
+  /tmp/vihaan-gameroom-live-vqa/desktop-fallback.png
+  /tmp/vihaan-gameroom-live-vqa/mobile-fallback.png
+  /tmp/vihaan-gameroom-live-vqa/results.json
+- Other three local branch hashes are unchanged, none is an ancestor of main,
+  and git ls-remote confirms none of their branch refs was published.
+- Publishing is COMPLETE. This documentation-only follow-up records the result;
+  no application source changed after the verified merge. Existing public API
+  history/puzzle coverage limits remain honestly labeled as described below.
+
+## Game Room complete locally — Nov 9, 2026
+
+- Implementation commit: a8d859ef8da2f3fd2209911e608bc32cbdfcf9d5
+  (Codex Worker <codex@localhost>). A documentation-only follow-up records
+  this hash; publish the feature/game-room branch HEAD when Goku dispatches.
+  Confirmed none of the three other unpublished commits is an ancestor.
+- Read AGENTS.md and FEATURE-BRIEF-game-room.md in full, including amendments.
+  Reported starting state before code changes. Used bmad-build with independent
+  data investigation, implementation and three context-free reviews.
+- Created feature/game-room FROM MAIN at
+  a4b4afc7c3d8ac4eab89306302d66886bdbb2da5. Preserved coordinator docs in
+  /tmp/vihaan-gameroom-vqa/coordinator-HANDOFF.md and coordinator-HANDOFF.patch.
+  Carried coordination text only; all three other unpublished branches stay separate.
+- Built gameroom.html with confidence-first Kanishk proof, REAL Outstanding
+  Performance trophy photograph, distinct Lichess/US Chess groups, Daily Quest
+  SECOND, responsive Classical trail, sample wins/stats/openings, recent 10,
+  review 5 treasure maps, real best-win replay and Road to State family plan.
+  Added discovery links to index/shared desktop+mobile nav and chess.html.
+  Existing chess ratings, gameplay, games.html and trophy photo files are unchanged.
+- Committed fallback source: data/vihaan-lichess-snapshot.json, retrieved
+  2026-11-10T03:31:58.804Z (Nov 9 evening CT). Raw payloads exactly match all
+  four independently collected API responses. Refresh command:
+  node scripts/refresh-lichess-snapshot.cjs (no auth; smaller 50-game retry on 429).
+- Public endpoints (browser refresh on load, return after 60 seconds, UTC rollover):
+  https://lichess.org/api/user/vihaan_67
+  https://lichess.org/api/user/vihaan_67/rating-history
+  https://lichess.org/api/user/vihaan_67/activity
+  https://lichess.org/api/games/user/vihaan_67?max=200&rated=true&opening=true&moves=true
+  Games use Accept: application/x-ndjson. Each data group labels saved/live provenance.
+- Current evidence: Classical 1605, Rapid 1282 provisional, Blitz 1159 provisional,
+  Puzzles 1441; US Chess 811 Regular / 814 Quick remains separate. Latest 200 rated
+  games span Apr 15–Nov 5, with 118 wins. These are sample totals, not lifetime.
+  Best eligible sampled win: lJcdbKwT vs KSM2023 (1992), June 25, checkmate.
+  No inference identifies this as the family-stated Kanishk game. jishi03 is
+  excluded case-insensitively from both best-win calculations and spotlight.
+- Honest API limits: public rating-history returns[]; chart explicitly uses
+  observed Classical game ratings 1356→1605, not invented historical points.
+  Sparse activity cannot verify today's puzzle count/current/best quest streak:
+  show check-your-app and unknown. UTC quest days are labeled with actual
+  Chicago reset time (currently 6 PM CST). Earned days/best persist locally and
+  in generated quest state; no lifetime totals/Puzzle Streak-mode inference.
+- Verification sequence: initial default headless identity got 404/PGN; normal
+  installed-Chrome identity returned real NDJSON and cg-board. Games stream
+  took 8.2 seconds, exceeding initial 8 second timeout; now bounded at 30 seconds.
+  Fixed snapshot timeout, return/rollover refresh, retained earned-day evidence,
+  quiet verified reset, mobile chart labels and verification gaps. Independent
+  review triage for every finding is in spec-game-room.md; no unresolved findings.
+  Visual review also corrected replay orientation using official /gameId/black
+  route, phone iframe/control height, and inherited white footer background.
+- FINAL PASS: node tests/gameroom-model.cjs; JavaScript syntax checks;
+  git diff --check; tests/gameroom-browser.cjs --live. 15 recorded browser checks
+  cover live/fallback, partial sources, 429→50, stalled snapshot, malformed data,
+  coach exclusion, exact latest-loss order, populated history, cached quest goals,
+  return deduplication, active UTC rollover and nav at 1440 / 1100 / 390 px.
+  All four REAL endpoints refreshed on desktop and mobile (04:01:48–04:02:07 UTC).
+  Zero unexpected console/resource errors; intentional blocked fixture requests
+  are separately recorded. Existing index duplicate-Three warning stays unchanged.
+- Browser: installed Chrome 154 headless; context UA replaces only HeadlessChrome
+  with Chrome because Lichess negotiates different content otherwise. Both
+  identities are recorded honestly. Phone is 390×844 touch emulation; no claim
+  of Safari/iOS or real-device testing. Tall spotlight capture extends height
+  at the same 390 px width so Chrome paints the whole cross-origin iframe.
+- Visually inspected required final evidence (actual board, Black pieces facing
+  Vihaan, visible controls, real trophy, readable chart, neutral review results):
+  /tmp/vihaan-gameroom-vqa/desktop-header.png
+  /tmp/vihaan-gameroom-vqa/mobile-header.png
+  /tmp/vihaan-gameroom-vqa/desktop-climb.png
+  /tmp/vihaan-gameroom-vqa/mobile-climb.png
+  /tmp/vihaan-gameroom-vqa/desktop-recent.png
+  /tmp/vihaan-gameroom-vqa/mobile-recent.png
+  /tmp/vihaan-gameroom-vqa/desktop-best.png
+  /tmp/vihaan-gameroom-vqa/mobile-best.png
+  Extra quest/fallback evidence:
+  /tmp/vihaan-gameroom-vqa/desktop-quest.png
+  /tmp/vihaan-gameroom-vqa/mobile-quest.png
+  /tmp/vihaan-gameroom-vqa/desktop-fallback.png
+  /tmp/vihaan-gameroom-vqa/mobile-fallback.png
+  Results: /tmp/vihaan-gameroom-vqa/results.json and footer-verification.json.
+  Raw API/official reference evidence: /tmp/vihaan-gameroom-data/.
+- Remaining family items: Kanishk win is family-stated/unlinked; no game ID/date
+  invented. State championship exact date remains TBA. Puzzle/streak unknown
+  reflects public API coverage, not missed practice. Existing Crowder photo
+  family decision is unchanged by this work.
+- Ready for Goku's publishing dispatch under existing authorization; no further
+  Nishant approval is needed. No push, merge to main, deployment or live-site
+  verification performed in this build turn. Main remains a4b4afc7c3d8ac4eab89306302d66886bdbb2da5.
+  Other branches unchanged/unpublished: Geometry Dash d8f2eb2991603938860c9c3cd5ef400c33950248;
+  Lichess 66d4f2db35ea16f38a1bcd74dadc8937711dbcf9;
+  robot-fix be1b3a109e28b63efcc0351f9a31bf4a40294c3c.
+
+## Local fix ready for review — chess vs robot (Nov 9, 2026)
+
+- HANDOFF dispatches FEATURE-BRIEF-chess-robot-fix.md; user explicitly asked
+  to execute the top queued brief. Read the brief and AGENTS.md.
+- Started on feature/lichess-classical-1605 at
+  66d4f2db35ea16f38a1bcd74dadc8937711dbcf9 with only Goku's one-line dispatch
+  change in HANDOFF and the untracked robot brief. Preserved the exact note
+  in /tmp/vihaan-chess-robot-fix/coordinator-HANDOFF.md and its patch alongside.
+- Created feature/chess-robot-fix FROM MAIN at
+  a4b4afc7c3d8ac4eab89306302d66886bdbb2da5. Carried the handoff/dispatch
+  context only; unpublished Lichess and Geometry Dash code remain separate.
+- Investigation: desktop popup chess grid accepts e2→e4 and the robot replies
+  (observed c7→c5), without page errors. So the reported symptom is not yet
+  reproduced on that input surface. Checking mobile and the 3D table board;
+  asked Goku which board Vihaan used while continuing investigation.
+- Baseline evidence: /tmp/vihaan-chess-robot-fix/reproduction.json and
+  /tmp/vihaan-chess-robot-fix/before-board.png. No game code changed yet.
+- Mobile tap e2→e4 plus robot reply also works on baseline. Live homepage
+  HTML matches this baseline exactly. Actual popup drag e2→e4 leaves history
+  empty and selectedSquare null: reproducible input failure, since only click
+  listeners exist. Exact user gesture remains unconfirmed; do not claim
+  Goku/Vihaan confirmed dragging. A 3D-table click also has no chess-mode handler,
+  but implementing a separate 3D input feature is outside this focused patch.
+- Baseline drag evidence: /tmp/vihaan-chess-robot-fix/before-drag.png and
+  /tmp/vihaan-chess-robot-fix/input-diagnosis.json. Mobile baseline result:
+  /tmp/vihaan-chess-robot-fix/mobile-reproduction.json.
+- Added pointer capture/drop handling on white popup pieces through existing
+  legal-move selection, retaining click/tap. No chess engine/rules changes.
+  Verification and moved-piece capture results are recorded below.
+- Browser regression passed on desktop 1440×1000 and mobile touch 390×844:
+  dragged e2→e4, waited for Robo-Pawn's c7→c5 reply, then click/tap knight
+  g1→f3 and another reply. Invalid e4→e6, off-board drops, and robot-piece
+  drags do not move pieces. New Game, touch cancellation, and original
+  click/tap e2→e4 all pass. No page exceptions.
+- Visually inspected moved-piece evidence:
+  `/tmp/vihaan-chess-robot-fix/after-desktop-moved-piece.png`,
+  `/tmp/vihaan-chess-robot-fix/after-mobile-moved-piece.png`,
+  `/tmp/vihaan-chess-robot-fix/after-desktop-board.png`, and
+  `/tmp/vihaan-chess-robot-fix/after-mobile-board.png`.
+  Full results: `/tmp/vihaan-chess-robot-fix/verification.json`.
+- Repeatable check: tests/chess-robot-input.cjs; setup in tests/README.md.
+  Small-change independent review results are recorded below. No publishing or remote ops.
+- Independent small-change review completed. Added a second successful drag
+  from an already selected g1 knight to f3 and waited for another robot reply;
+  passed for mouse and touch. Test setup/status docs reconciled. No change
+  to engine, bot search, board styling, or game rules.
+- Mobile verification is Chrome touch emulation, not Safari/iOS or real-device
+  testing. Drag submits on release; no floating-piece drag preview was added.
+- Important remaining clarification for Goku: the exact originally reported
+  board/gesture has not been confirmed. This patch fixes the reproduced popup
+  dragging failure. Popup click/tap already worked on baseline; no separate 3D
+  table input feature was added. Confirm against Vihaan's symptom before publish.
+- Final source diff is only the square input wiring in index.html. games.html
+  and chess.html match main exactly; neither unpublished Geometry Dash d8f2eb2
+  nor Lichess 66d4f2d is an ancestor. The carried Lichess/dispatch handoff text
+  is coordination context only, not a cherry-pick of its runtime change.
+- All focused browser regressions and git diff --check passed. Ready for a
+  local commit on feature/chess-robot-fix using Codex Worker <codex@localhost>.
+  No push, main merge, or publication performed.
+- An unrelated untracked FEATURE-BRIEF-game-room.md appeared during this
+  run; left it unread, untouched, and outside this commit.
+- Local commit only; no push, merge to main, or publishing is authorized.
+
 ## Completed local change — Lichess Classical 1605 (Nov 9, 2026)
 
 - Read the re-activated FEATURE-BRIEF-lichess-classical-1605.md. Vihaan
@@ -17,7 +424,7 @@
   the existing live-refresh element ID and behavior; no script changes.
 - US Chess 811 Regular / 814 Quick and every Lichess Puzzles number are
   unchanged. No other page/content edits. Screenshot/browser checks next.
-- FEATURE-BRIEF-chess-robot-fix.md is queued; left unread/unstarted.
+- FEATURE-BRIEF-chess-robot-fix.md is dispatched by the coordinator (Nov 9, 2026, ~8:55 PM); worker running.
 - Chrome checks passed at desktop 1440×1000 and mobile 390×844; visually
   inspected the existing-styled rating badge, clear online/Classical labeling,
   and adjacent US Chess 811/814. No page exceptions; HTTP 200 locally.
@@ -427,6 +834,42 @@ below and reported state before changing any files. Site code was not changed.
 - The current ratings are 811 Regular and 814 Quick (Oct 24, 2026).
 - Update the chess page numbers when you next edit the chess pages.
 
+## Spelling Bee Trainer implementation — Nov 10, 2026
+
+- Implemented locally on `feature/spelling-bee-trainer`, baseline
+  `22587348075decc1577b2e63b9099072b4a7e7f1`. No remote operations or
+  publication were performed. The pre-existing HANDOFF changes and unrelated
+  untracked files were preserved.
+- Added a standalone accessible trainer, scoped responsive styling, a
+  testable offline state model, and 122 manually authored unique practice
+  words (40 Warm-Up, 41 Bee Ready, 41 Champion). The homepage quick bar,
+  compact desktop link, homepage mobile drawer, shared desktop navigation,
+  and both shared drawer templates now link to Spelling Bee.
+- Verification passed: `node tests/spelling-bee-model.cjs`;
+  JavaScript syntax checks for the app, model, word bank, and browser test;
+  `PLAYWRIGHT_MODULE=/Users/Nishant/.npm/_npx/e41f203b7505f1fb/node_modules/playwright
+  node tests/spelling-bee-browser.cjs` (118 checks across 1440px and 390px);
+  and `git diff --check`. Browser results are in
+  `/tmp/vihaan-spelling-bee/results.json`.
+- Visually inspected desktop level-pick and wrong-answer captures plus the
+  phone score capture. Captures: `/tmp/vihaan-spelling-bee/desktop-level-pick.png`,
+  `desktop-mid-round.png`, `desktop-correct-answer.png`,
+  `desktop-wrong-answer.png`, `desktop-score-card.png`,
+  `phone-level-pick.png`, `phone-mid-round.png`, and `phone-score-card.png`.
+- Local installed Chrome exposed `speechSynthesis` but returned no voices.
+  The no-voice fallback was verified; available speech was verified through
+  a local test voice stub. Real-device voice availability was not checked.
+- Final browser checks also cover rendered homepage/shared desktop and mobile
+  navigation, stale saved tricky words, and a full ten-word tricky round counting
+  toward the daily goal. Shorter tricky rounds remain excluded.
+- Browser captures were visually checked. Chrome exposes `speechSynthesis` but
+  has zero installed voices in this environment; a local test voice stub
+  verified the available-voice path. Real-device voice availability remains
+  unchecked.
+- Implementation commit: `10daa3050556fa69961088ada6a05be7fdf8c842`.
+  The follow-up commit records this hash in HANDOFF only.
+  No push, merge, deploy, or publication occurred.
+
 ## First tasks for the receiving agent
 
 1. Report the current state against this handoff before you change code.
@@ -439,3 +882,212 @@ below and reported state before changing any files. Site code was not changed.
 
 - This folder has NO git repo. There is no history and no undo.
 - Run `git init` and make one commit of the current state before you edit.
+
+## Next briefs - overnight queue (Goku, Nov 10 2026, Nishant overnight order)
+Spelling Bee Trainer was completed locally, then published with Nishant's
+authorization. The publish-bundle check and Road to State countdown remain
+local; their branches are not included in this publication.
+
+## Publish bundle — GO (Goku, Nov 10 2026)
+Vihaan himself said yes to the harder Geometry Dash (via Nishant, Nov 10
+08:32). Under the Nov 10 publishing rule the driver publishes Vihaan's
+project without asking. Job: resolve the doc conflicts found by the
+publish-bundle check (HANDOFF.md in all three branches; tests/README.md in
+Geometry Dash and robot-fix — combine records, never drop text), then merge
+and publish in this order: 1) feature/geometry-dash-harder (d8f2eb2),
+2) feature/chess-robot-fix (be1b3a1), 3) feature/lichess-1605 (66d4f2d).
+After each push, confirm the Pages deploy succeeded and live-verify the
+affected page loads with no errors. The Road to State countdown stays local
+for now. Record every merge in HANDOFF.md.
+
+## Publish bundle check — Geometry Dash (Nov 10, 2026)
+
+- Re-ran the bundle merge check against main at `1cc95ff56f8ed9546b774c63fce8d5406d6d0428`. The source merge conflicted in `HANDOFF.md` and `tests/README.md`; resolved by preserving the full current-main records and test guide, then appending the complete Geometry Dash branch record and test instructions. No record text was dropped.
+- `node tests/geodash-harder.cjs` passed: winning route at frame 2052 with 26 jumps, all 10 double-spike pairs cleared, and all 10 narrow platforms landed.
+- Real Chrome browser replay passed: double-spike section, completion, crash/restart, mouse/Space/ArrowUp/touch input, ordinary animation scheduling, and zero page exceptions. Fresh evidence: `/tmp/vihaan-geodash-harder/double-spikes-game.png`, `/tmp/vihaan-geodash-harder/double-spikes-canvas.png`, `/tmp/vihaan-geodash-harder/complete-game.png`, `/tmp/vihaan-geodash-harder/complete-canvas.png`, and `/tmp/vihaan-geodash-harder/browser-proof.json`. Visually inspected the double-spike capture.
+- Resolved the merge on `feature/geometry-dash-harder` in commit `6168943e462ac9be91221b8a3e3e53a4d598c51b`; source `main` was preserved as a merge parent.
+
+## Geometry Dash published — Nov 10, 2026
+
+- Merged `feature/geometry-dash-harder` into `main` as `bd3ee1f5fb251cb5ada3e204826bacf5870aa401`; pushed `1cc95ff..bd3ee1f` to `origin main` without force.
+- GitHub Pages deploy succeeded for the pushed `main` tip: [run 42837135522](https://github.com/vihaanthebuilder/portfolio/actions/runs/42837135522).
+- Live Chrome verification passed at `https://vihaanthebuilder.github.io/portfolio/games.html#view-geodash`: HTTP 200, Geometry Dash canvas and Start control visible, no page exceptions, console errors, or failed requests. Capture: `/tmp/vihaan-geodash-harder/live-games-geodash.png`.
+- The original Geometry Dash double-spike and beatability verification is recorded above. The robot-fix and Lichess branches are still pending their own check and publish steps; the countdown remains local.
+
+## Spelling Bee Trainer published — Nov 10, 2026
+
+- Merged `feature/spelling-bee-trainer` (`f701f3712c0e3b79bb091483cbac814b1ca906c3`)
+  into `main` at `22587348075decc1577b2e63b9099072b4a7e7f1`. Merge commit:
+  `37606cea57563770746519d86ffa2641c6dc0ae8`. Normal push to `origin/main`
+  succeeded (`2258734..37606ce`); no force-push.
+- GitHub Pages workflow 42832858080 completed successfully for the merge.
+  https://github.com/vihaanthebuilder/portfolio/actions/runs/42832858080
+- Live Chrome verification of
+  `https://vihaanthebuilder.github.io/portfolio/spelling-bee.html` passed at
+  1440×1000 and 390×844: HTTP 200, page complete, three level buttons present,
+  no horizontal overflow, and no page, console, or failed-request errors.
+  Evidence: `/tmp/vihaan-spelling-bee-live/results.json`, `desktop.png`,
+  `phone.png`.
+- The merge brought the Spelling Bee branch and its existing HANDOFF history.
+  The publication result was recorded before the subsequent Author's Room
+  push. Geometry Dash, robot-fix, Lichess and the countdown were not included.
+
+## Author's Room published — Nov 10, 2026
+
+- Merged `feature/authors-room` at
+  `ffd7263f36cc623248203bf9e31f01935d14121b` into local `main`, whose tip
+  before this merge was `87f9b92c3f5e1b2c4d57c854de93571d5e5a2b32`.
+  Merge commit: `12681ea1ee15b7bc6d28bffe718f561a35017b11`. Normal push to
+  `origin/main` succeeded; the pushed `main` tip is
+  `a82c9cb430bce905409c0b4699d7168167686770` (range
+  `37606ce..a82c9cb`). No force-push.
+- `HANDOFF.md` conflicted at the top queue. Resolved it manually by retaining
+  the Spelling Bee and Cruise Ship records, appending the full Author's Room
+  branch record, and preserving the full Game Room entry and all subsequent
+  project records. `tests/README.md` merged cleanly. All Author's Room page,
+  navigation, spec and browser-test files are included; source chapter records
+  are excluded.
+- GitHub Pages workflow 42833763624 completed successfully for pushed `main`
+  tip `a82c9cb430bce905409c0b4699d7168167686770`:
+  https://github.com/vihaanthebuilder/portfolio/actions/runs/42833763624
+- After that deployment, live Chrome checks passed for both pages at 1440×1000
+  and 390×844. Spelling Bee and Author's Room each returned HTTP 200, reached
+  `readyState=complete`, showed the expected title/heading, had no horizontal
+  overflow, and produced no page errors, console errors, or failed requests.
+  Evidence: `/tmp/vihaan-published-pages-live/results.json`, plus desktop and
+  phone screenshots for each page in the same folder.
+- Geometry Dash, robot-fix, Lichess and the countdown remain outside these
+  merges and unpublished.
+
+## Preserved branch record — Geometry Dash harder (pre-publication)
+
+## Completed local feature — Geometry Dash harder (Nov 9, 2026)
+
+- Goku dispatched FEATURE-BRIEF-geometry-dash-harder.md after Vihaan chose
+  double spikes and tight jumps and said yes. The trophy-photo correction is
+  already live-verified; this is the next separate change.
+- Starting state reported before edits: main at
+  a4b4afc7c3d8ac4eab89306302d66886bdbb2da5, only the new brief untracked.
+  Created feature/geometry-dash-harder. Local commit only; no publishing/push.
+- Game located in games.html, geoDash IIFE. Current physics: 24px cube,
+  speed 2.7px/frame, gravity .62, jump velocity -10.6. Floor is continuous;
+  later tight landings will use narrower existing-style platforms, not pits.
+- Preserve original first 44 pattern cells (through world X2100), keeping the
+  first 600 frames / approximately 10 seconds unchanged at nominal 60fps,
+  including what enters the 380px viewport. Character/physics/controls remain.
+- Baseline saved at /tmp/vihaan-geodash-harder/before-games.html. Preparing
+  complete-playthrough and per-obstacle proof using the actual game functions.
+- Level geometry implemented: 10 paired obstacles (44px wide) and 10 narrow
+  platforms (26px low / 32px high, versus the original 40px / 64px widths).
+  Low platforms are followed by a spike pair 80px from their leading edge;
+  high platforms have a pair 120px after their leading edge. No pits added.
+- Opening first 44 cells retained exactly; first changed object enters the
+  viewport at approximately 12.10 seconds at 60fps. Original finish position
+  X5540 and total level length remain unchanged. All gameplay functions,
+  character rendering, physics, and controls are byte-for-byte unchanged.
+- Node proof PASSED using extracted production jump/update/collision functions:
+  searched 51,254 transitions, found/replayed victory at frame 2052 (~34.2s at
+  60fps), with 26 jump inputs. Witness deliberately lands on ALL 10 new narrow
+  platforms and clears ALL 10 pairs. Each pair was checked across its complete
+  21–22 collision frames; minimum vertical clearance above the collision tip
+  threshold was 8.08px. Measured maximum ground-jump height: 85.34px.
+- Real Chrome replay PASSED with those same inputs delivered through canvas
+  mousedown handlers: reached the actual “Level Complete! 100%” overlay, plus
+  crash/restart and Space jump checks. No page exceptions. Browser-only
+  instrumentation/manual frame stepping is used for reproducibility; no test
+  hooks/autoplay are added to the shipped game.
+- Captures visually inspected:
+  `/tmp/vihaan-geodash-harder/double-spikes-game.png` (for Vihaan),
+  `/tmp/vihaan-geodash-harder/double-spikes-canvas.png`,
+  `/tmp/vihaan-geodash-harder/complete-game.png`, and
+  `/tmp/vihaan-geodash-harder/complete-canvas.png`.
+- Proof files: `/tmp/vihaan-geodash-harder/beatable-proof.json`,
+  `/tmp/vihaan-geodash-harder/jump-frames.json`, and
+  `/tmp/vihaan-geodash-harder/browser-proof.json`. Repeatable commands:
+  `node tests/geodash-harder.cjs`, then (with Playwright installed)
+  `node tests/geodash-browser.cjs`. Review results are recorded below.
+- Independent small-change review completed; all five verification/documentation
+  findings addressed, none deferred. Added source-hash binding between proof
+  and browser replay, complete test setup docs, normal-animation checks, touch
+  and ArrowUp input checks, and per-jump timing sweeps.
+- Timing proof: varied every later input by ±12 frames with all other inputs
+  fixed, replaying to actual victory each time. Successful tested windows span
+  3–22 input frames; tightest is three consecutive frames (~50ms at 60fps).
+  This demonstrates alternatives to a single perfect-frame sequence, not every
+  possible strategy or a human playtest. Vihaan can judge difficulty locally.
+- A separate browser run with ordinary RAF (not manual stepping) passed Start,
+  camera advancement, ArrowUp and touch jumping, crash, and restart advancement.
+  Mouse and Space passed in the deterministic full-playthrough run. No page
+  exceptions. Physics/full-game tests and git diff --check passed.
+- Setup, local server, dependencies, command order, and artifact paths are in
+  tests/README.md. No product debug hooks, physics/control changes, unrelated
+  game edits, pushes, merges to main, or publication. Main stays at
+  a4b4afc7c3d8ac4eab89306302d66886bdbb2da5; feature/geometry-dash-harder is
+  ready for Vihaan's screenshot review and Goku's next direction.
+- An unrelated untracked FEATURE-BRIEF-lichess-classical-1605.md appeared
+  during this run. Left it untouched and outside the Geometry Dash commit.
+
+## Publish bundle check — chess robot (Nov 10, 2026)
+
+- The merge conflicted in `HANDOFF.md` and `tests/README.md`. The branch's complete robot-fix handoff record is already present verbatim in current main, so retained that record and all later main entries. Appended the branch-specific robot test instructions to the full main test guide. No record or test instructions were dropped.
+- Re-ran `tests/chess-robot-input.cjs` on the merged source with Chrome/Playwright. Desktop 1440×1000 and touch-emulated mobile 390×844 passed: dragged `e2→e4` and got Robo-Pawn's `c7→c5` reply; repeated selected-knight drag `g1→f3` and second reply; click/tap; invalid `e4→e6`, off-board drops, robot-piece rejection, New Game, and touch cancellation where applicable. No page exceptions.
+- Results: `/tmp/vihaan-chess-robot-fix/verification.json`; visually inspected `/tmp/vihaan-chess-robot-fix/after-desktop-moved-piece.png`. The source handoff retains the scope caveat that the family's exact originally reported board/gesture is unconfirmed; this publish follows the approved bundle directive.
+- Resolved branch merge is `0fb600b`; main merge commit and push are recorded below.
+
+
+## Chess vs robot published — Nov 10, 2026
+
+- Merged `feature/chess-robot-fix` into `main` as `ec5919e78d7943e7c47068cddd02bab1f4fd92ee`; pushed `9dc0f64..ec5919e` to `origin main` without force.
+- GitHub Pages deploy succeeded for this push: [run 42838880268](https://github.com/vihaanthebuilder/portfolio/actions/runs/42838880268).
+- Live Chrome verification at `https://vihaanthebuilder.github.io/portfolio/` returned HTTP 200. Chess popup opened; dragging `e2→e4` produced the robot reply `c7→c5`; no page exceptions. Capture: `/tmp/vihaan-chess-robot-fix/live-after-robot-reply.png`.
+- The exact family-reported board/gesture remains unconfirmed as described in the original fix record. Lichess Classical remains next in the approved bundle order; the countdown remains local.
+
+## Publish bundle check — Lichess Classical 1605 (Nov 10, 2026)
+
+- The branch merge conflicted only in `HANDOFF.md`; `chess.html` merged cleanly. Kept the complete current-main handoff and appended the incoming Lichess feature-branch record verbatim below, preserving both records. There was no `tests/README.md` conflict.
+- Re-ran desktop 1440×1000 and mobile 390×844 Chrome checks on the merged branch. Both returned HTTP 200, displayed labeled Lichess Classical 1605, and retained US Chess Regular 811 / Quick 814. The live API showed Puzzles 1441; an API-unavailable check preserved the saved Puzzles 1687 fallback. No page exceptions.
+- Fresh evidence: `/tmp/vihaan-lichess-classical-1605/verification.json`, `ratings-desktop.png`, `ratings-mobile.png`, and `ratings-saved-fallback.png`. The desktop ratings capture was visually inspected. `git diff --check` passed.
+- Merge conflict resolution is committed locally on `feature/lichess-classical-1605`; ready for the approved publish step.
+
+## Preserved feature-branch record — Lichess Classical 1605 (pre-merge)
+
+## Completed local change — Lichess Classical 1605 (Nov 9, 2026)
+
+- Read the re-activated FEATURE-BRIEF-lichess-classical-1605.md. Vihaan
+  supplied and confirmed 1605 as his Lichess Classical GAME rating; puzzle
+  and over-the-board US Chess ratings are separate.
+- Starting checkout was feature/geometry-dash-harder at
+  d8f2eb2991603938860c9c3cd5ef400c33950248; only the two queued briefs were
+  untracked. Created feature/lichess-classical-1605 FROM MAIN at
+  a4b4afc7c3d8ac4eab89306302d66886bdbb2da5, not from the Geometry Dash commit.
+- Geometry Dash remains separately committed/unpublished on its own branch;
+  this branch does not include its changes. Do not publish or push either.
+- Before editing, verified chess.html had Classical 1504 in its profile and
+  online panel. Updated both to explicitly labeled Lichess Classical 1605,
+  using the existing stat styling next to the official ratings area. Retained
+  the existing live-refresh element ID and behavior; no script changes.
+- US Chess 811 Regular / 814 Quick and every Lichess Puzzles number are
+  unchanged. No other page/content edits. Screenshot/browser checks next.
+- Coordination history: the chess-robot brief was first queued and left
+  unread/unstarted, then dispatched by the coordinator on Nov 9, 2026 around
+  8:55 PM. Both original status records are retained here in sequence.
+- Chrome checks passed at desktop 1440×1000 and mobile 390×844; visually
+  inspected the existing-styled rating badge, clear online/Classical labeling,
+  and adjacent US Chess 811/814. No page exceptions; HTTP 200 locally.
+- Existing auto-load behavior remains intact: during normal verification the
+  Lichess API returned Classical 1605 and Puzzles 1441. The saved puzzle value
+  in the source and profile is still 1687. A separate API-unavailable check
+  confirmed the saved fallback shows Classical 1605 and Puzzles 1687. This
+  runtime live-data difference is pre-existing behavior, not a puzzle edit.
+- Exact diff check confirmed the ONLY chess.html changes are those two
+  Classical text/value substitutions; all scripts, puzzles, US Chess ratings,
+  and other content are unchanged. git diff --check passed.
+- Screenshots for Goku and Vihaan:
+  `/tmp/vihaan-lichess-classical-1605/ratings-desktop.png`,
+  `/tmp/vihaan-lichess-classical-1605/ratings-mobile.png`, and
+  `/tmp/vihaan-lichess-classical-1605/ratings-saved-fallback.png`.
+  Results: `/tmp/vihaan-lichess-classical-1605/verification.json`.
+- Branch isolation verified: games.html exactly matches main; Geometry Dash
+  commit d8f2eb2991603938860c9c3cd5ef400c33950248 is not an ancestor of this
+  branch. Main and feature/geometry-dash-harder remain unchanged. No push,
+  merge, deployment, or chess-robot work performed.

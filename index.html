@@ -1464,6 +1464,13 @@ body.machine #topnav,body.machine #layout{display:none}
   background: #3fb950;
   box-shadow: 0 0 8px #3fb950;
 }
+/* Game Room adds one destination: switch to the existing menu before links crowd. */
+@media (min-width:1024px) and (max-width:1250px){
+  #topnav .pillbar{grid-template-columns:auto 1fr;padding-left:14px}
+  #topnav .center{display:none}
+  #topnav .right{gap:6px;min-width:0}
+  .mobile-menu-btn{display:inline-flex!important}
+}
 </style>
 </head>
 <body>
@@ -1544,8 +1551,12 @@ body.machine #topnav,body.machine #layout{display:none}
 
   <div id="hero-quick-bar">
     <a href="lego.html">01 · 🧱 LEGO Lab</a>
+    <a href="cruise-ship.html">Cruise Ship</a>
+    <a href="spelling-bee.html">🐝 Spelling Bee</a>
     <a href="hall-of-fame.html">🏆 Hall of Fame</a>
     <a href="chess.html">02 · ♟️ Chess</a>
+    <a href="gameroom.html">♟️ Game Room</a>
+    <a href="authors-room.html">📖 Author's Room</a>
     <a href="notebook.html">03 · 📓 Notebook</a>
     <a href="goals.html">04 · 🎯 Goals</a>
     <a href="badges.html">05 · 🏆 Badges</a>
@@ -1565,8 +1576,12 @@ body.machine #topnav,body.machine #layout{display:none}
     <a class="logo" href="index.html" aria-label="Vihaan's World"><span class="wordmark">vihaan<i>.</i></span></a>
     <div class="center">
       <a href="lego.html">LEGO Lab</a>
+      <a href="cruise-ship.html" aria-label="Cruise Ship" title="Cruise Ship" style="padding-inline:4px">⚓</a>
+      <a href="spelling-bee.html" aria-label="Spelling Bee Trainer" title="Spelling Bee Trainer" style="padding-inline:4px">🐝</a>
       <a href="hall-of-fame.html">Hall of Fame</a>
       <a href="chess.html">Chess</a>
+      <a href="gameroom.html">Game Room</a>
+      <a href="authors-room.html">Author's Room</a>
       <a href="notebook.html">Notebook</a>
       <a href="goals.html">Goals</a>
       <a href="badges.html">Badges</a>
@@ -1605,6 +1620,8 @@ body.machine #topnav,body.machine #layout{display:none}
           <span class="mnd-desc">32+ builds (incl. 9 boats) &amp; Idea Lab</span>
         </div>
       </a>
+      <a href="cruise-ship.html" class="mnd-link"><span class="mnd-icon">⚓</span><div class="mnd-info"><span class="mnd-title">Cruise Ship</span><span class="mnd-desc">Explore your LEGO ship, deck by deck</span></div></a>
+      <a href="spelling-bee.html" class="mnd-link"><span class="mnd-icon">🐝</span><div class="mnd-info"><span class="mnd-title">Spelling Bee</span><span class="mnd-desc">Practice words one at a time</span></div></a>
       <a href="hall-of-fame.html" class="mnd-link">
         <span class="mnd-icon">🏆</span>
         <div class="mnd-info">
@@ -1619,6 +1636,8 @@ body.machine #topnav,body.machine #layout{display:none}
           <span class="mnd-desc">811 USCF rating &amp; tournaments</span>
         </div>
       </a>
+      <a href="gameroom.html" class="mnd-link"><span class="mnd-icon">♟</span><div class="mnd-info"><span class="mnd-title">Game Room</span><span class="mnd-desc">Your wins, daily quest &amp; road to State</span></div></a>
+      <a href="authors-room.html" class="mnd-link"><span class="mnd-icon">📖</span><div class="mnd-info"><span class="mnd-title">Author's Room</span><span class="mnd-desc">Vihaan's human body book</span></div></a>
       <a href="games.html" class="mnd-link">
         <span class="mnd-icon">👾</span>
         <div class="mnd-info">
@@ -4004,7 +4023,33 @@ const chessGame = {
           sq.style.boxShadow = 'inset 0 0 0 3px #ffd500';
         }
 
-        sq.addEventListener('click', () => this.onSquareClick(r, c));
+        let dragStart = null, suppressClick = false;
+        if (p && p[0] === 'w') sq.style.touchAction = 'none';
+        sq.addEventListener('pointerdown', e => {
+          suppressClick = false;
+          if (e.button !== 0 || !e.isPrimary || !p || p[0] !== 'w' ||
+              this.turn !== 'w' || this.isThinking || this.gameOver) return;
+          dragStart = { id: e.pointerId, x: e.clientX, y: e.clientY };
+          sq.setPointerCapture(e.pointerId);
+        });
+        sq.addEventListener('pointerup', e => {
+          if (!dragStart || dragStart.id !== e.pointerId) return;
+          const start = dragStart;
+          dragStart = null;
+          if (Math.hypot(e.clientX - start.x, e.clientY - start.y) < 6) return;
+          suppressClick = true;
+          const drop = document.elementFromPoint(e.clientX, e.clientY)?.closest('.chm-sq');
+          const index = drop ? Array.from(boardEl.children).indexOf(drop) : -1;
+          if (index < 0) return;
+          // Resolve the destination before selection re-renders the grid.
+          this.onSquareClick(r, c);
+          this.onSquareClick(Math.floor(index / 8), index % 8);
+        });
+        sq.addEventListener('pointercancel', () => { dragStart = null; suppressClick = true; });
+        sq.addEventListener('click', () => {
+          if (suppressClick) { suppressClick = false; return; }
+          this.onSquareClick(r, c);
+        });
         boardEl.appendChild(sq);
       }
     }
