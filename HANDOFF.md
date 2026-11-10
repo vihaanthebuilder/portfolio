@@ -2,7 +2,7 @@
 
 ## Next briefs queue
 
-1. **Spelling Bee Trainer — FEATURE-BRIEF-spelling-bee-trainer.md** — COMPLETE locally by Goku's dispatch, Nov 10, 2026. Branch `feature/spelling-bee-trainer` from `main` at `22587348075decc1577b2e63b9099072b4a7e7f1`; local commits only. No push, merge, or publish. Implementation commit `10daa3050556fa69961088ada6a05be7fdf8c842`. Browser verification passed 118 checks; installed Chrome had no available voices, and the kind fallback passed.
+1. **Spelling Bee Trainer — FEATURE-BRIEF-spelling-bee-trainer.md** — COMPLETE locally by Goku's dispatch, Nov 10, 2026. Branch `feature/spelling-bee-trainer` from `main` at `22587348075decc1577b2e63b9099072b4a7e7f1`; local commits only. No push, merge, or publish. Implementation commit `10daa3050556fa69961088ada6a05be7fdf8c842`. Browser verification passed 118 checks; installed Chrome had no available voices, and the kind fallback passed. This is the pre-publication status; see the published result below.
 
 2. **Cruise Ship Explorer — FEATURE-BRIEF-cruise-ship-explorer.md** — PUBLISHED by Nishant's Nov 10, 2026 authorization. Merge `5add822`; GitHub Pages succeeded and the live page passed browser and asset checks. Cruise Ship only; the Author's Room and other feature branches stay unpublished.
 
@@ -12,7 +12,8 @@
    two chapter records. Branch `feature/authors-room` from `main`. Status:
    DONE LOCALLY. Branch `feature/authors-room` is based on `main` at
    `c540ef1cc95bfc9ecefcf552e8cd871a29ce8d43`; feature commit
-   `5073d164fad28b3714a23516d2d9213c852a2630`. No push, merge, or publish.
+   `5073d164fad28b3714a23516d2d9213c852a2630`. No push, merge, or publish
+   at the time of completion; see the published result below.
 
 4. **Game Room — FEATURE-BRIEF-game-room.md** (queued by Goku, Nov 9, 2026,
    ~9:03 PM CT, at Nishant's request): build a new gameroom.html with live
@@ -901,22 +902,33 @@ local; their branches are not included in this publication.
   no horizontal overflow, and no page, console, or failed-request errors.
   Evidence: `/tmp/vihaan-spelling-bee-live/results.json`, `desktop.png`,
   `phone.png`.
-- This push contains only the Spelling Bee branch and its HANDOFF record.
-  Authors' Room is the next separately authorized publish; Geometry Dash,
-  robot-fix, Lichess and the countdown are not included.
+- The merge brought the Spelling Bee branch and its existing HANDOFF history.
+  The publication result was recorded before the subsequent Author's Room
+  push. Geometry Dash, robot-fix, Lichess and the countdown were not included.
 
-## Author's Room merge to main — Nov 10, 2026 (push pending)
+## Author's Room published — Nov 10, 2026
 
 - Merged `feature/authors-room` at
   `ffd7263f36cc623248203bf9e31f01935d14121b` into local `main`, whose tip
   before this merge was `87f9b92c3f5e1b2c4d57c854de93571d5e5a2b32`.
-  Merge commit: `12681ea1ee15b7bc6d28bffe718f561a35017b11`.
+  Merge commit: `12681ea1ee15b7bc6d28bffe718f561a35017b11`. Normal push to
+  `origin/main` succeeded; the pushed `main` tip is
+  `a82c9cb430bce905409c0b4699d7168167686770` (range
+  `37606ce..a82c9cb`). No force-push.
 - `HANDOFF.md` conflicted at the top queue. Resolved it manually by retaining
   the Spelling Bee and Cruise Ship records, appending the full Author's Room
   branch record, and preserving the full Game Room entry and all subsequent
   project records. `tests/README.md` merged cleanly. All Author's Room page,
   navigation, spec and browser-test files are included; source chapter records
   are excluded.
-- This is the second requested feature merge. Push and Pages verification are
-  pending. Geometry Dash, robot-fix, Lichess and the countdown remain outside
-  this merge.
+- GitHub Pages workflow 42833763624 completed successfully for pushed `main`
+  tip `a82c9cb430bce905409c0b4699d7168167686770`:
+  https://github.com/vihaanthebuilder/portfolio/actions/runs/42833763624
+- After that deployment, live Chrome checks passed for both pages at 1440×1000
+  and 390×844. Spelling Bee and Author's Room each returned HTTP 200, reached
+  `readyState=complete`, showed the expected title/heading, had no horizontal
+  overflow, and produced no page errors, console errors, or failed requests.
+  Evidence: `/tmp/vihaan-published-pages-live/results.json`, plus desktop and
+  phone screenshots for each page in the same folder.
+- Geometry Dash, robot-fix, Lichess and the countdown remain outside these
+  merges and unpublished.
