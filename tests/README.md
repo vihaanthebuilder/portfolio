@@ -149,3 +149,16 @@ Deck3 explorer, mobile without JavaScript, and all existing-page navigation
 widths. `results.json` records assertions, errors and exact capture paths.
 The parent must run this suite and visually inspect the captures before
 recording completion in HANDOFF.md; capture existence is not visual approval.
+
+# Road to State Countdown
+
+With the local static server running on port 8876, verify the Game Room
+countdown at desktop and phone sizes, near-event and past-date boundaries,
+page errors, and horizontal overflow:
+
+```sh
+PLAYWRIGHT_MODULE=/tmp/vihaan-test-deps/node_modules/playwright node tests/road-to-state-countdown.cjs
+```
+
+The test uses the checked-in Lichess snapshot for unrelated Game Room data.
+Captures and `results.json` are written to `/tmp/vihaan-countdown/` by default.

@@ -805,3 +805,61 @@ below and reported state before changing any files. Site code was not changed.
 
 - This folder has NO git repo. There is no history and no undo.
 - Run `git init` and make one commit of the current state before you edit.
+
+## Next briefs — overnight queue (Goku, Nov 10, 2026)
+
+Spelling Bee Trainer is complete locally on `feature/spelling-bee-trainer`
+(`10daa30` + `f701f37`; no push). Goku dispatched these jobs in order; the
+second starts when the first finishes. Publishing stays on the morning call
+from Nishant.
+
+1. `FEATURE-BRIEF-publish-bundle-check.md` — verification only, no publish,
+   push, or merge to main. DISPATCHED around 3:32 AM CT.
+2. `FEATURE-BRIEF-road-to-state-countdown.md` — local commit only.
+
+## Publish-bundle check — Nov 10, 2026
+
+- Verification only. Scratch merges used current `main` at
+  `22587348075decc1577b2e63b9099072b4a7e7f1`; all three feature branches
+  share merge base `a4b4afc7c3d8ac4eab89306302d66886bdbb2da5`. A merge conflict
+  means `ready to publish` is NO even when code checks pass; the morning
+  publish review should resolve documentation conflicts in its own turn.
+- No branch was changed or committed. All scratch worktrees were removed.
+  `main`, `origin/main`, the three feature branches, and the prior Spelling Bee
+  branch remain at their prior tips. No push, merge to main, or publication.
+
+| Branch | Commit | Base | Merges clean | Checks | Ready to publish | Notes |
+|---|---|---|---|---|---|---|
+| `feature/geometry-dash-harder` | `d8f2eb2991603938860c9c3cd5ef400c33950248` | `a4b4afc` | NO | Beatable-proof PASS; browser playthrough PASS | NO | Conflicts: `HANDOFF.md` (both main and feature append independent project records in overlapping tail); `tests/README.md` (both add separate test sections at the same insertion point). Proof: `/tmp/vihaan-geodash-harder/beatable-proof.json`; 26 jumps, 2,052-frame winning route, all 10 double spikes cleared (minimum tip clearance 8.08px), all 10 tight platforms landed, tightest successful timing window 3 frames/50ms. New geometry begins at 12.10s. Browser evidence: `/tmp/vihaan-geodash-harder/browser-proof.json`; full win, crash/restart, Space/ArrowUp/touch and ordinary animation passed with no page errors. Screenshot: `/tmp/vihaan-geodash-harder/double-spikes-game.png` (visually inspected). |
+| `feature/chess-robot-fix` | `be1b3a109e28b63efcc0351f9a31bf4a40294c3c` | `a4b4afc` | NO | PASS desktop 1440 and mobile 390 | NO | Conflicts: `HANDOFF.md` (overlapping appended project histories); `tests/README.md` (overlapping appended verification sections). `/tmp/vihaan-chess-robot-fix/verification.json` confirms e2→e4 and Robo-Pawn c7→c5 reply on both sizes, invalid/off-board and robot-piece drags rejected, click/tap and restart retained, no page errors. Captures `/tmp/vihaan-chess-robot-fix/after-desktop-moved-piece.png` and `after-mobile-moved-piece.png` visually inspected. |
+| `feature/lichess-classical-1605` | `66d4f2db35ea16f38a1bcd74dadc8937711dbcf9` | `a4b4afc` | NO | PASS desktop 1440, mobile 390, and saved fallback | NO | Conflict: `HANDOFF.md` (overlapping appended project histories). `/tmp/vihaan-lichess-classical-1605/verification.json`: Classical 1605, US Chess Regular 811 / Quick 814 unchanged; live API returned Puzzles 1441 on both sizes, while blocked-API fallback retained saved 1687. No page errors. Captures `ratings-desktop.png`, `ratings-mobile.png`, and `ratings-saved-fallback.png` in `/tmp/vihaan-lichess-classical-1605/`, visually inspected. |
+
+- The Lichess and Robot browser runs log the site's existing `images/dog.bin`
+  404 where applicable; these are pre-existing resources, not page exceptions.
+
+## Countdown to Fayetteville — complete locally (Nov 10, 2026)
+
+- Before editing, the checkout was `feature/spelling-bee-trainer` at
+  `f701f3712c0e3b79bb091483cbac814b1ca906c3`, with only the coordinator's
+  HANDOFF dispatch/results edit and unrelated untracked briefs/records. Local
+  `main` and `origin/main` both matched
+  `22587348075decc1577b2e63b9099072b4a7e7f1`.
+- Created `feature/road-to-state-countdown` from that exact `main` tip. Added a
+  browser-clock countdown block before the existing Road to State steps and
+  three general preparation reminders; the existing belief steps remain.
+- The target is Saturday, Nov 28, 2026 in Fayetteville, AR, as already stated
+  on the page. The live visitor's local clock drives the countdown: it shows
+  days, then days/hours/minutes under two days; event day and passed-date states
+  use friendly text. The three reminders are sleep well, have a good breakfast,
+  and arrive a little early. No venue, schedule, or other event detail was added.
+- At 2026-11-10 03:44 CST, both desktop and phone browser clocks expected
+  17 days to local midnight Nov 28, and the page showed `17 days`. The same
+  browser suite checked the under-two-days, tournament-day, and past-date
+  messages; 20 checks passed with no page/console errors or sideways scroll at
+  1440px or 390px. Results: `/tmp/vihaan-countdown/results.json`.
+- Visually inspected `/tmp/vihaan-countdown/countdown-desktop.png` and
+  `/tmp/vihaan-countdown/countdown-phone.png`. Existing Road to State steps
+  were verified intact.
+- Branch `feature/road-to-state-countdown`, based on main
+  `22587348075decc1577b2e63b9099072b4a7e7f1`. Local implementation commit
+  hash is pending; no push, merge, deployment, or publication.
