@@ -4004,7 +4004,33 @@ const chessGame = {
           sq.style.boxShadow = 'inset 0 0 0 3px #ffd500';
         }
 
-        sq.addEventListener('click', () => this.onSquareClick(r, c));
+        let dragStart = null, suppressClick = false;
+        if (p && p[0] === 'w') sq.style.touchAction = 'none';
+        sq.addEventListener('pointerdown', e => {
+          suppressClick = false;
+          if (e.button !== 0 || !e.isPrimary || !p || p[0] !== 'w' ||
+              this.turn !== 'w' || this.isThinking || this.gameOver) return;
+          dragStart = { id: e.pointerId, x: e.clientX, y: e.clientY };
+          sq.setPointerCapture(e.pointerId);
+        });
+        sq.addEventListener('pointerup', e => {
+          if (!dragStart || dragStart.id !== e.pointerId) return;
+          const start = dragStart;
+          dragStart = null;
+          if (Math.hypot(e.clientX - start.x, e.clientY - start.y) < 6) return;
+          suppressClick = true;
+          const drop = document.elementFromPoint(e.clientX, e.clientY)?.closest('.chm-sq');
+          const index = drop ? Array.from(boardEl.children).indexOf(drop) : -1;
+          if (index < 0) return;
+          // Resolve the destination before selection re-renders the grid.
+          this.onSquareClick(r, c);
+          this.onSquareClick(Math.floor(index / 8), index % 8);
+        });
+        sq.addEventListener('pointercancel', () => { dragStart = null; suppressClick = true; });
+        sq.addEventListener('click', () => {
+          if (suppressClick) { suppressClick = false; return; }
+          this.onSquareClick(r, c);
+        });
         boardEl.appendChild(sq);
       }
     }
