@@ -2,7 +2,7 @@
 
 ## Next briefs queue
 
-1. **Cruise Ship Explorer — FEATURE-BRIEF-cruise-ship-explorer.md** — PUBLISH AUTHORIZED by Nishant Nov 10, 2026. Branch `feature/cruise-ship-explorer`; merging to main and pushing main now. No force-push. Publish verification pending. Cruise Ship only; the Author's Room and other feature branches stay unpublished.
+1. **Cruise Ship Explorer — FEATURE-BRIEF-cruise-ship-explorer.md** — PUBLISHED by Nishant's Nov 10, 2026 authorization. Merge `5add822`; GitHub Pages succeeded and the live page passed browser and asset checks. Cruise Ship only; the Author's Room and other feature branches stay unpublished.
 
 2. **Game Room — FEATURE-BRIEF-game-room.md** (queued by Goku, Nov 9, 2026,
    ~9:03 PM CT, at Nishant's request): build a new gameroom.html with live
@@ -115,7 +115,7 @@
 - Commit: 135dbb3 local on feature/cruise-ship-explorer. NOT merged,
   NOT pushed, NOT published — needs Nishant's separate go-ahead.
 
-## Cruise Ship Explorer publication — Nov 10, 2026 (in progress)
+## Cruise Ship Explorer publish dispatch and preflight — Nov 10, 2026
 
 - Nishant authorized publication after the local build. Merging only
   `feature/cruise-ship-explorer` (HEAD `0f67a2568a1e8d63c3f77163c6729f043ca12bf5`)
@@ -125,10 +125,45 @@
   at 1051px are unchanged baseline issues. Evidence:
   `/tmp/vihaan-cruise-ship-publish-preflight/results.json`.
 - The expected HANDOFF.md conflict was resolved manually by retaining the full
-  custom-domain DNS record and the Cruise Ship build record. Merge/push,
-  GitHub Pages deployment, and live URL verification are pending.
+  custom-domain DNS record and the Cruise Ship build record. Final merge, push,
+  deployment, and live checks are recorded in the published result below.
 - `feature/authors-room` (implementation commit `5073d16`) is not an ancestor
   and remains local/unpublished. No other feature branch is included.
+
+## Cruise Ship Explorer published — Nov 10, 2026
+
+- Nishant authorized publishing the completed Cruise Ship Explorer. Merged
+  `feature/cruise-ship-explorer` HEAD
+  `0f67a2568a1e8d63c3f77163c6729f043ca12bf5` into `main` at
+  `c540ef1cc95bfc9ecefcf552e8cd871a29ce8d43`. Merge commit:
+  `5add82221e6f325abc563d17b034c9e25588475b`. Normal push to `origin/main`
+  succeeded (`c540ef1..5add822`); no force-push. The HANDOFF.md merge conflict
+  was resolved manually; both this Cruise Ship record and the complete
+  custom-domain/DNS record remain in this file.
+- GitHub Pages workflow **42782317631** completed successfully for merge
+  `5add82221e6f325abc563d17b034c9e25588475b`:
+  https://github.com/vihaanthebuilder/portfolio/actions/runs/42782317631
+- Live verification: `https://vihaanthebuilder.github.io/portfolio/cruise-ship.html`
+  returned HTTP 200. The live HTML, CSS, JavaScript, and homepage SHA-256 values
+  matched the pushed files exactly. Production-browser cruise suite passed
+  22/22 checks at 1440, 1251, 1051, and 390px, with no page errors. Homepage
+  has three Cruise Ship links and no Author's Room link; live
+  `authors-room.html` returns 404. `feature/authors-room` commit `5073d16` is
+  not in `origin/main` ancestry and has no remote branch ref.
+- Matching SHA-256 values (local source = live response): HTML
+  `b4fc4837fdb1e8cd477c1e3ec3444250cc6713189be469df866c2ba655abace6`, CSS
+  `1c6d097125e7c1a1d9ca5cf408c8a2b286bebbd9748753db8b80870626e9a46a`, JS
+  `7342df20f646889b2014645188072e5b92a47b10a00f2356a33e40c7160d21db`, and
+  homepage `f6fe85eccbcbf21f84e9b4d81fd9d8d92cb6d20cac0b263b76935607a99d66fc`.
+- Live evidence: `/tmp/vihaan-cruise-ship-live-verification/` contains the
+  fetched page/assets and headers; `/tmp/vihaan-cruise-ship-live-vqa/results.json`
+  and its 23 desktop/mobile/navigation captures contain the browser results.
+- Pre-existing shared-nav overflow at 1251px on the homepage/LEGO/Chess pages
+  and 1051px on Game Room remains as recorded above. It is unchanged from the
+  prior main build and did not prevent the Cruise Ship page/nav checks.
+- The successful merge changed only the Cruise Ship page and its navigation,
+  supporting documentation/tests, and HANDOFF. The Author's Room and other
+  unpublished feature branches remain out of main.
 
 ## Game Room published — Nov 9, 2026
 
