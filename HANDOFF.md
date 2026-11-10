@@ -1108,10 +1108,10 @@ for now. Record every merge in HANDOFF.md.
 | `feature/chess-robot-fix` | `be1b3a1` | `a4b4afc` | Docs conflicted; combined and resolved | Desktop/mobile drag, robot replies, invalid drops, click/tap and restart | YES | Existing robot handoff record retained; published as `ec5919e` |
 | `feature/lichess-classical-1605` | `66d4f2d` | `a4b4afc` | HANDOFF conflicted; combined and resolved | Desktop/mobile ratings and API-unavailable fallback | YES | Original branch record appended verbatim; published as `22775d8` |
 
-The Road to State countdown remains local and unpublished. No other branches were published in this bundle.
+At the time of this earlier bundle table, the Road to State countdown remained local; it was published in the subsequent job recorded below. No other branches were published in that bundle.
 
 ## Publish the Road to State countdown — GO (Goku, Nov 10 2026)
-The publish bundle is complete (Geometry Dash, robot-fix, Lichess all live). Next: publish feature/road-to-state-countdown (aa4408b + dfcf4a0, NWA Fall Scholastic, Sat Nov 28, 2026, Fayetteville, registered). First re-verify the branch against main and re-record its completion in HANDOFF.md (the earlier completion record was lost in a merge conflict; it was 20 checks, 0 errors at the time — verify fresh, don't copy the old numbers). Then merge into main, push, confirm the Pages deploy, and live-verify the countdown block in the Game Room. Publishing is approved for Vihaan's project. Record the merge in HANDOFF.md.
+The publish bundle is complete (Geometry Dash, robot-fix, Lichess all live). Publish `feature/road-to-state-countdown` (implementation `aa4408b`, branch tip `dfcf4a0`; NWA Fall Scholastic, Sat Nov 28, 2026, Fayetteville, registered). First re-verify the branch against main and re-record its completion in HANDOFF.md (the earlier completion record was lost in a merge conflict; the old report said 20 checks, 0 errors — verify fresh, do not reuse those counts). Then merge into main, push, confirm the Pages deploy, and live-verify the countdown block in the Game Room. Publishing is approved for Vihaan's project. Status: PUBLISHED; results follow.
 
 ## Road to State countdown — fresh publish preflight (Nov 10, 2026)
 
@@ -1121,3 +1121,11 @@ The publish bundle is complete (Geometry Dash, robot-fix, Lichess all live). Nex
 - Fresh boundary checks passed for under two days (`1 day · 12 hours · 0 minutes`), tournament day (“Tournament day is here — good luck, Vihaan!”), and post-event state (no negative countdown). These values come from this verification run, not the older local report.
 - Visually inspected `/tmp/vihaan-countdown-fresh/countdown-desktop.png` and `countdown-phone.png`. Full evidence: `/tmp/vihaan-countdown-fresh/results.json`. `node --check gameroom.js` and `git diff --check` passed.
 - Current countdown block shows the NWA Fall Scholastic on Saturday, Nov 28, 2026 in Fayetteville, AR; keeps the existing six belief steps; and adds only three general preparation tips. No venue or schedule details were added.
+
+
+## Road to State countdown published — Nov 10, 2026
+
+- Reverified and merged `feature/road-to-state-countdown`; branch merge commit `60c048f`, main merge commit `1a1b0edbcfbce42e8f3b8e457db54cb6ab8365c9`. Pushed `a7b7455..1a1b0ed` to `origin main` without force.
+- GitHub Pages deployment succeeded for the merged main tip: [run 42849232165](https://github.com/vihaanthebuilder/portfolio/actions/runs/42849232165).
+- Live Chrome verification passed on desktop 1440×1000 and phone 390×844 at `https://vihaanthebuilder.github.io/portfolio/gameroom.html`: HTTP 200, countdown visible and showing the expected **17 days** at check time, no horizontal overflow, and no page exceptions. Captures: `/tmp/vihaan-countdown-live/countdown-live-desktop.png` and `countdown-live-phone.png`; results: `/tmp/vihaan-countdown-live/live-results.json`.
+- Both live sizes logged an unrelated HTTP 404 and console resource error from Lichess's games endpoint (`/api/games/user/vihaan_67?...`). The Game Room reached its ready state and the countdown rendered correctly; the countdown itself raised no page exception. The local countdown suite used the checked-in snapshot fixture for unrelated Game Room data and passed all 20 checks with zero page/console errors.
