@@ -1040,14 +1040,14 @@ for now. Record every merge in HANDOFF.md.
 - Merged `feature/chess-robot-fix` into `main` as `ec5919e78d7943e7c47068cddd02bab1f4fd92ee`; pushed `9dc0f64..ec5919e` to `origin main` without force.
 - GitHub Pages deploy succeeded for this push: [run 42838880268](https://github.com/vihaanthebuilder/portfolio/actions/runs/42838880268).
 - Live Chrome verification at `https://vihaanthebuilder.github.io/portfolio/` returned HTTP 200. Chess popup opened; dragging `e2→e4` produced the robot reply `c7→c5`; no page exceptions. Capture: `/tmp/vihaan-chess-robot-fix/live-after-robot-reply.png`.
-- The exact family-reported board/gesture remains unconfirmed as described in the original fix record. Lichess Classical remains next in the approved bundle order; the countdown remains local.
+- The exact family-reported board/gesture remains unconfirmed as described in the original fix record. At the time of this publish Lichess Classical was next; it is now published below. The countdown remains local.
 
 ## Publish bundle check — Lichess Classical 1605 (Nov 10, 2026)
 
 - The branch merge conflicted only in `HANDOFF.md`; `chess.html` merged cleanly. Kept the complete current-main handoff and appended the incoming Lichess feature-branch record verbatim below, preserving both records. There was no `tests/README.md` conflict.
 - Re-ran desktop 1440×1000 and mobile 390×844 Chrome checks on the merged branch. Both returned HTTP 200, displayed labeled Lichess Classical 1605, and retained US Chess Regular 811 / Quick 814. The live API showed Puzzles 1441; an API-unavailable check preserved the saved Puzzles 1687 fallback. No page exceptions.
 - Fresh evidence: `/tmp/vihaan-lichess-classical-1605/verification.json`, `ratings-desktop.png`, `ratings-mobile.png`, and `ratings-saved-fallback.png`. The desktop ratings capture was visually inspected. `git diff --check` passed.
-- Merge conflict resolution is committed locally on `feature/lichess-classical-1605`; ready for the approved publish step.
+- Merge conflict resolution is committed on `feature/lichess-classical-1605` as `b5fcc7d`; its main merge and deployment are recorded below.
 
 ## Preserved feature-branch record — Lichess Classical 1605 (pre-merge)
 
@@ -1091,3 +1091,21 @@ for now. Record every merge in HANDOFF.md.
   commit d8f2eb2991603938860c9c3cd5ef400c33950248 is not an ancestor of this
   branch. Main and feature/geometry-dash-harder remain unchanged. No push,
   merge, deployment, or chess-robot work performed.
+
+
+## Lichess Classical 1605 published — Nov 10, 2026
+
+- Merged `feature/lichess-classical-1605` into `main` as `22775d8db469cd02f474b551052b2fb7e2b7aa1a`; pushed `a7df450..22775d8` to `origin main` without force.
+- GitHub Pages succeeded for the pushed main tip: [run 42840654808](https://github.com/vihaanthebuilder/portfolio/actions/runs/42840654808).
+- Post-deploy live Chrome checks passed for desktop 1440×1000 and mobile 390×844 at `https://vihaanthebuilder.github.io/portfolio/chess.html`: HTTP 200, Classical 1605, US Chess Regular 811 / Quick 814, no page errors. Captures: `/tmp/vihaan-lichess-classical-1605/live-desktop-final.png` and `live-mobile-final.png`.
+- Live API returned Puzzles 1441; the merged branch's API-unavailable fallback still shows saved Puzzles 1687. No puzzle values or US Chess ratings were changed.
+
+## Publish bundle verification table — Nov 10, 2026
+
+| Branch | Feature commit | Merge base | Merge check | Checks | Ready | Notes |
+|---|---|---|---|---|---|---|
+| `feature/geometry-dash-harder` | `d8f2eb2` | `a4b4afc` | Docs conflicted; combined and resolved | Beatable route; Chrome playthrough; all 10 spike pairs and narrow landings | YES | HANDOFF and test-guide records retained; published as `bd3ee1f` |
+| `feature/chess-robot-fix` | `be1b3a1` | `a4b4afc` | Docs conflicted; combined and resolved | Desktop/mobile drag, robot replies, invalid drops, click/tap and restart | YES | Existing robot handoff record retained; published as `ec5919e` |
+| `feature/lichess-classical-1605` | `66d4f2d` | `a4b4afc` | HANDOFF conflicted; combined and resolved | Desktop/mobile ratings and API-unavailable fallback | YES | Original branch record appended verbatim; published as `22775d8` |
+
+The Road to State countdown remains local and unpublished. No other branches were published in this bundle.
