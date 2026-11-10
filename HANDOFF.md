@@ -1044,7 +1044,7 @@ for now. Record every merge in HANDOFF.md.
 
 ## Publish bundle check — Lichess Classical 1605 (Nov 10, 2026)
 
-- The branch merge conflicted only in `HANDOFF.md`; `chess.html` merged cleanly. Kept the complete current-main handoff and appended the incoming Lichess feature-branch record verbatim below, preserving both records. There was no `tests/README.md` conflict.
+- The branch merge conflicted only in `HANDOFF.md`; `chess.html` merged cleanly. Kept the complete current-main handoff and appended the incoming Lichess feature-branch record below, preserving both records and combining its queued/dispatched status lines chronologically. There was no `tests/README.md` conflict.
 - Re-ran desktop 1440×1000 and mobile 390×844 Chrome checks on the merged branch. Both returned HTTP 200, displayed labeled Lichess Classical 1605, and retained US Chess Regular 811 / Quick 814. The live API showed Puzzles 1441; an API-unavailable check preserved the saved Puzzles 1687 fallback. No page exceptions.
 - Fresh evidence: `/tmp/vihaan-lichess-classical-1605/verification.json`, `ratings-desktop.png`, `ratings-mobile.png`, and `ratings-saved-fallback.png`. The desktop ratings capture was visually inspected. `git diff --check` passed.
 - Merge conflict resolution is committed on `feature/lichess-classical-1605` as `b5fcc7d`; its main merge and deployment are recorded below.
