@@ -270,3 +270,16 @@ is not confirmed; baseline click/tap worked and dragging was reproduced broken.
 Chess mobile input is verified with Chrome touch emulation only; Safari/iOS
 and real hardware have not been exercised. The screenshot is the popup grid,
 not the small decorative 3D table board.
+
+# Road to State Countdown
+
+With the local static server running on port 8876, verify the Game Room
+countdown at desktop and phone sizes, near-event and past-date boundaries,
+page errors, and horizontal overflow:
+
+```sh
+PLAYWRIGHT_MODULE=/tmp/vihaan-test-deps/node_modules/playwright node tests/road-to-state-countdown.cjs
+```
+
+The test uses the checked-in Lichess snapshot for unrelated Game Room data.
+Captures and `results.json` are written to `/tmp/vihaan-countdown/` by default.
