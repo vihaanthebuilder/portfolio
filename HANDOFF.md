@@ -34,7 +34,7 @@
    never invent a streak or puzzle count — if a day's puzzles can't be
    verified from the API, mark them "check your Lichess app".
 
-## Custom domain vihaanadhikari.com — IN PROGRESS, Nov 10, 2026
+## Custom domain vihaanadhikari.com — CNAME PUBLISHED; STOPPED ON DNS, Nov 10, 2026
 
 - Pre-authorized by Nishant (FEATURE-BRIEF-custom-domain.md). Branched
   feature/custom-domain from main 1bb1da1 (== origin/main). CNAME commit
@@ -50,6 +50,22 @@
   Pages → Custom domain (or `gh api -X PUT repos/vihaanthebuilder/portfolio/pages
   -f cname=vihaanadhikari.com`). Not done: outside the brief ("repo side only"),
   and doing it before DNS exists would redirect github.io to a dead domain.
+- Merged: ea75599 (merge of feature/custom-domain) pushed to origin/main
+  (1bb1da1..ea75599). Pages workflow run for ea75599: completed/success.
+- Live verification 2026-11-10 00:42 CT:
+  - https://vihaanthebuilder.github.io/portfolio/ → 200, NO redirect (expected:
+    Pages cname still null).
+  - .../portfolio/gameroom.html → 200; .../portfolio/CNAME → 200 (file served).
+  - https://vihaanadhikari.com/, /gameroom.html, http:// → curl exit 6, name
+    does not resolve (no A records at Porkbun NS).
+  - cruise-ship.html NOT live (homepage has 0 cruise-ship refs).
+- Cert state: NOT STARTED — GitHub can't provision HTTPS until DNS resolves AND
+  the Pages custom domain is set. Stopped here per brief; nothing forced.
+- To finish (needs owner): (1) add Porkbun A records 185.199.108.153/.109/.110/
+  .111.153 + www CNAME vihaanthebuilder.github.io; (2) once `dig +short A
+  vihaanadhikari.com` shows them, set Settings → Pages → Custom domain to
+  vihaanadhikari.com; (3) wait for cert, tick Enforce HTTPS, re-run the three
+  live checks.
 
 ## Game Room published — Nov 9, 2026
 
