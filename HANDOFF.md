@@ -6,7 +6,15 @@
 
 2. **Cruise Ship Explorer — FEATURE-BRIEF-cruise-ship-explorer.md** — PUBLISHED by Nishant's Nov 10, 2026 authorization. Merge `5add822`; GitHub Pages succeeded and the live page passed browser and asset checks. Cruise Ship only; the Author's Room and other feature branches stay unpublished.
 
-3. **Game Room — FEATURE-BRIEF-game-room.md** (queued by Goku, Nov 9, 2026,
+3. **Author's Room — FEATURE-BRIEF-authors-room.md** (dispatched by Goku,
+   Nov 10, 2026; approved by Nishant): build `authors-room.html` for Vihaan's
+   19-chapter human-body book using the exact-word rules in the brief and the
+   two chapter records. Branch `feature/authors-room` from `main`. Status:
+   DONE LOCALLY. Branch `feature/authors-room` is based on `main` at
+   `c540ef1cc95bfc9ecefcf552e8cd871a29ce8d43`; feature commit
+   `5073d164fad28b3714a23516d2d9213c852a2630`. No push, merge, or publish.
+
+4. **Game Room — FEATURE-BRIEF-game-room.md** (queued by Goku, Nov 9, 2026,
    ~9:03 PM CT, at Nishant's request): build a new gameroom.html with live
    Lichess public-API data for vihaan_67 plus a baked snapshot fallback;
    rating chips kept visually separate from US Chess; The Climb chart,
@@ -37,6 +45,36 @@
    dots), games-this-week line inside the Quest card. Honesty rule:
    never invent a streak or puzzle count — if a day's puzzles can't be
    verified from the API, mark them "check your Lichess app".
+
+## Author's Room implementation — Nov 10, 2026
+
+- Built `authors-room.html` and `authors-room.css` with the responsive cover,
+  19 chapter slots, native chapter anchors, source-based text, and CSS/emoji
+  illustrations. Added homepage links and the destination to both shared
+  navigation render paths. No source-record files are part of the website.
+- Text trace passed: every chapter sentence is mapped to a marked line or
+  summary point in the approved records. The final sentence in each chapter is
+  Vihaan's recorded conclusion. Artifact:
+  `/tmp/vihaan-authors-room/sentence-source-trace.json`.
+- The three-layer review was completed. It led to short fact lines for the
+  periosteum note, a visible ribs label, an “about 11%” progress label, and
+  click-level checks for the homepage quick bar and both chapter-map links.
+  Suggestions that conflicted with exact record wording or the brief's
+  required “Organs” placeholders were left unchanged.
+- Browser check passed with Playwright 1.64.1 and Chrome 154 at desktop
+  1440×1000 and mobile 390×844. Chapter 1/2 direct hashes, homepage and shared
+  menu links, planned-slot labels, muscle panels, no horizontal overflow, and
+  zero browser/console/local-resource errors passed. `node --check` and
+  `git diff --check` passed.
+- Visually inspected required screenshots:
+  `/tmp/vihaan-authors-room/cover.png`, `chapter-map.png`, `chapter-1.png`,
+  `chapter-2.png`, and `mobile.png`. The browser report is
+  `/tmp/vihaan-authors-room/results.json`.
+- Changes are committed locally on `feature/authors-room` in
+  `5073d164fad28b3714a23516d2d9213c852a2630` (based on `main` at
+  `c540ef1cc95bfc9ecefcf552e8cd871a29ce8d43`). No push, merge, or publish was
+  performed. The brief and chapter records are input material and are
+  intentionally excluded from the site commit.
 
 ## Custom domain vihaanadhikari.com — CNAME PUBLISHED; STOPPED ON DNS, Nov 10, 2026
 
