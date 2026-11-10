@@ -13,7 +13,7 @@
    and are recorded here, Goku dispatches the publish step (merge to
    main, push, live-verify gameroom.html) without asking again. No
    force-push; stop on merge conflicts. Covers the Game Room only —
-   the Lichess, Geometry Dash, and robot-fix branches stay unpublished. Status: BUILD COMPLETE locally; mandatory checks and VQA passed. PUBLISH DISPATCHED by the coordinator watch Nov 9, 2026, ~10:08 PM CT — worker merging feature/game-room to main, pushing, and live-verifying gameroom.html. Read the brief file in full before starting. AMENDED Nov 9,
+   the Lichess, Geometry Dash, and robot-fix branches stay unpublished. Status: PUBLISHED and live-verified by the worker (Nov 9, 2026); merge cede606, Pages successful. Read the brief file in full before starting. AMENDED Nov 9,
    ~9:05 PM CT: the brief now carries a CONFIDENCE FIRST amendment from
    Nishant (appended at the end of the brief file) — the page's real job
    is belief: evidence over numbers, Kanishk win hero-adjacent, Road to
@@ -34,7 +34,7 @@
    never invent a streak or puzzle count — if a day's puzzles can't be
    verified from the API, mark them "check your Lichess app".
 
-## Game Room publishing — Nov 9, 2026
+## Game Room published — Nov 9, 2026
 
 - Goku explicitly dispatched publishing after the completed build/VQA; Nishant's
   existing authorization applies to Game Room only. No new approval needed.
@@ -44,6 +44,43 @@
   Confirmed all three other unpublished commits are absent from Game Room ancestry.
 - Publishing this branch using normal pushes and an explicit merge commit.
   Stop on any merge conflict. Deployment/live verification results follow below.
+- Pushed feature/game-room at e9e4f6fe4a6311592d41c2ef0f4b982ab2e9e520.
+- Merged cleanly into main with explicit merge cede6068579f8726c9193edafbe53c375446f50e;
+  normal push succeeded (origin/main matches). No force-push or conflicts.
+  Deployment and live verification succeeded as recorded below.
+- Merge deployment succeeded: https://github.com/vihaanthebuilder/portfolio/actions/runs/42754559615
+  (head cede6068579f8726c9193edafbe53c375446f50e).
+- Live HTTP verification at 2026-11-10T04:14:57Z: gameroom.html and eight
+  companion/navigation assets return 200 and match merged-source SHA256 exactly.
+  Evidence: /tmp/vihaan-gameroom-live-vqa/asset-verification.json.
+- Production-browser PASS against https://vihaanthebuilder.github.io/portfolio:
+  15 checks, 12 fresh captures, all four REAL Lichess APIs refreshed on desktop
+  and phone (04:14:57–04:15:16 UTC). Classical 1605, distinct US Chess 811/814,
+  Daily Quest, game sample, chart, recent/review selection and replay verified.
+  Blocked APIs preserve the dated fallback. Real external replay faces Black
+  with visible controls. Nav works at 1440 / 1100 / 390 px. Zero unexpected errors;
+  only deliberate fixture failures and the pre-existing index Three warning.
+- Visually inspected live desktop/mobile header and best-win captures; real
+  trophy photograph, rating groups, board orientation and controls all correct.
+  Live captures and reproducible results:
+  /tmp/vihaan-gameroom-live-vqa/desktop-header.png
+  /tmp/vihaan-gameroom-live-vqa/mobile-header.png
+  /tmp/vihaan-gameroom-live-vqa/desktop-quest.png
+  /tmp/vihaan-gameroom-live-vqa/mobile-quest.png
+  /tmp/vihaan-gameroom-live-vqa/desktop-climb.png
+  /tmp/vihaan-gameroom-live-vqa/mobile-climb.png
+  /tmp/vihaan-gameroom-live-vqa/desktop-recent.png
+  /tmp/vihaan-gameroom-live-vqa/mobile-recent.png
+  /tmp/vihaan-gameroom-live-vqa/desktop-best.png
+  /tmp/vihaan-gameroom-live-vqa/mobile-best.png
+  /tmp/vihaan-gameroom-live-vqa/desktop-fallback.png
+  /tmp/vihaan-gameroom-live-vqa/mobile-fallback.png
+  /tmp/vihaan-gameroom-live-vqa/results.json
+- Other three local branch hashes are unchanged, none is an ancestor of main,
+  and git ls-remote confirms none of their branch refs was published.
+- Publishing is COMPLETE. This documentation-only follow-up records the result;
+  no application source changed after the verified merge. Existing public API
+  history/puzzle coverage limits remain honestly labeled as described below.
 
 ## Game Room complete locally — Nov 9, 2026
 
