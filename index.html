@@ -1464,6 +1464,13 @@ body.machine #topnav,body.machine #layout{display:none}
   background: #3fb950;
   box-shadow: 0 0 8px #3fb950;
 }
+/* Game Room adds one destination: switch to the existing menu before links crowd. */
+@media (min-width:1024px) and (max-width:1250px){
+  #topnav .pillbar{grid-template-columns:auto 1fr;padding-left:14px}
+  #topnav .center{display:none}
+  #topnav .right{gap:6px;min-width:0}
+  .mobile-menu-btn{display:inline-flex!important}
+}
 </style>
 </head>
 <body>
@@ -1546,6 +1553,7 @@ body.machine #topnav,body.machine #layout{display:none}
     <a href="lego.html">01 · 🧱 LEGO Lab</a>
     <a href="hall-of-fame.html">🏆 Hall of Fame</a>
     <a href="chess.html">02 · ♟️ Chess</a>
+    <a href="gameroom.html">♟️ Game Room</a>
     <a href="notebook.html">03 · 📓 Notebook</a>
     <a href="goals.html">04 · 🎯 Goals</a>
     <a href="badges.html">05 · 🏆 Badges</a>
@@ -1567,6 +1575,7 @@ body.machine #topnav,body.machine #layout{display:none}
       <a href="lego.html">LEGO Lab</a>
       <a href="hall-of-fame.html">Hall of Fame</a>
       <a href="chess.html">Chess</a>
+      <a href="gameroom.html">Game Room</a>
       <a href="notebook.html">Notebook</a>
       <a href="goals.html">Goals</a>
       <a href="badges.html">Badges</a>
@@ -1619,6 +1628,7 @@ body.machine #topnav,body.machine #layout{display:none}
           <span class="mnd-desc">811 USCF rating &amp; tournaments</span>
         </div>
       </a>
+      <a href="gameroom.html" class="mnd-link"><span class="mnd-icon">♟</span><div class="mnd-info"><span class="mnd-title">Game Room</span><span class="mnd-desc">Your wins, daily quest &amp; road to State</span></div></a>
       <a href="games.html" class="mnd-link">
         <span class="mnd-icon">👾</span>
         <div class="mnd-info">

@@ -47,3 +47,71 @@ then clicks unobstructed floor and checks that the queued walking route complete
 The boundary check covers alternate SIT/chess starts, chess standing after
 teleport, the wider landing edge, keyboard side rejection/entry/reversal/rails,
 and preserving navigation while backgrounded.
+
+# Game Room checks
+
+Game Room verification uses Node's built-in assertions and Playwright with installed Google Chrome. It does not change any other page's statistics or contact private APIs.
+
+Run the pure data matrix:
+
+```sh
+node tests/gameroom-model.cjs
+node --check gameroom.js
+node --check gameroom-model.js
+```
+
+Generate the initial committed snapshot from the existing public investigation (no network requests):
+
+```sh
+node scripts/refresh-lichess-snapshot.cjs --from-dir /tmp/vihaan-gameroom-data
+```
+
+Refresh all four public sources later (no token; 12-second endpoint limits; one max=50 games retry after HTTP429). A failed endpoint preserves the existing snapshot file. The snapshot contains raw endpoint responses, individual source URLs/timestamps, export bounds and computed UTC quest evidence. `null` puzzle/current/best values mean unknown. Daily puzzle counts never come from lifetime profile totals or Puzzle Streak mode.
+
+```sh
+node scripts/refresh-lichess-snapshot.cjs
+```
+
+Install the browser tool outside the repository so the static site's dependencies stay unchanged:
+
+```sh
+npm install --prefix /tmp/vihaan-gameroom-tools --no-save playwright@1.64.1
+```
+
+Google Chrome must already be installed. If using Playwright Chromium instead, run the following and set `CHROME_CHANNEL=chromium` when invoking the script:
+
+```sh
+/tmp/vihaan-gameroom-tools/node_modules/.bin/playwright install chromium
+```
+
+Start the static server in one terminal:
+
+```sh
+python3 -m http.server 8876 --bind 127.0.0.1
+```
+
+In another terminal, run mandatory real API verification and all deterministic edge cases:
+
+```sh
+NODE_PATH=/tmp/vihaan-gameroom-tools/node_modules node tests/gameroom-browser.cjs --live
+```
+
+Or run the full matrix with saved public responses replacing live APIs (reproducible even when Lichess is offline):
+
+```sh
+NODE_PATH=/tmp/vihaan-gameroom-tools/node_modules node tests/gameroom-browser.cjs
+```
+
+Fixture browser clocks start at Nov10 2026 03:40UTC, matching the investigation date. Live checks use the actual browser time and derive expected ratings, games, review selection, chart and quest from the real API response bodies. Exact historical assertions remain fixture-only. The installed Chrome runs headless; contexts use that binary’s actual navigator.userAgent with only HeadlessChrome replaced by Chrome for Lichess compatibility. results.json records both identities honestly. Mandatory spotlight captures require a visible real external cg-board, correct piece orientation and controls within the frame. For the tall phone spotlight only, capture height expands while retaining390px width so Chrome paints the entire cross-origin iframe; layout checks still use390×844. no replay response is fabricated. Public export requests allow30 seconds per attempt; browser readiness allows70seconds including one smaller retry. Deterministic edge cases cover blocked API fallback, missing history/games, 429→50, partial refresh provenance, known/unknown quest days, persistent verified record, malformed games, coach exclusion and HTML injection strings. The external board is never mocked and always has an ordinary same-game Watch link. Console/network errors record URLs, failures and available stacks. Only exact deliberately blocked fixture requests, the deliberate429 request, and deliberately blocked nonexistent synthetic fixture replay IDs are exempted. Unexpected real resource or application errors fail. Existing index/chess dog.bin404 and duplicate-Three warning are recorded separately. Index/chess navigation is checked at1440,1100 and390px, including the open menu where used.
+
+Outputs under `/tmp/vihaan-gameroom-vqa/`:
+
+- `desktop-header.png`, `mobile-header.png`
+- `desktop-quest.png`, `mobile-quest.png` (additional Daily Quest evidence)
+- `desktop-climb.png`, `mobile-climb.png`
+- `desktop-recent.png`, `mobile-recent.png`
+- `desktop-best.png`, `mobile-best.png`
+- `desktop-fallback.png`, `mobile-fallback.png`
+- `results.json`: assertions, actual source dates/URLs, expected network messages and any errors.
+
+The parent performs this final browser run and visually inspects the eight section captures and fallback evidence before recording exact paths in HANDOFF. Screenshot existence alone is not visual verification. The automated run also checks existing index/chess Game Room navigation at desktop, medium (1100px), and mobile widths.

@@ -1,5 +1,227 @@
 # HANDOFF — Vihaan's Portfolio (Vihaan's World)
 
+## Next briefs queue
+
+1. **Game Room — FEATURE-BRIEF-game-room.md** (queued by Goku, Nov 9, 2026,
+   ~9:03 PM CT, at Nishant's request): build a new gameroom.html with live
+   Lichess public-API data for vihaan_67 plus a baked snapshot fallback;
+   rating chips kept visually separate from US Chess; The Climb chart,
+   Recent Games, By the Numbers, Games to Review, Best Win Spotlight, and
+   Road to State sections. Branch feature/game-room from main.
+   PUBLISH PRE-AUTHORIZED by Nishant Nov 9, 9:25 PM CT ("Once done
+   publish it"): when the build is complete and verification/VQA pass
+   and are recorded here, Goku dispatches the publish step (merge to
+   main, push, live-verify gameroom.html) without asking again. No
+   force-push; stop on merge conflicts. Covers the Game Room only —
+   the Lichess, Geometry Dash, and robot-fix branches stay unpublished. Status: BUILD COMPLETE locally; mandatory checks and VQA passed. Ready for Goku's publish dispatch. Read the brief file in full before starting. AMENDED Nov 9,
+   ~9:05 PM CT: the brief now carries a CONFIDENCE FIRST amendment from
+   Nishant (appended at the end of the brief file) — the page's real job
+   is belief: evidence over numbers, Kanishk win hero-adjacent, Road to
+   State steps checked off, losses only as treasure maps, victory
+   language, milestones over rankings, no rivals named. AMENDED AGAIN
+   Nov 9, ~9:10 PM CT: Amendment 2 in the brief file adds Belief Anchor
+   #2 — CORRECTED later Nov 9: the jishi03 game was an abandonment
+   (she left over a connection issue), NOT a win by play — do not
+   spotlight it, never call it beating his coach, and exclude jishi03
+   games from the Best Win Spotlight pick — plus a new tile,
+   "This Week's Reps" (games in the last 7 days; positive framing; if 0,
+   an inviting line, never a zero or a missed quota). AMENDED AGAIN
+   Nov 9, ~9:16 PM CT: Amendment 3 in the brief SUPERSEDES the
+   standalone Reps tile — it folds into a new "Daily Quest + Streak"
+   section placed SECOND on the page: daily quest = 10 puzzles + 1
+   game, Duolingo-style flame streak (current + best + last-7-days
+   dots), games-this-week line inside the Quest card. Honesty rule:
+   never invent a streak or puzzle count — if a day's puzzles can't be
+   verified from the API, mark them "check your Lichess app".
+
+## Game Room complete locally — Nov 9, 2026
+
+- Read AGENTS.md and FEATURE-BRIEF-game-room.md in full, including amendments.
+  Reported starting state before code changes. Used bmad-build with independent
+  data investigation, implementation and three context-free reviews.
+- Created feature/game-room FROM MAIN at
+  a4b4afc7c3d8ac4eab89306302d66886bdbb2da5. Preserved coordinator docs in
+  /tmp/vihaan-gameroom-vqa/coordinator-HANDOFF.md and coordinator-HANDOFF.patch.
+  Carried coordination text only; all three other unpublished branches stay separate.
+- Built gameroom.html with confidence-first Kanishk proof, REAL Outstanding
+  Performance trophy photograph, distinct Lichess/US Chess groups, Daily Quest
+  SECOND, responsive Classical trail, sample wins/stats/openings, recent 10,
+  review 5 treasure maps, real best-win replay and Road to State family plan.
+  Added discovery links to index/shared desktop+mobile nav and chess.html.
+  Existing chess ratings, gameplay, games.html and trophy photo files are unchanged.
+- Committed fallback source: data/vihaan-lichess-snapshot.json, retrieved
+  2026-11-10T03:31:58.804Z (Nov 9 evening CT). Raw payloads exactly match all
+  four independently collected API responses. Refresh command:
+  node scripts/refresh-lichess-snapshot.cjs (no auth; smaller 50-game retry on 429).
+- Public endpoints (browser refresh on load, return after 60 seconds, UTC rollover):
+  https://lichess.org/api/user/vihaan_67
+  https://lichess.org/api/user/vihaan_67/rating-history
+  https://lichess.org/api/user/vihaan_67/activity
+  https://lichess.org/api/games/user/vihaan_67?max=200&rated=true&opening=true&moves=true
+  Games use Accept: application/x-ndjson. Each data group labels saved/live provenance.
+- Current evidence: Classical 1605, Rapid 1282 provisional, Blitz 1159 provisional,
+  Puzzles 1441; US Chess 811 Regular / 814 Quick remains separate. Latest 200 rated
+  games span Apr 15–Nov 5, with 118 wins. These are sample totals, not lifetime.
+  Best eligible sampled win: lJcdbKwT vs KSM2023 (1992), June 25, checkmate.
+  No inference identifies this as the family-stated Kanishk game. jishi03 is
+  excluded case-insensitively from both best-win calculations and spotlight.
+- Honest API limits: public rating-history returns[]; chart explicitly uses
+  observed Classical game ratings 1356→1605, not invented historical points.
+  Sparse activity cannot verify today's puzzle count/current/best quest streak:
+  show check-your-app and unknown. UTC quest days are labeled with actual
+  Chicago reset time (currently 6 PM CST). Earned days/best persist locally and
+  in generated quest state; no lifetime totals/Puzzle Streak-mode inference.
+- Verification sequence: initial default headless identity got 404/PGN; normal
+  installed-Chrome identity returned real NDJSON and cg-board. Games stream
+  took 8.2 seconds, exceeding initial 8 second timeout; now bounded at 30 seconds.
+  Fixed snapshot timeout, return/rollover refresh, retained earned-day evidence,
+  quiet verified reset, mobile chart labels and verification gaps. Independent
+  review triage for every finding is in spec-game-room.md; no unresolved findings.
+  Visual review also corrected replay orientation using official /gameId/black
+  route, phone iframe/control height, and inherited white footer background.
+- FINAL PASS: node tests/gameroom-model.cjs; JavaScript syntax checks;
+  git diff --check; tests/gameroom-browser.cjs --live. 15 recorded browser checks
+  cover live/fallback, partial sources, 429→50, stalled snapshot, malformed data,
+  coach exclusion, exact latest-loss order, populated history, cached quest goals,
+  return deduplication, active UTC rollover and nav at 1440 / 1100 / 390 px.
+  All four REAL endpoints refreshed on desktop and mobile (04:01:48–04:02:07 UTC).
+  Zero unexpected console/resource errors; intentional blocked fixture requests
+  are separately recorded. Existing index duplicate-Three warning stays unchanged.
+- Browser: installed Chrome 154 headless; context UA replaces only HeadlessChrome
+  with Chrome because Lichess negotiates different content otherwise. Both
+  identities are recorded honestly. Phone is 390×844 touch emulation; no claim
+  of Safari/iOS or real-device testing. Tall spotlight capture extends height
+  at the same 390 px width so Chrome paints the whole cross-origin iframe.
+- Visually inspected required final evidence (actual board, Black pieces facing
+  Vihaan, visible controls, real trophy, readable chart, neutral review results):
+  /tmp/vihaan-gameroom-vqa/desktop-header.png
+  /tmp/vihaan-gameroom-vqa/mobile-header.png
+  /tmp/vihaan-gameroom-vqa/desktop-climb.png
+  /tmp/vihaan-gameroom-vqa/mobile-climb.png
+  /tmp/vihaan-gameroom-vqa/desktop-recent.png
+  /tmp/vihaan-gameroom-vqa/mobile-recent.png
+  /tmp/vihaan-gameroom-vqa/desktop-best.png
+  /tmp/vihaan-gameroom-vqa/mobile-best.png
+  Extra quest/fallback evidence:
+  /tmp/vihaan-gameroom-vqa/desktop-quest.png
+  /tmp/vihaan-gameroom-vqa/mobile-quest.png
+  /tmp/vihaan-gameroom-vqa/desktop-fallback.png
+  /tmp/vihaan-gameroom-vqa/mobile-fallback.png
+  Results: /tmp/vihaan-gameroom-vqa/results.json and footer-verification.json.
+  Raw API/official reference evidence: /tmp/vihaan-gameroom-data/.
+- Remaining family items: Kanishk win is family-stated/unlinked; no game ID/date
+  invented. State championship exact date remains TBA. Puzzle/streak unknown
+  reflects public API coverage, not missed practice. Existing Crowder photo
+  family decision is unchanged by this work.
+- Ready for Goku's publishing dispatch under existing authorization; no further
+  Nishant approval is needed. No push, merge to main, deployment or live-site
+  verification performed in this build turn. Main remains a4b4afc7c3d8ac4eab89306302d66886bdbb2da5.
+  Other branches unchanged/unpublished: Geometry Dash d8f2eb2991603938860c9c3cd5ef400c33950248;
+  Lichess 66d4f2db35ea16f38a1bcd74dadc8937711dbcf9;
+  robot-fix be1b3a109e28b63efcc0351f9a31bf4a40294c3c.
+
+## Local fix ready for review — chess vs robot (Nov 9, 2026)
+
+- HANDOFF dispatches FEATURE-BRIEF-chess-robot-fix.md; user explicitly asked
+  to execute the top queued brief. Read the brief and AGENTS.md.
+- Started on feature/lichess-classical-1605 at
+  66d4f2db35ea16f38a1bcd74dadc8937711dbcf9 with only Goku's one-line dispatch
+  change in HANDOFF and the untracked robot brief. Preserved the exact note
+  in /tmp/vihaan-chess-robot-fix/coordinator-HANDOFF.md and its patch alongside.
+- Created feature/chess-robot-fix FROM MAIN at
+  a4b4afc7c3d8ac4eab89306302d66886bdbb2da5. Carried the handoff/dispatch
+  context only; unpublished Lichess and Geometry Dash code remain separate.
+- Investigation: desktop popup chess grid accepts e2→e4 and the robot replies
+  (observed c7→c5), without page errors. So the reported symptom is not yet
+  reproduced on that input surface. Checking mobile and the 3D table board;
+  asked Goku which board Vihaan used while continuing investigation.
+- Baseline evidence: /tmp/vihaan-chess-robot-fix/reproduction.json and
+  /tmp/vihaan-chess-robot-fix/before-board.png. No game code changed yet.
+- Mobile tap e2→e4 plus robot reply also works on baseline. Live homepage
+  HTML matches this baseline exactly. Actual popup drag e2→e4 leaves history
+  empty and selectedSquare null: reproducible input failure, since only click
+  listeners exist. Exact user gesture remains unconfirmed; do not claim
+  Goku/Vihaan confirmed dragging. A 3D-table click also has no chess-mode handler,
+  but implementing a separate 3D input feature is outside this focused patch.
+- Baseline drag evidence: /tmp/vihaan-chess-robot-fix/before-drag.png and
+  /tmp/vihaan-chess-robot-fix/input-diagnosis.json. Mobile baseline result:
+  /tmp/vihaan-chess-robot-fix/mobile-reproduction.json.
+- Added pointer capture/drop handling on white popup pieces through existing
+  legal-move selection, retaining click/tap. No chess engine/rules changes.
+  Verification and moved-piece capture results are recorded below.
+- Browser regression passed on desktop 1440×1000 and mobile touch 390×844:
+  dragged e2→e4, waited for Robo-Pawn's c7→c5 reply, then click/tap knight
+  g1→f3 and another reply. Invalid e4→e6, off-board drops, and robot-piece
+  drags do not move pieces. New Game, touch cancellation, and original
+  click/tap e2→e4 all pass. No page exceptions.
+- Visually inspected moved-piece evidence:
+  `/tmp/vihaan-chess-robot-fix/after-desktop-moved-piece.png`,
+  `/tmp/vihaan-chess-robot-fix/after-mobile-moved-piece.png`,
+  `/tmp/vihaan-chess-robot-fix/after-desktop-board.png`, and
+  `/tmp/vihaan-chess-robot-fix/after-mobile-board.png`.
+  Full results: `/tmp/vihaan-chess-robot-fix/verification.json`.
+- Repeatable check: tests/chess-robot-input.cjs; setup in tests/README.md.
+  Small-change independent review results are recorded below. No publishing or remote ops.
+- Independent small-change review completed. Added a second successful drag
+  from an already selected g1 knight to f3 and waited for another robot reply;
+  passed for mouse and touch. Test setup/status docs reconciled. No change
+  to engine, bot search, board styling, or game rules.
+- Mobile verification is Chrome touch emulation, not Safari/iOS or real-device
+  testing. Drag submits on release; no floating-piece drag preview was added.
+- Important remaining clarification for Goku: the exact originally reported
+  board/gesture has not been confirmed. This patch fixes the reproduced popup
+  dragging failure. Popup click/tap already worked on baseline; no separate 3D
+  table input feature was added. Confirm against Vihaan's symptom before publish.
+- Final source diff is only the square input wiring in index.html. games.html
+  and chess.html match main exactly; neither unpublished Geometry Dash d8f2eb2
+  nor Lichess 66d4f2d is an ancestor. The carried Lichess/dispatch handoff text
+  is coordination context only, not a cherry-pick of its runtime change.
+- All focused browser regressions and git diff --check passed. Ready for a
+  local commit on feature/chess-robot-fix using Codex Worker <codex@localhost>.
+  No push, main merge, or publication performed.
+- An unrelated untracked FEATURE-BRIEF-game-room.md appeared during this
+  run; left it unread, untouched, and outside this commit.
+- Local commit only; no push, merge to main, or publishing is authorized.
+
+## Completed local change — Lichess Classical 1605 (Nov 9, 2026)
+
+- Read the re-activated FEATURE-BRIEF-lichess-classical-1605.md. Vihaan
+  supplied and confirmed 1605 as his Lichess Classical GAME rating; puzzle
+  and over-the-board US Chess ratings are separate.
+- Starting checkout was feature/geometry-dash-harder at
+  d8f2eb2991603938860c9c3cd5ef400c33950248; only the two queued briefs were
+  untracked. Created feature/lichess-classical-1605 FROM MAIN at
+  a4b4afc7c3d8ac4eab89306302d66886bdbb2da5, not from the Geometry Dash commit.
+- Geometry Dash remains separately committed/unpublished on its own branch;
+  this branch does not include its changes. Do not publish or push either.
+- Before editing, verified chess.html had Classical 1504 in its profile and
+  online panel. Updated both to explicitly labeled Lichess Classical 1605,
+  using the existing stat styling next to the official ratings area. Retained
+  the existing live-refresh element ID and behavior; no script changes.
+- US Chess 811 Regular / 814 Quick and every Lichess Puzzles number are
+  unchanged. No other page/content edits. Screenshot/browser checks next.
+- FEATURE-BRIEF-chess-robot-fix.md is dispatched by the coordinator (Nov 9, 2026, ~8:55 PM); worker running.
+- Chrome checks passed at desktop 1440×1000 and mobile 390×844; visually
+  inspected the existing-styled rating badge, clear online/Classical labeling,
+  and adjacent US Chess 811/814. No page exceptions; HTTP 200 locally.
+- Existing auto-load behavior remains intact: during normal verification the
+  Lichess API returned Classical 1605 and Puzzles 1441. The saved puzzle value
+  in the source and profile is still 1687. A separate API-unavailable check
+  confirmed the saved fallback shows Classical 1605 and Puzzles 1687. This
+  runtime live-data difference is pre-existing behavior, not a puzzle edit.
+- Exact diff check confirmed the ONLY chess.html changes are those two
+  Classical text/value substitutions; all scripts, puzzles, US Chess ratings,
+  and other content are unchanged. git diff --check passed.
+- Screenshots for Goku and Vihaan:
+  `/tmp/vihaan-lichess-classical-1605/ratings-desktop.png`,
+  `/tmp/vihaan-lichess-classical-1605/ratings-mobile.png`, and
+  `/tmp/vihaan-lichess-classical-1605/ratings-saved-fallback.png`.
+  Results: `/tmp/vihaan-lichess-classical-1605/verification.json`.
+- Branch isolation verified: games.html exactly matches main; Geometry Dash
+  commit d8f2eb2991603938860c9c3cd5ef400c33950248 is not an ancestor of this
+  branch. Main and feature/geometry-dash-harder remain unchanged. No push,
+  merge, deployment, or chess-robot work performed.
+
 ## Correction published — real trophy photograph (Nov 9, 2026)
 
 - Goku relayed Nishant's HOLD + FIX after reviewing the published generic
