@@ -149,3 +149,31 @@ Deck3 explorer, mobile without JavaScript, and all existing-page navigation
 widths. `results.json` records assertions, errors and exact capture paths.
 The parent must run this suite and visually inspect the captures before
 recording completion in HANDOFF.md; capture existence is not visual approval.
+
+# Spelling Bee Trainer checks
+
+The spelling trainer is plain HTML/CSS/JS and has no external runtime assets.
+The model/data checks use Node's built-in assertions:
+
+```sh
+node tests/spelling-bee-model.cjs
+node --check spelling-bee.js
+node --check spelling-bee-model.js
+node --check assets/spelling-words.js
+```
+
+For desktop and phone browser flows, install or reuse Playwright outside the
+site checkout and start the static server from the repository root:
+
+```sh
+npm install --prefix /tmp/vihaan-test-deps --no-save playwright@1.64.1
+python3 -m http.server 8876 --bind 127.0.0.1
+PLAYWRIGHT_MODULE=/tmp/vihaan-test-deps/node_modules/playwright node tests/spelling-bee-browser.cjs
+```
+
+The browser script uses installed Chrome, locally stubs available and missing
+speech voices, completes full rounds at 1440×1000 and 390×844, checks hints,
+hidden active words, letter-position feedback, daily-goal persistence, and the
+two-consecutive-correct tricky-word rule. Captures and `results.json` go to
+`/tmp/vihaan-spelling-bee/` by default. The local voice stub verifies the
+speech integration path; it does not establish which voices a real device has.
