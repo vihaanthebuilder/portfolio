@@ -904,3 +904,19 @@ local; their branches are not included in this publication.
 - This push contains only the Spelling Bee branch and its HANDOFF record.
   Authors' Room is the next separately authorized publish; Geometry Dash,
   robot-fix, Lichess and the countdown are not included.
+
+## Author's Room merge to main — Nov 10, 2026 (push pending)
+
+- Merged `feature/authors-room` at
+  `ffd7263f36cc623248203bf9e31f01935d14121b` into local `main`, whose tip
+  before this merge was `87f9b92c3f5e1b2c4d57c854de93571d5e5a2b32`.
+  Merge commit: `12681ea1ee15b7bc6d28bffe718f561a35017b11`.
+- `HANDOFF.md` conflicted at the top queue. Resolved it manually by retaining
+  the Spelling Bee and Cruise Ship records, appending the full Author's Room
+  branch record, and preserving the full Game Room entry and all subsequent
+  project records. `tests/README.md` merged cleanly. All Author's Room page,
+  navigation, spec and browser-test files are included; source chapter records
+  are excluded.
+- This is the second requested feature merge. Push and Pages verification are
+  pending. Geometry Dash, robot-fix, Lichess and the countdown remain outside
+  this merge.
