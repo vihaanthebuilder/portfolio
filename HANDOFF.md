@@ -905,7 +905,14 @@ for now. Record every merge in HANDOFF.md.
 - Re-ran the bundle merge check against main at `1cc95ff56f8ed9546b774c63fce8d5406d6d0428`. The source merge conflicted in `HANDOFF.md` and `tests/README.md`; resolved by preserving the full current-main records and test guide, then appending the complete Geometry Dash branch record and test instructions. No record text was dropped.
 - `node tests/geodash-harder.cjs` passed: winning route at frame 2052 with 26 jumps, all 10 double-spike pairs cleared, and all 10 narrow platforms landed.
 - Real Chrome browser replay passed: double-spike section, completion, crash/restart, mouse/Space/ArrowUp/touch input, ordinary animation scheduling, and zero page exceptions. Fresh evidence: `/tmp/vihaan-geodash-harder/double-spikes-game.png`, `/tmp/vihaan-geodash-harder/double-spikes-canvas.png`, `/tmp/vihaan-geodash-harder/complete-game.png`, `/tmp/vihaan-geodash-harder/complete-canvas.png`, and `/tmp/vihaan-geodash-harder/browser-proof.json`. Visually inspected the double-spike capture.
-- Prepared merge is staged on `feature/geometry-dash-harder`; final branch merge/publish and live verification are the next actions.
+- Resolved the merge on `feature/geometry-dash-harder` in commit `6168943e462ac9be91221b8a3e3e53a4d598c51b`; source `main` was preserved as a merge parent.
+
+## Geometry Dash published — Nov 10, 2026
+
+- Merged `feature/geometry-dash-harder` into `main` as `bd3ee1f5fb251cb5ada3e204826bacf5870aa401`; pushed `1cc95ff..bd3ee1f` to `origin main` without force.
+- GitHub Pages deploy succeeded for the pushed `main` tip: [run 42837135522](https://github.com/vihaanthebuilder/portfolio/actions/runs/42837135522).
+- Live Chrome verification passed at `https://vihaanthebuilder.github.io/portfolio/games.html#view-geodash`: HTTP 200, Geometry Dash canvas and Start control visible, no page exceptions, console errors, or failed requests. Capture: `/tmp/vihaan-geodash-harder/live-games-geodash.png`.
+- The original Geometry Dash double-spike and beatability verification is recorded above. The robot-fix and Lichess branches are still pending their own check and publish steps; the countdown remains local.
 
 ## Spelling Bee Trainer published — Nov 10, 2026
 
