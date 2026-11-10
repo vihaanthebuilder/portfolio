@@ -2,7 +2,7 @@
 title: "The Author's Room"
 type: 'feature'
 created: '2026-11-10'
-status: 'in-review'
+status: 'done'
 route: 'dispatch'
 baseline_commit: 'c540ef1cc95bfc9ecefcf552e8cd871a29ce8d43'
 review_loop_iteration: 0
@@ -51,7 +51,7 @@ context:
 - [x] `authors-room.html` and `authors-room.css` -- build the cover/progress, 19-slot map, chapter anchors, readable source-traced text, required illustrations, and responsive accessible layout.
 - [x] `index.html` and `sublevel-os.js` -- add homepage and shared navigation links without changing unrelated content.
 - [x] `tests/authors-room-browser.cjs` and `tests/README.md` -- verify desktop/mobile layout, anchors, nav routes, console/errors, and capture required VQA views; produce a sentence-to-record trace.
-- [ ] `HANDOFF.md` -- record implementation, exact-word trace, screenshots, verification, local commit, and queue completion.
+- [x] `HANDOFF.md` -- record implementation, exact-word trace, screenshots, verification, local commit, and queue completion.
 
 **Acceptance Criteria:**
 - Given the homepage or any shared navigation menu, when the Authors' Room link is activated, then `authors-room.html` opens.

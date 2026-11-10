@@ -6,8 +6,9 @@
    Nov 10, 2026; approved by Nishant): build `authors-room.html` for Vihaan's
    19-chapter human-body book using the exact-word rules in the brief and the
    two chapter records. Branch `feature/authors-room` from `main`. Status:
-   implementation and independent review are complete; local feature commit
-   is next. Do not push, merge, or publish.
+   DONE LOCALLY. Branch `feature/authors-room` is based on `main` at
+   `c540ef1cc95bfc9ecefcf552e8cd871a29ce8d43`; feature commit
+   `5073d164fad28b3714a23516d2d9213c852a2630`. No push, merge, or publish.
 
 2. **Game Room — FEATURE-BRIEF-game-room.md** (queued by Goku, Nov 9, 2026,
    ~9:03 PM CT, at Nishant's request): build a new gameroom.html with live
@@ -65,9 +66,11 @@
   `/tmp/vihaan-authors-room/cover.png`, `chapter-map.png`, `chapter-1.png`,
   `chapter-2.png`, and `mobile.png`. The browser report is
   `/tmp/vihaan-authors-room/results.json`.
-- Changes are local on `feature/authors-room`; the local commit is next. No
-  push, merge, or publish was performed. The brief and chapter records are
-  input material and are intentionally excluded from the site commit.
+- Changes are committed locally on `feature/authors-room` in
+  `5073d164fad28b3714a23516d2d9213c852a2630` (based on `main` at
+  `c540ef1cc95bfc9ecefcf552e8cd871a29ce8d43`). No push, merge, or publish was
+  performed. The brief and chapter records are input material and are
+  intentionally excluded from the site commit.
 
 ## Custom domain vihaanadhikari.com — CNAME PUBLISHED; STOPPED ON DNS, Nov 10, 2026
 
