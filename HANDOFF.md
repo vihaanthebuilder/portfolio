@@ -13,7 +13,7 @@
    and are recorded here, Goku dispatches the publish step (merge to
    main, push, live-verify gameroom.html) without asking again. No
    force-push; stop on merge conflicts. Covers the Game Room only —
-   the Lichess, Geometry Dash, and robot-fix branches stay unpublished. Status: BUILD COMPLETE locally; mandatory checks and VQA passed. Ready for Goku's publish dispatch. Read the brief file in full before starting. AMENDED Nov 9,
+   the Lichess, Geometry Dash, and robot-fix branches stay unpublished. Status: BUILD COMPLETE locally; mandatory checks and VQA passed. PUBLISH DISPATCHED by the coordinator watch Nov 9, 2026, ~10:08 PM CT — worker merging feature/game-room to main, pushing, and live-verifying gameroom.html. Read the brief file in full before starting. AMENDED Nov 9,
    ~9:05 PM CT: the brief now carries a CONFIDENCE FIRST amendment from
    Nishant (appended at the end of the brief file) — the page's real job
    is belief: evidence over numbers, Kanishk win hero-adjacent, Road to
@@ -33,6 +33,17 @@
    dots), games-this-week line inside the Quest card. Honesty rule:
    never invent a streak or puzzle count — if a day's puzzles can't be
    verified from the API, mark them "check your Lichess app".
+
+## Game Room publishing — Nov 9, 2026
+
+- Goku explicitly dispatched publishing after the completed build/VQA; Nishant's
+  existing authorization applies to Game Room only. No new approval needed.
+- Starting branch feature/game-room at 1f3cbb856ca6acbd78722a13c6a0e9732d0a345f;
+  the only working-tree change was Goku's dispatch note, preserved in this commit.
+- Fetched origin: main and origin/main both a4b4afc7c3d8ac4eab89306302d66886bdbb2da5.
+  Confirmed all three other unpublished commits are absent from Game Room ancestry.
+- Publishing this branch using normal pushes and an explicit merge commit.
+  Stop on any merge conflict. Deployment/live verification results follow below.
 
 ## Game Room complete locally — Nov 9, 2026
 
