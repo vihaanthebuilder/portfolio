@@ -888,6 +888,25 @@ Spelling Bee Trainer was completed locally, then published with Nishant's
 authorization. The publish-bundle check and Road to State countdown remain
 local; their branches are not included in this publication.
 
+## Publish bundle — GO (Goku, Nov 10 2026)
+Vihaan himself said yes to the harder Geometry Dash (via Nishant, Nov 10
+08:32). Under the Nov 10 publishing rule the driver publishes Vihaan's
+project without asking. Job: resolve the doc conflicts found by the
+publish-bundle check (HANDOFF.md in all three branches; tests/README.md in
+Geometry Dash and robot-fix — combine records, never drop text), then merge
+and publish in this order: 1) feature/geometry-dash-harder (d8f2eb2),
+2) feature/chess-robot-fix (be1b3a1), 3) feature/lichess-1605 (66d4f2d).
+After each push, confirm the Pages deploy succeeded and live-verify the
+affected page loads with no errors. The Road to State countdown stays local
+for now. Record every merge in HANDOFF.md.
+
+## Publish bundle check — Geometry Dash (Nov 10, 2026)
+
+- Re-ran the bundle merge check against main at `1cc95ff56f8ed9546b774c63fce8d5406d6d0428`. The source merge conflicted in `HANDOFF.md` and `tests/README.md`; resolved by preserving the full current-main records and test guide, then appending the complete Geometry Dash branch record and test instructions. No record text was dropped.
+- `node tests/geodash-harder.cjs` passed: winning route at frame 2052 with 26 jumps, all 10 double-spike pairs cleared, and all 10 narrow platforms landed.
+- Real Chrome browser replay passed: double-spike section, completion, crash/restart, mouse/Space/ArrowUp/touch input, ordinary animation scheduling, and zero page exceptions. Fresh evidence: `/tmp/vihaan-geodash-harder/double-spikes-game.png`, `/tmp/vihaan-geodash-harder/double-spikes-canvas.png`, `/tmp/vihaan-geodash-harder/complete-game.png`, `/tmp/vihaan-geodash-harder/complete-canvas.png`, and `/tmp/vihaan-geodash-harder/browser-proof.json`. Visually inspected the double-spike capture.
+- Prepared merge is staged on `feature/geometry-dash-harder`; final branch merge/publish and live verification are the next actions.
+
 ## Spelling Bee Trainer published — Nov 10, 2026
 
 - Merged `feature/spelling-bee-trainer` (`f701f3712c0e3b79bb091483cbac814b1ca906c3`)
@@ -932,3 +951,71 @@ local; their branches are not included in this publication.
   phone screenshots for each page in the same folder.
 - Geometry Dash, robot-fix, Lichess and the countdown remain outside these
   merges and unpublished.
+
+## Preserved branch record — Geometry Dash harder (pre-publication)
+
+## Completed local feature — Geometry Dash harder (Nov 9, 2026)
+
+- Goku dispatched FEATURE-BRIEF-geometry-dash-harder.md after Vihaan chose
+  double spikes and tight jumps and said yes. The trophy-photo correction is
+  already live-verified; this is the next separate change.
+- Starting state reported before edits: main at
+  a4b4afc7c3d8ac4eab89306302d66886bdbb2da5, only the new brief untracked.
+  Created feature/geometry-dash-harder. Local commit only; no publishing/push.
+- Game located in games.html, geoDash IIFE. Current physics: 24px cube,
+  speed 2.7px/frame, gravity .62, jump velocity -10.6. Floor is continuous;
+  later tight landings will use narrower existing-style platforms, not pits.
+- Preserve original first 44 pattern cells (through world X2100), keeping the
+  first 600 frames / approximately 10 seconds unchanged at nominal 60fps,
+  including what enters the 380px viewport. Character/physics/controls remain.
+- Baseline saved at /tmp/vihaan-geodash-harder/before-games.html. Preparing
+  complete-playthrough and per-obstacle proof using the actual game functions.
+- Level geometry implemented: 10 paired obstacles (44px wide) and 10 narrow
+  platforms (26px low / 32px high, versus the original 40px / 64px widths).
+  Low platforms are followed by a spike pair 80px from their leading edge;
+  high platforms have a pair 120px after their leading edge. No pits added.
+- Opening first 44 cells retained exactly; first changed object enters the
+  viewport at approximately 12.10 seconds at 60fps. Original finish position
+  X5540 and total level length remain unchanged. All gameplay functions,
+  character rendering, physics, and controls are byte-for-byte unchanged.
+- Node proof PASSED using extracted production jump/update/collision functions:
+  searched 51,254 transitions, found/replayed victory at frame 2052 (~34.2s at
+  60fps), with 26 jump inputs. Witness deliberately lands on ALL 10 new narrow
+  platforms and clears ALL 10 pairs. Each pair was checked across its complete
+  21–22 collision frames; minimum vertical clearance above the collision tip
+  threshold was 8.08px. Measured maximum ground-jump height: 85.34px.
+- Real Chrome replay PASSED with those same inputs delivered through canvas
+  mousedown handlers: reached the actual “Level Complete! 100%” overlay, plus
+  crash/restart and Space jump checks. No page exceptions. Browser-only
+  instrumentation/manual frame stepping is used for reproducibility; no test
+  hooks/autoplay are added to the shipped game.
+- Captures visually inspected:
+  `/tmp/vihaan-geodash-harder/double-spikes-game.png` (for Vihaan),
+  `/tmp/vihaan-geodash-harder/double-spikes-canvas.png`,
+  `/tmp/vihaan-geodash-harder/complete-game.png`, and
+  `/tmp/vihaan-geodash-harder/complete-canvas.png`.
+- Proof files: `/tmp/vihaan-geodash-harder/beatable-proof.json`,
+  `/tmp/vihaan-geodash-harder/jump-frames.json`, and
+  `/tmp/vihaan-geodash-harder/browser-proof.json`. Repeatable commands:
+  `node tests/geodash-harder.cjs`, then (with Playwright installed)
+  `node tests/geodash-browser.cjs`. Review results are recorded below.
+- Independent small-change review completed; all five verification/documentation
+  findings addressed, none deferred. Added source-hash binding between proof
+  and browser replay, complete test setup docs, normal-animation checks, touch
+  and ArrowUp input checks, and per-jump timing sweeps.
+- Timing proof: varied every later input by ±12 frames with all other inputs
+  fixed, replaying to actual victory each time. Successful tested windows span
+  3–22 input frames; tightest is three consecutive frames (~50ms at 60fps).
+  This demonstrates alternatives to a single perfect-frame sequence, not every
+  possible strategy or a human playtest. Vihaan can judge difficulty locally.
+- A separate browser run with ordinary RAF (not manual stepping) passed Start,
+  camera advancement, ArrowUp and touch jumping, crash, and restart advancement.
+  Mouse and Space passed in the deterministic full-playthrough run. No page
+  exceptions. Physics/full-game tests and git diff --check passed.
+- Setup, local server, dependencies, command order, and artifact paths are in
+  tests/README.md. No product debug hooks, physics/control changes, unrelated
+  game edits, pushes, merges to main, or publication. Main stays at
+  a4b4afc7c3d8ac4eab89306302d66886bdbb2da5; feature/geometry-dash-harder is
+  ready for Vihaan's screenshot review and Goku's next direction.
+- An unrelated untracked FEATURE-BRIEF-lichess-classical-1605.md appeared
+  during this run. Left it untouched and outside the Geometry Dash commit.

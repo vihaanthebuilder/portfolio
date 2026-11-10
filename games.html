@@ -860,10 +860,11 @@
     let player, cam, running=false, started=false, raf, musicOn=false, shake=0, win=false;
 
     // ----- Hand-designed level (a fixed rhythmic layout, like a real GD level) -----
-    // s=spike, S=triple spike, b=block(jump on/over), p=floating platform, _=gap (empty)
-    // each char = 30px of level. Build a fun but fair rhythm.
+    // s=single spike, d=double spike, S=triple spike; b/p=original platforms.
+    // t/q=narrow low/high landings; _=clear ground. Each cell is 40px.
+    // Keep the first 44 cells unchanged; harder pairs/landings start after them.
     const PATTERN =
-      "__________s______s______s_____b_____s______s_____p_____s______s______b_____s______s_______s_____p______s______b______s______s____finish";
+      "__________s______s______s_____b_____s______s_____t_d____q__d____t_d____q__d____t_d____q__d_____t_d____q__d____t_d____q__d________finish";
     const UNIT = 40;
     let obstacles=[], platforms=[], levelLen=0, finishX=0;
 
@@ -873,9 +874,12 @@
       for (let i=0;i<PATTERN.length;i++){
         const ch=PATTERN[i], gx = x + i*UNIT;
         if (ch==='s') obstacles.push({x:gx, n:1});
+        else if (ch==='d') obstacles.push({x:gx, n:2});
         else if (ch==='S') obstacles.push({x:gx, n:3});
         else if (ch==='b') platforms.push({x:gx, w:UNIT, top:GROUND-30});
         else if (ch==='p') platforms.push({x:gx, w:UNIT*1.6, top:GROUND-64});
+        else if (ch==='t') platforms.push({x:gx, w:26, top:GROUND-30});
+        else if (ch==='q') platforms.push({x:gx, w:32, top:GROUND-64});
         else if (PATTERN.substr(i,6)==='finish'){ finishX=gx; break; }
       }
       levelLen = finishX;
