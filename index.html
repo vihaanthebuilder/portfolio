@@ -1501,7 +1501,7 @@ body.machine #topnav,body.machine #layout{display:none}
     <button type="button" class="aab-btn" id="btn-action-hoop" title="Walk to basketball court">🏀 HOOP</button>
     <button type="button" class="aab-btn" id="btn-action-arcade" title="Walk to arcade cabinet">🕹️ ARCADE</button>
     <button type="button" class="aab-btn" id="btn-action-trophies" title="Explore both chess trophies on the left rack">🏆 TROPHIES</button>
-    <span class="aab-hint">WASD / Arrows / Click Ground to Walk</span>
+    <span class="aab-hint">WASD / Arrows to Walk · Enter near Bike or Trophy</span>
   </div>
 
   <!-- Interactive Chess Match HUD vs Robo-Pawn (Sally UX Lead) -->
@@ -2381,9 +2381,15 @@ const tickerMask = document.createElement('canvas'); tickerMask.width = 2048; ti
 { const g = tickerMask.getContext('2d'); g.fillStyle = '#000'; g.fillRect(0, 0, 2048, 64); g.fillStyle = '#fff'; for (let y = 4; y < 64; y += 8) for (let x = 4; x < 2048; x += 8) { g.beginPath(); g.arc(x, y, 3, 0, Math.PI * 2); g.fill(); } }
 function drawTicker(t) {
   const g = tickerTex.userData.ctx, w = 2048, h = 64;
-  const off = (t * 165) % tickerLoopW;
+  const off = (t * 72) % tickerLoopW;
   g.fillStyle = '#000'; g.fillRect(0, 0, w, h);
-  g.drawImage(tickerSrc, off, 0, w, h, 0, 0, w, h);
+  if (typeof state !== 'undefined' && state.mode === 'hoop') {
+    g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillStyle = '#fff';
+    g.font = '700 38px "Geist Mono", monospace';
+    g.fillText(`VIHAAN  ·  SCORE ${ball.score}  ·  SHOTS ${ball.shots}`, w / 2, h / 2);
+  } else {
+    g.drawImage(tickerSrc, off, 0, w, h, 0, 0, w, h);
+  }
   g.globalCompositeOperation = 'multiply'; g.drawImage(tickerMask, 0, 0); g.globalCompositeOperation = 'source-over';
   tickerTex.needsUpdate = true;
 }
@@ -2688,7 +2694,7 @@ for (let i=0;i<2;i++) {
   const light = new THREE.PointLight(0xffe4a0, 1.8, 2.2);light.position.set(x,y+0.65,-2.9);scene.add(light);
 }
 const trophyStyle = document.createElement('style');
-trophyStyle.textContent = `#trophy-dialog{margin:auto;inset:0;background:#101827;color:#fff;border:1px solid #f6c84c;border-radius:20px;padding:22px;width:min(640px,calc(100vw - 28px));max-height:calc(100dvh - 28px);overflow:auto;box-sizing:border-box;box-shadow:0 30px 90px #000a}#trophy-dialog::backdrop{background:#020713c9}#trophy-dialog h2{font-size:1.5rem;color:#ffdb67;margin:16px 0 6px}#trophy-dialog p{margin:8px 0}#trophy-dialog button{font:inherit;color:#fff;background:#253658;border:1px solid #7585a4;border-radius:9px;padding:10px 12px;cursor:pointer;min-height:44px}#trophy-dialog button[aria-pressed=true]{border-color:#ffdb67;background:#4a3c17}#trophy-dialog button:focus-visible,#trophy-preview:focus-visible{outline:3px solid #ffdb67;outline-offset:3px}#trophy-choices{display:flex;gap:8px;flex-wrap:wrap}#trophy-dialog [hidden]{display:none!important}#trophy-photo{display:block;width:100%;height:330px;object-fit:contain;border-radius:12px;background:#172238}#trophy-photo-view{margin:0}#trophy-photo-view figcaption{font-size:.85rem;color:#c4d1e7;margin-top:8px}#trophy-preview{width:100%;height:230px;display:block;touch-action:none;border-radius:12px;background:#172238}#trophy-dialog dl{display:grid;grid-template-columns:100px 1fr;gap:9px;margin-bottom:0}#trophy-dialog dt{color:#b8c7df}#trophy-dialog dd{margin:0;overflow-wrap:anywhere}#trophy-close{float:right}#trophy-help{font-size:.85rem;color:#c4d1e7}@media(max-width:500px){#trophy-preview{height:190px}#trophy-dialog{padding:16px}#trophy-dialog dl{grid-template-columns:80px 1fr;font-size:.9rem}}`;
+trophyStyle.textContent = `#trophy-dialog{margin:auto;inset:0;background:#101827;color:#fff;border:1px solid #f6c84c;border-radius:20px;padding:22px;width:min(640px,calc(100vw - 28px));max-height:calc(100dvh - 28px);overflow:auto;box-sizing:border-box;box-shadow:0 30px 90px #000a}#trophy-dialog::backdrop{background:#020713c9}#trophy-dialog.zoom-mode{width:min(480px,calc(100vw - 28px))}#trophy-dialog.zoom-mode::backdrop{background:#02071366}#trophy-dialog h2{font-size:1.5rem;color:#ffdb67;margin:16px 0 6px}#trophy-dialog p{margin:8px 0}#trophy-dialog button{font:inherit;color:#fff;background:#253658;border:1px solid #7585a4;border-radius:9px;padding:10px 12px;cursor:pointer;min-height:44px}#trophy-dialog button[aria-pressed=true]{border-color:#ffdb67;background:#4a3c17}#trophy-dialog button:focus-visible,#trophy-preview:focus-visible{outline:3px solid #ffdb67;outline-offset:3px}#trophy-choices{display:flex;gap:8px;flex-wrap:wrap}#trophy-dialog [hidden]{display:none!important}#trophy-photo{display:block;width:100%;height:330px;object-fit:contain;border-radius:12px;background:#172238}#trophy-photo-view{margin:0}#trophy-photo-view figcaption{font-size:.85rem;color:#c4d1e7;margin-top:8px}#trophy-preview{width:100%;height:230px;display:block;touch-action:none;border-radius:12px;background:#172238}#trophy-dialog dl{display:grid;grid-template-columns:100px 1fr;gap:9px;margin-bottom:0}#trophy-dialog dt{color:#b8c7df}#trophy-dialog dd{margin:0;overflow-wrap:anywhere}#trophy-close{float:right}#trophy-help{font-size:.85rem;color:#c4d1e7}@media(max-width:500px){#trophy-preview{height:190px}#trophy-dialog{padding:16px}#trophy-dialog dl{grid-template-columns:80px 1fr;font-size:.9rem}}`;
 document.head.append(trophyStyle);
 const trophyDialog = document.createElement('dialog'); trophyDialog.id='trophy-dialog';
 trophyDialog.setAttribute('aria-labelledby','trophy-title');
@@ -2714,6 +2720,7 @@ function renderTrophyPreview() {
   p.camera.aspect=w/h;p.camera.updateProjectionMatrix();p.renderer.render(p.scene,p.camera);
 }
 function openTrophy(index=0) {
+  trophyDialog.classList.toggle('zoom-mode',state.mode==='trophy');
   if(!trophyDialog.open) {
     trophyReturnFocus=document.activeElement;trophyScroll=scrollY;trophyOverflow=document.documentElement.style.overflow;
     resetMovement();trophyDialog.showModal();document.documentElement.style.overflow='hidden';
@@ -2748,7 +2755,7 @@ trophyDialog.addEventListener('keydown', e => {
     e.preventDefault(); first.focus();
   }
 });
-trophyDialog.addEventListener('close',()=>{trophyDrag=null;resetMovement();document.documentElement.style.overflow=trophyOverflow;window.scrollTo(0,trophyScroll);if(trophyReturnFocus?.isConnected)trophyReturnFocus.focus({preventScroll:true});});
+trophyDialog.addEventListener('close',()=>{trophyDrag=null;resetMovement();document.documentElement.style.overflow=trophyOverflow;window.scrollTo(0,trophyScroll);if(trophyReturnFocus?.isConnected)trophyReturnFocus.focus({preventScroll:true});if(state.mode==='trophy')setMode('home');});
 trophyDialog.addEventListener('click',e=>{if(e.target===trophyDialog){const r=trophyDialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)closeTrophy();}});
 document.getElementById('trophy-close').addEventListener('click',closeTrophy);
 trophyDialog.querySelectorAll('[data-award]').forEach(b=>b.addEventListener('click',()=>openTrophy(Number(b.dataset.award))));
@@ -2936,10 +2943,10 @@ let groundTargetMarker = null;
     if (s === -1) { vihaanRig.leftLeg = legG; vihaanLeftLeg = legG; }
     else { vihaanRig.rightLeg = legG; vihaanRightLeg = legG; }
 
-    const hip = V3(0, 0, 0), knee = V3(0.35, 0.01, s * 0.015), ank = V3(0.41, -0.34, s * 0.015);
+    const hip = V3(0, 0, 0), knee = V3(0.29, -0.01, s * 0.015), ank = V3(0.34, -0.25, s * 0.015);
     limb(0.068, hip, knee, jeans, legG);
     sphere(0.066, jeans, knee.x, knee.y, knee.z, legG, 16, 12);
-    const shinMid = V3(0.385, -0.17, s * 0.015);
+    const shinMid = V3(0.315, -0.13, s * 0.015);
     limb(0.054, knee, shinMid, jeans, legG);
     limb(0.048, shinMid, ank, whiteM, legG);
 
@@ -2950,7 +2957,7 @@ let groundTargetMarker = null;
     vihaanRig.feet.push({ side: s, sitting: legG, walking, thigh, shin, joint, position: null, swing: null });
     // High-top sneaker
     const shoeG = new THREE.Group();
-    shoeG.position.set(0.46, -0.37, s * 0.015);
+    shoeG.position.set(0.39, -0.28, s * 0.015);
     legG.add(shoeG);
     const shoeUpper = add(new THREE.Mesh(new THREE.CapsuleGeometry(0.052, 0.13, 6, 16), redM), shoeG);
     shoeUpper.rotation.z = Math.PI / 2;
@@ -4172,13 +4179,13 @@ function footDestination(side, lead = 0) {
   return new THREE.Vector3(x, getWalkHeight(x, z), z);
 }
 function poseWalkingLeg(foot) {
-  const hip = new THREE.Vector3(0.04, 0.03, foot.side * 0.105);
+  const hip = new THREE.Vector3(0.04, 0.02, foot.side * 0.105);
   const ankle = personGroup.worldToLocal(foot.position.clone().add(new THREE.Vector3(0, 0.105 * personGroup.scale.y, 0)));
   const delta = ankle.clone().sub(hip), distance = delta.length();
   foot.ankleReach = distance;
   const direction = delta.clone().normalize();
   const bend = new THREE.Vector3(1, 0, 0).addScaledVector(direction, -direction.x).normalize();
-  const knee = hip.clone().addScaledVector(direction, distance / 2).addScaledVector(bend, Math.sqrt(Math.max(0.001, 0.40 ** 2 - (distance / 2) ** 2)));
+  const knee = hip.clone().addScaledVector(direction, distance / 2).addScaledVector(bend, Math.sqrt(Math.max(0.001, 0.33 ** 2 - (distance / 2) ** 2)));
   for (const [mesh, start, end] of [[foot.thigh, hip, knee], [foot.shin, knee, ankle]]) {
     const d = end.clone().sub(start);
     mesh.position.copy(start).add(end).multiplyScalar(0.5);
@@ -4233,13 +4240,13 @@ function updateFeet(dt, moved) {
     const hipX = v.x + Math.cos(v.yaw) * 0.04 * scale + Math.sin(v.yaw) * f.side * 0.105 * scale;
     const hipZ = v.z - Math.sin(v.yaw) * 0.04 * scale + Math.cos(v.yaw) * f.side * 0.105 * scale;
     const horizontal = Math.hypot(hipX - f.position.x, hipZ - f.position.z);
-    const vertical = Math.sqrt(Math.max(0.01, (0.79 * scale) ** 2 - horizontal ** 2));
-    reachableY = Math.min(reachableY, f.position.y + 0.105 * scale + vertical - 0.03 * scale);
+    const vertical = Math.sqrt(Math.max(0.01, (0.65 * scale) ** 2 - horizontal ** 2));
+    reachableY = Math.min(reachableY, f.position.y + 0.105 * scale + vertical - 0.02 * scale);
   }
-  const idealY = Math.min(support + 0.90, reachableY);
+  const idealY = Math.min(support + 0.75, reachableY);
   v.standY = v.standY == null ? idealY : Math.min(reachableY, THREE.MathUtils.damp(v.standY, idealY, 16, dt));
   const standY = v.standY;
-  const sitY = v.seat === 'table' ? 0.095 : BASE + 0.015;
+  const sitY = v.seat === 'table' ? 0.095 : (v.seat === 'bike' ? getWalkHeight(v.x, v.z) + 0.73 : BASE + 0.015);
   vihaanRig.sitProgress = THREE.MathUtils.damp(vihaanRig.sitProgress, v.isSitting ? 1 : 0, 12, dt);
   const sp = vihaanRig.sitProgress;
   v.y = THREE.MathUtils.lerp(standY, sitY, sp);
@@ -4345,11 +4352,11 @@ function updateVihaanMovement(dt, t) {
   const enabled = state.mode === 'home' && !trophyDialog.open;
   if (enabled) {
     dx = Number(keys.right) - Number(keys.left); dz = Number(keys.down) - Number(keys.up);
-    if (dx || dz) { v.queue = []; v.isSitting = false; v.seat = 'none'; }
+    if (dx || dz) { v.queue = []; if (!bike.riding) { v.isSitting = false; v.seat = 'none'; } }
     else if (v.queue.length) { target = v.queue[0]; dx = target.x - v.x; dz = target.z - v.z; }
   }
   const distance = Math.hypot(dx, dz), previousX = v.x, previousZ = v.z;
-  const maxSpeed = onStairs(v.x, v.z) ? 1.15 : Math.min(v.speed, 1.35);
+  const maxSpeed = bike.riding ? (onStairs(v.x,v.z) ? 1.5 : 2.15) : (onStairs(v.x, v.z) ? 1.15 : Math.min(v.speed, 1.35));
   const directionYaw = distance > 0.001 ? Math.atan2(-dz, dx) : v.yaw;
   const alignment = distance > 0.001 ? Math.max(0, Math.cos(directionYaw - v.yaw)) : 1;
   const wanted = distance > 0.001 ? (target ? Math.min(maxSpeed, Math.sqrt(6 * distance)) : maxSpeed) : 0;
@@ -4361,13 +4368,20 @@ function updateVihaanMovement(dt, t) {
   }
   let travel = v.velocity * dt * alignment;
   if (target) travel = Math.min(travel, distance);
-  if (enabled && travel > 0.00001 && !v.isSitting) {
-    const next = guardedPosition(v.x + (v.moveDX || 0) * travel, v.z + (v.moveDZ || 0) * travel);
+  if (enabled && travel > 0.00001 && (!v.isSitting || bike.riding)) {
+    let next;
+    if (bike.riding) {
+      let nx = Math.max(-10.55,Math.min(11.8,v.x+(v.moveDX||0)*travel));
+      let nz = Math.max(-7.5,Math.min(7.5,v.z+(v.moveDZ||0)*travel));
+      if ((onStairs(nx,nz) || onStairs(v.x,v.z)) && nx > -8.7 && nx < 0.42) nz=Math.max(-2.38,Math.min(-.76,nz));
+      else if (!onStairs(nx,nz) && nx<-.12 && nz> -2.90 && nz<-.25) nz=nz> -1.57?-.25:-2.90;
+      next=new THREE.Vector3(nx,getWalkHeight(nx,nz),nz);
+    } else next = guardedPosition(v.x + (v.moveDX || 0) * travel, v.z + (v.moveDZ || 0) * travel);
     // The pelvis cannot outrun the planted support foot, including turns.
     // Continue the swing while briefly slowing the body if a sharp route change
     // would exceed anatomical reach; the next footfall releases the constraint.
     let allowed = 1;
-    for (const f of vihaanRig.feet) {
+    for (const f of bike.riding ? [] : vihaanRig.feet) {
       if (!f.position || f.swing) continue;
       const reach = Math.hypot(next.x - f.position.x, next.z - f.position.z);
       const limit = onStairs(v.x, v.z) ? 0.67 : 0.58;
@@ -4389,14 +4403,20 @@ function updateVihaanMovement(dt, t) {
     if (!v.queue.length) v.velocity = 0;
   }
   const moved = Math.hypot(v.x - previousX, v.z - previousZ);
-  v.isWalking = moved > 0.0001; v.walkT += moved * 9;
+  v.isWalking = !bike.riding && moved > 0.0001; v.walkT += moved * 9;
   if (v.z < -2.6 && v.x > 0.4 && v.x < 2.4) slider.want = 1;
-  if (!trophyDialog.open) updateFeet(dt, moved);
+  if (!trophyDialog.open && !bike.riding) updateFeet(dt, moved);
+  if (bike.riding) {
+    vihaanRig.sitProgress=1; v.y=getWalkHeight(v.x,v.z)+.73;
+    personGroup.position.set(v.x,v.y,v.z);personGroup.rotation.y=v.yaw;
+    for(const f of vihaanRig.feet){f.sitting.visible=true;f.walking.visible=false;f.sitting.rotation.z=Math.sin(v.walkT*1.7+(f.side<0?0:Math.PI))*.22;}
+    personGroup.updateMatrixWorld(true);updateBikePose(v.x,v.z,v.yaw);
+  }
   const sp = vihaanRig.sitProgress, gait = v.isWalking ? Math.sin(v.walkT) : 0;
   for (const [arm, side] of [[vihaanRig.leftArm, 1], [vihaanRig.rightArm, -1]]) {
-    arm.rotation.z = THREE.MathUtils.damp(arm.rotation.z, (1 - sp) * (-0.7 + side * gait * 0.24), 12, dt);
+    arm.rotation.z = THREE.MathUtils.damp(arm.rotation.z, bike.riding ? -0.34 : (1 - sp) * (-0.7 + side * gait * 0.24), 12, dt);
   }
-  vihaanRig.phone.visible = sp > 0.5;
+  vihaanRig.phone.visible = sp > 0.5 && !bike.riding;
   vihaanRig.torso.rotation.z = -0.12 * sp;
   if (vihaanHeadGroup) { vihaanHeadGroup.rotation.y = Math.sin(t * 1.35) * 0.08; vihaanHeadGroup.rotation.z = Math.sin(t * 2.1) * 0.02; }
 
@@ -4890,6 +4910,63 @@ function stepNeonSwitch(dt) {
 const ticker = plane(11.2, 0.28, basic({ map: tickerTex, color: 0xff4d00, toneMapped: false }), 4.05, 3.3, -1.27); ticker.castShadow = false;
 rbox(11.3, 0.36, 0.05, 0.01, std({ color: 0x0a0a0a, roughness: 0.6 }), 4.05, 3.3, -1.3);
 const tickerLight = new THREE.PointLight(0xff4d00, 2.5, 6, 2); tickerLight.position.set(3.2, 3.15, -0.9); scene.add(tickerLight);
+
+/* ---------- small room life: bike and potted greenery ---------- */
+const bike = { group: new THREE.Group(), wheels: [], riding: false, parked: { x: -1.6, z: 0.35 } };
+scene.add(bike.group);
+const bikeMetal = std({ color: 0x22a9bd, metalness: 0.55, roughness: 0.34 });
+const bikeDark = std({ color: 0x17202d, roughness: 0.7 });
+const bikeRubber = std({ color: 0x17191e, roughness: 0.88 });
+const bikeSeat = std({ color: 0xffd500, roughness: 0.45 });
+function bikeTube(a, b, radius, material) {
+  const start = new THREE.Vector3(...a), end = new THREE.Vector3(...b), d = end.clone().sub(start);
+  const mesh = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius, d.length(), 10), material);
+  mesh.position.copy(start.add(end).multiplyScalar(0.5)); mesh.quaternion.setFromUnitVectors(UP, d.normalize());
+  bike.group.add(mesh); mesh.castShadow = true; return mesh;
+}
+for (const x of [-0.34, 0.34]) {
+  const wheel = new THREE.Group(); wheel.position.set(x, 0.22, 0); wheel.rotation.y = Math.PI / 2;
+  wheel.add(new THREE.Mesh(new THREE.TorusGeometry(0.195, 0.027, 8, 24), bikeRubber));
+  const hub = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 0.09, 12), bikeDark); hub.rotation.x = Math.PI / 2; wheel.add(hub);
+  for (let i = 0; i < 8; i++) { const spoke = new THREE.Mesh(new THREE.CylinderGeometry(0.004, 0.004, 0.35, 5), bikeMetal); spoke.rotation.z = i * Math.PI / 8; wheel.add(spoke); }
+  bike.group.add(wheel); bike.wheels.push(wheel);
+}
+// Two neat triangles give it the familiar shape of a real child's bicycle.
+bikeTube([-.34,.22,0],[-.05,.48,0],.025,bikeMetal);
+bikeTube([-.05,.48,0],[.34,.22,0],.025,bikeMetal);
+bikeTube([-.34,.22,0],[.08,.22,0],.025,bikeMetal);
+bikeTube([.08,.22,0],[-.05,.48,0],.025,bikeMetal);
+bikeTube([.08,.22,0],[.34,.22,0],.025,bikeMetal);
+bikeTube([-.05,.48,0],[-.11,.66,0],.022,bikeMetal);
+bikeTube([-.20,.67,0],[-.015,.67,0],.025,bikeSeat);
+  bikeTube([.34,.22,0],[.40,.78,0],.022,bikeMetal);
+  bikeTube([.30,.78,0],[.48,.78,0],.025,bikeDark);
+for (const x of [-.34,.34]) {
+  const pedal = new THREE.Mesh(new THREE.CylinderGeometry(.018,.018,.22,10),bikeDark); pedal.rotation.z=Math.PI/2; pedal.position.set(.08,.22,0); bike.group.add(pedal);
+}
+bike.group.position.set(bike.parked.x, 0, bike.parked.z); bike.group.visible = true;
+function updateBikePose(x, z, yaw = vihaanState.yaw) {
+  const wf = Math.cos(yaw) * 0.34, wz = -Math.sin(yaw) * 0.34;
+  const rear = getWalkHeight(x - wf, z - wz), front = getWalkHeight(x + wf, z + wz);
+  bike.group.position.set(x, (rear + front) / 2, z);
+  bike.group.rotation.set(0, yaw, Math.atan2(front - rear, 0.68));
+  bike.wheels.forEach(w => { w.rotation.x += vihaanState.velocity * 0.14; });
+}
+function makePlant(x, z, size = 1) {
+  const g = new THREE.Group(); g.position.set(x, 0, z); g.scale.setScalar(size); scene.add(g);
+  const potMat = std({ color: 0xb85f38, roughness: 0.82 });
+  const soilMat = std({ color: 0x33251b, roughness: 1 });
+  const leafMats = [std({ color: 0x287247, roughness: 0.84 }),std({ color: 0x4e9a57, roughness: 0.82 }),std({ color: 0x8fbd57, roughness: 0.82 })];
+  const pot = new THREE.Mesh(new THREE.CylinderGeometry(.22,.16,.32,16),potMat); pot.position.y=.16; g.add(pot); pot.castShadow=true;
+  const soil = new THREE.Mesh(new THREE.CylinderGeometry(.19,.19,.025,16),soilMat); soil.position.y=.325; g.add(soil);
+  for (let i=0;i<7;i++) {
+    const angle=i*Math.PI*2/7, len=.42+(i%3)*.08, leaf=new THREE.Mesh(new THREE.SphereGeometry(.15,12,10),leafMats[i%3]);
+    leaf.scale.set(.62,1.45,.72); leaf.position.set(Math.cos(angle)*.17,.48+len*.38,Math.sin(angle)*.17); leaf.rotation.z=-Math.cos(angle)*.42; leaf.rotation.x=Math.sin(angle)*.35; g.add(leaf); leaf.castShadow=true;
+  }
+  const center=new THREE.Mesh(new THREE.SphereGeometry(.17,12,10),leafMats[1]); center.position.y=.68;g.add(center);
+  return g;
+}
+const roomPlants = [makePlant(-11.75,1.1,1.15),makePlant(-11.55,-5.15,.92),makePlant(-3.7,1.0,.88),makePlant(7.8,2.1,1.05),makePlant(4.25,-4.9,.86),makePlant(-4.95,-4.15,.46),makePlant(-7.45,.55,.82),makePlant(7.4,.45,.48),makePlant(-4.35,-4.45,.55),makePlant(3.8,.55,.42),makePlant(-4.8,.8,.76),makePlant(-4.45,-4.25,.72),makePlant(2.7,.9,.72),makePlant(-2.6,1.25,.62)];
 (function rightWall() {
   const z = -5.8;
   // Reduced brightness: toneMapped true, soft ambient glow, intensity 1.8 (was 7.0)
@@ -5382,13 +5459,15 @@ function targets() {
   if (state.mode === 'hoop') return hoopCam();
   if (state.mode === 'tv') return tvCam();
   if (state.mode === 'chess') return chessCam();
+  if (state.mode === 'trophy') { const i=state.trophyIndex||0, x=-11.4+(10+i+0.5)*0.815, side=i===0?-0.8:0.8; return [V3(x+side,2.95,-1.65),V3(x+side,2.75,-3.38)]; }
   if(innerWidth < 700) return [tmpA.set(-0.6,3.1,9.2),tmpB.set(-1.65,2.35,-3.4)];
   return [tmpA.copy(camBase), tmpB.copy(camLook)];
 }
 const HINTS = {
-  home: '♟️ Play Chess with Bot &nbsp;·&nbsp; Click floor/stairs to walk &nbsp;·&nbsp; WASD keys &nbsp;·&nbsp; Click arcade, hoop & CRT TVs',
+  home: '♟️ Play Chess with Bot &nbsp;·&nbsp; Click floor/stairs to walk &nbsp;·&nbsp; WASD keys &nbsp;·&nbsp; Click arcade, hoop & CRT TVs &nbsp;·&nbsp; Enter near bike or trophy',
   arcade: 'ARROWS / WASD move &nbsp;·&nbsp; SPACE action &nbsp;·&nbsp; pick any of the 5 games below &nbsp;·&nbsp; ESC leave',
-  hoop: 'Drag up on the ball to shoot &nbsp;·&nbsp; ESC leave',
+  hoop: 'Drag up on the ball to shoot &nbsp;·&nbsp; ticker shows your score &nbsp;·&nbsp; ESC leave',
+  trophy: 'VIHAAN’S TROPHY &nbsp;·&nbsp; ESC or close the card to return',
   tv: '← → browse Vihaan\'s builds &nbsp;·&nbsp; click another CRT &nbsp;·&nbsp; ESC leave',
   chess: 'Click a white piece to view moves &nbsp;·&nbsp; Play vs Robo-Pawn 🤖 &nbsp;·&nbsp; ESC or Stand Up to leave'
 };
@@ -5412,6 +5491,7 @@ function setMode(m, arg) {
   resetMovement();
   if (m === state.mode) return;
   state.camFrom.copy(camera.position); state.lookFrom.copy(state.lookCur); state.transT = 0; state.mode = m;
+  if (m === 'trophy') state.trophyIndex = Number(arg)||0;
   hintEl.innerHTML = HINTS[m] || ''; hintEl.classList.add('show');
   document.documentElement.style.overflow = m === 'home' ? '' : 'hidden';
   if (m !== 'home') window.scrollTo(0, 0);
@@ -5585,6 +5665,22 @@ window.addEventListener('pointerup', (e) => {
 window.addEventListener('keydown', (e) => {
   if (trophyDialog.open || /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
   if (state.mode === 'home' && ['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','w','a','s','d','W','A','S','D'].includes(e.key)) e.preventDefault();
+  if (state.mode === 'home' && e.key === 'Enter') {
+    e.preventDefault();
+    if (bike.riding) {
+      bike.riding=false;vihaanState.isSitting=false;vihaanState.seat='none';vihaanState.standY=null;
+      for(const f of vihaanRig.feet){f.position=null;f.swing=null;f.sitting.rotation.z=0;}
+      return;
+    }
+    const awards=[-11.4+(10+.5)*.815,-11.4+(11+.5)*.815].map((x,i)=>({x,z:-3.63,i}));
+    const trophy=awards.map(a=>({...a,d:Math.hypot(vihaanState.x-a.x,vihaanState.z-a.z)})).sort((a,b)=>a.d-b.d)[0];
+    if(trophy.d<1.25){setMode('trophy',trophy.i);openTrophy(trophy.i);return;}
+    if(Math.hypot(vihaanState.x-bike.group.position.x,vihaanState.z-bike.group.position.z)<1.15){
+      bike.riding=true;vihaanState.queue=[];vihaanState.x=bike.group.position.x;vihaanState.z=bike.group.position.z;
+      vihaanState.keys={left:false,right:false,up:false,down:false};vihaanState.isSitting=true;vihaanState.seat='bike';vihaanState.sitProgress=1;
+      vihaanState.standY=null;updateBikePose(vihaanState.x,vihaanState.z,vihaanState.yaw);return;
+    }
+  }
   if (e.key === 'Escape' && state.mode !== 'home') { setMode('home'); return; }
   if (state.mode === 'home') {
     if (['ArrowLeft', 'a', 'A'].includes(e.key)) { vihaanState.keys.left = true; vihaanState.navTarget = null; }
@@ -5804,10 +5900,13 @@ document.querySelectorAll('.chm-lvl').forEach(btn => {
 
 window.__slider = slider; window.__pend = () => pendants.map(p => ({ x: +p.ax.toFixed(4), z: +p.az.toFixed(4) }));
 window.__sblvl = {
-  scene, camera, renderer, state, game, ball, TV, characters,
+  scene, camera, renderer, state, game, ball, TV, characters, bike, roomPlants,
   vihaanState, chessGame, walkVihaanTo, walkVihaanToStairsTop, walkVihaanToStairsBottom, walkVihaanToChessTable,
   getWalkHeight, trophyAwards, openTrophy,
   movementStep(n=1,dt=1/60) { for(let i=0;i<n;i++)updateVihaanMovement(dt, i*dt); return this.movementSnapshot(); },
+  placeVihaan(x,z) { vihaanState.x=x;vihaanState.z=z;vihaanState.isSitting=false;vihaanState.seat='none';vihaanState.standY=null;vihaanState.queue=[];for(const f of vihaanRig.feet){f.position=null;f.swing=null;}updateVihaanMovement(1/60,0);return this.movementSnapshot(); },
+  enter() { window.dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',bubbles:true})); },
+  get tickerLoopW(){return tickerLoopW;},
   movementSnapshot() { return {x:vihaanState.x,y:vihaanState.y,z:vihaanState.z,yaw:vihaanState.yaw,walking:vihaanState.isWalking,queue:vihaanState.queue.length,feet:vihaanRig.feet.map(f=>({side:f.side,ankleReach:f.ankleReach,position:f.position?.toArray(),support:f.position?getWalkHeight(f.position.x,f.position.z):null,swing:!!f.swing,visible:f.walking.visible}))}; },
   bounds() { return characters.map(g => { const b = new THREE.Box3().setFromObject(g); return { min: b.min.toArray().map(v => +v.toFixed(3)), max: b.max.toArray().map(v => +v.toFixed(3)) }; }); },
   steps: Array.from({ length: STEPS }, (_, i) => ({ min: [X_BOTTOM - (i + 1) * RUN, 0, Z0], max: [X_BOTTOM - i * RUN, STEP_TOP(i), i < 3 ? Z1 + 0.55 - i * 0.12 : Z1] })),
