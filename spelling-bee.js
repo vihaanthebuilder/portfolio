@@ -136,7 +136,7 @@
     showPrompt(true);
   }
   function levelLabel(value) {
-    return ({ 'warm-up': 'Warm-Up', 'bee-ready': 'Bee Ready', champion: 'Champion' })[value] || 'Practice';
+    return ({ 'warm-up': 'Warm-Up', 'bee-ready': 'Bee Ready', champion: 'Champion', master: 'Master' })[value] || 'Practice';
   }
   function showHint(which) {
     const word = currentWord();

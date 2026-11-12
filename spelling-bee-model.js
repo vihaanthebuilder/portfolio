@@ -6,7 +6,7 @@
   'use strict';
   const STATE_KEY = 'vihaan-spelling-bee-v1';
   const TRICKY_KEY = 'vihaan-spelling-bee-tricky-v1';
-  const LEVELS = ['warm-up', 'bee-ready', 'champion'];
+  const LEVELS = ['warm-up', 'bee-ready', 'champion', 'master'];
 
   function emptyState() { return { completedDays: [], bestStreak: 0, trickyWords: [] }; }
   function localDateKey(date = new Date()) {
