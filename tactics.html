@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101218">
+  <title>Chess Tactics — Vihaan's World</title>
+  <meta name="description" content="Find the checkmate from real rated games played by Vihaan on Lichess.">
+  <link rel="canonical" href="https://vihaanthebuilder.github.io/portfolio/tactics.html">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="sublevel-os.css">
+  <link rel="stylesheet" href="sub-navs.css">
+  <link rel="stylesheet" href="assets/chess-tactics.css">
+  <script defer src="sublevel-os.js"></script>
+  <script defer src="sub-navs.js"></script>
+</head>
+<body>
+  <main class="tactics-page">
+    <a class="tactics-back" href="chess.html">← Chess Journey</a>
+    <header class="tactics-hero">
+      <span class="tactics-eyebrow">VIHAAN.OS / CHESS / REAL GAME MOMENTS</span>
+      <h1>Find the <span>winning move.</span></h1>
+      <p>These checkmates come from Vihaan's own rated games. Take your time, look for a safe king, and find the move he played.</p>
+    </header>
+
+    <section class="tactics-layout" aria-label="Chess tactic puzzle">
+      <div class="tactics-board-card">
+        <div class="tactics-board-top">
+          <div><span class="tactics-label">YOUR PUZZLE</span><strong id="puzzle-number">Puzzle 1 of 12</strong></div>
+          <span class="tactics-motif" id="puzzle-label">Mate in one</span>
+        </div>
+        <div class="tactics-turn"><span class="turn-dot" id="turn-dot" aria-hidden="true"></span><span id="side-to-move">Black to move</span></div>
+        <div id="chess-board" class="chess-board" role="group" aria-label="Chess board. Select a piece, then a square, or drag a piece to a square."></div>
+        <div class="board-caption"><span>Tap or click a piece, then its square.</span><span>Or drag it there.</span></div>
+      </div>
+
+      <aside class="tactics-side">
+        <section class="tactics-prompt">
+          <span class="tactics-label">THE CHALLENGE</span>
+          <h2>Find checkmate in one move.</h2>
+          <p>There is no timer and you can try again. Think it through one move at a time.</p>
+          <p id="move-feedback" class="move-feedback" role="status" aria-live="polite">Your move whenever you're ready.</p>
+          <a id="source-game" class="source-game" target="_blank" rel="noopener noreferrer" hidden>Watch this real game ↗</a>
+          <button id="next-puzzle" class="next-puzzle" type="button" disabled>Next puzzle <span aria-hidden="true">→</span></button>
+        </section>
+
+        <section class="tactics-progress" aria-labelledby="solved-title">
+          <span class="progress-flare" aria-hidden="true">✦</span>
+          <div>
+            <span class="tactics-label">YOUR PRACTICE</span>
+            <h2 id="solved-title"><span id="solved-count">0</span> solved</h2>
+            <p>Saved on this device. Every puzzle you solve here is a step forward.</p>
+          </div>
+        </section>
+        <p class="tactics-proof">Each board is the exact position before a move from a real rated Lichess game. No made-up positions.</p>
+      </aside>
+    </section>
+    <footer class="tactics-footer"><a href="gameroom.html">Back to your Game Room</a><span>One good move at a time.</span></footer>
+  </main>
+  <script src="assets/chess-tactics-puzzles.js"></script>
+  <script type="module" src="assets/chess-tactics.js"></script>
+</body>
+</html>
