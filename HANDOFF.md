@@ -1222,3 +1222,13 @@ Nishant said "Publish vihaan" in the Coding chat. Publish BOTH ready branches, i
 - This is a local merge only. No push or deployment has been started.
 
 - Coordinator GO progress update: step 2 is now DONE locally. `feature/room-life` at `7f348a0851d7c20aae3c50ab554028546e1970d9` was merged into `main`; the merge commit is recorded by the current local main tip. The restored pre-merge wording above is retained as history. Push/deploy/live verification remain pending.
+
+## Publish sub-navs + Room Life — deployment and live verification (Nov 11, 2026)
+
+- Published local main tip `8d8197a20daa4fed7d8faac0f2121264b6818f52`; push range was `591257987f55ac8c8d901fcc8fc13682dd42302b..8d8197a20daa4fed7d8faac0f2121264b6818f52` on `origin/main`, without force.
+- GitHub Pages workflow **Deploy to GitHub Pages** succeeded for that exact SHA: [run 43141150572](https://github.com/vihaanthebuilder/portfolio/actions/runs/43141150572). Live pages returned HTTP 200 and reported deployment Last-Modified `2026-11-12 02:24:24 UTC`.
+- Live Chrome at the homepage (desktop 1440×1000) rendered the five grouped nav buttons (Chess, LEGO, Play, Words, Me); Play opened Games and Comics. The homepage reported document width 1440. The 3D Room Life scene rendered the slower ticker (6,099 px loop at 72 px/s, ~84.71 seconds), the parked bike at `[-1.6, 0, 0.35]`, and fourteen plants; visible in `/tmp/vihaan-publish-final/home-desktop.png`.
+- Live Chrome at the homepage (phone 390×844) had viewport/client/document/body widths all 390. The mobile drawer rendered all five groups; Play opened Games and Comics. Capture: `/tmp/vihaan-publish-final/home-mobile-nav-open.png` (closed-state page capture: `home-mobile.png`). No horizontal overflow.
+- Live `spelling-bee.html` returned HTTP 200 at phone width with no horizontal overflow. Its grouped bar rendered all five groups, and both the `vihaan.` logo and a `Home` link point to `index.html`, so the known way-home flag is resolved. Capture: `/tmp/vihaan-publish-final/spelling-mobile.png`.
+- No uncaught JavaScript/page exceptions occurred. Chrome did report one missing resource, `https://vihaanthebuilder.github.io/portfolio/images/dog.bin` (HTTP 404) on homepage loads; this request did not prevent the 3D room, bike, plants, or navigation from rendering. Treat it as a separate existing asset issue, not a clean zero-resource-error result.
+- Verification JSON: `/tmp/vihaan-publish-final/live-results.json`. The live verification and this handoff entry occurred after deployment; this record is currently a local working-tree change and has not been included in another push.
