@@ -1305,4 +1305,4 @@ Every puzzle is a real rated Standard game. “Move” is the move number shown 
 - At the same current time, the page displayed `16 days`, matching the Game Room's countdown exactly. `gameroom.html` and `chess.html` each returned HTTP 200 and each contains exactly one checklist link.
 - Screenshots: `/tmp/vihaan-road-to-state/checklist-desktop.png`, `/tmp/vihaan-road-to-state/checklist-phone.png`, `/tmp/vihaan-road-to-state/one-item-ticked.png`.
 - `node --check road-to-state.js` and `git diff --check` for authored changes passed.
-- Completed locally on `feature/road-to-state-checklist`, based directly on `origin/main` at `beafd438b23df4c41e3eafd8b420da5fd76d2a43`. No push, merge, or publish.
+- Implementation commit: `dc5f9c80a744e5e7900101771e1c05ecd3517b7e`. Completed locally on `feature/road-to-state-checklist`, based directly on `origin/main` at `beafd438b23df4c41e3eafd8b420da5fd76d2a43`. No push, merge, or publish.
