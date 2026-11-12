@@ -25,3 +25,4 @@ body.game-room{background:var(--gr-bg)!important;color:#f5f3eb!important}
 .game-room .gr-reset{font-size:13px;color:var(--gr-gold);font-weight:600;margin-top:12px}
 @media(max-width:760px){.gr-board iframe{aspect-ratio:4/5}}
 .game-room .gr-footer{background:transparent}
+.gr-road-checklist-link{margin:16px 0 0}

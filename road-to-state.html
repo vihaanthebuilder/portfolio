@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101218">
+  <title>Road to State — Vihaan's World</title>
+  <meta name="description" content="A calm prep checklist for Vihaan's NWA Fall Scholastic tournament in Fayetteville.">
+  <link rel="canonical" href="https://vihaanthebuilder.github.io/portfolio/road-to-state.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="sublevel-os.css">
+  <link rel="stylesheet" href="sub-navs.css">
+  <link rel="stylesheet" href="road-to-state.css">
+  <script defer src="sub-navs.js"></script>
+  <script defer src="road-to-state.js"></script>
+</head>
+<body class="road-page">
+  <a class="road-skip" href="#main">Skip to your checklist</a>
+  <nav class="road-nav" aria-label="Main navigation">
+    <a class="road-wordmark" href="index.html">vihaan<span>.</span></a>
+    <div class="gr-nav-links" id="road-nav-links">
+      <a href="lego.html">LEGO Lab</a><a href="hall-of-fame.html">Hall of Fame</a><a href="chess.html">Chess</a><a href="gameroom.html">Game Room</a><a href="notebook.html">Notebook</a><a href="goals.html">Goals</a><a href="badges.html">Badges</a><a href="games.html">Games</a><a href="comics.html">Comics</a>
+    </div>
+    <button type="button" id="road-menu" aria-expanded="false" aria-controls="road-nav-links">☰ Menu</button>
+  </nav>
+  <main id="main" class="road-main">
+    <a class="road-back" href="gameroom.html">← Your Game Room</a>
+    <header class="road-hero">
+      <p class="road-eyebrow">VIHAAN.OS / CHESS / NEXT ADVENTURE</p>
+      <h1>Road to <span>State.</span></h1>
+      <p class="road-lead">One good move at a time. Your next tournament is in:</p>
+      <p class="road-countdown" id="days-left" aria-live="polite">Counting the days…</p>
+      <p class="road-countdown-note" id="days-note">Until tournament day in Fayetteville.</p>
+    </header>
+
+    <section class="road-card" aria-labelledby="day-title">
+      <div class="road-section-head"><p class="road-eyebrow">THE PLAN</p><h2 id="day-title">The day</h2></div>
+      <dl class="road-facts">
+        <div><dt>Tournament</dt><dd>2026 NWA Fall Scholastic</dd></div>
+        <div><dt>Date</dt><dd>Saturday, November 28, 2026</dd></div>
+        <div><dt>Place</dt><dd>3880 N Front St, Fayetteville</dd></div>
+        <div><dt>Check-in</dt><dd>8:00–9:00 AM</dd></div>
+        <div><dt>Round 1</dt><dd>9:30 AM</dd></div>
+        <div><dt>Entry</dt><dd>$30, due on-site that morning (cash, check, or card)</dd></div>
+        <div><dt>Leave home</dt><dd>Around 8:00 AM</dd></div>
+      </dl>
+    </section>
+
+    <section class="road-card" aria-labelledby="practice-title">
+      <div class="road-section-head"><p class="road-eyebrow">A LITTLE PRACTICE</p><h2 id="practice-title">Practice checklist</h2></div>
+      <p class="road-hint">Tap a box when you finish. Your checkmarks stay on this device.</p>
+      <div class="road-checklist" id="practice-list" data-list="practice">
+        <div class="road-check"><label><input type="checkbox" data-id="daily-quest"><span><strong>Daily Quest today</strong><small>10 puzzles + 1 game</small></span></label></div>
+        <div class="road-check"><label><input type="checkbox" data-id="tactics"><span><strong>One tactics-trainer session</strong><small>Find the winning move.</small></span></label><a href="tactics.html">Open trainer ↗</a></div>
+        <div class="road-check"><label><input type="checkbox" data-id="treasure-map"><span><strong>Review one treasure-map game</strong><small>Look for one move you might try next time.</small></span></label><a href="gameroom.html#review">Open Game Room ↗</a></div>
+      </div>
+      <p class="road-save-note" role="status" id="practice-status">Saved on this device.</p>
+    </section>
+
+    <section class="road-card" aria-labelledby="morning-title">
+      <div class="road-section-head"><p class="road-eyebrow">TOURNAMENT MORNING</p><h2 id="morning-title">Morning of</h2></div>
+      <p class="road-hint">These are the confirmed morning details.</p>
+      <div class="road-checklist" id="morning-list" data-list="morning">
+        <div class="road-check"><label><input type="checkbox" data-id="leave"><span><strong>Leave home around 8:00 AM</strong></span></label></div>
+        <div class="road-check"><label><input type="checkbox" data-id="check-in"><span><strong>Check in between 8:00 and 9:00 AM</strong></span></label></div>
+        <div class="road-check"><label><input type="checkbox" data-id="entry"><span><strong>Pay the $30 entry fee on-site</strong><small>Cash, check, or card</small></span></label></div>
+        <div class="road-check"><label><input type="checkbox" data-id="round-one"><span><strong>Round 1 starts at 9:30 AM</strong></span></label></div>
+      </div>
+      <p class="road-save-note" role="status" id="morning-status">Saved on this device.</p>
+    </section>
+
+    <nav class="road-links" aria-label="Chess links">
+      <a href="gameroom.html">← Your Game Room</a>
+      <a href="tactics.html">Find the winning move ↗</a>
+    </nav>
+  </main>
+</body>
+</html>

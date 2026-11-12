@@ -1237,7 +1237,7 @@ Nishant said "Publish vihaan" in the Coding chat. Publish BOTH ready branches, i
 
 Nishant approved these in the Agent Board Feature Queue. Work them in order, local commits only, no publish. When one finishes, start the next without waiting. Update this HANDOFF as you go.
 1. FEATURE-BRIEF-chess-tactics-trainer.md — Chess tactics trainer: "find the winning move" puzzles from his own Lichess games (vihaan_67). DISPATCHED Nov 11 evening.
-2. Road to State prep checklist — Fayetteville Nov 28 prep steps alongside the live countdown. (No brief yet — write FEATURE-BRIEF-road-to-state-checklist.md before dispatching.)
+2. **Road to State prep checklist — FEATURE-BRIEF-road-to-state-checklist.md** — COMPLETE locally on `feature/road-to-state-checklist`, Nov 11, 2026. Commit recorded below; local only, not published.
 3. Author's Room Ch 3 — the tendons chapter (Ch 3 DONE Nov 11, 3 pages, read aloud). Add it to the Author's Room. NOTE: the queue item says "Nervous-system page" but the book's Ch 3 is tendons — use tendons, not nervous system. Clean typed copies are flagged stale/unverified as verbatim — check against his notebooks before publishing, and never present dad-changed wording ("making blood cells") as his own ("pumping blood cells").
 4. Spelling Bee new word packs / next level — 122 words shipped; new packs or the next level up. (No brief yet.)
 5. Cruise Ship Deck 3 build tracker — mirror his real LEGO floor-3 build on the site as he builds it. (No brief yet.)
@@ -1283,3 +1283,26 @@ Every puzzle is a real rated Standard game. “Move” is the move number shown 
 - Syntax checks for both trainer JS files passed. `git diff --check` passed for authored files; the vendored upstream `chess.js` has existing mixed space-tab indentation that the repository whitespace check flags, so the vendored library was left intact.
 - Fresh captures: `/tmp/vihaan-chess-tactics/puzzle-desktop.png`, `/tmp/vihaan-chess-tactics/puzzle-phone.png`, `/tmp/vihaan-chess-tactics/solved-desktop.png`.
 - Complete locally on `feature/chess-tactics-trainer`, branched from `origin/main` at `beafd438b23df4c41e3eafd8b420da5fd76d2a43`. The trainer files and this HANDOFF record were committed locally. The pre-existing coordinator-owned `AGENTS.md` edit and untracked briefs/book records were left unstaged. No push, merge, or publish.
+
+## Road to State prep checklist — active dispatch (Nov 11, 2026)
+
+- Started approved Feature Queue item 2 from `FEATURE-BRIEF-road-to-state-checklist.md` on `feature/road-to-state-checklist`, created directly from `origin/main` at `beafd438b23df4c41e3eafd8b420da5fd76d2a43`. Local commits only; no push, merge, or publish.
+- Existing coordinator records were retained while moving from the chess trainer branch to this independent base branch; no chess trainer implementation files are included here.
+- Reconnaissance confirmed the live Game Room countdown uses local midnight on Nov 28, 2026, a ceil-to-minutes then floor-to-days calculation, a tournament-day state, and a minute refresh. The checklist uses the same date arithmetic and updates every minute.
+
+
+### Road to State checklist — shipped locally
+
+- Added `road-to-state.html`, `road-to-state.css`, and `road-to-state.js`. Page order follows the brief: live days-left header, confirmed day facts, practice checklist, morning-of checklist, and links to Game Room and tactics trainer.
+- Facts shown: 2026 NWA Fall Scholastic; Saturday, Nov 28, 2026; 3880 N Front St, Fayetteville; check-in 8:00–9:00 AM; Round 1 9:30 AM; $30 due on-site (cash/check/card); leave home around 8:00 AM. No unconfirmed itinerary, end time, round count, lunch or packing advice.
+- The three practice checks and four morning checks start unticked and persist with localStorage. Practice checks are keyed to the local calendar day so “today” rolls over naturally; morning checks persist on this device. No streak, completion total, or missed-day marker is displayed.
+- Added exactly one link to the checklist near the Game Room countdown and exactly one from `chess.html`. The “Find the winning move” link points to `tactics.html` on the separate unpublished `feature/chess-tactics-trainer` branch; that page is not part of this branch's base tree.
+
+### Verification
+
+- Chrome at 1440×1000 and 390×844: checklist returned HTTP 200; all seven checkboxes were initially clear; page widths matched viewport (1440/1440 and 390/390); no JS/page errors or failed responses.
+- At both sizes, ticking “Daily Quest today” saved it and it remained ticked after reload. On phone, the Menu opens and a grouped Chess menu expands. Screenshot after one tick: `/tmp/vihaan-road-to-state/one-item-ticked.png`.
+- At the same current time, the page displayed `16 days`, matching the Game Room's countdown exactly. `gameroom.html` and `chess.html` each returned HTTP 200 and each contains exactly one checklist link.
+- Screenshots: `/tmp/vihaan-road-to-state/checklist-desktop.png`, `/tmp/vihaan-road-to-state/checklist-phone.png`, `/tmp/vihaan-road-to-state/one-item-ticked.png`.
+- `node --check road-to-state.js` and `git diff --check` for authored changes passed.
+- Implementation commit: `dc5f9c80a744e5e7900101771e1c05ecd3517b7e`. Completed locally on `feature/road-to-state-checklist`, based directly on `origin/main` at `beafd438b23df4c41e3eafd8b420da5fd76d2a43`. No push, merge, or publish.
