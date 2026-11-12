@@ -1151,3 +1151,74 @@ Nishant's asks (Nov 10, 2026, a run of short messages about the home-page 3D sce
 - Headless Chrome without SwiftShader could not create the homepage's existing Three.js WebGL context; reran visual QA with SwiftShader, which rendered the scene and showed no uncaught JS exceptions. The Game Room also returned its known external Lichess games API 404 during local browser QA; the local static server returned a favicon 404 on pages without a favicon declaration. Neither originates in the navigation change; all requested page URLs returned 200.
 - Screenshots for coordinator review: `/tmp/vihaan-sub-navs/home-closed.png`; `/tmp/vihaan-sub-navs/home-chess.png`, `home-lego.png`, `home-play.png`, `home-words.png`, `home-me.png`; `/tmp/vihaan-sub-navs/phone-menu-open.png`; and `/tmp/vihaan-sub-navs/chess-interior.png` (desktop, Chess group and Chess item marked). Machine-readable run summary: `/tmp/vihaan-sub-navs/results-final.json`.
 - Local commit only; no merge, push, or publish. Room Life remains queued behind this feature.
+
+## Room life (3D scene) — start state (Nov 10, 2026)
+
+- Created `feature/room-life` from current `main` at `591257987f55ac8c8d901fcc8fc13682dd42302b`, after the local sub-navigation commit `ee545a43d077422fb74a477c517e1565240a620a` was completed on its separate branch. The room-life branch does not include the sub-navigation application changes.
+- Preserved the coordinator's untracked brief/source files. During branch setup, manually resolved the `HANDOFF.md` checkout conflict by keeping the full main history and the sub-navigation completion plus room-life dispatch records from the working handoff. No application code has been changed yet.
+
+### Room life — reconnaissance (Nov 10, 2026; before application edits)
+
+- The homepage's scene is an inline Three.js module in `index.html`. The ticker message is repeated on a canvas, measured at 6,099 px in Chrome using the current `700 44px "Geist Mono"` font, and advances at 165 px/s. One complete text loop currently takes about 36.96 seconds. Baseline desktop capture: `/tmp/vihaan-room-life/character-before-desktop.png`; homepage loaded with the existing scene instrumentation and no page errors.
+- Basketball interaction already has a `hoop` mode, a ball with throw physics, floor/backboard/rim collision, make detection and `ball.score`/`ball.shots`. `throwBall(dx, dyUp, ms)` is exposed through `window.__sblvl`; the hint advertises dragging up or Space. The ticker is currently independent of mode; the scene's ticker canvas is drawn at 165 px/s. Leaving `hoop` returns to the home mode.
+- The avatar is built from `personGroup` and `vihaanRig` inside the same module. Current walk posing uses an approximately 0.8-unit hip-to-ankle reach, planted-foot height from the existing stair-aware sampler, and smoothstep swing timing with 0.19-unit clearance. Walking derives tread support from `getWalkHeight`; stair rise is 0.265 and run is 0.6 across 14 steps. These support and collision rules must remain authoritative while adjusting the child-like leg proportions and gait.
+- Trophy rack models already raycast to existing modal cards. The cards carry verified award data and the Peace Academy photograph; the Crowder display remains its rack model. `openTrophy(index)` and `trophyAwards` are exposed in test instrumentation. No near-plus-Enter trophy interaction or trophy camera zoom is present.
+- The homepage has keyboard movement and route walking but no bicycle or plant props. Existing stair geometry and movement guards cover the stair flight and landing. The room-life additions need to avoid editing existing award text/assets and must keep the route and foot-support behavior intact.
+- Starting baseline state: branch `feature/room-life`, based on `main` at `591257987f55ac8c8d901fcc8fc13682dd42302b`; the separate `feature/sub-navs` local commit is intentionally not included. Existing tracked work is only the handoff update. Coordinator-provided brief/source documents remain untracked and untouched. Recon is complete; application changes begin after this record.
+
+### Room life — implementation progress (Nov 10, 2026)
+
+- Slowed the ticker from 165 px/s to 72 px/s. At the measured 6,099 px loop, the crossing time changes from 36.96 seconds to 84.71 seconds.
+- The existing hoop mode still uses the real ball throw physics, rim/backboard collision and make detection. Its ticker canvas now switches to `VIHAAN · SCORE · SHOTS` while the mode is active and returns to the scrolling message on exit; existing drag-up/Space controls remain. A full-mode screenshot run recorded a make at 2 points after 2 attempts, plus a shot in flight and home ticker restoration.
+- Adjusted the child rig: lowered standing pelvis height from 0.90 to 0.75 above support, shortened the walking leg reach to 0.65, and shortened the separate seated legs and shoe placements; the mounted pose now reaches the raised handlebars, pedals visibly, and hides the phone. Preserved the existing support sampler and landing step rules. The existing physical-contact suite first caught 8 planted-sole penetrations after an ankle-offset adjustment; restoring the established 0.105 sole offset returned all 33,328 contact samples to non-penetrating planted support (minimum gap 0.0000000008, zero bad samples).
+- Added a small teal/yellow child bike with two tread-contact wheels, proximity plus Enter mount/dismount, faster keyboard travel, independent wheel support sampling and frame tilt across the stair rise. Its home spot is under the low end of the stair flight, outside the marked stair and walking strip. The initial interaction probe found the first parking spot overlapped trophy proximity; moved it to the stair side and retested mounting and flat travel. Final bike verification measured 1.91 units of flat travel over one second (walking cap 1.35) and confirmed tread support up/down the flight.
+- Added potted greenery along the stair edge, beside the rack and around the room perimeter; expanded the final scene to fourteen non-colliding plants. Added proximity plus Enter trophy zoom for both awards. It opens the existing card with unchanged stats/photo, frames the selected rack trophy beside the card, and Escape/close restores home camera. Existing click/tap card activation remains green.
+- Regression checks already run on the modified scene: `walk-and-trophies.cjs`, `walk-physical-contact.cjs`, `walk-picking.cjs`, and `walk-boundaries.cjs`. All passed on their required desktop/mobile coverage; 33,328 planted-contact samples had zero penetrations, both actual rack click/tap cards and ground walking passed, all boundary checks passed, and no page errors were recorded. `git diff --check` passed at the last check.
+- Draft screenshots in `/tmp/vihaan-room-life/` include before/after character, flat/stair gait, hoop shot/make/score/ticker restore, parked/flat/up/down bike, and Enter trophy cards. Reviewing them exposed visibility/presentation refinements still in progress; final screenshots and the consolidated desktop/mobile browser report will replace the current draft run before committing. No commit, merge, push, or publish has happened.
+
+### Room life — final verification (Nov 10, 2026)
+
+- Desktop Chrome at 1440×1000: homepage loaded in `home`; document width 1440; no page or console errors. Phone Chrome at 390×844: document/body width 390; no horizontal overflow or page/console errors. Phone report: `/tmp/vihaan-room-life/results-final-mobile.json`.
+- Ticker measured 6,099 px in both runs: 165 px/s → 36.96 seconds before, 72 px/s → 84.71 seconds after. Basketball was thrown through the existing controls; the first attempt missed and the second scored 2 points (2 shots). Screens show flight, score, and the restored home ticker.
+- Full-body before/after captures use the same standing pose and 1440×1000 view. Seven-frame mid-stride captures show flat-ground and mid-stair gait. Walking contacts and stair tread support passed the existing physical-contact suite with 33,328 samples, zero bad planted samples, and minimum gap 0.0000000008.
+- Bike fresh-load home spot: `[-1.6, 0, 0.35]`, under the low stair flight and outside the walk strip. Enter mounted and dismounted; average flat travel measured 1.91 units over one second (walking cap is 1.35). The same mounted bike reached a stair tread at x=-2.40 with wheel support 1.45, then rode down to the 0.92 tread. The bike stayed at the dismount position. Parked, flat-ride, ascent and descent captures are saved.
+- Proximity + Enter selected Crowder and Peace separately. The camera zoomed to the selected rack trophy (Crowder camera x=-3.6425; Peace x=-1.2275), showed each existing card with unchanged stats/photo, and returned to the default home camera after Escape. The existing click/tap card test was rerun after this change and passed on desktop and phone.
+- Fourteen non-colliding potted plants are placed by the room edge, stair side, rack area and TV area; the wide capture shows the room greenery without closing paths or covering the features.
+- Existing regression checks all passed: `walk-and-trophies.cjs`, `walk-physical-contact.cjs`, `walk-picking.cjs`, and `walk-boundaries.cjs`. Final `git diff --check` passed. Full browser summary: `/tmp/vihaan-room-life/results-final-desktop.json` and `/tmp/vihaan-room-life/results-final-mobile.json`.
+- Review captures in `/tmp/vihaan-room-life/`: `character-before-desktop.png`, `character-after-desktop.png`, `walk-flat-midstride.png`, `walk-stairs-midstride.png`, `basketball-shot-in-flight.png`, `basketball-scoreboard.png`, `ticker-restored.png`, `bike-parked-under-stairs.png`, `bike-riding-flat.png`, `bike-riding-up-stairs.png`, `bike-riding-down-stairs.png`, `trophy-crowder-enter-card.png`, `trophy-peace-enter-card.png`, `room-plants-wide-desktop.png`, and `room-mobile-390x844.png`.
+- Work is complete on `feature/room-life`, based on `main` at `591257987f55ac8c8d901fcc8fc13682dd42302b`. The sub-navigation branch remains separate. Local commit only; no merge, push, or publish.
+- Final rerun note: the current workspace has no installed `playwright` package, so this session could not repeat the four browser regression scripts (`walk-and-trophies.cjs`, `walk-physical-contact.cjs`, `walk-picking.cjs`, `walk-boundaries.cjs`). Their successful final runs are recorded above from the completed verification session. The final source whitespace check passed.
+- Local completion commit: `72c63d6567696445d1ca61bc7a3c4de5a210cb3e` on `feature/room-life`. No push, merge, or publish. The sub-navigation branch remains separate and the coordinator-owned untracked briefs/source records were not staged.
+
+## Room life (3D scene) — COMPLETE locally, commit 72c63d6 — RESTORED RECORD (Goku, the coordinator, Nov 11 2026)
+
+This record was dropped from HANDOFF.md when feature/sub-navs was merged into main as 5cd253d. Restored here by the coordinator from the file-verified record read Nov 11. Verify it against feature/room-life before relying on it.
+
+- Branch feature/room-life from main 5912579; local commit 72c63d6567696445d1ca61bc7a3c4de5a210cb3e. No merge, push, or publish yet. The sub-navigation branch remains separate.
+- Ticker slowed 165 to 72 px/s (loop 36.96s to 84.71s).
+- Basketball: ticker canvas becomes "VIHAAN · SCORE · SHOTS" in hoop mode and restores after; verified second shot scored 2 points (2 shots).
+- Kid proportions: standing pelvis height 0.90 to 0.75, walking leg reach shortened to 0.65; 33,328 contact samples, zero sole penetrations (0.105 sole offset restored).
+- Bike: small teal/yellow kid bike, proximity plus Enter mount/dismount, home spot [-1.6, 0, 0.35] under the low stair flight; flat travel 1.91 units over one second (walk cap 1.35); rides up and down the flight; stays at the dismount spot.
+- Trophy zoom: proximity plus Enter for both awards; Crowder camera x=-3.6425, Peace x=-1.2275; existing cards unchanged; Escape/close restores home camera.
+- Plants: 14 non-colliding potted plants.
+- Regression suites passed (walk-and-trophies, walk-physical-contact, walk-picking, walk-boundaries); desktop 1440x1000 and phone 390x844, zero page/console errors; git diff --check passed. 15 review captures in /tmp/vihaan-room-life/.
+- FLAG: sub-navs results said spellingHomePreserved: false — check the Spelling Bee Home link during live-verify; do not hold the publish for it.
+
+## COORDINATOR GO — publish sub-navs + Room Life (Nishant, Nov 11, 2026, 09:44 CT) — RESTORED Nov 11 evening
+
+This GO entry was dropped from HANDOFF.md in the 5cd253d sub-navs merge. Restored by the coordinator with its original text. Step 1 is DONE (sub-navs merged as 5cd253d); continue from step 2.
+
+Nishant said "Publish vihaan" in the Coding chat. Publish BOTH ready branches, in this order:
+
+1. DONE — Merge `feature/sub-navs` (commit ee545a4) into `main` as 5cd253d. Resolve any HANDOFF.md / tests conflicts by combining records — never drop text.
+2. Then merge `feature/room-life` (commit 72c63d6) into `main` the same way. The two branches are separate off main at 5912579 and must be combined.
+3. Push to origin main. After each push, confirm the GitHub Pages deploy succeeded.
+4. Live-verify on https://vihaanthebuilder.github.io/portfolio/ : grouped sub-navigation present on the pages (desktop + phone widths), homepage 3D room shows the Room Life changes (slower ticker, bike parked under the stairs, plants), no page errors, no horizontal overflow on phone.
+5. Known flag to check during live-verify and record honestly either way: sub-navs results said `spellingHomePreserved: false` — check whether the Spelling Bee page still has a working way home (logo link / Home item) in the live grouped nav. Record what you find; do not hold the publish for it — Nishant approved publishing with the flag known.
+6. Record the whole publish (merge commits, push range, Pages run numbers, live-verify results) in HANDOFF.md.
+### Room Life merge clarification (Nov 11, 2026)
+
+- The Room Life feature branch tip merged locally is `7f348a0851d7c20aae3c50ab554028546e1970d9`. The referenced `72c63d6567696445d1ca61bc7a3c4de5a210cb3e` is its immediately preceding commit; comparing them shows only the final HANDOFF commit-reference line differs, with the scene implementation unchanged.
+- This is a local merge only. No push or deployment has been started.
+
+- Coordinator GO progress update: step 2 is now DONE locally. `feature/room-life` at `7f348a0851d7c20aae3c50ab554028546e1970d9` was merged into `main`; the merge commit is recorded by the current local main tip. The restored pre-merge wording above is retained as history. Push/deploy/live verification remain pending.
