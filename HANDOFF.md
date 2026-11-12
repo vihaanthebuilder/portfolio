@@ -1306,3 +1306,14 @@ Every puzzle is a real rated Standard game. “Move” is the move number shown 
 - Screenshots: `/tmp/vihaan-road-to-state/checklist-desktop.png`, `/tmp/vihaan-road-to-state/checklist-phone.png`, `/tmp/vihaan-road-to-state/one-item-ticked.png`.
 - `node --check road-to-state.js` and `git diff --check` for authored changes passed.
 - Implementation commit: `dc5f9c80a744e5e7900101771e1c05ecd3517b7e`. Completed locally on `feature/road-to-state-checklist`, based directly on `origin/main` at `beafd438b23df4c41e3eafd8b420da5fd76d2a43`. No push, merge, or publish.
+
+## Publish — Chess Tactics Trainer + Road to State checklist (Nishant authorized, Nov 11, 2026)
+
+- Published only the two approved branches. The detached publish worktree started at `origin/main` `beafd438b23df4c41e3eafd8b420da5fd76d2a43`; no feature code was merged in the primary checkout.
+- Merged `feature/chess-tactics-trainer` (`d119942`) as `97f71944612b272178ecd6ce8d39fb4c2c56a276`, then `feature/road-to-state-checklist` (`dc5f9c8`, with its HANDOFF follow-up) as `9bef2f00403fcaab82492eb45773741a67ffa9d1`.
+- The second merge conflicted in `HANDOFF.md` and `chess.html`. Resolved HANDOFF by retaining the complete tactics and Road to State records and setting queue item 2 to its completed-local status. Resolved `chess.html` by keeping both CTAs. `gameroom.html` merged automatically and contains both links. Verified each destination link occurs once in both `chess.html` and `gameroom.html`.
+- Pushed without force. Push range: `beafd438b23df4c41e3eafd8b420da5fd76d2a43..9bef2f00403fcaab82492eb45773741a67ffa9d1` to `origin/main`; `git ls-remote` confirmed `origin/main` at `9bef2f00403fcaab82492eb45773741a67ffa9d1`.
+- GitHub Pages **Deploy to GitHub Pages** succeeded for that exact SHA: [run 43160528356](https://github.com/vihaanthebuilder/portfolio/actions/runs/43160528356). GitHub emitted Node.js 20 deprecation and Ubuntu image migration notices; deploy conclusion was success.
+- Live Chrome verification: `tactics.html` and `road-to-state.html` each returned HTTP 200 at 1440×1000 and 390×844. Tactics rendered all 64 squares; Road to State rendered all seven checklist items and `16 days`. For both pages at both sizes, document, client, and body widths matched the viewport (1440 or 390). No console/page errors or failed responses. The live Game Room returned HTTP 200, showed exactly one link to each page, and direct requests to both destinations returned HTTP 200.
+- Live evidence and screenshots: `/tmp/vihaan-publish-tactics-road/live-results.json`, `tactics-desktop.png`, `tactics-phone.png`, `road-desktop.png`, and `road-phone.png`.
+- This publish record is being committed on the merged main line and pushed so the record is present on `origin/main` too.
