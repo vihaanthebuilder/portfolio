@@ -1238,9 +1238,33 @@ Nishant said "Publish vihaan" in the Coding chat. Publish BOTH ready branches, i
 Nishant approved these in the Agent Board Feature Queue. Work them in order, local commits only, no publish. When one finishes, start the next without waiting. Update this HANDOFF as you go.
 1. FEATURE-BRIEF-chess-tactics-trainer.md — Chess tactics trainer: "find the winning move" puzzles from his own Lichess games (vihaan_67). DISPATCHED Nov 11 evening.
 2. **Road to State prep checklist — FEATURE-BRIEF-road-to-state-checklist.md** — COMPLETE locally on `feature/road-to-state-checklist`, Nov 11, 2026. Commit recorded below; local only, not published.
-3. Author's Room Ch 3 — the tendons chapter (Ch 3 DONE Nov 11, 3 pages, read aloud). Add it to the Author's Room. NOTE: the queue item says "Nervous-system page" but the book's Ch 3 is tendons — use tendons, not nervous system. Clean typed copies are flagged stale/unverified as verbatim — check against his notebooks before publishing, and never present dad-changed wording ("making blood cells") as his own ("pumping blood cells").
-4. Spelling Bee new word packs / next level — 122 words shipped; new packs or the next level up. (No brief yet.)
+3. **Author's Room Ch 3 — FEATURE-BRIEF-authors-room-ch3.md** — COMPLETE locally on `feature/authors-room-ch3`, Nov 12, 2026. Tendons chapter, not nervous system. Local only; not published.
+4. Spelling Bee new word packs / next level — 122 words shipped; new packs or the next level up. Brief: FEATURE-BRIEF-spelling-bee-word-packs.md. Active dispatch (Nov 12, 2026).
 5. Cruise Ship Deck 3 build tracker — mirror his real LEGO floor-3 build on the site as he builds it. (No brief yet.)
+
+### Author's Room Ch 3 — complete locally (Nov 12, 2026)
+
+- Started approved queue item 3 from `FEATURE-BRIEF-authors-room-ch3.md` on
+  `feature/authors-room-ch3`, created directly from `origin/main` at
+  `beafd438b23df4c41e3eafd8b420da5fd76d2a43`. Local commits only; no push,
+  merge, or publish.
+- Corrected Chapter 3 to Tendons in the map; the reading view includes only
+  the four confirmed sentences, verbatim, with no added author-voice text.
+  Progress is 3 of 19 chapters (about 16%).
+- Source trace passed for all 29 displayed chapter text lines: Ch 1–2 are
+  traced to their chapter records and Ch 3 to the approved brief. Artifact:
+  `/tmp/vihaan-authors-room-ch3/sentence-source-trace.json`.
+- Browser verification passed in Chrome 154 at 1440×1000 and 390×844. The
+  Chapter 3 map link/hash, Chapter 1–2 anchors, home/shared grouped navigation,
+  chapter counts, progress, mobile menu, and no-horizontal-overflow checks
+  passed. There were no page, console, or local-resource errors.
+- Visually inspected `/tmp/vihaan-authors-room-ch3/chapter-3.png` and
+  `/tmp/vihaan-authors-room-ch3/mobile.png`. Other captures:
+  `cover.png`, `chapter-map.png`, `chapter-1.png`, and `chapter-2.png` in the
+  same directory. Browser report: `/tmp/vihaan-authors-room-ch3/results.json`.
+- Updated the existing browser check and its README coverage. `node --check`
+  and `git diff --check` passed. Local implementation commit; no push, merge,
+  or publish.
 
 ## Chess Tactics Trainer — active dispatch (Nov 11, 2026)
 
