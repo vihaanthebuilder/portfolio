@@ -1241,6 +1241,7 @@ Nishant approved these in the Agent Board Feature Queue. Work them in order, loc
 3. **Author's Room Ch 3 — FEATURE-BRIEF-authors-room-ch3.md** — COMPLETE locally on `feature/authors-room-ch3`, Nov 12, 2026. Tendons chapter, not nervous system. Local only; not published.
 4. Spelling Bee new word packs / next level — 122 words shipped; new packs or the next level up. Brief: FEATURE-BRIEF-spelling-bee-word-packs.md. Active dispatch (Nov 12, 2026).
 5. Cruise Ship Deck 3 build tracker — mirror his real LEGO floor-3 build on the site as he builds it. (No brief yet.)
+6. Chess tactics trainer — harder puzzles (Vihaan's feedback, Nov 12 evening, his words: "Make them harder ones which I didn't do in the games.") — the current 12 puzzles are all mate-in-one moves he already played in his own Lichess games, so they are too easy for him. Add harder puzzles that he did NOT play in his games. (No brief yet; needs Feature Queue approval before dispatch.)
 
 ### Author's Room Ch 3 — complete locally (Nov 12, 2026)
 
