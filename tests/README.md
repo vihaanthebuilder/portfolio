@@ -70,9 +70,10 @@ PLAYWRIGHT_MODULE=/tmp/vihaan-authors-room-tools/node_modules/playwright node te
 ```
 
 The check covers the 1440px desktop and 390px mobile layouts, all 19 chapter
-slots, chapter 1 and 2 native anchors, the three muscle panels, homepage and
-shared-menu routes, browser errors, horizontal overflow, and a sentence-to-
-record trace. Screenshots and trace output go to `/tmp/vihaan-authors-room/`.
+slots, chapter 1–3 native anchors, the three muscle panels, homepage and
+grouped-menu routes, browser errors, horizontal overflow, and a sentence-to-
+source trace for all three chapters. Screenshots and trace output go to
+`/tmp/vihaan-authors-room/`.
 
 # Game Room checks
 

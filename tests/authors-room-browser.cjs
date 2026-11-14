@@ -12,6 +12,7 @@ const sourceRecords = {
   chapter1: fs.readFile(path.join(root, 'book-chapter-1-record.md'), 'utf8'),
   chapter2: fs.readFile(path.join(root, 'book-chapter-2-record.md'), 'utf8'),
   brief: fs.readFile(path.join(root, 'FEATURE-BRIEF-authors-room.md'), 'utf8'),
+  chapter3: fs.readFile(path.join(root, 'FEATURE-BRIEF-authors-room-ch3.md'), 'utf8'),
 };
 const normalize = text => text.replace(/[“”]/g, '"').replace(/\s+/g, ' ').trim();
 const errors = [];
@@ -35,6 +36,7 @@ async function sourceTrace(page) {
   const rendered = await page.locator('.ar-chapter-reading').allInnerTexts();
   const ch1 = normalize(rendered[0]);
   const ch2 = normalize(rendered[1]);
+  const ch3 = normalize(rendered[2]);
   const traces = [
     { chapter: 1, kind: 'his words', file: 'book-chapter-1-record.md', pageText: 'Chapter One, The Skeletal System', sourceText: 'Chapter One, The Skeletal System' },
     { chapter: 1, kind: 'his words', file: 'book-chapter-1-record.md', pageText: 'There are many different types of bones.', sourceText: 'There are many different types of bones.' },
@@ -67,6 +69,17 @@ async function sourceTrace(page) {
     assert(normalize(source).includes(normalize(item.sourceText)), 'Trace source missing: ' + item.sourceText);
     assert((item.chapter === 1 ? ch1 : ch2).includes(normalize(item.pageText)), 'Trace text missing from chapter ' + item.chapter + ': ' + item.pageText);
   }
+  const chapter3Lines = [
+    'Tendons connect muscles to bones, and the muscles move the bones',
+    'This is how tendons work with the skeletal and muscular system',
+    'tendons help your body by connecting your muscles to your bones',
+    'you will not be alive without your tendons',
+  ];
+  for (const line of chapter3Lines) {
+    assert(normalize(records[3]).includes(normalize(line)), 'Chapter 3 brief source missing: ' + line);
+    assert(ch3.includes(normalize(line)), 'Chapter 3 text missing: ' + line);
+    traces.push({ chapter: 3, kind: 'his words', file: 'FEATURE-BRIEF-authors-room-ch3.md', pageText: line, sourceText: line });
+  }
   const tracePath = path.join(OUT, 'sentence-source-trace.json');
   await fs.writeFile(tracePath, JSON.stringify(traces, null, 2) + '\n');
   return traces;
@@ -89,26 +102,26 @@ async function main() {
   const desktop = await openPage(browser, 1440, 1000, 'authors-room desktop');
   const page = desktop.page;
   assert.equal(await page.locator('.ar-chapter').count(), 19);
-  assert.equal(await page.locator('.ar-chapter.finished').count(), 2);
-  assert.equal(await page.locator('.ar-chapter.next').count(), 1);
+  assert.equal(await page.locator('.ar-chapter.finished').count(), 3);
+  assert.equal(await page.locator('.ar-chapter.next').count(), 0);
   assert.equal(await page.locator('.ar-chapter.planned').count(), 16);
-  assert.equal(await page.locator('.ar-chapter-reading').count(), 2);
+  assert.equal(await page.locator('.ar-chapter-reading').count(), 3);
   assert.equal(await page.locator('.ar-muscle-grid .ar-art-card').count(), 3);
   assert.equal(await page.locator('.ar-stomach').count(), 1);
   assert.equal(await page.locator('.ar-muscle-grid [aria-label*="intestine" i]').count(), 0);
   assert.deepEqual(await page.locator('.ar-muscle-grid figcaption').allTextContents(), ['voluntary', 'involuntary', 'cardiac']);
-  assert.equal(await page.locator('.ar-cover progress').getAttribute('value'), '2');
+  assert.equal(await page.locator('.ar-cover progress').getAttribute('value'), '3');
   assert.equal(await page.locator('.ar-cover progress').getAttribute('max'), '19');
-  assert.equal(await page.locator('.ar-progress-label span').innerText(), 'about 11%');
+  assert.equal(await page.locator('.ar-progress-label span').innerText(), 'about 16%');
   assert(await page.locator('.ar-parts').innerText().then(t => t.includes('Part 1 — Body Systems') && t.includes('7 chapters') && t.includes('Part 2 — Organs') && t.includes('12 chapters')));
   assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'No desktop horizontal overflow');
   assert.equal(await page.locator('.ar-chapter.planned').filter({ hasText: 'Planned' }).count(), 16);
   const plannedNames = await page.locator('.ar-chapter.planned .ar-chapter-name').allTextContents();
   assert.deepEqual(plannedNames.slice(0, 4), Array(4).fill('A body system — the author will pick'));
   assert.deepEqual(plannedNames.slice(4), Array(12).fill('Organs'));
-  checks.push('desktop: 19 chapter slots, statuses, two readable chapters, estimate, three muscle panels, and no horizontal overflow');
+  checks.push('desktop: 19 chapter slots, statuses, three readable chapters, estimate, three muscle panels, and no horizontal overflow');
 
-  for (const chapter of ['chapter-1', 'chapter-2']) {
+  for (const chapter of ['chapter-1', 'chapter-2', 'chapter-3']) {
     await page.locator(`#chapter-map a[href="#${chapter}"]`).click();
     await page.waitForFunction(id => location.hash === `#${id}` && document.querySelector(`#${id}`).getBoundingClientRect().top < innerHeight, chapter);
     assert(await page.locator(`#${chapter}-title`).isVisible(), `Chapter map link reaches ${chapter}`);
@@ -129,10 +142,16 @@ async function main() {
   assert.equal(normalize(await page.locator('#chapter-2 .ar-conclusion').innerText()), 'In conclusion, the muscular system helps you do day to day activities without the muscular system you would not be alive.');
   checks.push('chapter-2: native hash opens the correct finished chapter and its conclusion is the last prose line');
 
-  const traces = await sourceTrace(page);
-  checks.push('sentence trace: ' + traces.length + ' chapter text lines map to the two approved records');
+  await page.goto(BASE_URL + '/authors-room.html#chapter-3', { waitUntil: 'domcontentloaded' });
+  await page.waitForFunction(() => location.hash === '#chapter-3' && document.querySelector('#chapter-3').getBoundingClientRect().top < innerHeight);
+  assert(await page.locator('#chapter-3-title').isVisible());
+  assert.equal(normalize(await page.locator('#chapter-3 .ar-conclusion').innerText()), 'you will not be alive without your tendons');
+  checks.push('chapter-3: native hash opens Tendons and the final confirmed sentence closes the section');
 
-  for (const [name, locator] of [['cover', page.locator('.ar-cover')], ['chapter-map', page.locator('#chapter-map')], ['chapter-1', page.locator('#chapter-1')], ['chapter-2', page.locator('#chapter-2')]]) {
+  const traces = await sourceTrace(page);
+  checks.push('sentence trace: ' + traces.length + ' chapter text lines map to the two chapter records and approved Chapter 3 brief');
+
+  for (const [name, locator] of [['cover', page.locator('.ar-cover')], ['chapter-map', page.locator('#chapter-map')], ['chapter-1', page.locator('#chapter-1')], ['chapter-2', page.locator('#chapter-2')], ['chapter-3', page.locator('#chapter-3')]]) {
     await locator.scrollIntoViewIfNeeded();
     const file = path.join(OUT, name + '.png');
     await locator.screenshot({ path: file }); results.captures.push(file);
@@ -152,7 +171,8 @@ async function main() {
   assert(await mobile.page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'No mobile horizontal overflow');
   await mobile.page.locator('#ar-menu').click();
   assert.equal(await mobile.page.locator('#ar-menu').getAttribute('aria-expanded'), 'true');
-  assert(await mobile.page.locator('#ar-nav-links a[href="authors-room.html"]').isVisible());
+  await mobile.page.locator('#ar-nav-links .subnav-trigger').filter({ hasText: 'Words' }).click();
+  assert(await mobile.page.locator('#ar-nav-links .subnav-link[href="authors-room.html"]').isVisible());
   const mobileFile = path.join(OUT, 'mobile.png');
   await mobile.page.screenshot({ path: mobileFile, fullPage: true }); results.captures.push(mobileFile);
   checks.push('mobile 390px: layout fits, chapter panels stack, and accessible navigation menu opens');
@@ -167,10 +187,9 @@ async function main() {
     const selector = mobileNav ? '#mobile-nav-drawer a[href="authors-room.html"]' : (file === 'index.html' ? '#topnav .center a[href="authors-room.html"]' : '#topnav .center a[href="authors-room.html"]');
     if (mobileNav) {
       await navPage.locator('#mobile-nav-toggle').click();
-      await navPage.locator(selector).waitFor({ state: 'visible' });
-    } else {
-      await navPage.locator(selector).waitFor({ state: 'attached' });
     }
+    const navRoot = mobileNav ? '#mobile-nav-drawer' : '#topnav';
+    await navPage.locator(`${navRoot} .subnav-trigger`).filter({ hasText: 'Words' }).click();
     await navPage.locator(selector).click();
     await navPage.waitForURL(/authors-room\.html$/);
     assert.equal(new URL(navPage.url()).pathname, '/authors-room.html');
