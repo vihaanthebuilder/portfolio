@@ -1315,8 +1315,8 @@ Nishant approved these in the Agent Board Feature Queue. Work them in order, loc
   `/tmp/harder-tactics-stockfish-depth24.json`,
   `/tmp/harder-tactics-stockfish-depth30.json`,
   `/tmp/harder-tactics-postmove-depth20.json`.
-- Local implementation commit will be recorded below. No push, merge, or
-  publish.
+- Implementation commit: `925512aec1ab7d462f2fdbb72722a2ebbeacca98`. No push,
+  merge, or publish.
 
 ### Author's Room Ch 3 — complete locally (Nov 12, 2026)
 
