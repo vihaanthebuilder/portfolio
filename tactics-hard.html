@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101218">
+  <title>Chess Tactics: The Ones I Missed — Vihaan's World</title>
+  <meta name="description" content="Find a stronger move from real games and follow the winning idea.">
+  <link rel="canonical" href="https://vihaanthebuilder.github.io/portfolio/tactics-hard.html">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="sublevel-os.css">
+  <link rel="stylesheet" href="sub-navs.css">
+  <link rel="stylesheet" href="assets/chess-tactics.css">
+  <script defer src="sublevel-os.js"></script>
+  <script defer src="sub-navs.js"></script>
+</head>
+<body data-puzzle-pack="missed">
+  <main class="tactics-page">
+    <a class="tactics-back" href="chess.html">← Chess Journey</a>
+    <nav class="tactics-pack-switcher" aria-label="Puzzle packs">
+      <a href="tactics.html">Pack 1 · Checkmate</a>
+      <a href="tactics-hard.html" aria-current="page">Pack 2 · The ones I missed</a>
+    </nav>
+    <header class="tactics-hero">
+      <span class="tactics-eyebrow">VIHAAN.OS / CHESS / TREASURE MAPS</span>
+      <h1>The ones I <span>missed.</span></h1>
+      <p>Find a winning move from one of your real games. After you solve it, see the move you played and follow the stronger idea. A loss or draw can be a treasure map for the next game.</p>
+    </header>
+
+    <section class="tactics-layout" aria-label="Chess tactic puzzle">
+      <div class="tactics-board-card">
+        <div class="tactics-board-top">
+          <div><span class="tactics-label">THE ONES I MISSED</span><strong id="puzzle-number">Puzzle 1 of 9</strong></div>
+          <span class="tactics-motif" id="puzzle-label">Win a pawn</span>
+        </div>
+        <div class="tactics-turn"><span class="turn-dot" id="turn-dot" aria-hidden="true"></span><span id="side-to-move">White to move</span></div>
+        <div id="chess-board" class="chess-board" role="group" aria-label="Chess board. Select a piece, then a square, or drag a piece to a square."></div>
+        <div class="board-caption"><span>Tap or click a piece, then its square.</span><span>Or drag it there.</span></div>
+      </div>
+
+      <aside class="tactics-side">
+        <section class="tactics-prompt">
+          <span class="tactics-label">THE CHALLENGE</span>
+          <h2>Find the winning move.</h2>
+          <p>No timer. Try ideas until you find the move that changes the game.</p>
+          <p id="move-feedback" class="move-feedback" role="status" aria-live="polite">Your move whenever you're ready.</p>
+          <p id="treasure-note" class="treasure-note" role="status" aria-live="polite" hidden></p>
+          <p id="winning-line" class="winning-line" hidden></p>
+          <a id="source-game" class="source-game" target="_blank" rel="noopener noreferrer" hidden>Watch this real game ↗</a>
+          <button id="next-puzzle" class="next-puzzle" type="button" disabled>Next puzzle <span aria-hidden="true">→</span></button>
+        </section>
+
+        <section class="tactics-progress" aria-labelledby="solved-title">
+          <span class="progress-flare" aria-hidden="true">✦</span>
+          <div>
+            <span class="tactics-label">YOUR PRACTICE</span>
+            <h2 id="solved-title"><span id="solved-count">0</span> solved</h2>
+            <p>Saved on this device for this puzzle pack.</p>
+          </div>
+        </section>
+        <p class="tactics-proof">Every position is from one of your rated classical games and has been checked with a chess engine. No made-up positions.</p>
+      </aside>
+    </section>
+    <footer class="tactics-footer"><a href="gameroom.html">Back to your Game Room</a><span>Losses are treasure maps. Keep learning.</span></footer>
+  </main>
+  <script src="assets/chess-tactics-hard-puzzles.js"></script>
+  <script type="module" src="assets/chess-tactics.js"></script>
+</body>
+</html>

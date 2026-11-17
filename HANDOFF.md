@@ -1241,7 +1241,82 @@ Nishant approved these in the Agent Board Feature Queue. Work them in order, loc
 3. **Author’s Room Ch 3 — FEATURE-BRIEF-authors-room-ch3.md** — COMPLETE locally on `feature/authors-room-ch3`, Nov 12, 2026. Tendons chapter, not nervous system. NOTE: the queue item says “Nervous-system page” but the book’s Ch 3 is tendons — use tendons, not nervous system. Clean typed copies are flagged stale/unverified as verbatim — check against his notebooks before publishing, and never present dad-changed wording (“making blood cells”) as his own (“pumping blood cells”). PUBLISHED live Nov 14, 2026 (892ba5a).
 4. **Spelling Bee — new word packs / next level** — COMPLETE locally on `feature/spelling-bee-word-packs`, Nov 12, 2026. Full 40-word Master pack (bank now 162 words; 122 shipped before) and verification recorded below. Next: new packs or the next level up. Brief: FEATURE-BRIEF-spelling-bee-word-packs.md. PUBLISHED live Nov 14, 2026 (25671e7).
 5. Cruise Ship Deck 3 build tracker — mirror his real LEGO floor-3 build on the site as he builds it. (No brief yet.)
-6. Chess tactics trainer — harder puzzles (Vihaan's feedback, Nov 12 evening, his words: "Make them harder ones which I didn't do in the games.") — the current 12 puzzles are all mate-in-one moves he already played in his own Lichess games, so they are too easy for him. Add harder puzzles that he did NOT play in his games. (No brief yet; needs Feature Queue approval before dispatch.)
+6. **Chess Tactics Trainer Pack 2 — FEATURE-BRIEF-harder-tactics.md** — COMPLETE locally on `feature/harder-tactics-trainer`, Nov 15, 2026. Nine verified missed-tactic puzzles from Vihaan's real lost/drawn games; three draft candidates excluded by the brief's engine threshold. Local only, no publish.
+7. **Solar System — FEATURE-BRIEF-solar-system.md** — Highly detailed animated 3D solar system, modelled on the Science Museum Oklahoma touch exhibit Vihaan used Nov 15, 2026: zoom in/out of every planet, top tabs for Inner Planets / Outer Planets / Asteroids / Comets / Dwarf Planets, fact card per planet (distance, mass, day length, orbit year, axial tilt, orbital speed), system speed control. Brief: FEATURE-BRIEF-solar-system.md (Nov 15, 2026). DISPATCHED Nov 16, 2026 to a Codex worker (Claude not logged in on the Mac — fell back to Codex per the Nov 10 rule) — worktree `.worktrees/feature-solar-system`, branch `feature/solar-system` (from origin/main 76986e7), surface 1000090041.
+8. **Author's Room count — FEATURE-BRIEF-authors-room-count.md** — Fix the book count: 19 total / 3 finished → 24 total / 7 finished; list all seven finished chapters (Ch 4 small intestine finished Nov 16, 2026 — brief corrected from 6 to 7 before dispatch). Asked by Vihaan himself, Nov 15, 2026. DISPATCHED Nov 16, 2026 to a Codex worker — worktree `.worktrees/feature-authors-room-count`, branch `feature/authors-room-count` (from origin/main 76986e7), surface 1000090042.
+9. **Spelling Bee World Champion section — FEATURE-BRIEF-spelling-bee-world-champion.md** — New "World Champion" section on the Spelling Bee page with 12 real Scripps winning words 2026–2014, each with year and champion (verified Nov 16, 2026 vs Spellpundit/Wikipedia). Asked by Vihaan himself, voice call Nov 16, 2026. DISPATCHED Nov 16, 2026 to a Codex worker — worktree `.worktrees/feature-spelling-bee-world-champion`, branch `feature/spelling-bee-world-champion` (from origin/main 76986e7), surface 1000090052 [terminal].
+
+### Chess Tactics Trainer Pack 2 — complete locally (Nov 15, 2026)
+
+- Started the approved harder-puzzles brief on `feature/harder-tactics-trainer`,
+  based on `origin/main` at `76986e7d90ccabd6380385bfb4f2ebe78ea0f76e`. Local
+  work only; no push, merge, or publish.
+- Read `FEATURE-BRIEF-harder-tactics.md` in full. Its source set is 12 missed
+  tactics from eight real lost/drawn rated classical games. Do not change the
+  existing pack 1 puzzles.
+- Refetched all eight cited public Lichess PGNs to `/tmp/*.pgn`. Every listed
+  game ID, date, rated-classical/Standard header, Vihaan side, pre-move FEN,
+  actually played SAN, solution legality, and supplied PV legality matches.
+  Stockfish 17 and the brief's old evidence folder are absent locally; a
+  full-strength Stockfish 19 WASM build is available and is being used for
+  stricter engine checks.
+- Stockfish 19 depth-24+ best moves (solver-perspective root eval): P1 `Rxf4`
+  (+3.92); P3 `exf4` (+2.45); P5 `Nxd5` (+3.40); P6 `Nxd5` (+6.87); P8
+  `Ng5` (+5.06); P9 `Bxh6` (+3.79); P11 `Bxc8` (+6.35); P12 `Rh3` (mate in
+  4). P10 was rechecked at depth 30: best `Rf1` (+7.00), replacing the draft
+  `Ne4`; its label is kept generic because no tactic motif is certain.
+- Post-solution Stockfish 19 depth-20 checks, scored for the solver: P1 +4.10,
+  P3 +2.37, P5 +3.64, P6 +6.29, P8 +5.01, P9 +3.48, P10 +6.44, P11 +6.27,
+  and P12 forced mate in 3 (equivalent to mate in 4 from the root).
+- Excluded P2 (best `Qb6`, +0.58 at depth 24: not a clean winning tactic),
+  P4 (`exf6` +1.36 at depth 30, below +1.5), and P7 (`Rc3` −0.12 at depth
+  24, effectively equal). No substitute candidates were added. Final pack:
+  9 puzzles from 7 games. Source/move/PV checks are in
+  `/tmp/harder-tactics-final-source-trace.json`; engine reports are in
+  `/tmp/harder-tactics-stockfish-depth24.json`,
+  `/tmp/harder-tactics-stockfish-depth30.json`, and
+  `/tmp/harder-tactics-postmove-depth20.json`.
+- Added `tactics-hard.html` and `assets/chess-tactics-hard-puzzles.js` as Pack
+  2, with a pack switcher, the same interactive legal-move board, gentle
+  retries, separate solved progress, the played move shown only after solving,
+  the engine line as the winning idea, and a Lichess game link. The shared
+  trainer script adds optional Pack 2 result details; Pack 1's puzzle data and
+  existing behavior remain unchanged.
+- Final nine puzzles (move number is the position before the missed move):
+
+  | Game | Move | Vihaan played | Winning move |
+  | --- | ---: | --- | --- |
+  | `hcq5faBB` | 25 White | `b4` | `Rxf4` |
+  | `XEqCG0bg` | 10 Black | `Ba6` | `exf4` |
+  | `OU4OCkBD` | 10 White | `Nxf8` | `Nxd5` |
+  | `WiCfML4J` | 12 White | `Nb1` | `Nxd5` |
+  | `hcq5faBB` | 10 White | `d4` | `Ng5` |
+  | `WlWvF2uV` | 14 White | `Ba3` | `Bxh6` |
+  | `hcq5faBB` | 34 White | `Rb1` | `Rf1` |
+  | `2zv590kA` | 28 Black | `Kf7` | `Bxc8` |
+  | `Lb8tuAJC` | 28 White | `Rxg5` | `Rh3` (mate in 4) |
+
+- Dropped candidates: `sYsFy9ZO` move 11 (Stockfish's best `Qb6` was only
+  +0.58), `OU4OCkBD` move 17 (`exf6` was +1.36 at depth 30, below the brief's
+  +1.5 minimum), and `Lb8tuAJC` move 24 (`Rc3` remained −0.12 at depth 24,
+  effectively equal). No unsourced replacement puzzles were added.
+- Browser verification passed with Chrome 154 at desktop 1440×1000 and phone
+  390×844: all 9 Pack 2 positions and 64 squares load; an incorrect move gets
+  gentle feedback without progress; correct moves show the treasure-map note
+  and continuation; Next advances; Pack 1 still has 12 mate-in-one puzzles
+  and its solved state is stored independently. No page/console/local-resource
+  errors or horizontal overflow. `node --check` and `git diff --check` passed;
+  `git diff origin/main -- assets/chess-tactics-puzzles.js` is empty.
+- Visually inspected `/tmp/vihaan-harder-tactics/pack-switcher-desktop.png`,
+  `pack-switcher-phone.png`, `puzzle-mid-pack.png`, and
+  `solved-treasure-map.png`. Browser results:
+  `/tmp/vihaan-harder-tactics/results.json`. Final PGN trace:
+  `/tmp/harder-tactics-final-source-trace.json`; Stockfish reports:
+  `/tmp/harder-tactics-stockfish-depth24.json`,
+  `/tmp/harder-tactics-stockfish-depth30.json`,
+  `/tmp/harder-tactics-postmove-depth20.json`.
+- Local implementation commit will be recorded below. No push, merge, or
+  publish.
 
 ### Author's Room Ch 3 — complete locally (Nov 12, 2026)
 

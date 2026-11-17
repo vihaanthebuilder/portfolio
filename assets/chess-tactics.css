@@ -3,6 +3,9 @@ body{margin:0;background:var(--tactics-bg);color:var(--tactics-ink);font-family:
 .tactics-page{width:min(1160px,calc(100% - 40px));margin:74px auto 42px}
 .tactics-back{display:inline-flex;align-items:center;min-height:40px;color:#d3d7df;text-decoration:none;font-size:13px;font-weight:600}
 .tactics-back:hover,.tactics-footer a:hover{color:var(--tactics-gold)}
+.tactics-pack-switcher{display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 16px}
+.tactics-pack-switcher a{display:inline-flex;align-items:center;min-height:38px;padding:7px 13px;border:1px solid var(--tactics-line);border-radius:999px;color:#c9ced8;text-decoration:none;font-size:12px;font-weight:700}
+.tactics-pack-switcher a:hover,.tactics-pack-switcher a[aria-current="page"]{border-color:#806b3c;background:#28241b;color:#ffdf91}
 .tactics-hero{max-width:780px;margin:14px 0 18px}
 .tactics-eyebrow,.tactics-label{display:block;color:var(--tactics-gold);font:700 10px/1.3 'Geist Mono',monospace;letter-spacing:.13em;text-transform:uppercase}
 .tactics-hero h1{margin:12px 0 8px;font-size:clamp(38px,5.6vw,66px);line-height:.98;letter-spacing:-.06em}
@@ -35,6 +38,9 @@ body{margin:0;background:var(--tactics-bg);color:var(--tactics-ink);font-family:
 .tactics-prompt h2,.tactics-progress h2{margin:12px 0 8px;font-size:25px;letter-spacing:-.04em}
 .tactics-prompt>p:not(.move-feedback),.tactics-progress p{margin:0;color:var(--tactics-muted);font-size:14px;line-height:1.55}
 .move-feedback{min-height:46px;display:flex;align-items:center;margin:20px 0 12px;padding:12px 13px;border:1px solid #4a5146;border-radius:6px;background:#21281f;color:#e4e9db;font-size:14px;font-weight:600;line-height:1.4}
+.treasure-note,.winning-line{margin:0 0 12px;padding:12px 13px;border-left:3px solid var(--tactics-gold);background:#262319;color:#f2e5c2;font-size:13px;line-height:1.55;overflow-wrap:anywhere}
+.winning-line{border-left-color:#8daa75;background:#1d251f;color:#dce8d9}
+.treasure-note[hidden],.winning-line[hidden]{display:none}
 .source-game{display:inline-flex;margin:0 0 12px;color:var(--tactics-gold);font-size:13px;font-weight:700;text-decoration:none}
 .source-game[hidden]{display:none}
 .next-puzzle{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:48px;padding:0 16px;border:1px solid #927742;border-radius:6px;background:linear-gradient(120deg,#f4cf73,#dbac48);color:#1b1c20;font:700 14px Geist,system-ui,sans-serif;cursor:pointer}

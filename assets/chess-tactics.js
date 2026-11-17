@@ -10,9 +10,13 @@ const feedback = document.getElementById('move-feedback');
 const sourceLink = document.getElementById('source-game');
 const nextButton = document.getElementById('next-puzzle');
 const solvedCount = document.getElementById('solved-count');
+const treasureNote = document.getElementById('treasure-note');
+const winningLine = document.getElementById('winning-line');
 const files = 'abcdefgh';
 const pieceGlyph = { wk:'♔', wq:'♕', wr:'♖', wb:'♗', wn:'♘', wp:'♙', bk:'♚', bq:'♛', br:'♜', bb:'♝', bn:'♞', bp:'♟' };
-const storageKey = 'vihaanChessTacticsSolved_v1';
+const storageKey = document.body.dataset.puzzlePack === 'missed'
+  ? 'vihaanChessTacticsSolved_missed_v1'
+  : 'vihaanChessTacticsSolved_v1';
 let index = 0;
 let game;
 let selected = null;
@@ -193,7 +197,15 @@ function attemptMove(from, to) {
   legalTargets = [];
   lastMove = { from: move.from, to: move.to };
   finished = true;
-  feedback.textContent = 'Beautiful find — that is checkmate!';
+  feedback.textContent = currentPuzzle().played
+    ? 'Beautiful find — you spotted a winning idea from your game.'
+    : 'Beautiful find — that is checkmate!';
+  if (treasureNote && currentPuzzle().played) {
+    treasureNote.textContent = `Treasure map: in your game you played ${currentPuzzle().played}. Here, the winning move is ${move.san}.`;
+    treasureNote.hidden = false;
+    winningLine.textContent = `Winning idea: ${currentPuzzle().line}`;
+    winningLine.hidden = false;
+  }
   sourceLink.href = currentPuzzle().source;
   sourceLink.hidden = false;
   nextButton.disabled = false;
@@ -214,6 +226,12 @@ function nextPuzzle() {
   finished = false;
   lastMove = null;
   feedback.textContent = 'Your move whenever you\'re ready.';
+  if (treasureNote) {
+    treasureNote.hidden = true;
+    treasureNote.textContent = '';
+    winningLine.hidden = true;
+    winningLine.textContent = '';
+  }
   sourceLink.hidden = true;
   sourceLink.removeAttribute('href');
   nextButton.disabled = true;

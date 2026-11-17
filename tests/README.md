@@ -75,6 +75,27 @@ grouped-menu routes, browser errors, horizontal overflow, and a sentence-to-
 source trace for all three chapters. Screenshots and trace output go to
 `/tmp/vihaan-authors-room/`.
 
+# Harder Chess Tactics pack
+
+Start the static server from the repository root:
+
+```sh
+python3 -m http.server 18876 --bind 127.0.0.1
+```
+
+In another terminal, run the desktop and phone interaction checks:
+
+```sh
+PLAYWRIGHT_MODULE=/tmp/vihaan-authors-room-tools/node_modules/playwright \
+HARDER_TACTICS_BASE_URL=http://127.0.0.1:18876 \
+node tests/harder-tactics-browser.cjs
+```
+
+This checks the new pack's gentle retry, solved treasure-map note, continuation,
+pack navigation, mobile layout, independent saved progress, and that pack 1
+still loads and solves its original first mate-in-one puzzle. Captures go to
+`/tmp/vihaan-harder-tactics/`.
+
 # Game Room checks
 
 Game Room verification uses Node's built-in assertions and Playwright with installed Google Chrome. It does not change any other page's statistics or contact private APIs.
