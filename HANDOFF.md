@@ -1485,3 +1485,22 @@ Four briefs written and staged in this folder on Nov 16, 2026 (VM copies in ~/wo
 - **Build of the week ladder — FEATURE-BRIEF-build-of-week-ladder.md** — Tiger = Easy, Monster Truck = Medium, Train = Hard; one of each. Branch `feature/build-of-week-ladder`. DISPATCHED: worktree `.worktrees/feature-build-of-week-ladder`, surface 1000090070, Working (verified: cards live on build-of-week.html, Tiger/Monster Truck/Express Passenger Train order recorded in worktree HANDOFF).
 - **Hall of Fame Tulsa trophy — FEATURE-BRIEF-hall-of-fame-tulsa.md** — add the 4th-place Tulsa trophy card (4 out of 5); never call it first place. Branch `feature/hall-of-fame-tulsa`. DISPATCHED: worktree `.worktrees/feature-hall-of-fame-tulsa`, surface 1000090071, Working (verified: reading hall-of-fame.html, dispatch recorded in worktree HANDOFF).
 - **Cruise-ship deck corrections — FEATURE-BRIEF-cruise-ship-deck-corrections.md** — Vidhu's Nov 16 words deck by deck; open question (hot dog/lemonade stands on both deck 3 and deck 4) recorded in the brief, do not guess; no prices. Feeds queue item 5 (Cruise Ship Deck 3 tracker). Branch `feature/cruise-ship-deck-corrections`. DISPATCHED: worktree `.worktrees/feature-cruise-ship-deck-corrections`, surface 1000090072, Working (verified: page data in cruise-ship.html, stands question recorded in worktree HANDOFF).
+
+## Build of the week difficulty ladder — active dispatch (Nov 16, 2026)
+
+- Brief says to inspect Game Room, but the actual three cards are in
+  `build-of-the-week.html` (Tiger, Monster Truck, Express Passenger Train),
+  not `gameroom.html`. No separate data file supplies these card labels.
+- Display mapping confirmed: Majestic Tiger = Easy, Monster Truck = Medium,
+  Express Passenger Train = Hard. Changed only the three difficulty labels in
+  `build-of-the-week.html`; no redesign.
+- Updated only those three difficulty pills; star counts now align with the
+  levels (one, two, three). Verified in headless Chrome at 1280×800 and
+  390×844: labels and card order correct, no Advanced label on any card, and
+  zero page/console errors.
+- Browser harness: Playwright 1.64.1 at
+  `/Users/Nishant/dev-tools/browser-check/node_modules/playwright`; Chromium
+  headless shell. Screenshots: `/tmp/vihaan-build-of-week/desktop.png` and
+  `/tmp/vihaan-build-of-week/mobile.png`.
+- Implementation is committed locally on `feature/build-of-week-ladder` as
+  `4f263de` (based on `origin/main` at `d92401c`). No push, merge, or publish.
