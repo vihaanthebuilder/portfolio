@@ -1454,3 +1454,12 @@ Four briefs written and staged in this folder on Nov 16, 2026 (VM copies in ~/wo
 - **Build of the week ladder — FEATURE-BRIEF-build-of-week-ladder.md** — Tiger = Easy, Monster Truck = Medium, Train = Hard; one of each. Branch `feature/build-of-week-ladder`.
 - **Hall of Fame Tulsa trophy — FEATURE-BRIEF-hall-of-fame-tulsa.md** — add the 4th-place Tulsa trophy card (4 out of 5); never call it first place. Branch `feature/hall-of-fame-tulsa`.
 - **Cruise-ship deck corrections — FEATURE-BRIEF-cruise-ship-deck-corrections.md** — Vidhu's Nov 16 words deck by deck; open question (hot dog/lemonade stands on both deck 3 and deck 4) recorded in the brief, do not guess; no prices. Feeds queue item 5 (Cruise Ship Deck 3 tracker). Branch `feature/cruise-ship-deck-corrections`.
+
+
+## Cruise Ship deck corrections — active work (Nov 16, 2026)
+
+- Started the Nov 16 brief on `feature/cruise-ship-deck-corrections`, at `d92401c1e06bf26cda27f05379c64ed58a5be789`, which matches `origin/main`.
+- True page/data files: `cruise-ship.html` (deck content is inline); `cruise-ship.js` is interaction only; `cruise-ship.css` is page styling.
+- Open question for Vidhu: Deck 3 and Deck 4 each name a hot dog stand and lemonade stand. Does each deck have its own stands? Until answered, show the stands on both decks as named.
+- Applying the new deck facts as a contents-only correction; no prices anywhere on the Cruise Ship page. Local commit only; no push or publish.
+- Browser checks passed on 2026-11-17 at desktop 1280×800 and mobile 390×844 with Playwright at `/Users/Nishant/dev-tools/browser-check/node_modules/playwright` and Chromium headless shell. Verified Deck 1 sleeping rooms, bathrooms, phone chargers and TVs with no lounges; Level 2 three lounges; Deck 3 both stands and no TVs; Deck 4 front-deck fun, both stands, a little food, captain’s home on number 4, and no security. Also checked no prices, no horizontal overflow, and zero page/console errors. Screenshots: `/tmp/vihaan-cruise-ship-decks/desktop.png` and `mobile.png`.
