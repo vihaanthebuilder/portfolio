@@ -131,12 +131,13 @@
     $('level-picker').hidden = true;
     $('score-panel').hidden = true;
     $('round-panel').hidden = false;
-    $('round-kind').textContent = kind === 'standard' ? `${levelLabel(level)} · Standard round` : 'Tricky word practice';
+    $('round-kind').textContent = kind === 'standard' ? `${levelLabel(level)} · Standard round`
+      : kind === 'world-champion' ? 'World Champion · 12-word challenge' : 'Tricky word practice';
     $('round-heading').textContent = 'Listen for your word';
     showPrompt(true);
   }
   function levelLabel(value) {
-    return ({ 'warm-up': 'Warm-Up', 'bee-ready': 'Bee Ready', champion: 'Champion', master: 'Master' })[value] || 'Practice';
+    return ({ 'warm-up': 'Warm-Up', 'bee-ready': 'Bee Ready', champion: 'Champion', master: 'Master', 'world-champion': 'World Champion' })[value] || 'Practice';
   }
   function showHint(which) {
     const word = currentWord();
@@ -222,7 +223,9 @@
     $('score-line').textContent = `${correct} of ${round.length} — ${scorePraise(correct, round.length)}`;
     $('score-message').textContent = round.length === 10
       ? 'You finished a full ten-word round. Today’s goal is complete! Every bit of practice helps.'
-      : 'Nice practice! A short tricky-word round does not count toward today’s goal.';
+      : roundKind === 'world-champion'
+        ? 'You practiced twelve real championship-winning words. That is a huge spelling challenge!'
+        : 'Nice practice! A short tricky-word round does not count toward today’s goal.';
     const area = $('score-tricky');
     area.replaceChildren();
     const heading = document.createElement('h3');
@@ -258,6 +261,20 @@
       const chosen = button.dataset.level;
       beginRound(M.selectLevelWords(bank, chosen, 10), 'standard', chosen);
     });
+  });
+  const worldChampionWords = bank.filter(item => item.level === 'world-champion');
+  const championList = $('world-champion-list');
+  worldChampionWords.forEach(item => {
+    const row = document.createElement('li');
+    const word = document.createElement('strong');
+    word.textContent = item.word;
+    const detail = document.createElement('span');
+    detail.textContent = `${item.year} · ${item.champion}`;
+    row.append(word, detail);
+    championList.append(row);
+  });
+  $('practice-world-champion').addEventListener('click', () => {
+    beginRound(worldChampionWords, 'world-champion', 'world-champion');
   });
   $('practice-tricky').addEventListener('click', () => {
     const entries = state.trickyWords.map(saved => bank.find(item => item.word.toLowerCase() === saved.word && item.level === saved.level)).filter(Boolean);

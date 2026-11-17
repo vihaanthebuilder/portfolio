@@ -1,5 +1,34 @@
 # HANDOFF — Vihaan's Portfolio (Vihaan's World)
 
+## Spelling Bee World Champion — active dispatch (Nov 16, 2026)
+
+- Began the newly dispatched `FEATURE-BRIEF-spelling-bee-world-champion.md`
+  on the current `feature/spelling-bee-world-champion` worktree. True app files:
+  `spelling-bee.html`, `spelling-bee.js`, and `assets/spelling-words.js`.
+- Implementation is underway: a dedicated World Champion section and playable
+  round for the brief's 12 exact Scripps winning words, including the 2025
+  accent. Local commit only; no push or publish.
+
+### Spelling Bee World Champion — implementation complete locally (Nov 16, 2026)
+
+- Added the 12 brief-specified championship words with their year and champion
+  in a dedicated section on `spelling-bee.html`. `spelling-bee.js` renders the
+  list from the bank and starts a 12-word round; `assets/spelling-words.js`
+  holds the entries and keeps the 2025 `éclaircissement` spelling intact.
+- Extended `spelling-bee-model.js` to allow World Champion words in Tricky
+  Words, including Unicode letters, so a missed accented word can be replayed.
+  Updated `tests/spelling-bee-model.cjs` to check the 12 entries, metadata, and
+  accented tricky-word storage.
+- `node --check` passed for all three app scripts; the Spelling Bee model
+  regression passed (174 unique entries); `git diff --check` passed.
+- Browser verification limitation: the available Playwright package under
+  `/tmp/vihaan-spelling-bee-tools` is incomplete (missing its package entry
+  point). Chrome headless exited with code 134 before producing a screenshot.
+  So the requested 1280×800 / 390×844 browser interaction and visual checks
+  have not been completed. No screenshots are claimed.
+- Implementation is ready for the specified local commit on
+  `feature/spelling-bee-world-champion`; no push or publish.
+
 ## Next briefs queue
 
 1. **Spelling Bee Trainer — FEATURE-BRIEF-spelling-bee-trainer.md** — COMPLETE locally by Goku's dispatch, Nov 10, 2026. Branch `feature/spelling-bee-trainer` from `main` at `22587348075decc1577b2e63b9099072b4a7e7f1`; local commits only. No push, merge, or publish. Implementation commit `10daa3050556fa69961088ada6a05be7fdf8c842`. Browser verification passed 118 checks; installed Chrome had no available voices, and the kind fallback passed. This is the pre-publication status; see the published result below.
