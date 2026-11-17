@@ -1,5 +1,36 @@
 # HANDOFF — Vihaan's Portfolio (Vihaan's World)
 
+## Robot chess color choice — active dispatch (Nov 16, 2026)
+
+- Feature target found before editing: `index.html`. The Game Room and Chess
+  pages link into the home experience, where the Robo-Pawn chess game and its
+  engine are embedded. The dedicated profile page is `chess.html`; it does not
+  contain the playable robot game.
+- Implemented the pre-game White / Black / Random picker in the existing HUD.
+  Human move input and Robo-Pawn turns now use the selected colors; the board
+  screen states both colors in plain words. Random mode stores the next human
+  color under the single localStorage key `robotChessNextRandomColor` and
+  starts White when no turn has been saved. New Game returns to the picker.
+- Browser verification will use `/Users/Nishant/dev-tools/browser-check/`
+  (Playwright module under that folder), as requested in the brief.
+
+### Robot chess color choice — complete locally
+
+- The choice screen appears whenever a Robo-Pawn game opens and whenever New
+  Game is selected. White/Black starts a game with that human color; Random
+  starts White when fresh and alternates on successive Random games. The bot
+  opens when the human chooses Black, and interaction, hint selection, turn
+  prompts, and bot move evaluation all use the selected sides.
+- Desktop Chrome at 1280×800 and mobile Chrome at 390×844 verified White,
+  Black, Random White→Black→White, a legal Black human move, and a bot reply.
+  No feature page errors or unrelated console errors were found. The home page
+  has a pre-existing optional request for `images/dog.bin` that returns 404;
+  it falls back to the built-in dog model. Browser captures and report:
+  `/tmp/vihaan-robot-chess-colors/` (`desktop-choice.png`, `mobile-choice.png`,
+  `desktop.png`, `mobile.png`, `results.json`).
+- `git diff --check` passed. Branch is `feature/robot-chess-colors`, based on
+  the dispatch worktree state. Local commit only; no push, merge, or publish.
+
 ## Next briefs queue
 
 1. **Spelling Bee Trainer — FEATURE-BRIEF-spelling-bee-trainer.md** — COMPLETE locally by Goku's dispatch, Nov 10, 2026. Branch `feature/spelling-bee-trainer` from `main` at `22587348075decc1577b2e63b9099072b4a7e7f1`; local commits only. No push, merge, or publish. Implementation commit `10daa3050556fa69961088ada6a05be7fdf8c842`. Browser verification passed 118 checks; installed Chrome had no available voices, and the kind fallback passed. This is the pre-publication status; see the published result below.

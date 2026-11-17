@@ -892,6 +892,10 @@
 .chm-rb-avatar{font-size:28px;line-height:1}
 .chm-rb-text{font-family:'Baloo 2',var(--sans);font-size:14px;color:#d4fbf1;line-height:1.35;flex:1}
 .chm-rb-text b{color:#ffd500}
+.chm-color-choice{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;padding:18px 0 24px}
+.chm-color-choice button{appearance:none;cursor:pointer;border:2px solid rgba(255,255,255,.3);border-radius:14px;padding:14px 24px;background:rgba(255,255,255,.1);color:#fff;font:700 18px 'Baloo 2',var(--sans);min-width:130px}
+.chm-color-choice button:hover,.chm-color-choice button:focus-visible{background:rgba(255,213,0,.2);border-color:#ffd500;outline:none}
+.chm-color-note{text-align:center;color:#d4fbf1;font:600 15px 'Baloo 2',var(--sans);margin:0 0 6px}
 
 .chm-body{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start}
 @media (max-width:760px){
@@ -1526,8 +1530,10 @@ body.machine #topnav,body.machine #layout{display:none}
         <div class="chm-rb-avatar">🤖</div>
         <div class="chm-rb-text" id="chm-bubble-msg">Beep boop! Ready for a friendly match, Vihaan? Show me your Crowder College Open tactics!</div>
       </div>
-      <div class="chm-body">
+      <div id="chm-color-picker" hidden><p class="chm-color-note">Choose your color to start a friendly game!</p><div class="chm-color-choice" role="group" aria-label="Choose your chess color"><button type="button" data-player-color="w">⚪ White</button><button type="button" data-player-color="b">⚫ Black</button><button type="button" data-player-color="random">🎲 Random</button></div></div>
+      <div class="chm-body" id="chm-game-body" hidden>
         <div class="chm-board-wrap">
+          <div class="chm-color-note" id="chm-color-label" aria-live="polite"></div>
           <div class="chm-captures" id="chm-black-captures" title="Captured Black Pieces"></div>
           <div class="chm-board" id="chm-board" role="grid" aria-label="Chess Board"></div>
           <div class="chm-captures" id="chm-white-captures" title="Captured White Pieces"></div>
@@ -3645,6 +3651,8 @@ const PIECE_VALUES = { P: 100, N: 320, B: 330, R: 500, Q: 900, K: 20000 };
 const chessGame = {
   board: [],
   turn: 'w',
+  humanColor: 'w',
+  botColor: 'b',
   selectedSquare: null,
   legalMoves: [],
   history: [],
@@ -3656,7 +3664,14 @@ const chessGame = {
   status: "Vihaan's turn! Make your move.",
   hintSquares: null,
 
-  init() {
+  showColorChoice() {
+    document.getElementById('chm-color-picker').hidden = false;
+    document.getElementById('chm-game-body').hidden = true;
+  },
+
+  init(humanColor = 'w') {
+    this.humanColor = humanColor;
+    this.botColor = humanColor === 'w' ? 'b' : 'w';
     this.board = [
       ['bR','bN','bB','bQ','bK','bB','bN','bR'],
       ['bP','bP','bP','bP','bP','bP','bP','bP'],
@@ -3673,10 +3688,18 @@ const chessGame = {
     this.isThinking = false;
     this.gameOver = false;
     this.hintSquares = null;
-    this.status = "Vihaan's turn! Make your move.";
+    this.status = humanColor === 'w' ? "Your turn! Make your move." : "Robo-Pawn is calculating...";
+    document.getElementById('chm-color-picker').hidden = true;
+    document.getElementById('chm-game-body').hidden = false;
+    document.getElementById('chm-color-label').textContent = `You play ${humanColor === 'w' ? 'White' : 'Black'}, robot plays ${humanColor === 'w' ? 'Black' : 'White'}.`;
     drawRoboFace('happy');
     this.updateSpeech("Beep boop! Ready for a friendly match, Vihaan? Show me your Crowder College Open tactics!");
     this.render();
+    if (this.turn === this.botColor) {
+      this.isThinking = true;
+      drawRoboFace('thinking');
+      setTimeout(() => this.makeBotMove(), 650);
+    }
   },
 
   updateSpeech(msg) {
@@ -3863,7 +3886,7 @@ const chessGame = {
     if (inCheck) {
       playChessSound('check');
       drawRoboFace('check');
-      if (nextColor === 'b') {
+      if (nextColor === this.botColor) {
         this.updateSpeech("BEEP BEEP! Check! Let me calculate my escape...");
       } else {
         this.updateSpeech("Check, Vihaan! Watch your King!");
@@ -3873,14 +3896,14 @@ const chessGame = {
     if (nextLegal.length === 0) {
       this.gameOver = true;
       if (inCheck) {
-        if (nextColor === 'b') {
+        if (nextColor === this.botColor) {
           playChessSound('win');
           drawRoboFace('win');
-          this.status = "🏆 CHECKMATE! VIHAAN WINS!";
-          this.updateSpeech("CHECKMATE! 🏆 Wow, Vihaan, +130 Rating Surge! Outstanding tactics!");
+          this.status = "🏆 CHECKMATE! You win!";
+          this.updateSpeech("CHECKMATE! 🏆 Outstanding tactics!");
         } else {
-          this.status = "CHECKMATE! Robo-Pawn wins!";
-          this.updateSpeech("Checkmate! Beep boop! Fantastic battle, Vihaan! Rematch?");
+          this.status = "Checkmate! Robo-Pawn found a clever move. Ready for another game?";
+          this.updateSpeech("Checkmate! Beep boop! That was a clever move. Ready for another game?");
         }
       } else {
         this.status = "STALEMATE! Game drawn.";
@@ -3890,10 +3913,10 @@ const chessGame = {
       return;
     }
 
-    this.status = this.turn === 'w' ? "Vihaan's turn! Make your move." : "Robo-Pawn is calculating...";
+    this.status = this.turn === this.humanColor ? "Your turn! Make your move." : "Robo-Pawn is calculating...";
     this.render();
 
-    if (this.turn === 'b' && !this.gameOver) {
+    if (this.turn === this.botColor && !this.gameOver) {
       this.isThinking = true;
       drawRoboFace('thinking');
       setTimeout(() => this.makeBotMove(), 650);
@@ -3918,8 +3941,8 @@ const chessGame = {
   },
 
   makeBotMove() {
-    if (this.gameOver || this.turn !== 'b') return;
-    const legal = this.getLegalMoves('b');
+    if (this.gameOver || this.turn !== this.botColor) return;
+    const legal = this.getLegalMoves(this.botColor);
     if (!legal.length) return;
 
     let chosenMove = null;
@@ -3932,14 +3955,14 @@ const chessGame = {
       this.board[tr][tc] = savedSrc;
       this.board[fr][fc] = null;
       let score = this.evalBoard(this.board);
-      if (m.capture) score += (PIECE_VALUES[m.capture[1]] || 0) * 1.5;
-      if (this.isKingInCheck(this.board, 'w')) score += 80;
+      if (m.capture) score += (PIECE_VALUES[m.capture[1]] || 0) * (this.botColor === 'b' ? 1.5 : -1.5);
+      if (this.isKingInCheck(this.board, this.humanColor)) score += this.botColor === 'b' ? 80 : -80;
       this.board[fr][fc] = savedSrc;
       this.board[tr][tc] = savedDest;
       scoredMoves.push({ move: m, score });
     }
 
-    scoredMoves.sort((a, b) => b.score - a.score);
+    scoredMoves.sort((a, b) => this.botColor === 'b' ? b.score - a.score : a.score - b.score);
 
     if (this.botLevel === 500) {
       // Pawn-Bot: 60% chance best move, 40% random move
@@ -3969,11 +3992,11 @@ const chessGame = {
   },
 
   getTacticalHint() {
-    if (this.turn !== 'w' || this.gameOver) return;
-    const legal = this.getLegalMoves('w');
+    if (this.turn !== this.humanColor || this.gameOver) return;
+    const legal = this.getLegalMoves(this.humanColor);
     if (!legal.length) return;
 
-    let bestMove = null, bestScore = 999999;
+    let bestMove = null, bestScore = this.humanColor === 'w' ? 999999 : -999999;
     for (const m of legal) {
       const [fr, fc] = m.from, [tr, tc] = m.to;
       const savedDest = this.board[tr][tc];
@@ -3981,11 +4004,11 @@ const chessGame = {
       this.board[tr][tc] = savedSrc;
       this.board[fr][fc] = null;
       let score = this.evalBoard(this.board);
-      if (m.capture) score -= (PIECE_VALUES[m.capture[1]] || 0) * 1.5;
-      if (this.isKingInCheck(this.board, 'b')) score -= 80;
+      if (m.capture) score += (PIECE_VALUES[m.capture[1]] || 0) * (this.humanColor === 'w' ? -1.5 : 1.5);
+      if (this.isKingInCheck(this.board, this.botColor)) score += this.humanColor === 'b' ? 80 : -80;
       this.board[fr][fc] = savedSrc;
       this.board[tr][tc] = savedDest;
-      if (score < bestScore) {
+      if ((this.humanColor === 'w' && score < bestScore) || (this.humanColor === 'b' && score > bestScore)) {
         bestScore = score;
         bestMove = m;
       }
@@ -4032,11 +4055,11 @@ const chessGame = {
         }
 
         let dragStart = null, suppressClick = false;
-        if (p && p[0] === 'w') sq.style.touchAction = 'none';
+        if (p && p[0] === this.humanColor) sq.style.touchAction = 'none';
         sq.addEventListener('pointerdown', e => {
           suppressClick = false;
-          if (e.button !== 0 || !e.isPrimary || !p || p[0] !== 'w' ||
-              this.turn !== 'w' || this.isThinking || this.gameOver) return;
+          if (e.button !== 0 || !e.isPrimary || !p || p[0] !== this.humanColor ||
+              this.turn !== this.humanColor || this.isThinking || this.gameOver) return;
           dragStart = { id: e.pointerId, x: e.clientX, y: e.clientY };
           sq.setPointerCapture(e.pointerId);
         });
@@ -4066,7 +4089,7 @@ const chessGame = {
     const turnEl = document.getElementById('chm-turn-indicator');
     if (turnEl) {
       turnEl.className = 'chm-turn ' + this.turn;
-      turnEl.textContent = this.turn === 'w' ? "⚪ Vihaan's Turn" : "🤖 Robo-Pawn Thinking...";
+      turnEl.textContent = this.turn === this.humanColor ? `⚪ ${this.humanColor === 'w' ? 'White' : 'Black'} · Your Turn` : '🤖 Robo-Pawn Thinking...';
     }
     const evalEl = document.getElementById('chm-eval-text');
     if (evalEl) evalEl.textContent = this.status;
@@ -4099,7 +4122,7 @@ const chessGame = {
   },
 
   onSquareClick(r, c) {
-    if (this.gameOver || this.turn !== 'w' || this.isThinking) return;
+    if (this.gameOver || this.turn !== this.humanColor || this.isThinking) return;
     const p = this.board[r][c];
 
     if (this.selectedSquare) {
@@ -4111,9 +4134,9 @@ const chessGame = {
       }
     }
 
-    if (p && p[0] === 'w') {
+    if (p && p[0] === this.humanColor) {
       this.selectedSquare = [r, c];
-      const allLegal = this.getLegalMoves('w');
+      const allLegal = this.getLegalMoves(this.humanColor);
       this.legalMoves = allLegal.filter(m => m.from[0] === r && m.from[1] === c);
       this.render();
     } else {
@@ -4454,7 +4477,7 @@ function updateVihaanMovement(dt, t) {
 function startChessMatch() {
   const modal = document.getElementById('chess-hud-modal');
   if (modal) modal.hidden = false;
-  chessGame.init();
+  chessGame.showColorChoice();
 }
 
 function closeChessMatch() {
@@ -5527,7 +5550,7 @@ function setMode(m, arg) {
         if (typeof vihaanRig !== 'undefined') vihaanRig.sitProgress = 1.0;
       }
       if (typeof chessGame !== 'undefined') {
-        chessGame.init();
+        chessGame.showColorChoice();
       }
     } else {
       chessHud.classList.remove('show');
@@ -5883,7 +5906,20 @@ document.getElementById('chm-btn-stand')?.addEventListener('click', () => {
   walkVihaanTo(0.9, -2.5);
 });
 document.getElementById('chm-btn-new')?.addEventListener('click', () => {
-  if (typeof chessGame !== 'undefined') chessGame.init();
+  if (typeof chessGame !== 'undefined') chessGame.showColorChoice();
+});
+document.querySelectorAll('[data-player-color]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    let color = btn.dataset.playerColor;
+    if (color === 'random') {
+      const key = 'robotChessNextRandomColor';
+      try {
+        color = localStorage.getItem(key) || 'w';
+        localStorage.setItem(key, color === 'w' ? 'b' : 'w');
+      } catch (e) { color = 'w'; }
+    }
+    chessGame.init(color);
+  });
 });
 document.getElementById('chm-btn-hint')?.addEventListener('click', () => {
   if (typeof chessGame !== 'undefined') chessGame.getTacticalHint();
