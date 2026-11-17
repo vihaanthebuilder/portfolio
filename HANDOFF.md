@@ -1,5 +1,25 @@
 # HANDOFF — Vihaan's Portfolio (Vihaan's World)
 
+## Hall of Fame Tulsa trophy — active dispatch (Nov 16, 2026)
+
+- Working on `feature/hall-of-fame-tulsa` from `origin/main` at
+  `d92401c1e06bf26cda27f05379c64ed58a5be789`.
+- Hall of Fame source page identified before edits: `hall-of-fame.html`.
+- Trophy record does not provide an exact tournament name; use “Tulsa” only.
+- Add one 4th Place — Tulsa card with result 4 out of 5, preserving the
+  existing cards and their order. Local commit only; no push or publish.
+- Added the card immediately after the existing Crowder trophy card in
+  `hall-of-fame.html`; reused the existing Tulsa trophy photo
+  `images/outstanding-performance-trophy.jpg`. Existing trophy card content
+  and the surrounding card order were not changed.
+- Browser check used
+  `PLAYWRIGHT_MODULE=/Users/Nishant/dev-tools/browser-check/node_modules/playwright`
+  (Playwright 1.64.1; installed Chromium headless shell). At desktop 1280×800
+  and mobile 390×844, both trophy cards rendered and the required text checks
+  passed; no page or console errors. Visually inspected desktop capture.
+  Screenshots: `/tmp/vihaan-hall-of-fame/desktop.png` and
+  `/tmp/vihaan-hall-of-fame/mobile.png`.
+
 ## Next briefs queue
 
 1. **Spelling Bee Trainer — FEATURE-BRIEF-spelling-bee-trainer.md** — COMPLETE locally by Goku's dispatch, Nov 10, 2026. Branch `feature/spelling-bee-trainer` from `main` at `22587348075decc1577b2e63b9099072b4a7e7f1`; local commits only. No push, merge, or publish. Implementation commit `10daa3050556fa69961088ada6a05be7fdf8c842`. Browser verification passed 118 checks; installed Chrome had no available voices, and the kind fallback passed. This is the pre-publication status; see the published result below.
