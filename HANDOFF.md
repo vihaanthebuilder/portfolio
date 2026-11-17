@@ -16,6 +16,15 @@
   denied in this environment. No browser screenshots were produced.
 - Local implementation commit: `973ee1b` (`Update Author's Room chapter
   count`). Input brief remains untracked and excluded. No push or publish.
+- Nov 16 correction from Goku: Vihaan confirmed the book is 12 body systems
+  and 12 organs (24 total). Updated the page breakdown and its map to 12
+  entries per category; the finished Small Intestine title remains marked
+  finished under Organs, after Chapter 3 Tendons in the finished sequence.
+- This overlaps the separate agent's in-progress count fix and Chapter 4
+  content publish in the shared `authors-room.html` count/list area. This
+  worker changed only the breakdown counts/map placement; did not add or edit
+  Chapter 4 draft content. Goku sequences publication. Local commit only;
+  no push or publish.
 
 ## Next briefs queue
 
