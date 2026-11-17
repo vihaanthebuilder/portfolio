@@ -26,8 +26,8 @@
   point). Chrome headless exited with code 134 before producing a screenshot.
   So the requested 1280×800 / 390×844 browser interaction and visual checks
   have not been completed. No screenshots are claimed.
-- Implementation is ready for the specified local commit on
-  `feature/spelling-bee-world-champion`; no push or publish.
+- Committed locally on `feature/spelling-bee-world-champion` as
+  `c5c9512` (`feat: add spelling bee world champion round`). No push or publish.
 
 ## Next briefs queue
 
