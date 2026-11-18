@@ -1627,3 +1627,21 @@ Four briefs written and staged in this folder on Nov 16, 2026 (VM copies in ~/wo
   dismount behavior. Full findings and verdicts are in the spec's Review
   Triage Log. The spec tasks and review are complete. Changes are local to this worktree; nothing
   was pushed, merged, or published.
+
+### Room Life — published live (Nov 18, 2026)
+
+- Feature commit `c9b14f2` "feat(room): add room life scene interactions" on
+  branch `feature/room-life-scene` (5 files, 673 insertions). Merged to main as
+  `bded0d4` "Merge branch feature-room-life-scene" (clean, no conflict; the
+  main queue line for item 10 was committed first as `5e76780`). Pushed
+  `a574a56..bded0d4` to origin main.
+- GitHub Pages run `44345243287` completed SUCCESS (23s).
+- Live verification on https://vihaanthebuilder.github.io/portfolio with the
+  durable Playwright harness (`tests/room-life-feature.cjs`): PASS — "Room Life:
+  desktop/mobile two-player and dog, quad, skateboard rail grind, landing, and
+  reset". Desktop 1280x800 + mobile 390x844: plants 14 small + 3 large, dog at
+  [0.92, -1.18] visible and clickable, Play together toggle with both name
+  labels, quad mount/ride/dismount (top speed 2.78 units/s), skateboard rail
+  grind + landing, reset to home, zero console errors on both devices.
+  Screenshots and results: `/tmp/vihaan-room-life-live/` (9 PNGs +
+  interaction-results.json); check output `/tmp/pub69b-livecheck.txt`.
