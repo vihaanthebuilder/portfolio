@@ -293,6 +293,22 @@ Chess mobile input is verified with Chrome touch emulation only; Safari/iOS
 and real hardware have not been exercised. The screenshot is the popup grid,
 not the small decorative 3D table board.
 
+# Room Life feature
+
+With the local static server running, verify the room scene at desktop and
+phone sizes, dog petting, two-player controls, the quad, skateboard rail grind,
+plant counts, and the return-home behavior:
+
+```sh
+PLAYWRIGHT_MODULE=/tmp/vihaan-test-deps/node_modules/playwright node tests/room-life-feature.cjs
+```
+
+`VIHAAN_BASE_URL` can override the server URL. `VIHAAN_VQA_DIR` overrides the
+artifact directory, which defaults to `/tmp/vihaan-room-life-scene/final`.
+The browser check excludes only the known `images/dog.bin` fallback 404 and
+captures desktop/mobile room views, player views, a rail-grind frame, plant
+close-ups, and interaction results.
+
 # Road to State Countdown
 
 With the local static server running on port 8876, verify the Game Room
