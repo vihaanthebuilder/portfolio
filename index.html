@@ -854,7 +854,7 @@
 }
 
 /* ---------- 3D Vihaan Avatar Action Bar (Sally UX Lead) ---------- */
-#avatar-action-bar{position:absolute;left:50%;bottom:64px;transform:translateX(-50%);z-index:6;display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:24px;background:rgba(14,20,32,.88);border:1.5px solid rgba(255,213,0,.5);box-shadow:0 12px 32px rgba(0,0,0,.6),0 0 16px rgba(30,80,200,.3);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);flex-wrap:wrap;justify-content:center;max-width:calc(100vw - 24px)}
+#avatar-action-bar{position:absolute;left:50%;bottom:64px;transform:translateX(-50%);z-index:6;display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:24px;background:rgba(14,20,32,.88);border:1.5px solid rgba(255,213,0,.5);box-shadow:0 12px 32px rgba(0,0,0,.6),0 0 16px rgba(30,80,200,.3);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);flex-wrap:wrap;justify-content:center;width:min(1100px,calc(100vw - 24px));max-width:calc(100vw - 24px)}
 .aab-label{font-family:var(--mono);font-size:11px;font-weight:800;letter-spacing:.08em;color:var(--yellow);padding:0 6px 0 2px;white-space:nowrap}
 .aab-btn{appearance:none;border:none;cursor:pointer;font-family:'Baloo 2',var(--sans);font-size:13px;font-weight:700;padding:6px 14px;border-radius:16px;background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.2);display:inline-flex;align-items:center;gap:6px;transition:all .18s ease;white-space:nowrap;min-height:36px}
 .aab-btn:hover{background:rgba(255,213,0,.22);border-color:var(--yellow);transform:translateY(-2px);color:#fff}
@@ -864,10 +864,14 @@
 .aab-btn.aab-stairs{background:linear-gradient(135deg,rgba(30,80,200,.25),rgba(42,95,224,.4));border-color:#6ea8ff;color:#dce8ff}
 .aab-btn.aab-stairs:hover{background:linear-gradient(135deg,#1e50c8,#2a5fe0);color:#fff}
 .aab-hint{font-family:var(--mono);font-size:10px;color:#a0b2cc;padding:0 6px;white-space:nowrap}
+#world-interaction{font:700 12px 'Baloo 2',var(--sans);color:#fff;background:rgba(30,80,200,.92);border:1px solid #8eb5ff;border-radius:999px;padding:8px 13px;min-height:38px;cursor:pointer}
+#world-interaction[hidden]{display:none!important}
 @media (max-width:860px){
-  #avatar-action-bar{bottom:62px;border-radius:14px;padding:6px 8px;gap:4px}
+  #avatar-action-bar{bottom:62px;border-radius:14px;padding:6px 8px;gap:4px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:min(360px,calc(100vw - 24px))}
   .aab-hint{display:none}
-  .aab-btn{font-size:12px;padding:5px 10px;min-height:34px}
+  .aab-label{display:none}
+  .aab-btn{font-size:11px;line-height:1.05;padding:4px 6px;min-height:32px;min-width:0;white-space:normal;justify-content:center;text-align:center}
+  #world-interaction{grid-column:1/-1;justify-self:center;max-width:100%}
 }
 
 /* ---------- Interactive Chess Match HUD vs Robo-Pawn (Sally UX Lead) ---------- */
@@ -1506,7 +1510,9 @@ body.machine #topnav,body.machine #layout{display:none}
     <button type="button" class="aab-btn" id="btn-action-hoop" title="Walk to basketball court">🏀 HOOP</button>
     <button type="button" class="aab-btn" id="btn-action-arcade" title="Walk to arcade cabinet">🕹️ ARCADE</button>
     <button type="button" class="aab-btn" id="btn-action-trophies" title="Explore both chess trophies on the left rack">🏆 TROPHIES</button>
-    <span class="aab-hint">WASD / Arrows to Walk · Enter near Bike or Trophy</span>
+    <span class="aab-hint">WASD / Arrows to Walk · Enter near the quad, board, dog, or trophy</span>
+    <button id="world-interaction" type="button" hidden></button>
+    <button id="aab-two-player" type="button" class="aab-btn" aria-pressed="false">👬 Play together</button>
   </div>
 
   <!-- Interactive Chess Match HUD vs Robo-Pawn (Sally UX Lead) -->
@@ -2800,6 +2806,7 @@ const vihaanState = {
   keys: { left: false, right: false, up: false, down: false },
   stepSoundTimer: 0
 };
+let twoPlayerMode = false;
 
 // Ground click target reticle
 let groundTargetMarker = null;
@@ -3006,6 +3013,9 @@ let groundTargetMarker = null;
 })();
 /* ---------- dog (smooth low-poly) ---------- */
 const dogGroup = new THREE.Group();
+const dogTail = new THREE.Group();
+let dogPetTimer = 0;
+const petReachTimer = { vihaan: 0, ahaan: 0 };
 (function dog() {
   const g = dogGroup; g.position.set(0.92, 0, -1.18); g.rotation.y = 2.35; g.scale.setScalar(0.98); scene.add(g);
   const tan = std({ color: 0xc39a5e, roughness: 0.85 }), dk = std({ color: 0x2a1d12, roughness: 0.9 }), blk = std({ color: 0x0a0a0a, roughness: 0.5 });
@@ -3023,10 +3033,22 @@ const dogGroup = new THREE.Group();
     sphere(0.09, tan, -0.2, 0.12, s * 0.14, g, 16, 12);
     const paw = add(new THREE.Mesh(new THREE.CapsuleGeometry(0.04, 0.12, 4, 12), tan), g); paw.position.set(0.0, 0.045, s * 0.17); paw.rotation.z = Math.PI / 2;
   }
-  limb(0.03, V3(-0.36, 0.2, 0), V3(-0.55, 0.06, 0.15), dk, g);
+  dogTail.position.set(-0.34,0.21,0);g.add(dogTail);
+  limb(0.03,V3(0,0,0),V3(-0.21,-0.08,0.14),dk,dogTail);
+  sphere(0.045,dk,-.21,-.08,.14,dogTail,10,8);
   const harness = add(new THREE.Mesh(new THREE.TorusGeometry(0.165, 0.012, 8, 32), blk), g); harness.position.set(0.12, 0.2, 0); harness.rotation.y = Math.PI / 2;
   limb(0.012, V3(0.12, 0.36, 0), V3(0.3, 0.3, 0), blk, g);
 })();
+const dogHit=[];dogGroup.traverse(o=>{if(o.isMesh)dogHit.push(o);});
+function petDog(player='vihaan'){
+  dogPetTimer=1.6;
+  petReachTimer[player]=1.6;
+  const actor=player==='ahaan'?ahaanState:vihaanState;
+  actor.yaw=Math.atan2(-(dogGroup.position.z-actor.z),dogGroup.position.x-actor.x);
+  (player==='ahaan'?ahaanGroup:personGroup).rotation.y=actor.yaw;
+  const prompt=document.getElementById('world-interaction');
+  if(prompt){prompt.textContent='Good dog!';prompt.hidden=false;}
+}
 
 /* ---------- photoreal characters: image-to-3D meshes generated with Higgsfield (Tripo/Hunyuan), embedded as GLB ---------- */
 const GLBS = { person: '', dog: '' };
@@ -3178,6 +3200,52 @@ async function loadCharacter(b64, opts) {
 // Person: sits on the front edge of step 1 (tread top 0.53) facing right, feet on the floor just past the bottom step.
 // Vihaan is already on the stairs in personGroup; register him in characters[]
 characters.push(personGroup);
+// Ahaan reuses the room's kid-proportioned procedural avatar, with a separate
+// green hoodie and rig state so he can walk independently in Play together.
+const ahaanGroup = personGroup.clone(true);
+const avatarNodes = [], ahaanNodes = [];
+personGroup.traverse(node => avatarNodes.push(node));
+ahaanGroup.traverse(node => ahaanNodes.push(node));
+const ahaanNodeMap = new Map(avatarNodes.map((node, i) => [node, ahaanNodes[i]]));
+const ahaanRig = {
+  torso: ahaanNodeMap.get(vihaanRig.torso),
+  head: ahaanNodeMap.get(vihaanRig.head),
+  leftArm: ahaanNodeMap.get(vihaanRig.leftArm),
+  rightArm: ahaanNodeMap.get(vihaanRig.rightArm),
+  phone: ahaanNodeMap.get(vihaanRig.phone),
+  feet: vihaanRig.feet.map(foot => ({ side: foot.side, sitting: ahaanNodeMap.get(foot.sitting), walking: ahaanNodeMap.get(foot.walking) }))
+};
+ahaanGroup.traverse(node => {
+  if (!node.isMesh || !node.material) return;
+  const recolor = material => {
+    const copy = material.clone();
+    if (copy.color?.getHex() === 0x1e50c8) copy.color.set(0x218a72);
+    return copy;
+  };
+  node.material = Array.isArray(node.material) ? node.material.map(recolor) : recolor(node.material);
+});
+if (ahaanRig.torso?.material) {
+  ahaanRig.torso.material.map = null;
+  ahaanRig.torso.material.color.set(0x218a72);
+  ahaanRig.torso.material.needsUpdate = true;
+}
+if (ahaanRig.phone) ahaanRig.phone.visible = false;
+ahaanGroup.visible = false;
+scene.add(ahaanGroup);
+function makePlayerLabel(text, color) {
+  const map = canvasTex(256, 64, ctx => {
+    ctx.fillStyle = 'rgba(12,19,31,.9)'; ctx.beginPath(); ctx.roundRect(8, 8, 240, 48, 22); ctx.fill();
+    ctx.strokeStyle = color; ctx.lineWidth = 4; ctx.stroke();
+    ctx.fillStyle = '#fff'; ctx.font = '800 28px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(text, 128, 33);
+  });
+  const label = new THREE.Sprite(new THREE.SpriteMaterial({ map, transparent: true, depthTest: false, depthWrite: false }));
+  label.position.set(0, 1.62, 0); label.scale.set(1.25, 0.32, 1); label.renderOrder=10; label.visible = false;
+  return label;
+}
+const vihaanNameLabel = makePlayerLabel('VIHAAN', '#ffd500');
+const ahaanNameLabel = makePlayerLabel('AHAAN', '#68e0b0');
+personGroup.add(vihaanNameLabel); ahaanGroup.add(ahaanNameLabel);
+const ahaanState = { x: 0.5, y: BASE + 0.015, z: -1.05, yaw: -0.28, velocity: 0, walkT: 0, keys: { left: false, right: false, up: false, down: false } };
 // Load Vihaan's playful puppy dog mesh from local images/dog.bin (with fallback to dogGroup)
 (async () => {
   try {
@@ -4165,11 +4233,11 @@ function getWalkHeight(x, z) {
 }
 function resetMovement(clearQueue = true) {
   for (const k of Object.keys(vihaanState.keys)) vihaanState.keys[k] = false;
+  if(typeof ahaanState!=='undefined')for(const k of Object.keys(ahaanState.keys)) ahaanState.keys[k]=false;
   if (clearQueue) vihaanState.queue = [];
   vihaanState.velocity = 0; vihaanState.isWalking = false;
 }
-function guardedPosition(x, z) {
-  const v = vihaanState;
+function guardedPositionFor(v, x, z) {
   if (onStairs(v.x, v.z) && v.x < -0.12) {
     x = Math.max(-10.6, x); z = Math.max(-2.42, Math.min(-0.73, z));
   } else if (!onStairs(v.x, v.z) && x < -0.12 && x > STAIR_FLOOR_BOUNDS.minX && z > STAIR_FLOOR_BOUNDS.minZ && z < STAIR_FLOOR_BOUNDS.maxZ) {
@@ -4177,6 +4245,7 @@ function guardedPosition(x, z) {
   }
   return { x: Math.max(-14, Math.min(12, x)), z: Math.max(-8, Math.min(8, z)) };
 }
+function guardedPosition(x,z){return guardedPositionFor(vihaanState,x,z);}
 function footDestination(side, lead = 0) {
   const v = vihaanState;
   const travelYaw = lead && (v.moveDX || v.moveDZ) ? Math.atan2(-v.moveDZ, v.moveDX) : v.yaw;
@@ -4250,7 +4319,7 @@ function updateFeet(dt, moved) {
     // Lift vertically before crossing a riser, then lower onto the target tread.
     const travel = THREE.MathUtils.smoothstep(sw.t, 0.22, 0.78);
     f.position.lerpVectors(sw.from, sw.to, travel);
-    const clearance = sw.height + 0.19;
+    const clearance = sw.height + 0.14;
     f.position.y = sw.t < 0.22 ? THREE.MathUtils.lerp(sw.from.y, clearance, THREE.MathUtils.smoothstep(sw.t, 0, 0.22)) : sw.t > 0.78 ? THREE.MathUtils.lerp(clearance, sw.to.y, THREE.MathUtils.smoothstep(sw.t, 0.78, 1)) : clearance;
     if (sw.t === 1) { f.position.copy(sw.to); f.swing = null; }
   }
@@ -4270,7 +4339,7 @@ function updateFeet(dt, moved) {
   const idealY = Math.min(support + 0.75, reachableY);
   v.standY = v.standY == null ? idealY : Math.min(reachableY, THREE.MathUtils.damp(v.standY, idealY, 16, dt));
   const standY = v.standY;
-  const sitY = v.seat === 'table' ? 0.095 : (v.seat === 'bike' ? getWalkHeight(v.x, v.z) + 0.73 : BASE + 0.015);
+  const sitY = v.seat === 'table' ? 0.095 : (v.seat === 'quad' || v.seat === 'skateboard' ? getWalkHeight(v.x, v.z) + 0.73 : BASE + 0.015);
   vihaanRig.sitProgress = THREE.MathUtils.damp(vihaanRig.sitProgress, v.isSitting ? 1 : 0, 12, dt);
   const sp = vihaanRig.sitProgress;
   v.y = THREE.MathUtils.lerp(standY, sitY, sp);
@@ -4369,6 +4438,97 @@ function walkVihaanToChessTable() {
   });
 }
 
+function updateWorldInteraction(){
+  const prompt=document.getElementById('world-interaction');if(!prompt)return;
+  if(dogPetTimer>0){prompt.textContent='Good dog!';prompt.dataset.player='none';prompt.hidden=false;return;}
+  const v=vihaanState;
+  const choices=[
+    {d:Math.hypot(v.x-dogGroup.position.x,v.z-dogGroup.position.z),text:'Press Enter to pet the dog.',player:'vihaan'},
+    ...(twoPlayerMode?[{d:Math.hypot(ahaanState.x-dogGroup.position.x,ahaanState.z-dogGroup.position.z),text:'Press E to pet the dog.',player:'ahaan'}]:[]),
+    {d:Math.hypot(v.x-quad.group.position.x,v.z-quad.group.position.z),text:quad.riding?'Press Enter to hop off the quad.':'Press Enter to ride the quad.',player:'vihaan'},
+    {d:Math.hypot(v.x-skateboard.group.position.x,v.z-skateboard.group.position.z),text:skateboard.riding?'Press Enter to hop off the skateboard.':'Press Enter to ride the skateboard.',player:'vihaan'},
+    ...[-11.4+(10+.5)*.815,-11.4+(11+.5)*.815].map(x=>({d:Math.hypot(v.x-x,v.z+3.63),text:'Press Enter to explore a trophy.',player:'vihaan'}))
+  ].sort((a,b)=>a.d-b.d);
+  const active=choices.find(choice=>choice.d<1.2);
+  prompt.hidden=!active;
+  if(active){prompt.textContent=active.text;prompt.dataset.player=active.player;}
+}
+
+function interactNearVihaan(){
+  if(quad.riding){quad.riding=false;vihaanState.isSitting=false;vihaanState.seat='none';vihaanState.standY=null;updateQuadPose(quad.parked.x,quad.parked.z,0);return true;}
+  if(skateboard.riding){skateboard.riding=false;skateboard.grinding=false;vihaanState.isSitting=false;vihaanState.seat='none';vihaanState.standY=null;updateSkateboardPose(vihaanState.x,vihaanState.z,vihaanState.yaw,false);return true;}
+  const v=vihaanState;
+  if(Math.hypot(v.x-dogGroup.position.x,v.z-dogGroup.position.z)<1.2){petDog();return true;}
+  const awards=[-11.4+(10+.5)*.815,-11.4+(11+.5)*.815].map((x,i)=>({x,z:-3.63,i}));
+  const trophy=awards.map(a=>({...a,d:Math.hypot(v.x-a.x,v.z-a.z)})).sort((a,b)=>a.d-b.d)[0];
+  if(trophy.d<1.25){setMode('trophy',trophy.i);openTrophy(trophy.i);return true;}
+  if(Math.hypot(v.x-quad.group.position.x,v.z-quad.group.position.z)<1.15){
+    quad.riding=true;v.queue=[];v.x=quad.group.position.x;v.z=quad.group.position.z;v.keys={left:false,right:false,up:false,down:false};v.isSitting=true;v.seat='quad';v.sitProgress=1;v.standY=null;updateQuadPose(v.x,v.z,v.yaw);return true;
+  }
+  if(Math.hypot(v.x-skateboard.group.position.x,v.z-skateboard.group.position.z)<1.15){
+    skateboard.riding=true;skateboard.grinding=false;v.queue=[];v.x=skateboard.group.position.x;v.z=skateboard.group.position.z;v.keys={left:false,right:false,up:false,down:false};v.isSitting=true;v.seat='skateboard';v.sitProgress=1;v.standY=null;updateSkateboardPose(v.x,v.z,v.yaw,false);return true;
+  }
+  return false;
+}
+
+function interactNearAhaan(){
+  if(!twoPlayerMode)return false;
+  if(Math.hypot(ahaanState.x-dogGroup.position.x,ahaanState.z-dogGroup.position.z)<1.2){petDog('ahaan');return true;}
+  return false;
+}
+
+function setTwoPlayerMode(enabled){
+  if(enabled&&!twoPlayerMode)resetMovement();
+  twoPlayerMode=!!enabled;
+  state.camFrom.copy(camera.position);state.lookFrom.copy(state.lookCur);state.transT=0;
+  const button=document.getElementById('aab-two-player');
+  if(button){button.setAttribute('aria-pressed',String(twoPlayerMode));button.textContent=twoPlayerMode?'👬 Play together: On':'👬 Play together';button.classList.toggle('active',twoPlayerMode);}
+  vihaanNameLabel.visible=twoPlayerMode; ahaanGroup.visible=twoPlayerMode; ahaanNameLabel.visible=twoPlayerMode;
+  if(twoPlayerMode){
+    ahaanState.x=Math.max(-10.4,Math.min(11.4,vihaanState.x+1.45));
+    ahaanState.z=vihaanState.z+0.05;
+    ahaanState.y=getWalkHeight(ahaanState.x,ahaanState.z)+BASE+0.015;
+    ahaanState.yaw=-0.28; ahaanState.velocity=0;
+    ahaanGroup.position.set(ahaanState.x,ahaanState.y,ahaanState.z); ahaanGroup.rotation.y=ahaanState.yaw;
+    for(const foot of ahaanRig.feet){foot.sitting.visible=true;foot.walking.visible=false;foot.sitting.rotation.z=0;}
+  }else{
+    for(const key of Object.keys(ahaanState.keys)) ahaanState.keys[key]=false;
+    ahaanState.velocity=0;petReachTimer.ahaan=0; resetMovement();
+    quad.riding=false; skateboard.riding=false; skateboard.grinding=false;
+    vihaanState.seat='none';vihaanState.isSitting=false;vihaanState.standY=null;
+    quad.group.visible=true;updateQuadPose(quad.parked.x,quad.parked.z,0);
+    skateboard.group.visible=true;updateSkateboardPose(skateboard.parked.x,skateboard.parked.z,0,false);
+  }
+  if(state.mode==='home')hintEl.innerHTML=twoPlayerMode?'VIHAAN: Arrows + Enter &nbsp;·&nbsp; AHAAN: WASD + E':'♟️ Play Chess with Bot &nbsp;·&nbsp; WASD / Arrows to Walk &nbsp;·&nbsp; Enter near the quad, skateboard, dog, or trophy';
+  updateWorldInteraction();
+}
+
+function updateAhaanMovement(dt){
+  if(!twoPlayerMode||state.mode!=='home'||trophyDialog.open)return;
+  const a=ahaanState,keys=a.keys;
+  let dx=Number(keys.right)-Number(keys.left),dz=Number(keys.down)-Number(keys.up);
+  const distance=Math.hypot(dx,dz),previousX=a.x,previousZ=a.z;
+  if(distance>0){dx/=distance;dz/=distance;const targetYaw=Math.atan2(-dz,dx);const turn=Math.atan2(Math.sin(targetYaw-a.yaw),Math.cos(targetYaw-a.yaw));a.yaw+=turn*(1-Math.exp(-12*dt));}
+  const desired=distance?1.25:0;
+  a.velocity=THREE.MathUtils.damp(a.velocity,desired,desired?7:12,dt);
+  if(distance){
+    const next=guardedPositionFor(a,a.x+dx*a.velocity*dt,a.z+dz*a.velocity*dt);
+    const maxGap=4.4,gapX=next.x-vihaanState.x,gapZ=next.z-vihaanState.z,gap=Math.hypot(gapX,gapZ);
+    if(gap>maxGap){next.x=vihaanState.x+gapX/gap*maxGap;next.z=vihaanState.z+gapZ/gap*maxGap;}
+    const guarded=guardedPositionFor(a,next.x,next.z);next.x=guarded.x;next.z=guarded.z;
+    a.x=next.x;a.z=next.z;
+  }
+  const moved=Math.hypot(a.x-previousX,a.z-previousZ);
+  a.walkT+=moved*9;a.y=getWalkHeight(a.x,a.z)+BASE+0.015+Math.min(.045,moved*0.18);
+  ahaanGroup.position.set(a.x,a.y,a.z);ahaanGroup.rotation.y=a.yaw;
+  const gait=moved>0.0001?Math.sin(a.walkT):0;
+  for(const foot of ahaanRig.feet){foot.sitting.visible=true;foot.walking.visible=false;foot.sitting.rotation.z=gait*.24*(foot.side<0?1:-1);}
+  ahaanRig.torso.rotation.z=-.05+Math.abs(gait)*.025;
+  petReachTimer.ahaan=Math.max(0,petReachTimer.ahaan-dt);
+  ahaanRig.rightArm.rotation.z=THREE.MathUtils.damp(ahaanRig.rightArm.rotation.z,petReachTimer.ahaan>0?-1.05:-.68+gait*.10,12,dt);
+  ahaanRig.leftArm.rotation.z=THREE.MathUtils.damp(ahaanRig.leftArm.rotation.z,petReachTimer.ahaan>0?-.35:-.68-gait*.10,12,dt);
+}
+
 function updateVihaanMovement(dt, t) {
   dt = Math.min(0.05, Math.max(0, dt));
   const v = vihaanState, keys = v.keys;
@@ -4376,11 +4536,13 @@ function updateVihaanMovement(dt, t) {
   const enabled = state.mode === 'home' && !trophyDialog.open;
   if (enabled) {
     dx = Number(keys.right) - Number(keys.left); dz = Number(keys.down) - Number(keys.up);
-    if (dx || dz) { v.queue = []; if (!bike.riding) { v.isSitting = false; v.seat = 'none'; } }
+    const riding = quad.riding || skateboard.riding;
+    if (dx || dz) { v.queue = []; if (!riding) { v.isSitting = false; v.seat = 'none'; } }
     else if (v.queue.length) { target = v.queue[0]; dx = target.x - v.x; dz = target.z - v.z; }
   }
   const distance = Math.hypot(dx, dz), previousX = v.x, previousZ = v.z;
-  const maxSpeed = bike.riding ? (onStairs(v.x,v.z) ? 1.5 : 2.15) : (onStairs(v.x, v.z) ? 1.15 : Math.min(v.speed, 1.35));
+  const riding = quad.riding || skateboard.riding;
+  const maxSpeed = quad.riding ? (onStairs(v.x,v.z) ? 2.1 : 2.8) : skateboard.riding ? (skateboard.grinding ? 2.2 : 1.75) : (onStairs(v.x, v.z) ? 1.15 : Math.min(v.speed, 1.35));
   const directionYaw = distance > 0.001 ? Math.atan2(-dz, dx) : v.yaw;
   const alignment = distance > 0.001 ? Math.max(0, Math.cos(directionYaw - v.yaw)) : 1;
   const wanted = distance > 0.001 ? (target ? Math.min(maxSpeed, Math.sqrt(6 * distance)) : maxSpeed) : 0;
@@ -4392,20 +4554,30 @@ function updateVihaanMovement(dt, t) {
   }
   let travel = v.velocity * dt * alignment;
   if (target) travel = Math.min(travel, distance);
-  if (enabled && travel > 0.00001 && (!v.isSitting || bike.riding)) {
+  if (enabled && travel > 0.00001 && (!v.isSitting || riding)) {
     let next;
-    if (bike.riding) {
+    if (skateboard.riding && skateboard.grinding) {
+      const nextX=Math.min(.05,Math.max(-8.45,v.x+(v.moveDX||0)*travel));
+      next=new THREE.Vector3(nextX,getWalkHeight(nextX,-.47),-.47);
+    } else if (riding) {
       let nx = Math.max(-10.55,Math.min(11.8,v.x+(v.moveDX||0)*travel));
       let nz = Math.max(-7.5,Math.min(7.5,v.z+(v.moveDZ||0)*travel));
-      if ((onStairs(nx,nz) || onStairs(v.x,v.z)) && nx > -8.7 && nx < 0.42) nz=Math.max(-2.38,Math.min(-.76,nz));
+      const boardEnteringRail = skateboard.riding && !skateboard.grinding && (onStairs(nx,nz)||onStairs(v.x,v.z)) && nx > -8.45 && nx < -0.04 && v.moveDX > 0.15 && v.z >= -0.82 && v.z <= -0.28;
+      if (boardEnteringRail) { skateboard.grinding=true; nz=-.47; }
+      else if ((onStairs(nx,nz) || onStairs(v.x,v.z)) && nx > -8.7 && nx < 0.42) nz=Math.max(-2.38,Math.min(-.76,nz));
       else if (!onStairs(nx,nz) && nx<-.12 && nz> -2.90 && nz<-.25) nz=nz> -1.57?-.25:-2.90;
       next=new THREE.Vector3(nx,getWalkHeight(nx,nz),nz);
     } else next = guardedPosition(v.x + (v.moveDX || 0) * travel, v.z + (v.moveDZ || 0) * travel);
+    if(twoPlayerMode){
+      const maxGap=4.4,gapX=next.x-ahaanState.x,gapZ=next.z-ahaanState.z,gap=Math.hypot(gapX,gapZ);
+      if(gap>maxGap){next.x=ahaanState.x+gapX/gap*maxGap;next.z=ahaanState.z+gapZ/gap*maxGap;}
+      if(!riding){const guarded=guardedPositionFor(v,next.x,next.z);next.x=guarded.x;next.z=guarded.z;}
+    }
     // The pelvis cannot outrun the planted support foot, including turns.
     // Continue the swing while briefly slowing the body if a sharp route change
     // would exceed anatomical reach; the next footfall releases the constraint.
     let allowed = 1;
-    for (const f of bike.riding ? [] : vihaanRig.feet) {
+    for (const f of riding ? [] : vihaanRig.feet) {
       if (!f.position || f.swing) continue;
       const reach = Math.hypot(next.x - f.position.x, next.z - f.position.z);
       const limit = onStairs(v.x, v.z) ? 0.67 : 0.58;
@@ -4427,20 +4599,28 @@ function updateVihaanMovement(dt, t) {
     if (!v.queue.length) v.velocity = 0;
   }
   const moved = Math.hypot(v.x - previousX, v.z - previousZ);
-  v.isWalking = !bike.riding && moved > 0.0001; v.walkT += moved * 9;
+  v.isWalking = !riding && moved > 0.0001; v.walkT += moved * 9;
   if (v.z < -2.6 && v.x > 0.4 && v.x < 2.4) slider.want = 1;
-  if (!trophyDialog.open && !bike.riding) updateFeet(dt, moved);
-  if (bike.riding) {
-    vihaanRig.sitProgress=1; v.y=getWalkHeight(v.x,v.z)+.73;
+  if(dogPetTimer>0){const elapsed=1.6-dogPetTimer;dogPetTimer=Math.max(0,dogPetTimer-dt);dogGroup.position.y=Math.abs(Math.sin(elapsed*8))*0.09;dogTail.rotation.z=Math.sin(elapsed*14)*.62;}
+  else{dogGroup.position.y=0;dogTail.rotation.z=0;}
+  petReachTimer.vihaan=Math.max(0,petReachTimer.vihaan-dt);
+  updateWorldInteraction();
+  updateAhaanMovement(dt);
+  if (!trophyDialog.open && !riding) updateFeet(dt, moved);
+  if (riding) {
+    vihaanRig.sitProgress=1; v.y=getWalkHeight(v.x,v.z)+(quad.riding?.73:.34)+(skateboard.grinding?.9:0);
     personGroup.position.set(v.x,v.y,v.z);personGroup.rotation.y=v.yaw;
-    for(const f of vihaanRig.feet){f.sitting.visible=true;f.walking.visible=false;f.sitting.rotation.z=Math.sin(v.walkT*1.7+(f.side<0?0:Math.PI))*.22;}
-    personGroup.updateMatrixWorld(true);updateBikePose(v.x,v.z,v.yaw);
+    for(const f of vihaanRig.feet){f.sitting.visible=true;f.walking.visible=false;f.sitting.rotation.z=Math.sin(v.walkT*1.7+(f.side<0?0:Math.PI))*(quad.riding?.22:.12);}
+    personGroup.updateMatrixWorld(true);
+    if(quad.riding)updateQuadPose(v.x,v.z,v.yaw);
+    if(skateboard.riding){updateSkateboardPose(v.x,v.z,v.yaw);if(skateboard.grinding&&v.x>=-.02){skateboard.grinding=false;v.x=.28;v.z=-.47;v.velocity=Math.max(v.velocity,1.1);}}
   }
   const sp = vihaanRig.sitProgress, gait = v.isWalking ? Math.sin(v.walkT) : 0;
   for (const [arm, side] of [[vihaanRig.leftArm, 1], [vihaanRig.rightArm, -1]]) {
-    arm.rotation.z = THREE.MathUtils.damp(arm.rotation.z, bike.riding ? -0.34 : (1 - sp) * (-0.7 + side * gait * 0.24), 12, dt);
+    const petPose=petReachTimer.vihaan>0&&arm===vihaanRig.rightArm?-1.1:null;
+    arm.rotation.z = THREE.MathUtils.damp(arm.rotation.z, riding ? -0.34 : petPose??(1 - sp) * (-0.7 + side * gait * 0.24), 12, dt);
   }
-  vihaanRig.phone.visible = sp > 0.5 && !bike.riding;
+  vihaanRig.phone.visible = sp > 0.5 && !riding;
   vihaanRig.torso.rotation.z = -0.12 * sp;
   if (vihaanHeadGroup) { vihaanHeadGroup.rotation.y = Math.sin(t * 1.35) * 0.08; vihaanHeadGroup.rotation.z = Math.sin(t * 2.1) * 0.02; }
 
@@ -4935,46 +5115,50 @@ const ticker = plane(11.2, 0.28, basic({ map: tickerTex, color: 0xff4d00, toneMa
 rbox(11.3, 0.36, 0.05, 0.01, std({ color: 0x0a0a0a, roughness: 0.6 }), 4.05, 3.3, -1.3);
 const tickerLight = new THREE.PointLight(0xff4d00, 2.5, 6, 2); tickerLight.position.set(3.2, 3.15, -0.9); scene.add(tickerLight);
 
-/* ---------- small room life: bike and potted greenery ---------- */
-const bike = { group: new THREE.Group(), wheels: [], riding: false, parked: { x: -1.6, z: 0.35 } };
-scene.add(bike.group);
-const bikeMetal = std({ color: 0x22a9bd, metalness: 0.55, roughness: 0.34 });
-const bikeDark = std({ color: 0x17202d, roughness: 0.7 });
-const bikeRubber = std({ color: 0x17191e, roughness: 0.88 });
-const bikeSeat = std({ color: 0xffd500, roughness: 0.45 });
-function bikeTube(a, b, radius, material) {
+/* ---------- room life: Vihaan's quad and planted greenery ---------- */
+const quad = { group: new THREE.Group(), wheels: [], riding: false, parked: { x: -1.6, z: 0.35 } };
+scene.add(quad.group);
+const quadRed = std({ color: 0xc92735, roughness: 0.42, metalness: 0.18 });
+const quadDark = std({ color: 0x202630, roughness: 0.72 });
+const quadRubber = std({ color: 0x17191e, roughness: 0.88 });
+const quadMetal = std({ color: 0x9da7b2, metalness: 0.55, roughness: 0.34 });
+const quadSeat = std({ color: 0x20242a, roughness: 0.56 });
+function quadTube(a, b, radius, material) {
   const start = new THREE.Vector3(...a), end = new THREE.Vector3(...b), d = end.clone().sub(start);
   const mesh = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius, d.length(), 10), material);
   mesh.position.copy(start.add(end).multiplyScalar(0.5)); mesh.quaternion.setFromUnitVectors(UP, d.normalize());
-  bike.group.add(mesh); mesh.castShadow = true; return mesh;
+  quad.group.add(mesh); mesh.castShadow = true; return mesh;
 }
-for (const x of [-0.34, 0.34]) {
-  const wheel = new THREE.Group(); wheel.position.set(x, 0.22, 0); wheel.rotation.y = Math.PI / 2;
-  wheel.add(new THREE.Mesh(new THREE.TorusGeometry(0.195, 0.027, 8, 24), bikeRubber));
-  const hub = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 0.09, 12), bikeDark); hub.rotation.x = Math.PI / 2; wheel.add(hub);
-  for (let i = 0; i < 8; i++) { const spoke = new THREE.Mesh(new THREE.CylinderGeometry(0.004, 0.004, 0.35, 5), bikeMetal); spoke.rotation.z = i * Math.PI / 8; wheel.add(spoke); }
-  bike.group.add(wheel); bike.wheels.push(wheel);
+for (const x of [-0.34, 0.34]) for (const z of [-0.25, 0.25]) {
+  const wheel = new THREE.Group(); wheel.position.set(x, 0.18, z); wheel.rotation.y = Math.PI / 2;
+  wheel.add(new THREE.Mesh(new THREE.TorusGeometry(0.16, 0.045, 8, 20), quadRubber));
+  const hub = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.10, 12), quadDark); hub.rotation.x = Math.PI / 2; wheel.add(hub);
+  const tread = new THREE.Mesh(new THREE.TorusGeometry(0.16, 0.012, 5, 20), quadMetal); tread.rotation.y = Math.PI / 2; wheel.add(tread);
+  quad.group.add(wheel); quad.wheels.push(wheel);
 }
-// Two neat triangles give it the familiar shape of a real child's bicycle.
-bikeTube([-.34,.22,0],[-.05,.48,0],.025,bikeMetal);
-bikeTube([-.05,.48,0],[.34,.22,0],.025,bikeMetal);
-bikeTube([-.34,.22,0],[.08,.22,0],.025,bikeMetal);
-bikeTube([.08,.22,0],[-.05,.48,0],.025,bikeMetal);
-bikeTube([.08,.22,0],[.34,.22,0],.025,bikeMetal);
-bikeTube([-.05,.48,0],[-.11,.66,0],.022,bikeMetal);
-bikeTube([-.20,.67,0],[-.015,.67,0],.025,bikeSeat);
-  bikeTube([.34,.22,0],[.40,.78,0],.022,bikeMetal);
-  bikeTube([.30,.78,0],[.48,.78,0],.025,bikeDark);
+// A compact red body, black seat, four treaded wheels, and child-sized handlebars.
+rbox(.78,.16,.48,.07,quadRed,0,.39,0,quad.group);
+rbox(.30,.12,.35,.04,quadRed,.25,.50,0,quad.group);
+rbox(.30,.08,.28,.035,quadDark,-.25,.49,0,quad.group);
+rbox(.32,.055,.22,.025,quadSeat,-.18,.57,0,quad.group);
+rbox(.08,.22,.08,.03,quadRed,.02,.52,0,quad.group);
+quadTube([.33,.57,0],[.40,.78,0],.025,quadMetal);
+quadTube([.30,.78,-.18],[.50,.78,.18],.025,quadDark);
+rbox(.78,.07,.07,.025,quadDark,.02,.24,0,quad.group);
+for (const z of [-.16,.16]) {
+  const lamp = new THREE.Mesh(new THREE.SphereGeometry(.055,12,10), std({color:0xffe7a4,emissive:0xffcb55,emissiveIntensity:.35}));
+  lamp.position.set(.42,.52,z); quad.group.add(lamp);
+}
 for (const x of [-.34,.34]) {
-  const pedal = new THREE.Mesh(new THREE.CylinderGeometry(.018,.018,.22,10),bikeDark); pedal.rotation.z=Math.PI/2; pedal.position.set(.08,.22,0); bike.group.add(pedal);
+  const guard = new THREE.Mesh(new THREE.TorusGeometry(.20,.025,7,18,Math.PI),quadRed);
+  guard.position.set(x,.19,0); guard.rotation.z=Math.PI; quad.group.add(guard);
 }
-bike.group.position.set(bike.parked.x, 0, bike.parked.z); bike.group.visible = true;
-function updateBikePose(x, z, yaw = vihaanState.yaw) {
-  const wf = Math.cos(yaw) * 0.34, wz = -Math.sin(yaw) * 0.34;
-  const rear = getWalkHeight(x - wf, z - wz), front = getWalkHeight(x + wf, z + wz);
-  bike.group.position.set(x, (rear + front) / 2, z);
-  bike.group.rotation.set(0, yaw, Math.atan2(front - rear, 0.68));
-  bike.wheels.forEach(w => { w.rotation.x += vihaanState.velocity * 0.14; });
+function updateQuadPose(x, z, yaw = vihaanState.yaw) {
+  const heights = quad.wheels.map(w => getWalkHeight(x + w.position.x * Math.cos(yaw) + w.position.z * Math.sin(yaw), z - w.position.x * Math.sin(yaw) + w.position.z * Math.cos(yaw)));
+  const rear = (heights[0] + heights[1]) / 2, front = (heights[2] + heights[3]) / 2;
+  quad.group.position.set(x, (Math.min(...heights) + Math.max(...heights)) / 2, z);
+  quad.group.rotation.set(0, yaw, Math.atan2(front - rear, 0.68));
+  quad.wheels.forEach(w => { w.rotation.x += vihaanState.velocity * 0.14; });
 }
 function makePlant(x, z, size = 1) {
   const g = new THREE.Group(); g.position.set(x, 0, z); g.scale.setScalar(size); scene.add(g);
@@ -4983,6 +5167,8 @@ function makePlant(x, z, size = 1) {
   const leafMats = [std({ color: 0x287247, roughness: 0.84 }),std({ color: 0x4e9a57, roughness: 0.82 }),std({ color: 0x8fbd57, roughness: 0.82 })];
   const pot = new THREE.Mesh(new THREE.CylinderGeometry(.22,.16,.32,16),potMat); pot.position.y=.16; g.add(pot); pot.castShadow=true;
   const soil = new THREE.Mesh(new THREE.CylinderGeometry(.19,.19,.025,16),soilMat); soil.position.y=.325; g.add(soil);
+  const stem = new THREE.Mesh(new THREE.CylinderGeometry(.055,.075,.38,10),std({color:0x73502e,roughness:.92}));
+  stem.position.y=.51; g.add(stem); stem.castShadow=true;
   for (let i=0;i<7;i++) {
     const angle=i*Math.PI*2/7, len=.42+(i%3)*.08, leaf=new THREE.Mesh(new THREE.SphereGeometry(.15,12,10),leafMats[i%3]);
     leaf.scale.set(.62,1.45,.72); leaf.position.set(Math.cos(angle)*.17,.48+len*.38,Math.sin(angle)*.17); leaf.rotation.z=-Math.cos(angle)*.42; leaf.rotation.x=Math.sin(angle)*.35; g.add(leaf); leaf.castShadow=true;
@@ -4991,6 +5177,49 @@ function makePlant(x, z, size = 1) {
   return g;
 }
 const roomPlants = [makePlant(-11.75,1.1,1.15),makePlant(-11.55,-5.15,.92),makePlant(-3.7,1.0,.88),makePlant(7.8,2.1,1.05),makePlant(4.25,-4.9,.86),makePlant(-4.95,-4.15,.46),makePlant(-7.45,.55,.82),makePlant(7.4,.45,.48),makePlant(-4.35,-4.45,.55),makePlant(3.8,.55,.42),makePlant(-4.8,.8,.76),makePlant(-4.45,-4.25,.72),makePlant(2.7,.9,.72),makePlant(-2.6,1.25,.62)];
+function makeLargePlant(x,z,type) {
+  const g=new THREE.Group();g.position.set(x,0,z);scene.add(g);
+  const potMat=std({color:0x6d5140,roughness:.8}),soilMat=std({color:0x30251d,roughness:1});
+  const pot=new THREE.Mesh(new THREE.CylinderGeometry(.52,.42,.56,20),potMat);pot.position.y=.28;pot.castShadow=true;g.add(pot);
+  const soil=new THREE.Mesh(new THREE.CylinderGeometry(.49,.49,.025,20),soilMat);soil.position.y=.565;g.add(soil);
+  const trunkMat=std({color:type==='ficus'?0x725035:0x9b7146,roughness:.92});
+  if(type==='ficus'){
+    const trunk=new THREE.Mesh(new THREE.CylinderGeometry(.10,.16,1.50,12),trunkMat);trunk.position.y=1.30;trunk.castShadow=true;g.add(trunk);
+    const greens=[0x287247,0x3e8450,0x639d4a].map(color=>std({color,roughness:.84}));
+    for(const [x0,y0,z0,s] of [[0,2.18,0,.62],[-.42,2.03,0,.50],[.4,2.04,0,.52],[0,2.48,.30,.48],[0,2.43,-.32,.48]]){
+      const leaf=new THREE.Mesh(new THREE.SphereGeometry(1,14,12),greens[Math.round((x0+0.5)*2)%greens.length]);leaf.position.set(x0,y0,z0);leaf.scale.set(s,s*.78,s*.72);leaf.castShadow=true;g.add(leaf);
+    }
+  }else{
+    const trunk=new THREE.Mesh(new THREE.CylinderGeometry(.085,.16,1.75,12),trunkMat);trunk.position.set(0,1.44,0);trunk.rotation.z=-.06;trunk.castShadow=true;g.add(trunk);
+    const green=std({color:0x35834b,roughness:.82});
+    for(let i=0;i<9;i++){
+      const a=i*Math.PI*2/9,frond=new THREE.Mesh(new THREE.SphereGeometry(1,12,10),green);
+      frond.position.set(Math.cos(a)*.42,2.35+Math.sin(i*2.1)*.08,Math.sin(a)*.42);
+      frond.scale.set(.13,.52,.10);frond.rotation.z=-Math.cos(a)*.78;frond.rotation.x=Math.sin(a)*.55;frond.castShadow=true;g.add(frond);
+    }
+  }
+  return g;
+}
+const largeRoomPlants=[makeLargePlant(11.3,4.5,'ficus'),makeLargePlant(9.7,3.0,'palm'),makeLargePlant(11.5,-3.6,'palm')];
+// A small woven rug warms the open lounge without creating a movement obstacle.
+rbox(2.5,.035,1.55,.12,std({color:0x79543f,roughness:.96}),5.45,.018,-2.35);
+rbox(2.28,.018,1.33,.08,std({color:0xc49a69,roughness:.96}),5.45,.045,-2.35);
+quad.group.position.set(quad.parked.x,0,quad.parked.z);quad.group.visible=true;updateQuadPose(quad.parked.x,quad.parked.z,0);
+const skateboard={group:new THREE.Group(),wheels:[],riding:false,grinding:false,parked:{x:-8.5,z:-.7}};
+scene.add(skateboard.group);
+const boardDeck=std({color:0xe4b96f,roughness:.58}),boardGrip=std({color:0x29313d,roughness:.9});
+rbox(.62,.055,.22,.04,boardDeck,0,.09,0,skateboard.group);
+rbox(.50,.012,.18,.025,boardGrip,0,.124,0,skateboard.group);
+for(const x of [-.19,.19])for(const z of [-.105,.105]){
+  const wheel=new THREE.Mesh(new THREE.CylinderGeometry(.045,.045,.035,14),std({color:0x30343b,roughness:.82}));
+  wheel.rotation.x=Math.PI/2;wheel.position.set(x,.045,z);skateboard.group.add(wheel);skateboard.wheels.push(wheel);
+}
+function updateSkateboardPose(x,z,yaw=vihaanState.yaw,grinding=skateboard.grinding){
+  const surface=getWalkHeight(x,z)+(grinding?1.05:.01);
+  skateboard.group.position.set(x,surface,z);skateboard.group.rotation.set(0,yaw,grinding?-Math.atan(RISE/RUN):0);
+  skateboard.wheels.forEach(w=>{w.rotation.x+=vihaanState.velocity*.16;});
+}
+updateSkateboardPose(skateboard.parked.x,skateboard.parked.z,0,false);
 (function rightWall() {
   const z = -5.8;
   // Reduced brightness: toneMapped true, soft ambient glow, intensity 1.8 (was 7.0)
@@ -5484,11 +5713,16 @@ function targets() {
   if (state.mode === 'tv') return tvCam();
   if (state.mode === 'chess') return chessCam();
   if (state.mode === 'trophy') { const i=state.trophyIndex||0, x=-11.4+(10+i+0.5)*0.815, side=i===0?-0.8:0.8; return [V3(x+side,2.95,-1.65),V3(x+side,2.75,-3.38)]; }
-  if(innerWidth < 700) return [tmpA.set(-0.6,3.1,9.2),tmpB.set(-1.65,2.35,-3.4)];
+  if(twoPlayerMode&&state.mode==='home'){
+    const cx=(vihaanState.x+ahaanState.x)/2,cz=(vihaanState.z+ahaanState.z)/2,mobile=innerWidth<700;
+    const aimX=cx+(mobile?0.55:0);
+    return [tmpA.set(aimX+(mobile ? 0.8 : 2.4),mobile?3.25:2.3,cz+(mobile?10.8:9.3)),tmpB.set(aimX,mobile?1.45:1.85,cz-(mobile?1.6:1.4))];
+  }
+  if(innerWidth < 700) return [tmpA.set(-0.4,3.1,9.2),tmpB.set(-1.45,1.95,-3.4)];
   return [tmpA.copy(camBase), tmpB.copy(camLook)];
 }
 const HINTS = {
-  home: '♟️ Play Chess with Bot &nbsp;·&nbsp; Click floor/stairs to walk &nbsp;·&nbsp; WASD keys &nbsp;·&nbsp; Click arcade, hoop & CRT TVs &nbsp;·&nbsp; Enter near bike or trophy',
+  home: '♟️ Play Chess with Bot &nbsp;·&nbsp; WASD / Arrows to Walk &nbsp;·&nbsp; Enter near the quad, skateboard, dog, or trophy',
   arcade: 'ARROWS / WASD move &nbsp;·&nbsp; SPACE action &nbsp;·&nbsp; pick any of the 5 games below &nbsp;·&nbsp; ESC leave',
   hoop: 'Drag up on the ball to shoot &nbsp;·&nbsp; ticker shows your score &nbsp;·&nbsp; ESC leave',
   trophy: 'VIHAAN’S TROPHY &nbsp;·&nbsp; ESC or close the card to return',
@@ -5516,7 +5750,7 @@ function setMode(m, arg) {
   if (m === state.mode) return;
   state.camFrom.copy(camera.position); state.lookFrom.copy(state.lookCur); state.transT = 0; state.mode = m;
   if (m === 'trophy') state.trophyIndex = Number(arg)||0;
-  hintEl.innerHTML = HINTS[m] || ''; hintEl.classList.add('show');
+  hintEl.innerHTML = m==='home'&&twoPlayerMode?'VIHAAN: Arrows + Enter &nbsp;·&nbsp; AHAAN: WASD + E':(HINTS[m] || ''); hintEl.classList.add('show');
   document.documentElement.style.overflow = m === 'home' ? '' : 'hidden';
   if (m !== 'home') window.scrollTo(0, 0);
   game.on = m === 'arcade';
@@ -5571,6 +5805,7 @@ function pick(e) {
   if (ray.intersectObjects(neonStringHit, false).length) return 'neonString';
   if (ray.intersectObjects(arcadeHit, false).length) return 'arcade';
   if (ray.intersectObjects(hoopHit, false).length) return 'hoop';
+  if (ray.intersectObjects(dogHit, true).length) return 'dog';
   if (typeof chessHit !== 'undefined' && ray.intersectObjects(chessHit, true).length) return 'chess';
   const tvI = ray.intersectObjects(tvHit, false); if (tvI.length) { state.pickTV = tvI[0].object.userData.tv; return 'tv'; }
   return null;
@@ -5636,6 +5871,7 @@ canvas.addEventListener('pointerdown', (e) => {
     return;
   }
   if (state.mode === 'home') {
+    if(h==='dog'){petDog();return;}
     if (h === 'trophy') { openTrophy(state.pickAward); return; }
     if (h === 'chess') {
       walkVihaanToChessTable();
@@ -5691,26 +5927,28 @@ window.addEventListener('keydown', (e) => {
   if (state.mode === 'home' && ['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','w','a','s','d','W','A','S','D'].includes(e.key)) e.preventDefault();
   if (state.mode === 'home' && e.key === 'Enter') {
     e.preventDefault();
-    if (bike.riding) {
-      bike.riding=false;vihaanState.isSitting=false;vihaanState.seat='none';vihaanState.standY=null;
-      for(const f of vihaanRig.feet){f.position=null;f.swing=null;f.sitting.rotation.z=0;}
-      return;
-    }
-    const awards=[-11.4+(10+.5)*.815,-11.4+(11+.5)*.815].map((x,i)=>({x,z:-3.63,i}));
-    const trophy=awards.map(a=>({...a,d:Math.hypot(vihaanState.x-a.x,vihaanState.z-a.z)})).sort((a,b)=>a.d-b.d)[0];
-    if(trophy.d<1.25){setMode('trophy',trophy.i);openTrophy(trophy.i);return;}
-    if(Math.hypot(vihaanState.x-bike.group.position.x,vihaanState.z-bike.group.position.z)<1.15){
-      bike.riding=true;vihaanState.queue=[];vihaanState.x=bike.group.position.x;vihaanState.z=bike.group.position.z;
-      vihaanState.keys={left:false,right:false,up:false,down:false};vihaanState.isSitting=true;vihaanState.seat='bike';vihaanState.sitProgress=1;
-      vihaanState.standY=null;updateBikePose(vihaanState.x,vihaanState.z,vihaanState.yaw);return;
-    }
+    if(interactNearVihaan())return;
+  }
+  if(state.mode==='home'&&twoPlayerMode&&e.key.toLowerCase()==='e'){
+    e.preventDefault();interactNearAhaan();return;
   }
   if (e.key === 'Escape' && state.mode !== 'home') { setMode('home'); return; }
   if (state.mode === 'home') {
-    if (['ArrowLeft', 'a', 'A'].includes(e.key)) { vihaanState.keys.left = true; vihaanState.navTarget = null; }
-    if (['ArrowRight', 'd', 'D'].includes(e.key)) { vihaanState.keys.right = true; vihaanState.navTarget = null; }
-    if (['ArrowUp', 'w', 'W'].includes(e.key)) { vihaanState.keys.up = true; vihaanState.navTarget = null; }
-    if (['ArrowDown', 's', 'S'].includes(e.key)) { vihaanState.keys.down = true; vihaanState.navTarget = null; }
+    if(twoPlayerMode){
+      if(e.key==='ArrowLeft')vihaanState.keys.left=true;
+      if(e.key==='ArrowRight')vihaanState.keys.right=true;
+      if(e.key==='ArrowUp')vihaanState.keys.up=true;
+      if(e.key==='ArrowDown')vihaanState.keys.down=true;
+      const key=e.key.toLowerCase();
+      if(key==='a')ahaanState.keys.left=true;if(key==='d')ahaanState.keys.right=true;
+      if(key==='w')ahaanState.keys.up=true;if(key==='s')ahaanState.keys.down=true;
+      if(e.key.startsWith('Arrow'))vihaanState.navTarget=null;
+    }else{
+      if (['ArrowLeft', 'a', 'A'].includes(e.key)) { vihaanState.keys.left = true; vihaanState.navTarget = null; }
+      if (['ArrowRight', 'd', 'D'].includes(e.key)) { vihaanState.keys.right = true; vihaanState.navTarget = null; }
+      if (['ArrowUp', 'w', 'W'].includes(e.key)) { vihaanState.keys.up = true; vihaanState.navTarget = null; }
+      if (['ArrowDown', 's', 'S'].includes(e.key)) { vihaanState.keys.down = true; vihaanState.navTarget = null; }
+    }
   }
   if (state.mode === 'arcade') {
     if (['ArrowLeft', 'a', 'A'].includes(e.key)) game.keys.left = true;
@@ -5723,12 +5961,24 @@ window.addEventListener('keydown', (e) => {
   if (state.mode === 'hoop' && e.key === ' ') { e.preventDefault(); if (ball.held) throwBall(0, 150, 250); }
   if (state.mode === 'tv') { if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); showTV(state.tvIndex + 1); } if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); showTV(state.tvIndex - 1); } }
 });
+document.getElementById('world-interaction')?.addEventListener('click',e=>{if(e.currentTarget.dataset.player==='ahaan')interactNearAhaan();else if(e.currentTarget.dataset.player==='vihaan')interactNearVihaan();});
+document.getElementById('aab-two-player')?.addEventListener('click',()=>setTwoPlayerMode(!twoPlayerMode));
 window.addEventListener('keyup', (e) => {
   if (state.mode === 'home') {
-    if (['ArrowLeft', 'a', 'A'].includes(e.key)) vihaanState.keys.left = false;
-    if (['ArrowRight', 'd', 'D'].includes(e.key)) vihaanState.keys.right = false;
-    if (['ArrowUp', 'w', 'W'].includes(e.key)) vihaanState.keys.up = false;
-    if (['ArrowDown', 's', 'S'].includes(e.key)) vihaanState.keys.down = false;
+    if(twoPlayerMode){
+      if(e.key==='ArrowLeft')vihaanState.keys.left=false;
+      if(e.key==='ArrowRight')vihaanState.keys.right=false;
+      if(e.key==='ArrowUp')vihaanState.keys.up=false;
+      if(e.key==='ArrowDown')vihaanState.keys.down=false;
+      const key=e.key.toLowerCase();
+      if(key==='a')ahaanState.keys.left=false;if(key==='d')ahaanState.keys.right=false;
+      if(key==='w')ahaanState.keys.up=false;if(key==='s')ahaanState.keys.down=false;
+    }else{
+      if (['ArrowLeft', 'a', 'A'].includes(e.key)) vihaanState.keys.left = false;
+      if (['ArrowRight', 'd', 'D'].includes(e.key)) vihaanState.keys.right = false;
+      if (['ArrowUp', 'w', 'W'].includes(e.key)) vihaanState.keys.up = false;
+      if (['ArrowDown', 's', 'S'].includes(e.key)) vihaanState.keys.down = false;
+    }
   }
   if (['ArrowLeft', 'a', 'A'].includes(e.key)) game.keys.left = false;
   if (['ArrowRight', 'd', 'D'].includes(e.key)) game.keys.right = false;
@@ -5806,8 +6056,13 @@ function render(now) {
   const t = (now - t0) / 1000; const dt = Math.min(0.05, (now - lastNow) / 1000); lastNow = now;
   mouse.x += (mouse.tx - mouse.x) * 0.06; mouse.y += (mouse.ty - mouse.y) * 0.06;
   const [cp, cl] = targets();
-  state.transT = Math.min(1, state.transT + dt / 1.15); const e = ease(state.transT);
-  camera.position.lerpVectors(state.camFrom, cp, e); state.lookCur.lerpVectors(state.lookFrom, cl, e); camera.lookAt(state.lookCur);
+  if(twoPlayerMode&&state.mode==='home'){
+    const follow=1-Math.exp(-3.2*dt);camera.position.lerp(cp,follow);state.lookCur.lerp(cl,follow);
+  }else{
+    state.transT = Math.min(1, state.transT + dt / 1.15); const e = ease(state.transT);
+    camera.position.lerpVectors(state.camFrom, cp, e); state.lookCur.lerpVectors(state.lookFrom, cl, e);
+  }
+  camera.lookAt(state.lookCur);
   // damped pendulums: they keep swinging after the pointer has gone
   for (const p of pendants) {
     p.vx += (-2.6 * p.ax - 0.62 * p.vx) * dt;
@@ -5937,8 +6192,9 @@ document.querySelectorAll('.chm-lvl').forEach(btn => {
 
 window.__slider = slider; window.__pend = () => pendants.map(p => ({ x: +p.ax.toFixed(4), z: +p.az.toFixed(4) }));
 window.__sblvl = {
-  scene, camera, renderer, state, game, ball, TV, characters, bike, roomPlants,
-  vihaanState, chessGame, walkVihaanTo, walkVihaanToStairsTop, walkVihaanToStairsBottom, walkVihaanToChessTable,
+  scene, camera, renderer, state, game, ball, TV, characters, quad, skateboard, roomPlants, largeRoomPlants, dogGroup, dogTail, ahaanGroup, ahaanState,
+  vihaanState, chessGame, walkVihaanTo, walkVihaanToStairsTop, walkVihaanToStairsBottom, walkVihaanToChessTable, setTwoPlayerMode,
+  get twoPlayerMode(){return twoPlayerMode;},
   getWalkHeight, trophyAwards, openTrophy,
   movementStep(n=1,dt=1/60) { for(let i=0;i<n;i++)updateVihaanMovement(dt, i*dt); return this.movementSnapshot(); },
   placeVihaan(x,z) { vihaanState.x=x;vihaanState.z=z;vihaanState.isSitting=false;vihaanState.seat='none';vihaanState.standY=null;vihaanState.queue=[];for(const f of vihaanRig.feet){f.position=null;f.swing=null;}updateVihaanMovement(1/60,0);return this.movementSnapshot(); },
