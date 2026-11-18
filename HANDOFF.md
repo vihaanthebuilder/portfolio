@@ -1296,7 +1296,7 @@ Nishant approved these in the Agent Board Feature Queue. Work them in order, loc
 7. **Solar System — FEATURE-BRIEF-solar-system.md** — Highly detailed animated 3D solar system, modelled on the Science Museum Oklahoma touch exhibit Vihaan used Nov 15, 2026: zoom in/out of every planet, top tabs for Inner Planets / Outer Planets / Asteroids / Comets / Dwarf Planets, fact card per planet (distance, mass, day length, orbit year, axial tilt, orbital speed), system speed control. Brief: FEATURE-BRIEF-solar-system.md (Nov 15, 2026). DISPATCHED Nov 16, 2026 to a Codex worker (Claude not logged in on the Mac — fell back to Codex per the Nov 10 rule) — worktree `.worktrees/feature-solar-system`, branch `feature/solar-system` (from origin/main 76986e7), surface 1000090041.
 8. **Author's Room count — FEATURE-BRIEF-authors-room-count.md** — Fix the book count: 19 total / 3 finished → 24 total / 7 finished; list all seven finished chapters (Ch 4 small intestine finished Nov 16, 2026 — brief corrected from 6 to 7 before dispatch). Asked by Vihaan himself, Nov 15, 2026. DISPATCHED Nov 16, 2026 to a Codex worker — worktree `.worktrees/feature-authors-room-count`, branch `feature/authors-room-count` (from origin/main 76986e7), surface 1000090042.
 9. **Spelling Bee World Champion section — FEATURE-BRIEF-spelling-bee-world-champion.md** — New "World Champion" section on the Spelling Bee page with 12 real Scripps winning words 2026–2014, each with year and champion (verified Nov 16, 2026 vs Spellpundit/Wikipedia). Asked by Vihaan himself, voice call Nov 16, 2026. DISPATCHED Nov 16, 2026 to a Codex worker — worktree `.worktrees/feature-spelling-bee-world-champion`, branch `feature/spelling-bee-world-champion` (from origin/main 76986e7), surface 1000090052 [terminal].
-10. **Room Life scene — FEATURE-BRIEF-room-life-scene.md** — Vihaan's asks Nov 18, 2026: fix the slightly-off walking, connect plants to their planters + add big ficus and palm trees, replace the bike with a red quad, add a skateboard that grinds the stair railing, add pet-the-dog, improve the scene, and add Ahaan as two-player (same concept as Ahaan's park). QUEUED Nov 18, 2026 — next for an idle Vihaan worker once the Ahaan driver finishes.
+10. **Room Life scene — FEATURE-BRIEF-room-life-scene.md** — Vihaan's asks Nov 18, 2026: fix the slightly-off walking, connect plants to their planters + add big ficus and palm trees, replace the bike with a red quad, add a skateboard that grinds the stair railing, add pet-the-dog, improve the scene, and add Ahaan as two-player (same concept as Ahaan's park). PUBLISHED Nov 18, 2026 — merge bded0d4, Pages run 44345243287 success, live-verified desktop + mobile (PASS, zero console errors).
 
 ### Chess Tactics Trainer Pack 2 — complete locally (Nov 15, 2026)
 
@@ -1628,3 +1628,21 @@ Four briefs written and staged in this folder on Nov 16, 2026 (VM copies in ~/wo
   dismount behavior. Full findings and verdicts are in the spec's Review
   Triage Log. The spec tasks and review are complete. Changes are local to this worktree; nothing
   was pushed, merged, or published.
+
+### Room Life — published live (Nov 18, 2026)
+
+- Feature commit `c9b14f2` "feat(room): add room life scene interactions" on
+  branch `feature/room-life-scene` (5 files, 673 insertions). Merged to main as
+  `bded0d4` "Merge branch feature-room-life-scene" (clean, no conflict; the
+  main queue line for item 10 was committed first as `5e76780`). Pushed
+  `a574a56..bded0d4` to origin main.
+- GitHub Pages run `44345243287` completed SUCCESS (23s).
+- Live verification on https://vihaanthebuilder.github.io/portfolio with the
+  durable Playwright harness (`tests/room-life-feature.cjs`): PASS — "Room Life:
+  desktop/mobile two-player and dog, quad, skateboard rail grind, landing, and
+  reset". Desktop 1280x800 + mobile 390x844: plants 14 small + 3 large, dog at
+  [0.92, -1.18] visible and clickable, Play together toggle with both name
+  labels, quad mount/ride/dismount (top speed 2.78 units/s), skateboard rail
+  grind + landing, reset to home, zero console errors on both devices.
+  Screenshots and results: `/tmp/vihaan-room-life-live/` (9 PNGs +
+  interaction-results.json); check output `/tmp/pub69b-livecheck.txt`.
