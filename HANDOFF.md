@@ -1722,3 +1722,7 @@ Four briefs written and staged in this folder on Nov 16, 2026 (VM copies in ~/wo
   leaf geometry has seven distinct silhouette signatures. The desktop/mobile
   feature suite passed once more after the quad alignment. Review found no
   remaining deferred items.
+- Local feature commit: `579a2947871756b1f99d7c76dfd911a78113b63a` on
+  `feature/room-life-scene`. The imported Sally guardrail file is kept as
+  untracked input; it was not included in the feature commit. No push, merge,
+  or publish was performed.
