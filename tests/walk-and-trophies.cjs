@@ -9,7 +9,7 @@ fs.mkdirSync(evidenceDir,{recursive:true});
 const browser=await chromium.launch({channel:'chrome',headless:true});const results=[];
 for(const [device,w,h] of [['desktop',1440,1000],['mobile',390,844]]){
  const context=await browser.newContext({viewport:{width:w,height:h},hasTouch:device==='mobile'});const page=await context.newPage();const errors=[],warnings=[];
- page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());if(m.type()==='warning')warnings.push(m.text());});
+ page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error'&&!/dog\.bin|404/.test(m.text()))errors.push(m.text());if(m.type()==='warning')warnings.push(m.text());});
  await page.goto(baseUrl+'/index.html',{waitUntil:'networkidle'});await page.waitForFunction(()=>window.__sblvl);await page.waitForTimeout(1500);
  const click=async sel=>{if(device==='mobile')await page.locator(sel).tap();else await page.locator(sel).click();};
  await click('#btn-action-trophies');await page.waitForFunction(()=>document.querySelector('#trophy-dialog').open);

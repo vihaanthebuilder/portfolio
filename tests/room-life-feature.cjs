@@ -23,6 +23,14 @@ fs.mkdirSync(out, { recursive: true });
       await page.waitForTimeout(500);
       assert.equal(await page.locator('#aab-two-player').getAttribute('aria-pressed'), 'false');
       assert.equal(await page.locator('#world-interaction').innerText(), 'Press Enter to pet the dog.');
+      await page.locator('#btn-flight-vihaan').click();
+      await page.waitForTimeout(350);
+      assert.equal(await page.locator('#btn-flight-vihaan').getAttribute('aria-pressed'),'true',`${device} flight control is usable`);
+      await page.locator('#btn-flight-vihaan').click();
+      await page.locator('#btn-flight-vihaan').click();
+      await page.waitForTimeout(350);
+      assert.equal(await page.locator('#btn-flight-vihaan').getAttribute('aria-pressed'),'true',`${device} flight control is usable`);
+      await page.locator('#btn-flight-vihaan').click();
       await page.screenshot({ path: path.join(out, `${device}-room.png`) });
       const plantCounts = await page.evaluate(() => ({ small: __sblvl.roomPlants.length, large: __sblvl.largeRoomPlants.length }));
       assert.deepEqual(plantCounts, { small: 14, large: 3 });
@@ -44,17 +52,19 @@ fs.mkdirSync(out, { recursive: true });
       const joined = await page.evaluate(() => {
         const q = __sblvl;
         const pos = (x,y,z) => { const p = new THREE.Vector3(x,y,z).project(q.camera); return { x:(p.x+1)*innerWidth/2, y:(1-p.y)*innerHeight/2 }; };
-        return { visible:q.ahaanGroup.visible, vihaanLabel:q.scene.children.some(g=>g===q.ahaanGroup),
+        return { visible:q.ahaanGroup.visible, quadVisible:q.ahaanQuad.group.visible, quad:[q.ahaanQuad.group.position.x,q.ahaanQuad.group.position.z], ah:[q.ahaanState.x,q.ahaanState.z], vihaanLabel:q.scene.children.some(g=>g===q.ahaanGroup),
           v:pos(q.vihaanState.x,q.vihaanState.y+1.62,q.vihaanState.z),
           a:pos(q.ahaanState.x,q.ahaanState.y+1.62,q.ahaanState.z),
           labels:[q.ahaanGroup.children.some(c=>c.isSprite&&c.visible)] };
       });
       assert(joined.visible, 'Ahaan appears');
+      assert(joined.quadVisible&&Math.hypot(joined.quad[0]-joined.ah[0],joined.quad[1]-joined.ah[1])<.01,'Ahaan quad is visible under him');
       for (const label of [joined.v, joined.a]) assert(label.x > 0 && label.x < width && label.y > 0 && label.y < height - 80, `${device} camera frames both players: ${JSON.stringify(label)}`);
-      const beforeAhaan = await page.evaluate(() => ({ x:__sblvl.ahaanState.x,z:__sblvl.ahaanState.z,vx:__sblvl.vihaanState.x,vz:__sblvl.vihaanState.z }));
+      const beforeAhaan = await page.evaluate(() => ({ x:__sblvl.ahaanState.x,z:__sblvl.ahaanState.z,vx:__sblvl.vihaanState.x,vz:__sblvl.vihaanState.z,qx:__sblvl.ahaanQuad.group.position.x,qz:__sblvl.ahaanQuad.group.position.z }));
       await page.keyboard.down('w'); await page.waitForTimeout(420); const heldAhaan=await page.evaluate(()=>({...__sblvl.ahaanState.keys, mode:__sblvl.state.mode,two:__sblvl.twoPlayerMode})); await page.keyboard.up('w');
-      const afterAhaan = await page.evaluate(() => ({ x:__sblvl.ahaanState.x,z:__sblvl.ahaanState.z,vx:__sblvl.vihaanState.x,vz:__sblvl.vihaanState.z }));
+      const afterAhaan = await page.evaluate(() => ({ x:__sblvl.ahaanState.x,z:__sblvl.ahaanState.z,vx:__sblvl.vihaanState.x,vz:__sblvl.vihaanState.z,qx:__sblvl.ahaanQuad.group.position.x,qz:__sblvl.ahaanQuad.group.position.z }));
       assert(afterAhaan.z < beforeAhaan.z - 0.05, `W moves Ahaan ${JSON.stringify({beforeAhaan,afterAhaan,heldAhaan})}`);
+      assert(Math.hypot(afterAhaan.qx-afterAhaan.x,afterAhaan.qz-afterAhaan.z)<.01,'Ahaan quad follows his movement');
       assert.equal(afterAhaan.vx, beforeAhaan.vx, 'W does not move Vihaan in two-player mode');
       await page.keyboard.press('e');
       await page.waitForTimeout(120);
@@ -89,7 +99,9 @@ fs.mkdirSync(out, { recursive: true });
     const quadParked=await page.evaluate(()=>({riding:__sblvl.quad.riding,x:__sblvl.quad.group.position.x,z:__sblvl.quad.group.position.z,parked:__sblvl.quad.parked}));
     assert(!quadParked.riding&&Math.abs(quadParked.x+1.6)<.001&&Math.abs(quadParked.z-.35)<.001,'quad dismount returns to home');
 
-    await page.evaluate(()=>__sblvl.placeVihaan(-8.5,-.7));await page.keyboard.press('Enter');
+    const boardStart=await page.evaluate(()=>({p:__sblvl.skateboard.group.position.toArray(),tv:__sblvl.TV[0].group.position.toArray(),h:__sblvl.TV[0].h}));
+    assert(boardStart.p[1]>boardStart.tv[1]+boardStart.h/2,`board starts on the CRT top: ${JSON.stringify(boardStart)}`);
+    await page.evaluate(()=>{const q=__sblvl;q.skateboard.sequence='idle';q.skateboard.parked={x:-8.5,z:-.7};q.skateboard.group.position.set(-8.5,q.getWalkHeight(-8.5,-.7)+.01,-.7);q.placeVihaan(-8.5,-.7);});await page.keyboard.press('Enter');
     assert(await page.evaluate(()=>__sblvl.skateboard.riding),'Enter mounts skateboard');
     await page.evaluate(()=>{const q=__sblvl;q.vihaanState.keys.right=true;q.movementStep(8);});
     const railEntry=await page.evaluate(()=>({x:__sblvl.vihaanState.x,z:__sblvl.vihaanState.z,yaw:__sblvl.vihaanState.yaw,velocity:__sblvl.vihaanState.velocity,keys:{...__sblvl.vihaanState.keys},riding:__sblvl.skateboard.riding}));
@@ -111,7 +123,7 @@ fs.mkdirSync(out, { recursive: true });
     assert(Math.abs(reset.quad[0]-reset.quadHome.x)<.001&&Math.abs(reset.quad[2]-reset.quadHome.z)<.001,'toggle off resets quad');
     assert(Math.abs(reset.board[0]-reset.boardHome.x)<.001&&Math.abs(reset.board[2]-reset.boardHome.z)<.001&&!reset.boardRiding,'toggle off resets skateboard');
     assert.equal(errors.length,0,`unexpected page errors: ${errors.join('; ')}`);
-    reports.push({vehicle,quadMove,quadParked,railEntry,grinding,landed,reset,errors});
+    reports.push({vehicle,quadMove,quadParked,boardStart,railEntry,grinding,landed,reset,errors});
     await page.close();
     const plantPage=await browser.newPage({viewport:{width:1280,height:800}});
     const source=fs.readFileSync('index.html','utf8');
@@ -119,7 +131,10 @@ fs.mkdirSync(out, { recursive: true });
       pots:[[-4.8,2.1,3.6],[-7.45,.5,.55]],
       ficus:[[15.0,3.2,8.0],[11.3,1.6,4.5]],
       palm:[ [13.2,3.2,6.6],[9.7,1.6,3.0] ],
-      palm2:[[15.0,3.2,.3],[11.5,1.6,-3.6]]
+      palm2:[[15.0,3.2,.3],[11.5,1.6,-3.6]],
+      avatar:[[2.3,1.8,1.5],[-.18,.75,-1.05]],
+      plaque:[[-6.6,2.1,-.4],[-4.6,1.15,-2.78]],
+      windows:[[20,5.5,5],[13.48,5.15,1.8]]
     };
     const injected=source.replace('function targets() {',`function targets() { const focus=${JSON.stringify(focusCameras)}[new URLSearchParams(location.search).get('plant')];if(focus)return [tmpA.set(...focus[0]),tmpB.set(...focus[1])];`);
     assert.notEqual(injected,source,'plant camera test hook inserted');

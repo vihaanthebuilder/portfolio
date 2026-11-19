@@ -816,10 +816,11 @@
   #hint{font-size:10px;padding:6px 12px;bottom:64px;border-radius:12px;line-height:1.35}
   #canvas-container.arcade-active #hint{bottom:140px}
 }
-#arcade-game-dock{position:absolute;left:50%;bottom:128px;transform:translateX(-50%);z-index:12;display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:8px;background:rgba(10,12,18,.9);border:1.5px solid rgba(255,213,0,.55);box-shadow:0 12px 32px rgba(0,0,0,.78),0 0 22px rgba(255,77,0,.28);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);flex-wrap:wrap;justify-content:center;max-width:calc(100vw - 24px)}
+#arcade-game-dock{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);z-index:12;display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:8px;background:rgba(10,12,18,.9);border:1.5px solid rgba(255,213,0,.55);box-shadow:0 12px 32px rgba(0,0,0,.78),0 0 22px rgba(255,77,0,.28);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);flex-wrap:wrap;justify-content:center;max-width:calc(100vw - 24px);pointer-events:none}
 #arcade-game-dock[hidden]{display:none !important}
+#arcade-full-games-link[hidden]{display:none !important}
 .agd-label{font-family:var(--mono);font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#ffd500;padding:0 6px 0 2px;white-space:nowrap}
-.agd-btn{appearance:none;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:7px 11px;border-radius:5px;background:rgba(255,255,255,.07);color:#e6e6e6;border:1px solid rgba(255,255,255,.18);cursor:pointer;transition:all .15s ease;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:5px;min-height:36px}
+.agd-btn{appearance:none;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:7px 11px;border-radius:5px;background:rgba(255,255,255,.07);color:#e6e6e6;border:1px solid rgba(255,255,255,.18);cursor:pointer;transition:all .15s ease;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:5px;min-height:36px;pointer-events:auto}
 .agd-btn:hover{background:rgba(255,213,0,.18);border-color:#ffd500;color:#fff;transform:translateY(-1px)}
 .agd-btn.active{background:linear-gradient(135deg,#ff4d00,#ff8800);color:#fff;border-color:#ffd500;box-shadow:0 0 14px rgba(255,77,0,.55)}
 .agd-btn.agd-link{background:rgba(30,80,200,.38);border-color:rgba(110,168,255,.55);color:#ffd500}
@@ -855,10 +856,12 @@
 
 /* ---------- 3D Vihaan Avatar Action Bar (Sally UX Lead) ---------- */
 #avatar-action-bar{position:absolute;left:50%;bottom:64px;transform:translateX(-50%);z-index:6;display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:24px;background:rgba(14,20,32,.88);border:1.5px solid rgba(255,213,0,.5);box-shadow:0 12px 32px rgba(0,0,0,.6),0 0 16px rgba(30,80,200,.3);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);flex-wrap:wrap;justify-content:center;width:min(1100px,calc(100vw - 24px));max-width:calc(100vw - 24px)}
+#avatar-action-bar[hidden]{display:none!important}
 .aab-label{font-family:var(--mono);font-size:11px;font-weight:800;letter-spacing:.08em;color:var(--yellow);padding:0 6px 0 2px;white-space:nowrap}
 .aab-btn{appearance:none;border:none;cursor:pointer;font-family:'Baloo 2',var(--sans);font-size:13px;font-weight:700;padding:6px 14px;border-radius:16px;background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.2);display:inline-flex;align-items:center;gap:6px;transition:all .18s ease;white-space:nowrap;min-height:36px}
 .aab-btn:hover{background:rgba(255,213,0,.22);border-color:var(--yellow);transform:translateY(-2px);color:#fff}
 .aab-btn.active{background:linear-gradient(135deg,#1e50c8,#0b3fa0);border-color:var(--yellow);box-shadow:0 0 14px rgba(255,213,0,.45)}
+#avatar-action-bar [hidden]{display:none!important}
 .aab-btn.aab-chess{background:linear-gradient(135deg,rgba(255,213,0,.22),rgba(255,168,0,.35));border-color:#ffd500;color:#ffd500}
 .aab-btn.aab-chess:hover{background:linear-gradient(135deg,#ffd500,#ffaa00);color:#10243f}
 .aab-btn.aab-stairs{background:linear-gradient(135deg,rgba(30,80,200,.25),rgba(42,95,224,.4));border-color:#6ea8ff;color:#dce8ff}
@@ -1497,7 +1500,7 @@ body.machine #topnav,body.machine #layout{display:none}
     <button type="button" class="agd-btn" data-arcade-game="dino">🦖 DINO JUMP</button>
     <button type="button" class="agd-btn" data-arcade-game="breakout">🧱 BRICK BREAKER</button>
     <button type="button" class="agd-btn" data-arcade-game="snake">🐍 CYBER SNAKE</button>
-    <a href="games.html" class="agd-btn agd-link">🕹️ ALL FULL GAMES →</a>
+    <button type="button" class="agd-btn" data-arcade-game="all">🕹️ ALL FULL GAMES</button>
   </div>
   <div id="tvcap" hidden><button type="button" id="tvcap-close" class="tvcap-close" aria-label="Close TV Preview">✕</button><span class="idx"></span><span class="ttl"></span><span class="desc"></span><a class="tv-open btn btn-yellow" href="lego.html" style="margin-top:12px;min-height:36px;padding:0 14px;font-size:.76rem;font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;border-radius:3px">OPEN PAGE →</a></div>
   
@@ -1506,11 +1509,14 @@ body.machine #topnav,body.machine #layout{display:none}
     <span class="aab-label">👦 VIHAAN:</span>
     <button type="button" class="aab-btn aab-chess" id="btn-action-chess" title="Walk to Tea Room table & play chess with Robo-Pawn">♟️ PLAY CHESS WITH BOT</button>
     <button type="button" class="aab-btn aab-stairs" id="btn-action-stairs" title="Climb all 14 wooden steps to the top balcony">🪜 CLIMB STAIRS</button>
+    <button type="button" class="aab-btn" id="btn-action-board-run" title="Pick up the skateboard, carry it upstairs, then ride the rail">🛹 BOARD RUN</button>
     <button type="button" class="aab-btn" id="btn-action-sit" title="Sit down on step beside LEGO builds & trophy">🏠 SIT ON STAIRS</button>
     <button type="button" class="aab-btn" id="btn-action-hoop" title="Walk to basketball court">🏀 HOOP</button>
     <button type="button" class="aab-btn" id="btn-action-arcade" title="Walk to arcade cabinet">🕹️ ARCADE</button>
+    <button type="button" class="aab-btn" id="btn-flight-vihaan" aria-pressed="false">🚀 VIHAAN FLIGHT: OFF</button>
+    <button type="button" class="aab-btn" id="btn-flight-ahaan" aria-pressed="false" hidden>🚀 AHAAN FLIGHT: OFF</button>
     <button type="button" class="aab-btn" id="btn-action-trophies" title="Explore both chess trophies on the left rack">🏆 TROPHIES</button>
-    <span class="aab-hint">WASD / Arrows to Walk · Enter near the quad, board, dog, or trophy</span>
+    <span class="aab-hint">WASD / Arrows walk · Enter rides · Shift flight / Q for Ahaan</span>
     <button id="world-interaction" type="button" hidden></button>
     <button id="aab-two-player" type="button" class="aab-btn" aria-pressed="false">👬 Play together</button>
   </div>
@@ -2558,6 +2564,16 @@ plane(10, 8, matWallR, 8.6, 3.8, -5.85);
 const bayL = plane(2.6, 8, matWallR, 3.65, 3.8, -4.65); bayL.rotation.y = Math.PI / 2;
 const wallL = plane(24, 8, matWall, -11.6, 3.8, -1); wallL.rotation.y = Math.PI / 2;
 const wallR = plane(24, 8, matWallR, 13.6, 3.8, -1); wallR.rotation.y = -Math.PI / 2;
+// Two framed sky windows on the east wall brighten the play room without narrowing a path.
+const skyTex = canvasTex(512, 384, (ctx,w,h)=>{const grad=ctx.createLinearGradient(0,0,0,h);grad.addColorStop(0,'#83c9f2');grad.addColorStop(.68,'#d6efff');grad.addColorStop(1,'#f6d7a1');ctx.fillStyle=grad;ctx.fillRect(0,0,w,h);ctx.fillStyle='rgba(255,255,255,.85)';for(const [x,y,r] of [[85,100,30],[175,75,22],[370,125,36]]){ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(x+r*.7,y+8,r*.8,0,Math.PI*2);ctx.fill();}ctx.fillStyle='#78a96a';ctx.fillRect(0,h*.82,w,h*.18);});
+for(const z of [1.8,-2.1]){
+  const frame=new THREE.Group();frame.position.set(13.48,5.15,z);scene.add(frame);
+  const glass=plane(1.9,1.65,new THREE.MeshBasicMaterial({map:skyTex}),0,0,0,frame);glass.rotation.y=Math.PI/2;
+  for(const y of [-.88,.88])box(.12,.11,2.08,std({color:0x70472d,roughness:.8}),0,y,0,frame);
+  for(const zz of [-1.02,1.02])box(.12,1.87,.11,std({color:0x70472d,roughness:.8}),0,0,zz,frame);
+  box(.13,1.68,.065,std({color:0x9a7047,roughness:.78}),0,0,0,frame);
+  const sunlight=new THREE.PointLight(0xffdda4,.7,5,2);sunlight.position.set(12.9,5.5,z);scene.add(sunlight);
+}
 
 /* ---------- the tatami setting under the screens ---------- */
 (function tatamiRoom() {
@@ -2603,6 +2619,10 @@ const wallR = plane(24, 8, matWallR, 13.6, 3.8, -1); wallR.rotation.y = -Math.PI
   const bannerTex = canvasTex(256, 1536, (g, w, h) => { g.fillStyle = '#0f0f0f'; g.fillRect(0, 0, w, h); g.save(); g.translate(w / 2, h / 2); g.rotate(-Math.PI / 2); g.font = '700 150px "Geist", Arial, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillStyle = '#ffffff'; g.fillText('VIHAAN', 0, 0); g.restore(); g.fillStyle = '#ff4d00'; g.fillRect(20, 40, w - 40, 6); g.fillRect(20, h - 46, w - 40, 6); });
   const banner = plane(0.4, 2.4, std({ map: bannerTex, roughness: 0.6 }), -4.05, 6.1, z - depth + 0.12); banner.rotation.y = 0.04;
 })();
+// Gentle shelf plaque: progress is welcome here, with no countdown or score pressure.
+const progressPlaqueTex=canvasTex(512,160,(ctx,w,h)=>{ctx.fillStyle='#2b2119';ctx.fillRect(0,0,w,h);ctx.strokeStyle='#d6ad68';ctx.lineWidth=8;ctx.strokeRect(8,8,w-16,h-16);ctx.fillStyle='#ffe3a3';ctx.textAlign='center';ctx.font='bold 30px Arial';ctx.fillText('PRACTICE MAKES PROGRESS',w/2,66);ctx.font='22px Arial';ctx.fillText('Your next trophy story starts here',w/2,112);});
+const progressPlaque=plane(1.75,.55,new THREE.MeshBasicMaterial({map:progressPlaqueTex}),-4.6,1.15,-2.78);
+const plaqueGlow=new THREE.PointLight(0xffca72,.55,2.6,2);plaqueGlow.position.set(-4.6,1.4,-2.3);scene.add(plaqueGlow);
 
 const walkableMeshes = [floor];
 /* ---------- stairs ---------- */
@@ -2657,10 +2677,14 @@ const STEP_TOP = (i) => BASE + i * RISE;   // tread height of step i (0 = bottom
 
   const top = cyl(0.025, 0.025, Math.hypot(len, STEPS * RISE), matMetal, 0, 0, 0, rail, 12);
   top.position.set(cx, (STEP_TOP(0) + STEP_TOP(STEPS - 1)) / 2 + 1.05, Z1 - 0.02); top.rotation.z = Math.PI / 2 - ang;
-  for (let i = 2; i < STEPS; i += 2) {
+  for (let i = 0; i < STEPS; i++) {
     const x = X_BOTTOM - (i + 0.5) * RUN; const y0 = STEP_TOP(i);
     cyl(0.018, 0.018, 1.05, matMetal, x, y0 + 0.52, Z1 - 0.02, rail, 10);
   }
+  // Carry the stair rail onto the flat landing so the handrail reads as one safe path.
+  const landingRail = cyl(0.025, 0.025, 2.45, matMetal, 0, 0, 0, rail, 12);
+  landingRail.position.set(X_BOTTOM - len - 1.2, LTOP + 1.05, Z1 - 0.02); landingRail.rotation.z = Math.PI / 2;
+  for (let i = 0; i < 5; i++) cyl(0.018, 0.018, 1.05, matMetal, X_BOTTOM - len - 0.2 - i * 0.52, LTOP + 0.52, Z1 - 0.02, rail, 10);
   for (let i = 0; i < 5; i++) cyl(0.018, 0.018, 1.05, matMetal, X_BOTTOM - len - 0.3 - i * 0.5, STEP_TOP(STEPS) + 0.52, Z1 - 0.02, rail, 10);
 })();
 
@@ -2815,6 +2839,8 @@ let groundTargetMarker = null;
   const g = personGroup;
   g.position.set(-0.18, BASE + 0.015, -1.05);
   g.rotation.y = -0.28;
+  // Preserve the validated reach envelope; the child-like head and short torso
+  // carry the grade-school proportions without shrinking the leg IK rig.
   g.scale.setScalar(1.06);
   scene.add(g);
 
@@ -2962,7 +2988,8 @@ let groundTargetMarker = null;
     sphere(0.066, jeans, knee.x, knee.y, knee.z, legG, 16, 12);
     const shinMid = V3(0.315, -0.13, s * 0.015);
     limb(0.054, knee, shinMid, jeans, legG);
-    limb(0.048, shinMid, ank, whiteM, legG);
+    // Keep the lower leg in denim; the white sock-like piece read as a detached boot.
+    limb(0.048, shinMid, ank, jeans, legG);
 
     const walking = new THREE.Group(); g.add(walking);
     const thigh = cyl(0.059, 0.059, 1, jeans, 0, 0, 0, walking);
@@ -3263,6 +3290,7 @@ const ahaanState = { x: 0.5, y: BASE + 0.015, z: -1.05, yaw: -0.28, velocity: 0,
 /* ---------- arcade cabinet: extruded side profile, side art, backlit marquee ---------- */
 const arcadeGroup = new THREE.Group();
 const arcadeHit = [];
+const arcadeControls = [];
 const ARC = { screenPos: V3(), screenNormal: V3() };
 (function arcade() {
   const g = arcadeGroup; g.position.set(-0.3, 0, -2.95); g.rotation.y = 0.12; scene.add(g);
@@ -3302,14 +3330,15 @@ const ARC = { screenPos: V3(), screenNormal: V3() };
   btnCols.forEach((c, i) => {
     const col = i % 3, row = Math.floor(i / 3); const pos = onPanel(0.02 + col * 0.085 + row * 0.02, 0.055 - row * 0.075, V3());
     const ring = cyl(0.03, 0.03, 0.012, btnBase, 0, 0, 0, g, 24); ring.position.copy(pos).addScaledVector(cf.n, 0.004); ring.quaternion.copy(qN);
-    const cap = cyl(0.023, 0.025, 0.014, std({ color: c, emissive: c, emissiveIntensity: 0.35, roughness: 0.35 }), 0, 0, 0, g, 24); cap.position.copy(pos).addScaledVector(cf.n, 0.014); cap.quaternion.copy(qN);
-    const dome = sphere(0.023, std({ color: c, emissive: c, emissiveIntensity: 0.35, roughness: 0.35 }), 0, 0, 0, g, 20, 14); dome.position.copy(pos).addScaledVector(cf.n, 0.02); dome.scale.set(1, 0.45, 1); dome.quaternion.copy(qN);
+    const cap = cyl(0.023, 0.025, 0.014, std({ color: c, emissive: c, emissiveIntensity: 0.35, roughness: 0.35 }), 0, 0, 0, g, 24); cap.position.copy(pos).addScaledVector(cf.n, 0.014); cap.quaternion.copy(qN);cap.userData.arcadeAction='button';arcadeControls.push(cap);
+    const dome = sphere(0.023, std({ color: c, emissive: c, emissiveIntensity: 0.35, roughness: 0.35 }), 0, 0, 0, g, 20, 14); dome.position.copy(pos).addScaledVector(cf.n, 0.02); dome.scale.set(1, 0.45, 1); dome.quaternion.copy(qN);dome.userData.arcadeAction='button';arcadeControls.push(dome);
   });
   const jp = onPanel(-0.24, 0.0, V3());
   const jb = cyl(0.045, 0.05, 0.01, btnBase, 0, 0, 0, g, 24); jb.position.copy(jp).addScaledVector(cf.n, 0.004); jb.quaternion.copy(qN);
   const jd = sphere(0.032, std({ color: 0x0a0a0a, roughness: 0.7 }), 0, 0, 0, g, 20, 14); jd.position.copy(jp).addScaledVector(cf.n, 0.012); jd.scale.set(1, 0.6, 1); jd.quaternion.copy(qN);
-  const js = cyl(0.008, 0.009, 0.11, matSteel, 0, 0, 0, g, 12); js.position.copy(jp).addScaledVector(cf.n, 0.065).addScaledVector(alongUp, 0.02); js.quaternion.copy(qN); js.rotateX(0.25);
-  const jball = sphere(0.03, std({ color: 0xff2a2a, roughness: 0.25 }), 0, 0, 0, g, 24, 18); jball.position.copy(jp).addScaledVector(cf.n, 0.125).addScaledVector(alongUp, 0.035);
+  const js = cyl(0.008, 0.009, 0.11, matSteel, 0, 0, 0, g, 12); js.position.copy(jp).addScaledVector(cf.n, 0.065).addScaledVector(alongUp, 0.02); js.quaternion.copy(qN); js.rotateX(0.25);js.userData.arcadeAction='joystick';arcadeControls.push(js);
+  const jball = sphere(0.03, std({ color: 0xff2a2a, roughness: 0.25 }), 0, 0, 0, g, 24, 18); jball.position.copy(jp).addScaledVector(cf.n, 0.125).addScaledVector(alongUp, 0.035); jball.userData.arcadeAction='joystick'; arcadeControls.push(jball);
+  for(const obj of g.children) if(obj.isMesh&&obj.material?.color&&[0xff2a2a,0x2a6cff,0xffffff].includes(obj.material.color.getHex())){obj.userData.arcadeAction='button';arcadeControls.push(obj);}
   // coin door on the lower front (P[1] -> P[2]), kick plate with vents
   const ff = face(1, 0.0);
   const coin = rbox(0.28, 0.24, 0.02, 0.008, std({ map: coinTex, roughness: 0.45, metalness: 0.4 }), 0, 0, 0, g); coin.position.copy(ff.c).addScaledVector(ff.n, 0.008).add(V3(0, 0.02, 0)); coin.rotation.x = ff.rx;
@@ -4423,6 +4452,15 @@ function walkVihaanToStairsBottom() {
   });
 }
 
+function startBoardRun(){
+  if(skateboard.sequence!=='idle'&&skateboard.sequence!=='landed')return;
+  skateboard.sequence='to-tv';
+  walkVihaanTo(TV[0].group.position.x,TV[0].group.position.z+1.0,()=>{
+    skateboard.sequence='carried';
+    walkVihaanTo(-.18,-1.05,()=>walkVihaanTo(-9.2,-1.57,()=>{skateboard.sequence='stunt';skateboard.sequenceT=0;}));
+  });
+}
+
 function walkVihaanToChessTable() {
   walkVihaanTo(1.35, -2.8);
   if (trophyDialog.open) return;
@@ -4484,12 +4522,15 @@ function setTwoPlayerMode(enabled){
   const button=document.getElementById('aab-two-player');
   if(button){button.setAttribute('aria-pressed',String(twoPlayerMode));button.textContent=twoPlayerMode?'👬 Play together: On':'👬 Play together';button.classList.toggle('active',twoPlayerMode);}
   vihaanNameLabel.visible=twoPlayerMode; ahaanGroup.visible=twoPlayerMode; ahaanNameLabel.visible=twoPlayerMode;
+  ahaanQuad.group.visible=twoPlayerMode;
+  document.getElementById('btn-flight-ahaan').hidden=!twoPlayerMode;
   if(twoPlayerMode){
     ahaanState.x=Math.max(-10.4,Math.min(11.4,vihaanState.x+1.45));
     ahaanState.z=vihaanState.z+0.05;
     ahaanState.y=getWalkHeight(ahaanState.x,ahaanState.z)+BASE+0.015;
     ahaanState.yaw=-0.28; ahaanState.velocity=0;
     ahaanGroup.position.set(ahaanState.x,ahaanState.y,ahaanState.z); ahaanGroup.rotation.y=ahaanState.yaw;
+    updateAhaanQuadPose(ahaanState.x,ahaanState.z,ahaanState.yaw);
     for(const foot of ahaanRig.feet){foot.sitting.visible=true;foot.walking.visible=false;foot.sitting.rotation.z=0;}
   }else{
     for(const key of Object.keys(ahaanState.keys)) ahaanState.keys[key]=false;
@@ -4497,7 +4538,9 @@ function setTwoPlayerMode(enabled){
     quad.riding=false; skateboard.riding=false; skateboard.grinding=false;
     vihaanState.seat='none';vihaanState.isSitting=false;vihaanState.standY=null;
     quad.group.visible=true;updateQuadPose(quad.parked.x,quad.parked.z,0);
-    skateboard.group.visible=true;updateSkateboardPose(skateboard.parked.x,skateboard.parked.z,0,false);
+    skateboard.riding=false;skateboard.grinding=false;skateboard.sequence='idle';skateboard.group.visible=true;
+    if(TV[0]){skateboard.parked={x:TV[0].group.position.x,y:TV[0].group.position.y+TV[0].h/2+.18,z:TV[0].group.position.z};skateboard.group.position.set(skateboard.parked.x,skateboard.parked.y,skateboard.parked.z);skateboard.group.rotation.set(0,0,0);}
+    else updateSkateboardPose(skateboard.parked.x,skateboard.parked.z,0,false);
   }
   if(state.mode==='home')hintEl.innerHTML=twoPlayerMode?'VIHAAN: Arrows + Enter &nbsp;·&nbsp; AHAAN: WASD + E':'♟️ Play Chess with Bot &nbsp;·&nbsp; WASD / Arrows to Walk &nbsp;·&nbsp; Enter near the quad, skateboard, dog, or trophy';
   updateWorldInteraction();
@@ -4519,7 +4562,11 @@ function updateAhaanMovement(dt){
     a.x=next.x;a.z=next.z;
   }
   const moved=Math.hypot(a.x-previousX,a.z-previousZ);
-  a.walkT+=moved*9;a.y=getWalkHeight(a.x,a.z)+BASE+0.015+Math.min(.045,moved*0.18);
+  a.flightAltitude=THREE.MathUtils.damp(a.flightAltitude||0,a.flight ? 0.72 : 0,3,dt);
+  const flightAhaanButton=document.getElementById('btn-flight-ahaan');if(flightAhaanButton){flightAhaanButton.setAttribute('aria-pressed',String(!!a.flight));flightAhaanButton.textContent=`🚀 AHAAN FLIGHT: ${a.flight?'ON':'OFF'}`;flightAhaanButton.classList.toggle('active',!!a.flight);}
+  a.walkT+=moved*9;a.y=getWalkHeight(a.x,a.z)+BASE+0.015+Math.min(.045,moved*0.18)+a.flightAltitude;
+  updateAhaanQuadPose(a.x,a.z,a.yaw);
+  ahaanJetpack.userData.flames.forEach(f=>f.visible=a.flightAltitude>.25);
   ahaanGroup.position.set(a.x,a.y,a.z);ahaanGroup.rotation.y=a.yaw;
   const gait=moved>0.0001?Math.sin(a.walkT):0;
   for(const foot of ahaanRig.feet){foot.sitting.visible=true;foot.walking.visible=false;foot.sitting.rotation.z=gait*.24*(foot.side<0?1:-1);}
@@ -4550,7 +4597,9 @@ function updateVihaanMovement(dt, t) {
   if (distance > 0.001 && enabled) {
     v.moveDX = dx / distance; v.moveDZ = dz / distance;
     const yaw = Math.atan2(-dz, dx), difference = Math.atan2(Math.sin(yaw - v.yaw), Math.cos(yaw - v.yaw));
-    v.yaw += difference * (1 - Math.exp(-12 * dt));
+    // The old 12/s ease let the character visibly crab for the first quarter
+    // second of a turn. Faster facing keeps the body over its actual path.
+    v.yaw += difference * (1 - Math.exp(-30 * dt));
   }
   let travel = v.velocity * dt * alignment;
   if (target) travel = Math.min(travel, distance);
@@ -4607,10 +4656,21 @@ function updateVihaanMovement(dt, t) {
   updateWorldInteraction();
   updateAhaanMovement(dt);
   if (!trophyDialog.open && !riding) updateFeet(dt, moved);
+  if(skateboard.sequence==='carried'){
+    personGroup.updateMatrixWorld(true);const hand=personGroup.localToWorld(V3(.28,.35,-.28));skateboard.group.position.copy(hand);skateboard.group.rotation.set(.15,v.yaw,.3);skateboard.group.visible=true;
+  }else if(skateboard.sequence==='stunt'){
+    skateboard.sequenceT+=dt;personGroup.updateMatrixWorld(true);const stunt=personGroup.localToWorld(V3(.42,.8,-.22));skateboard.group.position.copy(stunt);skateboard.group.rotation.set(0,v.yaw,Math.sin(skateboard.sequenceT*9)*.45);
+    vihaanRig.rightArm.rotation.z=THREE.MathUtils.damp(vihaanRig.rightArm.rotation.z,-2.2,12,dt);
+    if(skateboard.sequenceT>1.25){skateboard.sequence='grinding';skateboard.riding=true;skateboard.grinding=false;v.x=-8.5;v.z=-.47;v.keys.right=true;v.keys.left=v.keys.up=v.keys.down=false;v.isSitting=true;v.seat='skateboard';v.velocity=1.5;updateSkateboardPose(v.x,v.z,v.yaw,false);}
+  }else if(skateboard.sequence==='grinding'&&skateboard.riding&&!skateboard.grinding&&v.x>-.02){skateboard.sequence='landed';skateboard.riding=false;v.keys.right=false;v.isSitting=false;v.seat='none';skateboard.parked={x:v.x,z:v.z};}
+  v.flightAltitude=THREE.MathUtils.damp(v.flightAltitude||0,v.flight ? 0.72 : 0,3,dt);
+  const flightVihaanButton=document.getElementById('btn-flight-vihaan');if(flightVihaanButton){flightVihaanButton.setAttribute('aria-pressed',String(!!v.flight));flightVihaanButton.textContent=`🚀 VIHAAN FLIGHT: ${v.flight?'ON':'OFF'}`;flightVihaanButton.classList.toggle('active',!!v.flight);}
+  if(v.flightAltitude){v.y+=v.flightAltitude;personGroup.position.y=v.y;}
+  vihaanJetpack.userData.flames.forEach(f=>f.visible=v.flightAltitude>.25);
   if (riding) {
-    vihaanRig.sitProgress=1; v.y=getWalkHeight(v.x,v.z)+(quad.riding?.73:.34)+(skateboard.grinding?.9:0);
+    vihaanRig.sitProgress=1; v.y=getWalkHeight(v.x,v.z)+(quad.riding?.73:.34)+(skateboard.grinding?.9:0)+v.flightAltitude;
     personGroup.position.set(v.x,v.y,v.z);personGroup.rotation.y=v.yaw;
-    for(const f of vihaanRig.feet){f.sitting.visible=true;f.walking.visible=false;f.sitting.rotation.z=Math.sin(v.walkT*1.7+(f.side<0?0:Math.PI))*(quad.riding?.22:.12);}
+    for(const f of vihaanRig.feet){f.sitting.visible=true;f.walking.visible=false;f.sitting.rotation.z=quad.riding?-0.06:0;}
     personGroup.updateMatrixWorld(true);
     if(quad.riding)updateQuadPose(v.x,v.z,v.yaw);
     if(skateboard.riding){updateSkateboardPose(v.x,v.z,v.yaw);if(skateboard.grinding&&v.x>=-.02){skateboard.grinding=false;v.x=.28;v.z=-.47;v.velocity=Math.max(v.velocity,1.1);}}
@@ -4618,8 +4678,10 @@ function updateVihaanMovement(dt, t) {
   const sp = vihaanRig.sitProgress, gait = v.isWalking ? Math.sin(v.walkT) : 0;
   for (const [arm, side] of [[vihaanRig.leftArm, 1], [vihaanRig.rightArm, -1]]) {
     const petPose=petReachTimer.vihaan>0&&arm===vihaanRig.rightArm?-1.1:null;
-    arm.rotation.z = THREE.MathUtils.damp(arm.rotation.z, riding ? -0.34 : petPose??(1 - sp) * (-0.7 + side * gait * 0.24), 12, dt);
+    const shotPose=shootFollowThrough>0&&arm===vihaanRig.rightArm?-2.15:null;
+    arm.rotation.z = THREE.MathUtils.damp(arm.rotation.z, riding ? -0.34 : shotPose??petPose??(1 - sp) * (-0.7 + side * gait * 0.24), 12, dt);
   }
+  shootFollowThrough=Math.max(0,shootFollowThrough-dt*1.5);
   vihaanRig.phone.visible = sp > 0.5 && !riding;
   vihaanRig.torso.rotation.z = -0.12 * sp;
   if (vihaanHeadGroup) { vihaanHeadGroup.rotation.y = Math.sin(t * 1.35) * 0.08; vihaanHeadGroup.rotation.z = Math.sin(t * 2.1) * 0.02; }
@@ -5160,8 +5222,9 @@ function updateQuadPose(x, z, yaw = vihaanState.yaw) {
   quad.group.rotation.set(0, yaw, Math.atan2(front - rear, 0.68));
   quad.wheels.forEach(w => { w.rotation.x += vihaanState.velocity * 0.14; });
 }
-function makePlant(x, z, size = 1) {
+function makePlant(x, z, size = 1, species = 'ficus') {
   const g = new THREE.Group(); g.position.set(x, 0, z); g.scale.setScalar(size); scene.add(g);
+  g.userData.species = species;
   const potMat = std({ color: 0xb85f38, roughness: 0.82 });
   const soilMat = std({ color: 0x33251b, roughness: 1 });
   const leafMats = [std({ color: 0x287247, roughness: 0.84 }),std({ color: 0x4e9a57, roughness: 0.82 }),std({ color: 0x8fbd57, roughness: 0.82 })];
@@ -5169,14 +5232,22 @@ function makePlant(x, z, size = 1) {
   const soil = new THREE.Mesh(new THREE.CylinderGeometry(.19,.19,.025,16),soilMat); soil.position.y=.325; g.add(soil);
   const stem = new THREE.Mesh(new THREE.CylinderGeometry(.055,.075,.38,10),std({color:0x73502e,roughness:.92}));
   stem.position.y=.51; g.add(stem); stem.castShadow=true;
-  for (let i=0;i<7;i++) {
-    const angle=i*Math.PI*2/7, len=.42+(i%3)*.08, leaf=new THREE.Mesh(new THREE.SphereGeometry(.15,12,10),leafMats[i%3]);
-    leaf.scale.set(.62,1.45,.72); leaf.position.set(Math.cos(angle)*.17,.48+len*.38,Math.sin(angle)*.17); leaf.rotation.z=-Math.cos(angle)*.42; leaf.rotation.x=Math.sin(angle)*.35; g.add(leaf); leaf.castShadow=true;
+  const count = species === 'snake' ? 5 : species === 'succulent' ? 9 : 7;
+  for (let i=0;i<count;i++) {
+    const angle=i*Math.PI*2/count, len=.42+(i%3)*.08;
+    const leaf = new THREE.Mesh(new THREE.SphereGeometry(species==='succulent'?.105:.15,12,10),leafMats[i%3]);
+    if (species === 'snake' || species === 'aloe') { leaf.scale.set(.32,species==='aloe'?1.9:2.5,.42); leaf.position.set(Math.cos(angle)*.11,.65,Math.sin(angle)*.11); leaf.rotation.z=-Math.cos(angle)*.17; }
+    else if (species === 'palm' || species === 'bird-of-paradise') { leaf.scale.set(.28,2.0,.3); leaf.position.set(Math.cos(angle)*.24,.68,Math.sin(angle)*.24); leaf.rotation.z=-Math.cos(angle)*.7; leaf.rotation.x=Math.sin(angle)*.7; }
+    else if(species==='fern') { leaf.scale.set(.2,1.25,.23);leaf.position.set(Math.cos(angle)*.24,.55+len*.32,Math.sin(angle)*.24);leaf.rotation.z=-Math.cos(angle)*.5;leaf.rotation.x=Math.sin(angle)*.5; }
+    else if(species==='monstera') { leaf.scale.set(1.15,.72,.22);leaf.position.set(Math.cos(angle)*.22,.64+len*.12,Math.sin(angle)*.22);leaf.rotation.y=angle;leaf.rotation.z=-Math.cos(angle)*.25; }
+    else { leaf.scale.set(.62,1.45,.72); leaf.position.set(Math.cos(angle)*.17,.48+len*.38,Math.sin(angle)*.17); leaf.rotation.z=-Math.cos(angle)*.42; leaf.rotation.x=Math.sin(angle)*.35; }
+    g.add(leaf); leaf.castShadow=true;
   }
   const center=new THREE.Mesh(new THREE.SphereGeometry(.17,12,10),leafMats[1]); center.position.y=.68;g.add(center);
+  if (species === 'flower') for(let i=0;i<5;i++){const p=new THREE.Mesh(new THREE.SphereGeometry(.07,10,8),std({color:0xf3b6cf,roughness:.8}));const a=i*Math.PI*2/5;p.position.set(Math.cos(a)*.11,.89,Math.sin(a)*.11);p.scale.set(1,.45,1);g.add(p);}
   return g;
 }
-const roomPlants = [makePlant(-11.75,1.1,1.15),makePlant(-11.55,-5.15,.92),makePlant(-3.7,1.0,.88),makePlant(7.8,2.1,1.05),makePlant(4.25,-4.9,.86),makePlant(-4.95,-4.15,.46),makePlant(-7.45,.55,.82),makePlant(7.4,.45,.48),makePlant(-4.35,-4.45,.55),makePlant(3.8,.55,.42),makePlant(-4.8,.8,.76),makePlant(-4.45,-4.25,.72),makePlant(2.7,.9,.72),makePlant(-2.6,1.25,.62)];
+const roomPlants = [makePlant(-11.75,1.1,1.15,'palm'),makePlant(-11.55,-5.15,.92,'snake'),makePlant(-3.7,1.0,.88,'bird-of-paradise'),makePlant(7.8,2.1,1.05,'ficus'),makePlant(4.25,-4.9,.86,'fern'),makePlant(-4.95,-4.15,.46,'succulent'),makePlant(-7.45,.55,.82,'monstera'),makePlant(7.4,.45,.48,'flower'),makePlant(-4.35,-4.45,.55,'aloe'),makePlant(3.8,.55,.42,'snake'),makePlant(-4.8,.8,.76,'fern'),makePlant(-4.45,-4.25,.72,'ficus'),makePlant(2.7,.9,.72,'succulent'),makePlant(-2.6,1.25,.62,'bird-of-paradise')];
 function makeLargePlant(x,z,type) {
   const g=new THREE.Group();g.position.set(x,0,z);scene.add(g);
   const potMat=std({color:0x6d5140,roughness:.8}),soilMat=std({color:0x30251d,roughness:1});
@@ -5189,7 +5260,7 @@ function makeLargePlant(x,z,type) {
     for(const [x0,y0,z0,s] of [[0,2.18,0,.62],[-.42,2.03,0,.50],[.4,2.04,0,.52],[0,2.48,.30,.48],[0,2.43,-.32,.48]]){
       const leaf=new THREE.Mesh(new THREE.SphereGeometry(1,14,12),greens[Math.round((x0+0.5)*2)%greens.length]);leaf.position.set(x0,y0,z0);leaf.scale.set(s,s*.78,s*.72);leaf.castShadow=true;g.add(leaf);
     }
-  }else{
+  }else if(type==='palm'){
     const trunk=new THREE.Mesh(new THREE.CylinderGeometry(.085,.16,1.75,12),trunkMat);trunk.position.set(0,1.44,0);trunk.rotation.z=-.06;trunk.castShadow=true;g.add(trunk);
     const green=std({color:0x35834b,roughness:.82});
     for(let i=0;i<9;i++){
@@ -5197,15 +5268,36 @@ function makeLargePlant(x,z,type) {
       frond.position.set(Math.cos(a)*.42,2.35+Math.sin(i*2.1)*.08,Math.sin(a)*.42);
       frond.scale.set(.13,.52,.10);frond.rotation.z=-Math.cos(a)*.78;frond.rotation.x=Math.sin(a)*.55;frond.castShadow=true;g.add(frond);
     }
+  }else{
+    const green=std({color:0x3d914d,roughness:.82});
+    for(let i=0;i<6;i++){
+      const a=i*Math.PI*2/6,leaf=new THREE.Mesh(new THREE.SphereGeometry(1,14,12),green);
+      leaf.position.set(Math.cos(a)*.32,1.65+(i%3)*.34,Math.sin(a)*.32);leaf.scale.set(.2,.95,.16);leaf.rotation.z=-Math.cos(a)*.38;leaf.rotation.x=Math.sin(a)*.42;leaf.castShadow=true;g.add(leaf);
+    }
+    const flower=new THREE.Mesh(new THREE.ConeGeometry(.11,.55,8),std({color:0xff8c36,roughness:.68}));flower.position.set(.15,2.8,.1);flower.rotation.z=-.3;g.add(flower);
   }
   return g;
 }
-const largeRoomPlants=[makeLargePlant(11.3,4.5,'ficus'),makeLargePlant(9.7,3.0,'palm'),makeLargePlant(11.5,-3.6,'palm')];
+const largeRoomPlants=[makeLargePlant(11.3,4.5,'ficus'),makeLargePlant(9.7,3.0,'palm'),makeLargePlant(11.5,-3.6,'bird-of-paradise')];
+// A matching blue quad is parked beside Ahaan when Play Together is enabled.
+const ahaanQuad={group:quad.group.clone(true),wheels:[],parked:{x:2.35,z:.45}};
+ahaanQuad.group.traverse(o=>{if(o.isMesh&&o.material===quadRed)o.material=std({color:0x2673e8,roughness:.42,metalness:.18});});
+ahaanQuad.wheels=ahaanQuad.group.children.filter(o=>o.isGroup&&o.children.some(c=>c.geometry?.type==='TorusGeometry'));
+scene.add(ahaanQuad.group); ahaanQuad.group.position.set(ahaanQuad.parked.x,0,ahaanQuad.parked.z); ahaanQuad.group.visible=false;
+function updateAhaanQuadPose(x,z,yaw=ahaanState.yaw){
+  const heights=ahaanQuad.wheels.map(w=>getWalkHeight(x+w.position.x*Math.cos(yaw)+w.position.z*Math.sin(yaw),z-w.position.x*Math.sin(yaw)+w.position.z*Math.cos(yaw)));
+  const rear=(heights[0]+heights[1])/2,front=(heights[2]+heights[3])/2;
+  ahaanQuad.group.position.set(x,(Math.min(...heights)+Math.max(...heights))/2,z);
+  ahaanQuad.group.rotation.set(0,yaw,Math.atan2(front-rear,.68));
+  ahaanQuad.wheels.forEach(w=>{w.rotation.x+=ahaanState.velocity*.14;});
+}
+function makeJetpack(owner,color){const g=new THREE.Group();owner.add(g);g.position.set(-.12,.4,0);const tank=std({color,metalness:.25,roughness:.48});rbox(.09,.32,.36,.035,tank,-.04,0,0,g);for(const z of [-.21,.21]){const c=new THREE.Mesh(new THREE.CylinderGeometry(.065,.07,.34,12),tank);c.position.set(-.04,0,z);g.add(c);const nozzle=new THREE.Mesh(new THREE.ConeGeometry(.05,.1,12),std({color:0xffad48,emissive:0xff7618,emissiveIntensity:1}));nozzle.position.set(-.04,-.22,z);nozzle.rotation.z=Math.PI;nozzle.visible=false;g.add(nozzle);g.userData.flames??=[];g.userData.flames.push(nozzle);}return g;}
+const vihaanJetpack=makeJetpack(personGroup,0x34465c),ahaanJetpack=makeJetpack(ahaanGroup,0x2583d8);
 // A small woven rug warms the open lounge without creating a movement obstacle.
 rbox(2.5,.035,1.55,.12,std({color:0x79543f,roughness:.96}),5.45,.018,-2.35);
 rbox(2.28,.018,1.33,.08,std({color:0xc49a69,roughness:.96}),5.45,.045,-2.35);
 quad.group.position.set(quad.parked.x,0,quad.parked.z);quad.group.visible=true;updateQuadPose(quad.parked.x,quad.parked.z,0);
-const skateboard={group:new THREE.Group(),wheels:[],riding:false,grinding:false,parked:{x:-8.5,z:-.7}};
+const skateboard={group:new THREE.Group(),wheels:[],riding:false,grinding:false,sequence:'idle',sequenceT:0,parked:{x:-8.5,z:-.7}};
 scene.add(skateboard.group);
 const boardDeck=std({color:0xe4b96f,roughness:.58}),boardGrip=std({color:0x29313d,roughness:.9});
 rbox(.62,.055,.22,.04,boardDeck,0,.09,0,skateboard.group);
@@ -5220,6 +5312,7 @@ function updateSkateboardPose(x,z,yaw=vihaanState.yaw,grinding=skateboard.grindi
   skateboard.wheels.forEach(w=>{w.rotation.x+=vihaanState.velocity*.16;});
 }
 updateSkateboardPose(skateboard.parked.x,skateboard.parked.z,0,false);
+if(TV[0]){skateboard.parked={x:TV[0].group.position.x,y:TV[0].group.position.y+TV[0].h/2+.18,z:TV[0].group.position.z};skateboard.group.position.set(skateboard.parked.x,skateboard.parked.y,skateboard.parked.z);}
 (function rightWall() {
   const z = -5.8;
   // Reduced brightness: toneMapped true, soft ambient glow, intensity 1.8 (was 7.0)
@@ -5296,6 +5389,11 @@ updateSkateboardPose(skateboard.parked.x,skateboard.parked.z,0,false);
     const sl = new THREE.PointLight(0xdfe8ff, 0.7, 2.2, 2); sl.position.set(built.screenX, built.screenY, d / 2 + 0.25); g.add(sl);
     TV.push({ group: g, body: built.body, screen: built.screen, snow: built.snow, tex: ctex, ctx: ctex.userData.ctx, site, light: sl, w, h, d, snowLevel: 0.7, screenPos: V3(built.screenX, built.screenY, d / 2 - 0.03) });
   });
+  // Set the board on the first CRT after the TV groups have been created.
+  if(TV[0]&&typeof skateboard!=='undefined'){
+    skateboard.parked={x:TV[0].group.position.x,y:TV[0].group.position.y+TV[0].h/2+.18,z:TV[0].group.position.z};
+    skateboard.group.position.set(skateboard.parked.x,skateboard.parked.y,skateboard.parked.z);
+  }
   rbox(0.08, 0.03, 0.06, 0.01, knobM, 5.05, 1.4, -2.85); const ant = cyl(0.004, 0.003, 0.55, matSteel, 4.93, 1.64, -2.85, undefined, 6); ant.rotation.z = 0.45; const ant2 = cyl(0.004, 0.003, 0.55, matSteel, 5.17, 1.64, -2.85, undefined, 6); ant2.rotation.z = -0.45;
   const tl = new THREE.PointLight(0xdfe8ff, 3, 6, 2); tl.position.set(5.2, 1.0, -1.7); scene.add(tl);
   const pts = [[5.0, 4.6, -2.4], [5.5, 5.3, -2.5], [6.2, 4.8, -2.4], [6.0, 5.7, -2.6], [6.8, 5.2, -2.5], [7.3, 6.0, -2.6], [7.1, 4.9, -2.4]].map(p => V3(...p));
@@ -5307,6 +5405,7 @@ updateSkateboardPose(skateboard.parked.x,skateboard.parked.z,0,false);
 
 /* ---------- basketball ---------- */
 const ball = { mesh: null, v: new THREE.Vector3(), held: true, live: false, scored: false, timer: 0, prevY: 0, score: 0, shots: 0 };
+let shootFollowThrough=0;
 ball.mesh = sphere(0.12, std({ map: ballTex, roughness: 0.75 }), 0, -5, 0, undefined, 36, 28);
 ball.mesh.visible = false;
 
@@ -5347,7 +5446,7 @@ const game = {
   px: 256, bullets: [], enemies: [], parts: [],
   score: 0, best: 0, bestByGame: { defender: 0, pacman: 0, dino: 0, breakout: 0, snake: 0 },
   lives: 3, spawnT: 0, fireT: 0, time: 0, keys: {},
-  pac: null, dino: null, brk: null, snk: null
+  pac: null, dino: null, brk: null, snk: null, menuOpen: true, selectedIndex: 0
 };
 const G = arcadeTex.userData.ctx, GW = 512, GH = 384;
 
@@ -5395,6 +5494,8 @@ function initSnake() {
 }
 
 function gameStart() {
+  if(game.activeGame==='all'){document.getElementById('arcade-full-games-link')?.click();return;}
+  game.menuOpen = false;
   Object.assign(game, { running: true, over: false, px: 256, bullets: [], enemies: [], parts: [], score: 0, lives: 3, spawnT: 0, fireT: 0, time: 0 });
   if (game.activeGame === 'pacman') initPacman();
   else if (game.activeGame === 'dino') initDino();
@@ -5410,13 +5511,17 @@ function endGame() {
 }
 
 function selectArcadeGame(id) {
-  if (!['defender', 'pacman', 'dino', 'breakout', 'snake'].includes(id)) return;
+  if (!['defender', 'pacman', 'dino', 'breakout', 'snake', 'all'].includes(id)) return;
+  game.selectedIndex = ['defender','pacman','dino','breakout','snake','all'].indexOf(id);
+  game.menuOpen = true;
+  game.running = false;
+  game.over = false;
   game.activeGame = id;
   game.best = game.bestByGame[id] || 0;
-  document.querySelectorAll('#arcade-game-dock .agd-btn[data-game]').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.game === id);
+  document.querySelectorAll('#arcade-game-dock .agd-btn[data-arcade-game]').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.arcadeGame === id);
   });
-  gameStart();
+  if(document.getElementById('arcade-full-games-link'))document.getElementById('arcade-full-games-link').hidden=id!=='all';
 }
 
 function gameStep(dt) {
@@ -5589,7 +5694,13 @@ function gameDraw(t) {
   const TITLES = { defender: 'VIHAAN DEFENDER', pacman: 'PAC-VIHAAN 3D', dino: 'DINO TURBO RUN', breakout: 'BRICK BREAKER', snake: 'CYBER SNAKE' };
   const SUBS = { defender: '← → MOVE · SPACE FIRE', pacman: 'ARROWS / WASD STEER', dino: 'SPACE / ↑ JUMP · ↓ DUCK', breakout: '← → MOVE PADDLE', snake: 'ARROWS / WASD TURN' };
 
-  if (!game.on) {
+  if (game.on && game.menuOpen) {
+    const names = ['DEFENDER','PAC-VIHAAN','DINO JUMP','BRICK BREAKER','CYBER SNAKE','ALL FULL GAMES'];
+    g.fillStyle = '#091322'; g.fillRect(0,0,GW,GH);
+    g.textAlign = 'center'; g.fillStyle = '#ffd500'; g.font = '700 24px "Geist Mono", monospace'; g.fillText('CHOOSE A GAME',256,54);
+    names.forEach((name,i)=>{const x=256+(i%2?112:-112),y=120+Math.floor(i/2)*72,selected=i===game.selectedIndex;g.fillStyle=selected?'#ff5a12':'#1d2b3b';g.fillRect(x-96,y-22,192,46);g.strokeStyle=selected?'#ffd500':'#678';g.strokeRect(x-96,y-22,192,46);g.fillStyle='#fff';g.font='700 13px "Geist Mono", monospace';g.fillText(name,x,y+5);});
+    g.fillStyle='#ffcf78';g.font='700 14px "Geist Mono", monospace';g.fillText('USE JOYSTICK OR ARROWS · BUTTON TO SELECT',256,354);
+  } else if (!game.on) {
     // Attract mode on the 3D cabinet in lobby
     const cx = 256, cy = 175;
     g.strokeStyle = '#ff4a10'; g.lineWidth = 3;
@@ -5690,12 +5801,13 @@ function gameDraw(t) {
   arcadeTex.needsUpdate = true;
 }
 
-document.querySelectorAll('#arcade-game-dock .agd-btn[data-game]').forEach(btn => {
+document.querySelectorAll('#arcade-game-dock .agd-btn[data-arcade-game]').forEach(btn => {
   btn.addEventListener('click', (e) => {
     e.stopPropagation();
-    selectArcadeGame(btn.dataset.game);
+    selectArcadeGame(btn.dataset.arcadeGame);
   });
 });
+const fullGamesLink=document.createElement('a');fullGamesLink.id='arcade-full-games-link';fullGamesLink.href='games.html';fullGamesLink.className='agd-btn agd-link';fullGamesLink.textContent='OPEN ALL FULL GAMES →';fullGamesLink.hidden=true;document.getElementById('arcade-game-dock')?.appendChild(fullGamesLink);
 
 /* ================= modes / camera ================= */
 const state = { mode: 'home', tvIndex: 0, transT: 1, camFrom: new THREE.Vector3(), lookFrom: new THREE.Vector3(), lookCur: new THREE.Vector3(0.25, 2.15, -4.5), hover: null, dragStart: null };
@@ -5718,12 +5830,12 @@ function targets() {
     const aimX=cx+(mobile?0.55:0);
     return [tmpA.set(aimX+(mobile ? 0.8 : 2.4),mobile?3.25:2.3,cz+(mobile?10.8:9.3)),tmpB.set(aimX,mobile?1.45:1.85,cz-(mobile?1.6:1.4))];
   }
-  if(innerWidth < 700) return [tmpA.set(-0.4,3.1,9.2),tmpB.set(-1.45,1.95,-3.4)];
+  if(innerWidth < 700) return [tmpA.set(-0.4,3.0,9.2),tmpB.set(-0.75,0.85,-3.4)];
   return [tmpA.copy(camBase), tmpB.copy(camLook)];
 }
 const HINTS = {
   home: '♟️ Play Chess with Bot &nbsp;·&nbsp; WASD / Arrows to Walk &nbsp;·&nbsp; Enter near the quad, skateboard, dog, or trophy',
-  arcade: 'ARROWS / WASD move &nbsp;·&nbsp; SPACE action &nbsp;·&nbsp; pick any of the 5 games below &nbsp;·&nbsp; ESC leave',
+  arcade: 'Joystick / dock chooses a game &nbsp;·&nbsp; cabinet button or Enter starts it &nbsp;·&nbsp; All Full Games opens the game library &nbsp;·&nbsp; ESC leave',
   hoop: 'Drag up on the ball to shoot &nbsp;·&nbsp; ticker shows your score &nbsp;·&nbsp; ESC leave',
   trophy: 'VIHAAN’S TROPHY &nbsp;·&nbsp; ESC or close the card to return',
   tv: '← → browse Vihaan\'s builds &nbsp;·&nbsp; click another CRT &nbsp;·&nbsp; ESC leave',
@@ -5755,7 +5867,7 @@ function setMode(m, arg) {
   if (m !== 'home') window.scrollTo(0, 0);
   game.on = m === 'arcade';
   if (arcadeDock) { arcadeDock.hidden = m !== 'arcade'; arcadeDock.classList.toggle('show', m === 'arcade'); }
-  if (game.on) { gameStart(); }
+  if (game.on) { game.menuOpen = true; game.running = false; }
   ball.mesh.visible = m === 'hoop'; ball.held = true; ball.live = false;
   hudEl.hidden = m !== 'hoop'; hudMsg.textContent = '';
   canvas.style.cursor = m === 'home' ? '' : (m === 'hoop' ? 'grab' : 'default');
@@ -5803,6 +5915,7 @@ function pick(e) {
   const awardHit = ray.intersectObjects(trophyHit, false);
   if (awardHit.length) { state.pickAward = awardHit[0].object.userData.award; return 'trophy'; }
   if (ray.intersectObjects(neonStringHit, false).length) return 'neonString';
+  const controlHit=ray.intersectObjects(arcadeControls,false);if(controlHit.length){state.arcadeControl=controlHit[0].object.userData.arcadeAction;return 'arcadeControl';}
   if (ray.intersectObjects(arcadeHit, false).length) return 'arcade';
   if (ray.intersectObjects(hoopHit, false).length) return 'hoop';
   if (ray.intersectObjects(dogHit, true).length) return 'dog';
@@ -5861,6 +5974,7 @@ window.addEventListener('pointermove', (e) => {
 canvas.addEventListener('pointerdown', (e) => {
   if(trophyDialog.open)return;
   const h = pick(e);
+  if(state.mode==='arcade'&&h==='arcadeControl'&&game.menuOpen){const ids=['defender','pacman','dino','breakout','snake','all'];if(state.arcadeControl==='joystick')selectArcadeGame(ids[(game.selectedIndex+1)%ids.length]);else gameStart();return;}
   if (h === 'neonString') {
     neonSwitch.isDragging = true;
     neonSwitch.dragStartY = e.clientY;
@@ -5898,7 +6012,7 @@ canvas.addEventListener('pointerdown', (e) => {
   }
   if (state.mode === 'tv') { if (h === 'tv') showTV(state.pickTV); return; }
   if (state.mode === 'hoop' && ball.held) { state.dragStart = { x: e.clientX, y: e.clientY, t: performance.now() }; canvas.style.cursor = 'grabbing'; }
-  if (state.mode === 'arcade' && !game.running) gameStart();
+  if (state.mode === 'arcade' && !game.running && !game.menuOpen) gameStart();
 });
 window.addEventListener('pointerup', (e) => {
   if (neonSwitch.isDragging) {
@@ -5932,6 +6046,8 @@ window.addEventListener('keydown', (e) => {
   if(state.mode==='home'&&twoPlayerMode&&e.key.toLowerCase()==='e'){
     e.preventDefault();interactNearAhaan();return;
   }
+  if(state.mode==='home'&&e.key==='Shift'&&!e.repeat){vihaanState.flight=!vihaanState.flight;}
+  if(state.mode==='home'&&twoPlayerMode&&e.key.toLowerCase()==='q'&&!e.repeat){ahaanState.flight=!ahaanState.flight;}
   if (e.key === 'Escape' && state.mode !== 'home') { setMode('home'); return; }
   if (state.mode === 'home') {
     if(twoPlayerMode){
@@ -5951,6 +6067,14 @@ window.addEventListener('keydown', (e) => {
     }
   }
   if (state.mode === 'arcade') {
+    if (game.menuOpen && ['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','a','A','d','D','w','W','s','S'].includes(e.key)) {
+      e.preventDefault();
+      const delta = ['ArrowRight','d','D','ArrowDown','s','S'].includes(e.key) ? 1 : -1;
+      const ids = ['defender','pacman','dino','breakout','snake','all'];
+      selectArcadeGame(ids[(game.selectedIndex + delta + ids.length) % ids.length]);
+      return;
+    }
+    if (game.menuOpen && e.key === 'Enter') { gameStart(); return; }
     if (['ArrowLeft', 'a', 'A'].includes(e.key)) game.keys.left = true;
     if (['ArrowRight', 'd', 'D'].includes(e.key)) game.keys.right = true;
     if (['ArrowUp', 'w', 'W'].includes(e.key)) game.keys.up = true;
@@ -5963,6 +6087,8 @@ window.addEventListener('keydown', (e) => {
 });
 document.getElementById('world-interaction')?.addEventListener('click',e=>{if(e.currentTarget.dataset.player==='ahaan')interactNearAhaan();else if(e.currentTarget.dataset.player==='vihaan')interactNearVihaan();});
 document.getElementById('aab-two-player')?.addEventListener('click',()=>setTwoPlayerMode(!twoPlayerMode));
+document.getElementById('btn-flight-vihaan')?.addEventListener('click',()=>{vihaanState.flight=!vihaanState.flight;});
+document.getElementById('btn-flight-ahaan')?.addEventListener('click',()=>{if(twoPlayerMode)ahaanState.flight=!ahaanState.flight;});
 window.addEventListener('keyup', (e) => {
   if (state.mode === 'home') {
     if(twoPlayerMode){
@@ -5993,10 +6119,12 @@ window.addEventListener('scroll', () => { if (state.mode !== 'home' && (window.s
 /* ---------- basketball physics ---------- */
 const fwd = new THREE.Vector3(), right = new THREE.Vector3(), upv = new THREE.Vector3();
 function heldPos(out) {
+  if(state.mode==='hoop'&&vihaanRig.rightArm){personGroup.updateMatrixWorld(true);return personGroup.localToWorld(V3(.35,.35,-.31)).add(V3(.15,.04,.03));}
   camera.getWorldDirection(fwd); right.crossVectors(fwd, UP).normalize(); upv.crossVectors(right, fwd).normalize();
   return out.copy(camera.position).addScaledVector(fwd, 0.95).addScaledVector(upv, -0.32).addScaledVector(right, 0.06);
 }
 function throwBall(dx, dyUp, ms) {
+  shootFollowThrough=1;
   ball.held = false; ball.live = true; ball.scored = false; ball.timer = 0; ball.shots++;
   const p = ball.mesh.position;
   const target = V3(HOOP.x, HOOP.rimY + 0.05, HOOP.rimZ);
@@ -6139,13 +6267,14 @@ document.getElementById('btn-action-stairs')?.addEventListener('click', (e) => {
   e.stopPropagation();
   walkVihaanToStairsTop();
 });
+document.getElementById('btn-action-board-run')?.addEventListener('click',e=>{e.stopPropagation();startBoardRun();});
 document.getElementById('btn-action-sit')?.addEventListener('click', (e) => {
   e.stopPropagation();
   walkVihaanToStairsBottom();
 });
 document.getElementById('btn-action-hoop')?.addEventListener('click', (e) => {
   e.stopPropagation();
-  setMode('hoop');
+  walkVihaanTo(2.0,1.1,()=>setMode('hoop'));
 });
 document.getElementById('btn-action-arcade')?.addEventListener('click', (e) => {
   e.stopPropagation();
@@ -6192,7 +6321,7 @@ document.querySelectorAll('.chm-lvl').forEach(btn => {
 
 window.__slider = slider; window.__pend = () => pendants.map(p => ({ x: +p.ax.toFixed(4), z: +p.az.toFixed(4) }));
 window.__sblvl = {
-  scene, camera, renderer, state, game, ball, TV, characters, quad, skateboard, roomPlants, largeRoomPlants, dogGroup, dogTail, ahaanGroup, ahaanState,
+  scene, camera, renderer, state, game, ball, TV, characters, quad, ahaanQuad, skateboard, roomPlants, largeRoomPlants, dogGroup, dogTail, ahaanGroup, ahaanState, vihaanRightArm:vihaanRig.rightArm, vihaanJetpack, ahaanJetpack, arcadeControls, progressPlaque, startBoardRun, selectArcadeGame,
   vihaanState, chessGame, walkVihaanTo, walkVihaanToStairsTop, walkVihaanToStairsBottom, walkVihaanToChessTable, setTwoPlayerMode,
   get twoPlayerMode(){return twoPlayerMode;},
   getWalkHeight, trophyAwards, openTrophy,
@@ -6204,6 +6333,7 @@ window.__sblvl = {
   bounds() { return characters.map(g => { const b = new THREE.Box3().setFromObject(g); return { min: b.min.toArray().map(v => +v.toFixed(3)), max: b.max.toArray().map(v => +v.toFixed(3)) }; }); },
   steps: Array.from({ length: STEPS }, (_, i) => ({ min: [X_BOTTOM - (i + 1) * RUN, 0, Z0], max: [X_BOTTOM - i * RUN, STEP_TOP(i), i < 3 ? Z1 + 0.55 - i * 0.12 : Z1] })),
   setMode, showTV, throwBall, render: () => render(performance.now()),
+  pickAt(e) { return pick(e); },
   setMouse(x, y) { mouse.x = mouse.tx = x; mouse.y = mouse.ty = y; },
   step(n) { for (let i = 0; i < n; i++) { gameStep(1 / 60); if (state.mode === 'hoop') ballStep(1 / 60); state.transT = Math.min(1, state.transT + 1 / 69); } },
   get dpr() { return DPR; }, set dpr(v) { DPR = v; }, rt

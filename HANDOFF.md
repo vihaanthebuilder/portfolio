@@ -1645,3 +1645,80 @@ Four briefs written and staged in this folder on Nov 16, 2026 (VM copies in ~/wo
   grind + landing, reset to home, zero console errors on both devices.
   Screenshots and results: `/tmp/vihaan-room-life-live/` (9 PNGs +
   interaction-results.json); check output `/tmp/pub69b-livecheck.txt`.
+
+## Room Life scene fixes — active dispatch (Nov 18, 2026)
+
+- Read the full follow-up brief `FEATURE-BRIEF-room-life-fixes.md` from the
+  main checkout. It dispatches worker 0069 to this existing
+  `feature/room-life-scene` worktree, says local work only, and explicitly
+  forbids publishing in this run. It covers walking, boot artifact, kid
+  proportions, Sally review, railing, motorized quad, skateboard sequence,
+  avatar basketball shot, arcade game switching, Ahaan's visible quad, two
+  quads/jetpacks, plant variety, trophy cabinet motivation, and windows.
+- First concrete baseline: ran `tests/walk-physical-contact.cjs` against this
+  worktree before edits. 33,328 sole samples, no planted-foot errors,
+  minGap `8.3446e-10`, maxGap `0.67`; report at
+  `/tmp/vihaan-room-life-fixes/baseline/physical-contact.json`.
+- Located and read the project copy of `sally-ux-review-2026-11-12.md` after
+  the initial workspace search. Its sensory-friendly motion, no-unrequested-
+  sound, visible focus, readable contrast, and kind-feedback rules will guide
+  this scene review.
+- Added deterministic cardinal traces on flat floor and stairs. Root paths stay
+  straight (worst cross-track 0.0185 m); increasing Vihaan's yaw response from
+  12 to 30/s brought first-heading error below 0.022 rad. The new
+  `tests/room-life-fixes.cjs` walk check passes with no unexpected browser
+  errors. Foot IK and room guards were not changed.
+- Current implementation pass: made the lower leg denim continuous with the
+  white sneaker trim; tested a smaller overall scale but restored 1.06 because
+  it broke the already-validated planted-foot reach. The avatar still reads as
+  a child in the scene-scale close-up. Added closer
+  stair rail supports and a landing rail, six-choice arcade selection with
+  physical joystick/dock wiring, varied small plant forms, a warm plaque and
+  east-wall sky windows, a parked blue Ahaan quad, and two switchable jetpacks
+  (Shift/Q). The hoop action walks to the court and the shot raises Vihaan's
+  arm. Added a guided TV-to-stairs skateboard run. Desktop capture showed the
+  plaque partly masked; moved it forward. Initial mobile capture placed the dog
+  at screen x=376; shifted the mobile camera aim inward and upward.
+- Latest `tests/room-life-fixes.cjs` passes, including the carried TV pickup,
+  top stunt, stair rail grind, and safe board landing. The board route initially
+  stalled because Play Together's 4.4 m follow tether remained active in the
+  regression setup; the test now exits that mode before starting the solo run.
+  Removed temporary movement diagnostics after confirming the cause.
+- Latest `tests/room-life-feature.cjs` passes on desktop 1280×800 and phone
+  390×844: dog tap, Play Together visibility and movement, quad and board rides,
+  rail grind, landing, reset, plant counts, and no unexpected browser errors.
+  Mobile dog tap target is x=329,y=492. Current captures are under
+  `/tmp/vihaan-room-life-fixes/final-captures/`. The plaque text is fully clear
+  of the stair stringer; the raised framed windows show sky and warm daylight.
+- Existing safeguards rerun against the final implementation: planted-foot
+  contact passed 33,968 samples (`bad: []`, maxGap `0.67`); stair/room boundary
+  checks passed; desktop/mobile walk-and-trophies checks passed with zero page
+  errors. The walk suite reports only its existing Three.js duplicate-import
+  warning.
+- BMad Build Step 04 is underway: spec status set to `in-review`, full baseline
+  diff prepared at `/tmp/room-life-scene-review.diff`, and Blind Hunter, Edge
+  Case Hunter, and Verification Gap reviewers launched together. No files have
+  been staged.
+- Review triage found and fixed: the quad rider now rises with jetpack flight;
+  Ahaan's blue quad follows him; all-games selection now opens its library via
+  Enter or the cabinet button; arcade hints explain the controls; hoop
+  approach/follow-through, cabinet start, visible flight buttons, mobile flight,
+  and the BOARD RUN action are exercised by browser checks. The Sally visual
+  record is `sally-room-life-review.md`; it covers child proportions, boot
+  trim, gait, greenery, rail, plaque, windows, two-player visibility, and phone
+  framing. No findings were deferred. The edge review's “height accumulates
+  each frame” claim was false because standing height is recomputed every
+  frame; its separate riding-height case was reproduced and fixed.
+- After review fixes, both durable Playwright suites pass again: `tests/room-life-fixes.cjs`
+  (including full board run and arcade library navigation) and
+  `tests/room-life-feature.cjs` (desktop 1280×800 and phone 390×844, Ahaan quad
+  tracking, flight controls, dog, rides, zero unexpected errors). Earlier final
+  runs also pass `walk-physical-contact.cjs`, `walk-boundaries.cjs`, and
+  `walk-and-trophies.cjs`; `git diff --check` is clean. No push, merge, or
+  publish was performed.
+- Final follow-up run after stair-height alignment: `room-life-fixes.cjs` also
+  confirms Ahaan's quad stays on the tread height, the basketball follow-through
+  moves his arm, the All Full Games action navigates to the library, and plant
+  leaf geometry has seven distinct silhouette signatures. The desktop/mobile
+  feature suite passed once more after the quad alignment. Review found no
+  remaining deferred items.
