@@ -1737,4 +1737,5 @@ Four briefs written and staged in this folder on Nov 16, 2026 (VM copies in ~/wo
   floor. The refreshed desktop/mobile suite passes, and the updated close-up
   at `/tmp/vihaan-room-life-fixes/sally-reference-final/palm2-closeup.png`
   shows its full silhouette. The reference remains untracked input and is not
-  part of either commit.
+  part of any feature commit. Sally-guided plant correction and source-scope
+  clarification are recorded in local commit `d697ded9d0d13df49732fcd98af03e7513f0f920`.
