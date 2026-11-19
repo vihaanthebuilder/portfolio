@@ -5278,7 +5278,7 @@ function makeLargePlant(x,z,type) {
   }
   return g;
 }
-const largeRoomPlants=[makeLargePlant(11.3,4.5,'ficus'),makeLargePlant(9.7,3.0,'palm'),makeLargePlant(11.5,-3.6,'bird-of-paradise')];
+const largeRoomPlants=[makeLargePlant(11.3,4.5,'ficus'),makeLargePlant(9.7,3.0,'palm'),makeLargePlant(11.1,1.25,'bird-of-paradise')];
 // A matching blue quad is parked beside Ahaan when Play Together is enabled.
 const ahaanQuad={group:quad.group.clone(true),wheels:[],parked:{x:2.35,z:.45}};
 ahaanQuad.group.traverse(o=>{if(o.isMesh&&o.material===quadRed)o.material=std({color:0x2673e8,roughness:.42,metalness:.18});});
