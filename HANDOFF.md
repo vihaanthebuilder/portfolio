@@ -1764,3 +1764,30 @@ Four briefs written and staged in this folder on Nov 16, 2026 (VM copies in ~/wo
   shows its full silhouette. The reference remains untracked input and is not
   part of any feature commit. Sally-guided plant correction and source-scope
   clarification are recorded in local commit `d697ded9d0d13df49732fcd98af03e7513f0f920`.
+
+## Room Life Sally follow-up — PUBLISHED (Nov 19, 2026)
+
+- Published by the driver (kids' publish, driver-authorized) after the 05:51
+  watch verified the follow-up commits recorded locally and worker 0069 idle:
+  feature commits d697ded ("fix: clear the room's plant silhouettes" —
+  bird-of-paradise moved to (11.1, 1.25) in the open floor) + 996b6fc
+  (HANDOFF docs) on `feature/room-life-scene`. Worktree verified clean at
+  996b6fc (only untracked item: the sally-ux-review reference doc).
+- Acceptance records verified from files: sally-reference-review and
+  sally-reference-final interaction-results.json both show desktop 1280x800
+  + mobile 390x844, plants 14 small / 3 large, `errors: []`.
+- Merge 591b85b (one HANDOFF.md tail conflict, resolved by keeping both the
+  item-11 publish record and the Sally follow-up bullet; HANDOFF content
+  verified after merge). Push ef966f4..591b85b.
+- GitHub Pages run 44518939347 completed SUCCESS (22s).
+- Live verification on https://vihaanthebuilder.github.io/portfolio with the
+  durable Playwright harness: `tests/room-life-feature.cjs` PASS (desktop +
+  mobile, two-player, dog, quad, skateboard rail grind, landing, reset,
+  zero errors). `tests/room-life-fixes.cjs` first live run hit a transient
+  503 resource load seconds after deploy; re-run PASS (HTTP 200, walk
+  straight, plant variety, board on TV, Ahaan quad distinct, both jetpacks
+  fly, arcade game switching, live basketball shot, board sequence landed,
+  `errors: []`). Check output: /tmp/pub-rl2-live.txt,
+  /tmp/pub-rl2-live2.txt; captures
+  /tmp/vihaan-room-life-fixes/live-sally-followup/ and
+  /tmp/vihaan-room-life-fixes/live-sally-followup-rerun/.
