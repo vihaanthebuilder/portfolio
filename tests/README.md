@@ -307,7 +307,14 @@ PLAYWRIGHT_MODULE=/tmp/vihaan-test-deps/node_modules/playwright node tests/room-
 artifact directory, which defaults to `/tmp/vihaan-room-life-scene/final`.
 The browser check excludes only the known `images/dog.bin` fallback 404 and
 captures desktop/mobile room views, player views, a rail-grind frame, plant
-close-ups, and interaction results.
+close-ups, avatar/plaque/window views, and interaction results. Run the Room Life
+follow-up regression as well to check cardinal walking and stairs, plant counts
+and variety, the TV-top board, blue Ahaan quad, jetpack lift, arcade controls,
+and basketball release:
+
+```sh
+PLAYWRIGHT_MODULE=/Users/Nishant/dev-tools/browser-check/node_modules/playwright VIHAAN_BASE_URL=http://127.0.0.1:18876 VIHAAN_VQA_DIR=/tmp/vihaan-room-life-fixes node tests/room-life-fixes.cjs
+```
 
 # Road to State Countdown
 
