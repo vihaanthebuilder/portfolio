@@ -1297,7 +1297,7 @@ Nishant approved these in the Agent Board Feature Queue. Work them in order, loc
 8. **Author's Room count — FEATURE-BRIEF-authors-room-count.md** — Fix the book count: 19 total / 3 finished → 24 total / 7 finished; list all seven finished chapters (Ch 4 small intestine finished Nov 16, 2026 — brief corrected from 6 to 7 before dispatch). Asked by Vihaan himself, Nov 15, 2026. DISPATCHED Nov 16, 2026 to a Codex worker — worktree `.worktrees/feature-authors-room-count`, branch `feature/authors-room-count` (from origin/main 76986e7), surface 1000090042.
 9. **Spelling Bee World Champion section — FEATURE-BRIEF-spelling-bee-world-champion.md** — New "World Champion" section on the Spelling Bee page with 12 real Scripps winning words 2026–2014, each with year and champion (verified Nov 16, 2026 vs Spellpundit/Wikipedia). Asked by Vihaan himself, voice call Nov 16, 2026. DISPATCHED Nov 16, 2026 to a Codex worker — worktree `.worktrees/feature-spelling-bee-world-champion`, branch `feature/spelling-bee-world-champion` (from origin/main 76986e7), surface 1000090052 [terminal].
 10. **Room Life scene — FEATURE-BRIEF-room-life-scene.md** — Vihaan's asks Nov 18, 2026: fix the slightly-off walking, connect plants to their planters + add big ficus and palm trees, replace the bike with a red quad, add a skateboard that grinds the stair railing, add pet-the-dog, improve the scene, and add Ahaan as two-player (same concept as Ahaan's park). PUBLISHED Nov 18, 2026 — merge bded0d4, Pages run 44345243287 success, live-verified desktop + mobile (PASS, zero console errors).
-11. **Room Life fixes — FEATURE-BRIEF-room-life-fixes.md** — Nishant's fixes Nov 18, 2026, 22:14 CT on the live Room Life scene: walk straight (not off-course); white artifact on the boot; Vihaan too tall / looks grown-up — kid proportions, check 3D asset with Sally; plants check with Sally (14 small + 3 large); stairs railing broken; quad motorized like the Tesla Cyberquad, not paddling; skateboard sequence — hold in hand, pick up from TV top, up the stairs, stunts at the top, grind the stair railing down; real Vihaan shoots the basketball hoop, not the ball alone; arcade kiosk game switching via cabinet controls (Defender, Pac-Vihaan, Dino Jump, Brick Breaker, Cyber Snake, All Full Games — pill bar must work); Play Together Ahaan's vehicle visible under him, never an invisible cycle; two quads (Ahaan gets his own on entering Play Together) + two jetpacks so both boys can fly, quad colors match t-shirt colors (Vihaan red, Ahaan blue); plant variety — palm, bird of paradise, ficus, etc., distinct shapes/leaves in proper planters, checked with Sally; trophy cabinet — cool plaque or warm light with a motivational quote + gentle pointer that it is waiting to be filled with trophies (motivating, never pushy); windows on blank walls for natural light (warm daylight, visible sky through them). QUEUED Nov 18, 2026 for worker 0069 (surface 1000090069, feature-room-life-scene worktree). Dispatch only this run; publish once checks pass (kids' publish is driver-authorized).
+11. **Room Life fixes — FEATURE-BRIEF-room-life-fixes.md** — Nishant's fixes Nov 18, 2026, 22:14 CT on the live Room Life scene: walk straight (not off-course); white artifact on the boot; Vihaan too tall / looks grown-up — kid proportions, check 3D asset with Sally; plants check with Sally (14 small + 3 large); stairs railing broken; quad motorized like the Tesla Cyberquad, not paddling; skateboard sequence — hold in hand, pick up from TV top, up the stairs, stunts at the top, grind the stair railing down; real Vihaan shoots the basketball hoop, not the ball alone; arcade kiosk game switching via cabinet controls (Defender, Pac-Vihaan, Dino Jump, Brick Breaker, Cyber Snake, All Full Games — pill bar must work); Play Together Ahaan's vehicle visible under him, never an invisible cycle; two quads (Ahaan gets his own on entering Play Together) + two jetpacks so both boys can fly, quad colors match t-shirt colors (Vihaan red, Ahaan blue); plant variety — palm, bird of paradise, ficus, etc., distinct shapes/leaves in proper planters, checked with Sally; trophy cabinet — cool plaque or warm light with a motivational quote + gentle pointer that it is waiting to be filled with trophies (motivating, never pushy); windows on blank walls for natural light (warm daylight, visible sky through them). QUEUED Nov 18, 2026 for worker 0069 (surface 1000090069, feature-room-life-scene worktree). PUBLISHED Nov 19, 2026 — merge 807eab5, Pages run 44510023461 success, live-verified desktop + mobile (PASS, zero console errors).
 
 ### Chess Tactics Trainer Pack 2 — complete locally (Nov 15, 2026)
 
@@ -1728,3 +1728,26 @@ Four briefs written and staged in this folder on Nov 16, 2026 (VM copies in ~/wo
   `feature/room-life-scene`. The imported Sally guardrail file is kept as
   untracked input; it was not included in the feature commit. No push, merge,
   or publish was performed.
+
+## Room Life fixes — PUBLISHED (Nov 19, 2026)
+
+- Published by the driver (kids' publish, driver-authorized) after the 04:51
+  watch verified item 11 complete locally: feature commits 579a294 + 2024f3d
+  on `feature/room-life-scene`, both Playwright suites passing desktop +
+  mobile, no deferred findings. The untracked Sally guardrail file in the
+  worktree was left alone (reference input, not part of the publish).
+- Queue line committed on main first (cb48911). Merge 807eab5 (one HANDOFF.md
+  conflict at the tail, resolved by keeping both records; HANDOFF content
+  verified after merge — item 11 line, scene publish record, and fixes
+  section all present). Push b34ac62..807eab5.
+- GitHub Pages run 44510023461 completed SUCCESS (21s).
+- Live verification on https://vihaanthebuilder.github.io/portfolio with the
+  durable Playwright harness: `tests/room-life-fixes.cjs` PASS (walk straight
+  with cross-track <= 0.018 m, plant variety incl. palm/bird-of-paradise/ficus,
+  board on TV, Ahaan quad distinct, both jetpacks fly, arcade game switching,
+  live basketball shot, board sequence landed, zero errors) and
+  `tests/room-life-feature.cjs` PASS (desktop 1280x800 + mobile 390x844, dog,
+  two-player, quad, skateboard rail grind, landing, reset, zero console
+  errors). Check output: /tmp/pub-rl-live.txt, /tmp/pub-rl-live2.txt;
+  captures /tmp/vihaan-room-life-fixes/live/ and
+  /tmp/vihaan-room-life-fixes/live-feature/.
