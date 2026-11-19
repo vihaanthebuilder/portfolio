@@ -1663,8 +1663,10 @@ Four briefs written and staged in this folder on Nov 16, 2026 (VM copies in ~/wo
   `/tmp/vihaan-room-life-fixes/baseline/physical-contact.json`.
 - Located and read the project copy of `sally-ux-review-2026-11-12.md` after
   the initial workspace search. Its sensory-friendly motion, no-unrequested-
-  sound, visible focus, readable contrast, and kind-feedback rules will guide
-  this scene review.
+  sound, visible focus, readable contrast, and kind-feedback rules guide this
+  scene review. The source reviews Ahaan's portfolio pages, not 3D proportions
+  or plant placement; its grade-three audience and general principles are the
+  reference, while the scene-specific visual judgments are ours.
 - Added deterministic cardinal traces on flat floor and stairs. Root paths stay
   straight (worst cross-track 0.0185 m); increasing Vihaan's yaw response from
   12 to 30/s brought first-heading error below 0.022 rad. The new
@@ -1705,10 +1707,11 @@ Four briefs written and staged in this folder on Nov 16, 2026 (VM copies in ~/wo
   Ahaan's blue quad follows him; all-games selection now opens its library via
   Enter or the cabinet button; arcade hints explain the controls; hoop
   approach/follow-through, cabinet start, visible flight buttons, mobile flight,
-  and the BOARD RUN action are exercised by browser checks. The Sally visual
-  record is `sally-room-life-review.md`; it covers child proportions, boot
-  trim, gait, greenery, rail, plaque, windows, two-player visibility, and phone
-  framing. No findings were deferred. The edge review's “height accumulates
+  and the BOARD RUN action are exercised by browser checks. The Sally-guided
+  scene assessment is `sally-room-life-review.md`; it separates source guidance
+  from our observations on proportions, boot trim, gait, greenery, rail, plaque,
+  windows, two-player visibility, and phone framing. No findings were deferred.
+  The edge review's “height accumulates
   each frame” claim was false because standing height is recomputed every
   frame; its separate riding-height case was reproduced and fixed.
 - After review fixes, both durable Playwright suites pass again: `tests/room-life-fixes.cjs`
@@ -1751,3 +1754,13 @@ Four briefs written and staged in this folder on Nov 16, 2026 (VM copies in ~/wo
   errors). Check output: /tmp/pub-rl-live.txt, /tmp/pub-rl-live2.txt;
   captures /tmp/vihaan-room-life-fixes/live/ and
   /tmp/vihaan-room-life-fixes/live-feature/.
+- Re-read the supplied Sally reference on Nov 19: it reviews Ahaan's website
+  pages and offers no 3D proportion/plant verdict. Applied its grade-three
+  audience context and sensory/readability rules without attributing our scene
+  observations to Sally. The plant close-up revealed the bird-of-paradise
+  partly under the mezzanine slab; it now sits at `(11.1, 1.25)` in the open
+  floor. The refreshed desktop/mobile suite passes, and the updated close-up
+  at `/tmp/vihaan-room-life-fixes/sally-reference-final/palm2-closeup.png`
+  shows its full silhouette. The reference remains untracked input and is not
+  part of any feature commit. Sally-guided plant correction and source-scope
+  clarification are recorded in local commit `d697ded9d0d13df49732fcd98af03e7513f0f920`.

@@ -60,7 +60,7 @@ baseline_commit: 'c9d3f4a4b0a2f81198648b2ee779f1bda88e58bc'
 
 ## Implementation Notes
 
-The human explicitly asked to execute the complete follow-up brief, so its independently shippable items remain in scope. Existing worktree is `feature/room-life-scene` at the published implementation baseline. The worktree HANDOFF has been updated before source changes. The project copy of Sally's review was located and read; its general accessibility and sensory-friendly constraints guide review, while scene-specific observations will be recorded during visual inspection.
+The human explicitly asked to execute the complete follow-up brief, so its independently shippable items remain in scope. Existing worktree is `feature/room-life-scene` at the published implementation baseline. The worktree HANDOFF has been updated before source changes. Sally's reference reviews Ahaan's portfolio pages and contains no direct opinion on Vihaan's 3D model or plants. Its grade-three audience context and sensory-friendly principles guide the local visual assessment in `sally-room-life-review.md`; those scene findings are worker observations, not Sally's direct approval.
 
 
 ## Verification
@@ -77,7 +77,7 @@ The human explicitly asked to execute the complete follow-up brief, so its indep
 - `medium / patch` — Blind Hunter: jetpack height was discarded by the ride pose. The ride height now includes the damped flight altitude; the test covers flight while riding.
 - `medium / patch` — Blind Hunter: Ahaan's quad stayed parked when he walked. It now follows his position and heading; desktop and mobile checks compare quad and rider positions.
 - `low / patch` — Blind Hunter: arcade dock instructions did not explain selection/start behavior. The arcade hint now names joystick/dock selection, cabinet-button/Enter start, and the full-games destination.
-- `medium / patch` — Blind Hunter: scene-specific Sally findings were absent. Added `sally-room-life-review.md` with visual findings and the scale/foot-reach decision.
+- `medium / patch` — Blind Hunter: scene-specific Sally findings were absent. Read Sally's reference and recorded a scene assessment in `sally-room-life-review.md`, explicitly distinguishing its guardrails from our visual observations; the source itself has no 3D verdict.
 - `medium / patch` — Blind Hunter: the new regression harness did not cover mobile flight controls. The desktop/mobile scene harness now toggles Vihaan flight on both viewports.
 - `low / patch` — Blind Hunter: plant verification checked names/counts only. Added a geometry-scale silhouette signature assertion and recorded visual placement review in Sally's notes.
 - `false` — Blind Hunter: execution checkboxes remain unchecked. The review workflow forbids changing this build's spec to address review findings; the required Step 05 status change will mark the spec done.
