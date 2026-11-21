@@ -1880,3 +1880,23 @@ Four briefs written and staged in this folder on Nov 16, 2026 (VM copies in ~/wo
   success (24s).
 - Live-verified: https://vihaanthebuilder.github.io/portfolio/spelling-bee.html
   shows the World Champion section, 7,041 bytes (matches local).
+
+## LEGO 42199 Monster Jam DIGatron card — PUBLISHED (Nov 20, 2026)
+
+- Published by Goku's driver (Nishant's Nov 19 drive instruction: kids'
+  sites publish on driver authority; do not block on a photo).
+- Card added to `lego.html` (My Own Creations, first card): Monster Jam
+  DIGatron Pull-Back, set 42199, 218 pieces, build time 1h 11m (Vidhu's
+  words). Placeholder illustration drawn in the site style
+  (`images/build-digatron-42199.svg`, JCB yellow with shovel + grabber) —
+  replace with a photo of Vidhu's built truck when he shares one.
+- Build count note: the brief said 32 -> 33 from the static HTML value, but
+  the page JS recounts actual cards (`cards.length`): 37 before, 38 now.
+  Static fallback set to 38 to match.
+- Browser check via the durable harness: desktop 1280x800 and mobile
+  390x844 both show the card, image loads, count 38, zero console errors.
+- Commit `c954ed0` (lego.html + SVG + brief). Push `829e8a1..c954ed0`.
+  GitHub Pages run 44873199322 first failed with the same GitHub-side
+  artifact error as the World Champion run; re-ran: success (19s).
+- Live-verified: https://vihaanthebuilder.github.io/portfolio/lego.html
+  shows the DIGatron card, 148,687 bytes (matches local).
