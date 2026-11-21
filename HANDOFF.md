@@ -1,5 +1,14 @@
 # HANDOFF — Vihaan's Portfolio (Vihaan's World)
 
+## Brief queue — dispatched by Goku (Nov 20, 2026)
+
+Dispatched to worker 0069 (Room Life worktree). Execute in this order; build, publish, live-verify on driver authority. Fresh Drops standing rule: every publish adds a Fresh Drops entry with its screenshot — no entry without its screenshot.
+
+1. **Fresh Drops page** — `FEATURE-BRIEF-release-notes.md`. TOP OF QUEUE.
+2. **Room Life 2-player + walking improvement pass** — `FEATURE-BRIEF-two-player-walking.md` (Nishant's Nov 20 priority).
+3. **Cruise Ship Deck 3 tracker** — `FEATURE-BRIEF-cruise-ship-deck3-tracker.md`.
+4. **LEGO instructions button + Build it boats book** — `FEATURE-BRIEF-lego-instructions-boats.md`.
+
 ## Spelling Bee World Champion — active dispatch (Nov 16, 2026)
 
 - Began the newly dispatched `FEATURE-BRIEF-spelling-bee-world-champion.md`
