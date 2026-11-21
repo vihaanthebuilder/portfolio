@@ -1821,3 +1821,16 @@ Four briefs written and staged in this folder on Nov 16, 2026 (VM copies in ~/wo
 - Published by the driver (kids' publish, driver-authorized Nov 19 evening): feature commit edeff07 ("Correct cruise ship deck contents") on `feature/cruise-ship-deck-corrections`. Merge 4478b7c (one HANDOFF.md conflict, resolved by keeping main's queue/dispatch records and appending the branch's cruise-ship active-work section; HANDOFF content verified after merge — 0 conflict markers). Push 1e520bc..4478b7c.
 - GitHub Pages run 44872237021 completed SUCCESS (20s).
 - Live verification: https://vihaanthebuilder.github.io/portfolio/cruise-ship.html (200, 8,075 bytes, byte-identical size to local; "hot dog" x2, "lemonade" x2 — stands on both Deck 3 and Deck 4 as named).
+
+## Author's Room count — PUBLISHED (Nov 20, 2026)
+
+- Published by Goku's driver (Nishant's Nov 19 drive instruction: kids'
+  sites publish on driver authority).
+- Browser check first via the durable harness: desktop 1280x800 and mobile
+  390x844 both show 7 of 24, no 3 of 24, zero console errors.
+- Merge `c0a214b` of `feature/authors-room-count` (feature commit `973ee1b`).
+  One HANDOFF.md conflict resolved by taking main and re-applying the
+  branch's count section plus the stale-progress line update.
+- Push `4806418..c0a214b`; GitHub Pages run 44872512975 success (18s).
+- Live-verified: https://vihaanthebuilder.github.io/portfolio/authors-room.html
+  shows 7 of 24, 13,705 bytes (matches local).
