@@ -1,5 +1,40 @@
 # HANDOFF — Vihaan's Portfolio (Vihaan's World)
 
+## Brief queue — dispatched by Goku (Nov 20, 2026)
+
+Execute in this order. Build, publish, live-verify on driver authority (Nishant's Nov 19 drive instruction). Update HANDOFF.md as you go. Fresh Drops standing rule: every publish adds a Fresh Drops entry with its screenshot (from publish verification) — no entry without its screenshot.
+
+1. **Fresh Drops page** — `FEATURE-BRIEF-release-notes.md`. PUBLISHED Nov 21, 2026; merge `4bd49d1d07b54710b16e4ba780eca21079b6e6a2`; Pages run 44897542008 succeeded; live-verified.
+2. **Room Life 2-player + walking improvement pass** — `FEATURE-BRIEF-two-player-walking.md` (Nishant's Nov 20 priority: walking is off — test yourself and fix issues you see). ACTIVE Nov 21, 2026 on `feature/room-life-scene`; baseline suites first.
+3. **Cruise Ship Deck 3 tracker** — `FEATURE-BRIEF-cruise-ship-deck3-tracker.md`.
+4. **LEGO instructions button + Build it boats book** — `FEATURE-BRIEF-lego-instructions-boats.md`.
+
+## Room Life 2-player + walking — ACTIVE; baseline (Nov 21, 2026)
+
+- Baseline ran against `feature/room-life-scene` at `996b6fc9682d752a56ee99a283a4a0dd53fe49a1`, served from the dispatched worktree. Evidence reuses the established VQA folders under `/tmp/vihaan-room-life-scene/` and `/tmp/vihaan-room-life-fixes/baseline/`.
+- `walk-and-trophies`: PASS desktop + mobile; both reports `passed: true`, no page errors (one existing duplicate-Three.js warning).
+- `walk-physical-contact`: PASS, 33,968 sampled contacts, `bad: []`.
+- `walk-picking`: PASS desktop + mobile for rack picking and floor click-to-walk.
+- `walk-boundaries`: PASS 13/13 cases.
+- `room-life-feature`: PASS, exit 0; desktop + mobile independent player input, both players, quad, skateboard grind/landing/reset; `errors: []`.
+- `room-life-fixes`: **FAIL baseline, exit 1** at the jetpack lift assertion: Vihaan reached `0.3439390572604829` (required `> 0.35`); Ahaan reached `0.5031401674232143`. Assertions before that point passed; checks after the assertion did not run. Preserve this failure until an actual fix is made and the affected suite is rerun.
+- Re-ran `room-life-fixes` after the camera change: **PASS, exit 0**, with Vihaan at `0.3798960820264693` and Ahaan at `0.46812039585692694`; all later checks ran and `errors: []`. The original jetpack-threshold failure remains recorded as a non-repeatable baseline failure; no jetpack code was changed.
+- Re-ran `room-life-fixes` once more after the final camera adjustment: **PASS, exit 0**, Vihaan `0.39641843599399906`, Ahaan `0.46789360217134823`, board landed, `errors: []`. Baseline failure remains separately recorded.
+- The first sandboxed Chrome launch for `walk-and-trophies` aborted before the test ran; its escalated rerun passed. No baseline result was overwritten or relabeled.
+
+### Fresh-eyes playtest — camera framing issue confirmed
+
+- Playwright desktop 1280×800 and mobile 390×844 reached the enforced 4.4-unit two-player gap in the existing persistent VQA folder. At maximum gap, desktop projected both heads inside the viewport (x≈452 and x≈795); mobile projected Vihaan's head at x≈−15 and Ahaan's at x≈312, clipping Vihaan. Screenshots: `reachable-frame-desktop.png`, `reachable-frame-mobile.png`; measurements: `reachable-frame.json`.
+- Simultaneous opposite inputs moved Vihaan from x=−0.55 to −1.183 and Ahaan from x=0.55 to 1.196 in 650 ms on desktop and mobile. No page errors. Screenshots and report remain in the same folder.
+- An earlier ±12 direct-position probe was outside legal movement bounds; it is excluded as evidence. The confirmed issue is mobile camera framing at the reachable 4.4-unit limit.
+
+### Fix 1 — center the two-player mobile camera (Nov 21)
+
+- Removed the extra +0.55 mobile camera aim offset so it aims at the players' midpoint; on mobile, the camera now smoothly zooms out in proportion to separation above the normal 1.45-unit starting gap.
+- Rechecked maximum 4.4-unit separation after the final zoom adjustment: desktop head centers x≈451 and x≈795 at 1280px; mobile x≈50 and x≈331 at 390px. Both player bodies and name tags fit; zero page errors. Updated screenshots/report in `/tmp/vihaan-room-life-scene/persistent/reachable-frame-{desktop,mobile}.png` and `reachable-frame.json`.
+- Affected suite `room-life-feature` rerun after the final camera adjustment: **PASS, exit 0** on desktop and mobile; player input isolation, dog interaction, quad, skateboard grind/landing/reset all passed with `errors: []`. Evidence in the established `/tmp/vihaan-room-life-scene/persistent/` folder.
+- Fresh directional probe: all four cardinal directions and up-right/down-left diagonals moved along their expected axes on desktop and mobile; diagonals advanced x/z equally. `errors: []`; measurements and screenshots in `/tmp/vihaan-room-life-scene/persistent/movement-eyes.{json,png}`.
+
 ## Robot chess color choice — active dispatch (Nov 16, 2026)
 
 - Feature target found before editing: `index.html`. The Game Room and Chess

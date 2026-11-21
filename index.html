@@ -5827,8 +5827,9 @@ function targets() {
   if (state.mode === 'trophy') { const i=state.trophyIndex||0, x=-11.4+(10+i+0.5)*0.815, side=i===0?-0.8:0.8; return [V3(x+side,2.95,-1.65),V3(x+side,2.75,-3.38)]; }
   if(twoPlayerMode&&state.mode==='home'){
     const cx=(vihaanState.x+ahaanState.x)/2,cz=(vihaanState.z+ahaanState.z)/2,mobile=innerWidth<700;
-    const aimX=cx+(mobile?0.55:0);
-    return [tmpA.set(aimX+(mobile ? 0.8 : 2.4),mobile?3.25:2.3,cz+(mobile?10.8:9.3)),tmpB.set(aimX,mobile?1.45:1.85,cz-(mobile?1.6:1.4))];
+    const aimX=cx;
+    const mobileDistance=10.8+Math.max(0,Math.hypot(vihaanState.x-ahaanState.x,vihaanState.z-ahaanState.z)-1.45)*0.62;
+    return [tmpA.set(aimX+(mobile ? 0.8 : 2.4),mobile?3.25:2.3,cz+(mobile?mobileDistance:9.3)),tmpB.set(aimX,mobile?1.45:1.85,cz-(mobile?1.6:1.4))];
   }
   if(innerWidth < 700) return [tmpA.set(-0.4,3.0,9.2),tmpB.set(-0.75,0.85,-3.4)];
   return [tmpA.copy(camBase), tmpB.copy(camLook)];
