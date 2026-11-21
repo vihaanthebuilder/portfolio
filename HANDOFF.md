@@ -1863,3 +1863,20 @@ Four briefs written and staged in this folder on Nov 16, 2026 (VM copies in ~/wo
 - Push `4806418..c0a214b`; GitHub Pages run 44872512975 success (18s).
 - Live-verified: https://vihaanthebuilder.github.io/portfolio/authors-room.html
   shows 7 of 24, 13,705 bytes (matches local).
+
+## Spelling Bee World Champion — PUBLISHED (Nov 20, 2026)
+
+- Published by Goku's driver (Nishant's Nov 19 drive instruction: kids'
+  sites publish on driver authority).
+- Checks first via the durable harness: desktop 1280x800 and mobile
+  390x844 both show the World Champion section, zero console errors;
+  Spelling Bee model regression passed (174 unique entries).
+- Merge `4943629` of `feature/spelling-bee-world-champion` (feature commits
+  `c5c9512` + `78e862e`). One HANDOFF.md conflict resolved by taking main
+  and re-applying the branch's World Champion section.
+- Push `bb23763..4943629`. GitHub Pages run 44872887296 first failed with a
+  GitHub-side artifact error (no github-pages artifact found; the prior
+  record-commit run 44872721610 failed the same way). Re-ran 44872887296:
+  success (24s).
+- Live-verified: https://vihaanthebuilder.github.io/portfolio/spelling-bee.html
+  shows the World Champion section, 7,041 bytes (matches local).
