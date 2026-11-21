@@ -6,7 +6,7 @@
   'use strict';
   const STATE_KEY = 'vihaan-spelling-bee-v1';
   const TRICKY_KEY = 'vihaan-spelling-bee-tricky-v1';
-  const LEVELS = ['warm-up', 'bee-ready', 'champion', 'master'];
+  const LEVELS = ['warm-up', 'bee-ready', 'champion', 'master', 'world-champion'];
 
   function emptyState() { return { completedDays: [], bestStreak: 0, trickyWords: [] }; }
   function localDateKey(date = new Date()) {
@@ -33,7 +33,7 @@
     return count;
   }
   function validWordRecord(item) {
-    return item && typeof item === 'object' && typeof item.word === 'string' && /^[a-z-]{1,40}$/i.test(item.word) && LEVELS.includes(item.level);
+    return item && typeof item === 'object' && typeof item.word === 'string' && /^[\p{L}-]{1,40}$/u.test(item.word) && LEVELS.includes(item.level);
   }
   function normalizeTricky(items) {
     if (!Array.isArray(items)) return [];

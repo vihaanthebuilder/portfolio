@@ -173,6 +173,20 @@ const spellingWords = [
   { word: 'musician', level: 'master', definition: 'A person who plays or writes music.', sentence: 'The musician practiced a song each day.' },
   { word: 'recommend', level: 'master', definition: 'To say that something is good or worth trying.', sentence: 'I recommend this book to my friend.' },
   { word: 'occasion', level: 'master', definition: 'A special event or time.', sentence: 'The picnic was a happy occasion.' },
+
+  // World Champion: real Scripps National Spelling Bee winning words
+  { word: 'bromocriptine', level: 'world-champion', year: 2026, champion: 'Shrey Parikh', definition: 'A medicine used to treat certain hormone-related conditions.', sentence: 'The spelling bee champion spelled bromocriptine to win.' },
+  { word: 'éclaircissement', level: 'world-champion', year: 2025, champion: 'Faizan Zaki', definition: 'An explanation that makes something clearer.', sentence: 'The spelling bee champion spelled éclaircissement to win.' },
+  { word: 'abseil', level: 'world-champion', year: 2024, champion: 'Bruhat Soma', definition: 'To descend a steep surface using a rope.', sentence: 'The spelling bee champion spelled abseil to win.' },
+  { word: 'psammophile', level: 'world-champion', year: 2023, champion: 'Dev Shah', definition: 'A plant or animal that prefers sandy places.', sentence: 'The spelling bee champion spelled psammophile to win.' },
+  { word: 'moorhen', level: 'world-champion', year: 2022, champion: 'Harini Logan', definition: 'A water bird that lives among reeds and marsh plants.', sentence: 'The spelling bee champion spelled moorhen to win.' },
+  { word: 'murraya', level: 'world-champion', year: 2021, champion: 'Zaila Avant-garde', definition: 'A kind of evergreen shrub or small tree.', sentence: 'The spelling bee champion spelled murraya to win.' },
+  { word: 'auslaut', level: 'world-champion', year: 2019, champion: 'Rishik Gandhasri', definition: 'A final sound or group of sounds in a word or syllable.', sentence: 'The spelling bee champion spelled auslaut to win.' },
+  { word: 'koinonia', level: 'world-champion', year: 2018, champion: 'Karthik Nemmani', definition: 'A close community or shared fellowship.', sentence: 'The spelling bee champion spelled koinonia to win.' },
+  { word: 'marocain', level: 'world-champion', year: 2017, champion: 'Ananya Vinay', definition: 'A ribbed fabric made from silk or a similar material.', sentence: 'The spelling bee champion spelled marocain to win.' },
+  { word: 'Feldenkrais', level: 'world-champion', year: 2016, champion: 'Jairam Hathwar', definition: 'A method of movement lessons that builds body awareness.', sentence: 'The spelling bee champion spelled Feldenkrais to win.' },
+  { word: 'scherenschnitte', level: 'world-champion', year: 2015, champion: 'Vanya Shivashankar', definition: 'The art of cutting paper into decorative designs.', sentence: 'The spelling bee champion spelled scherenschnitte to win.' },
+  { word: 'feuilleton', level: 'world-champion', year: 2014, champion: 'Ansun Sujoe', definition: 'A section of a newspaper or magazine for arts and culture.', sentence: 'The spelling bee champion spelled feuilleton to win.' },
 ];
 
 if (typeof globalThis !== 'undefined') globalThis.SpellingWords = spellingWords;
