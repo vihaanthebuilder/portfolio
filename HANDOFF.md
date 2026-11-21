@@ -1900,3 +1900,24 @@ Four briefs written and staged in this folder on Nov 16, 2026 (VM copies in ~/wo
   artifact error as the World Champion run; re-ran: success (19s).
 - Live-verified: https://vihaanthebuilder.github.io/portfolio/lego.html
   shows the DIGatron card, 148,687 bytes (matches local).
+
+## Solar System Explorer — PUBLISHED (Nov 20, 2026)
+
+- Published by Goku's driver (Nishant's Nov 19 drive instruction: kids'
+  sites publish on driver authority).
+- The solar work was uncommitted in the `feature/solar-system` worktree
+  (worker 0041): `solar-system.html` + `assets/solar-system-data.js` +
+  `assets/solar-system.css` + `assets/solar-system.js` +
+  `FEATURE-BRIEF-solar-system.md`. Committed as `6d274ef` after a passing
+  browser check (durable harness: desktop 1280x800 and mobile 390x844,
+  canvas present, 8 planets listed, zero console errors).
+- Merge `3d6221f` of `feature/solar-system` (clean; the worktree's
+  uncommitted HANDOFF.md change was left uncommitted to avoid a conflict).
+  Push `26ef9e3..3d6221f`.
+- GitHub Pages run 44873538238 failed twice with the GitHub-side artifact
+  error (no github-pages artifact found); second re-run succeeded (20s).
+- Live-verified: https://vihaanthebuilder.github.io/portfolio/solar-system.html
+  1,897 bytes (matches local).
+- Note: tonight's task labeled this "Ahaan solar planet fact cards", but
+  the branch, worker 0041, and brief all belong to Vihaan's site; Ahaan's
+  repo has no solar work. Published where the work lives (Vihaan).
