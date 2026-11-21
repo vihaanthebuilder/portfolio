@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080d1d">
+  <title>Solar System Explorer — Vihaan's World</title>
+  <link rel="stylesheet" href="assets/solar-system.css">
+  <script type="importmap">
+    {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}
+  </script>
+  <script type="module" src="assets/solar-system.js"></script>
+</head>
+<body>
+  <main class="solar-app">
+    <header class="solar-header">
+      <a class="wordmark" href="index.html">vihaan<span>.</span></a>
+      <div><p class="eyebrow">A LITTLE SPACE TO EXPLORE</p><h1>Solar System</h1></div>
+      <a class="home-link" href="gameroom.html">Game Room ↗</a>
+    </header>
+    <section class="space-frame" aria-label="Animated model of the Solar System">
+      <div id="solar-scene" class="solar-scene" role="img" aria-label="The Sun and eight planets orbiting in space"></div>
+      <div class="scene-caption"><span class="live-dot"></span> Our Solar System <span class="caption-divider">·</span> 8 planets</div>
+      <div id="planet-labels" class="planet-labels" aria-label="Choose a planet"></div>
+      <button id="back-to-sun" class="back-to-sun" type="button" hidden>← Back to Sun</button>
+      <aside id="planet-card" class="planet-card" aria-live="polite" aria-labelledby="planet-card-title" hidden>
+        <p class="card-kicker">PLANET FIELD NOTES</p>
+        <h2 id="planet-card-title"></h2>
+        <dl id="planet-stats" class="planet-stats"></dl>
+        <p id="planet-fun" class="planet-fun"></p>
+        <a id="planet-source" class="planet-source" target="_blank" rel="noreferrer">NASA source ↗</a>
+      </aside>
+    </section>
+    <p class="scale-note">Sizes and distances are squeezed so you can see them all.</p>
+  </main>
+</body>
+</html>
