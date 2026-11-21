@@ -1791,3 +1791,11 @@ Four briefs written and staged in this folder on Nov 16, 2026 (VM copies in ~/wo
   /tmp/pub-rl2-live2.txt; captures
   /tmp/vihaan-room-life-fixes/live-sally-followup/ and
   /tmp/vihaan-room-life-fixes/live-sally-followup-rerun/.
+
+## Cruise Ship deck corrections — active work (Nov 16, 2026)
+
+- Started the Nov 16 brief on `feature/cruise-ship-deck-corrections`, at `d92401c1e06bf26cda27f05379c64ed58a5be789`, which matches `origin/main`.
+- True page/data files: `cruise-ship.html` (deck content is inline); `cruise-ship.js` is interaction only; `cruise-ship.css` is page styling.
+- Open question for Vidhu: Deck 3 and Deck 4 each name a hot dog stand and lemonade stand. Does each deck have its own stands? Until answered, show the stands on both decks as named.
+- Applying the new deck facts as a contents-only correction; no prices anywhere on the Cruise Ship page. Local commit only; no push or publish.
+- Browser checks passed on 2026-11-17 at desktop 1280×800 and mobile 390×844 with Playwright at `/Users/Nishant/dev-tools/browser-check/node_modules/playwright` and Chromium headless shell. Verified Deck 1 sleeping rooms, bathrooms, phone chargers and TVs with no lounges; Level 2 three lounges; Deck 3 both stands and no TVs; Deck 4 front-deck fun, both stands, a little food, captain’s home on number 4, and no security. Also checked no prices, no horizontal overflow, and zero page/console errors. Screenshots: `/tmp/vihaan-cruise-ship-decks/desktop.png` and `mobile.png`.
