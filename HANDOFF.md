@@ -1,13 +1,14 @@
 # HANDOFF — Vihaan's Portfolio (Vihaan's World)
 
-## Fresh Drops page — COMPLETE locally (Nov 21, 2026)
+## Fresh Drops page — PUBLISHED and live-verified (Nov 21, 2026)
 
-- Implemented on `feature/fresh-drops` from `origin/main` at `5d7cd76a9b89da6e5577c8efde26ea9468303d73`; implementation commit `0314e773b45ad6dad6ec3118535d5e4b2874eeb4`. Added `fresh-drops.html`, 16 newest-first dated entries with a live-site screenshot each, and a Fresh Drops link in the homepage navigation and prominent hero button. The NEW indicator is date-driven for entries published in the last seven days.
+- Implemented on `feature/fresh-drops` from `origin/main` at `5d7cd76a9b89da6e5577c8efde26ea9468303d73`; implementation commit `0314e773b45ad6dad6ec3118535d5e4b2874eeb4`. Added `fresh-drops.html`, 16 newest-first dated entries with live-site screenshots, and Fresh Drops links in the homepage navigation and prominent hero button. NEW badges update for entries within the last seven days.
 - Verified publish dates against HANDOFF. Included Nov 20 (five updates), Nov 19 (Room Life + plant fixes), Nov 18 (Room Life scene), Nov 14 (Spelling Bee Master + Author's Room Ch 3), Nov 11 (Chess Tactics + Road to State), Nov 10 (Cruise Ship Explorer, Author's Room, Spelling Bee Trainer), and Nov 9 (Game Room).
 - Excluded Nov 17 Tactics Pack 2 (HANDOFF says local-only), Robot Chess colors, Build of the Week ladder, and Tulsa trophy (still active dispatches), plus the LEGO Collections 32-build item (no publish date record).
-- Live screenshots are checked in under `images/fresh-drops/`. Browser acceptance passed at 1280×800 and 390×844: all 16 entries newest-first, all screenshots load, all entries have date/title/Try it, eight entries show NEW, no horizontal overflow, and zero Fresh Drops page errors.
-- The homepage check also reproduced its previously recorded `images/dog.bin` HTTP 404; it is outside this feature. No price copy or non-generic avatars were added.
-- Standing rule: every future site publish adds a Fresh Drops entry with its screenshot from publish verification. Ready for driver-authorized publish.
+- Screenshots are checked in under `images/fresh-drops/`; every entry has one. Browser acceptance passed locally and live at 1280×800 and 390×844: all 16 entries newest-first, every screenshot loads, every entry has date/title/Try it, eight entries show NEW, no horizontal overflow, and zero Fresh Drops page errors. All ten distinct Try it destinations returned HTTP 200.
+- Merge `4bd49d1d07b54710b16e4ba780eca21079b6e6a2` (`Merge Fresh Drops page`). Pushed `5d7cd76..4bd49d1` to `origin/main`. GitHub Pages run 44897542008 completed SUCCESS. Live homepage and `fresh-drops.html` both returned HTTP 200; live verification captures: `/tmp/fresh-drops-live-desktop.png` and `/tmp/fresh-drops-live-mobile.png`.
+- The local static homepage check also showed the previously recorded missing `images/dog.bin` request; the live Fresh Drops page had no failed assets or JavaScript errors. No prices or non-generic avatars were added.
+- Standing rule: every future site publish adds a Fresh Drops entry with its screenshot from publish verification.
 
 ## Brief queue — dispatched by Goku (Nov 20, 2026)
 
