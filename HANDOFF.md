@@ -1,5 +1,20 @@
 # HANDOFF — Vihaan's Portfolio (Vihaan's World)
 
+## Author's Room count — active dispatch (Nov 16, 2026)
+
+- Started Goku's queued `FEATURE-BRIEF-authors-room-count.md` on
+  `feature/authors-room-count`, based on `origin/main`. Local commits only;
+  no push or publish.
+- First implementation step: updated `authors-room.html` to show 7 of 24,
+  list the seven finished chapter titles, and include 24 map entries. Chapter
+  4 is title-only as required; no draft text was added. Updated the stale
+  Chapter 3 handoff count to point to this newer count update.
+- Static assertions passed for all 24 slots, seven finished titles, and
+  Chapter 4's finished title-only map entry; `git diff --check` passed.
+- Desktop/mobile Chrome verification is pending: the available Playwright
+  directory lacks its package entry point, and local HTTP server binding is
+  denied in this environment. No browser screenshots were produced.
+
 ## Robot chess color choice — active dispatch (Nov 16, 2026)
 
 - Feature target found before editing: `index.html`. The Game Room and Chess
@@ -1379,7 +1394,8 @@ Nishant approved these in the Agent Board Feature Queue. Work them in order, loc
   merge, or publish.
 - Corrected Chapter 3 to Tendons in the map; the reading view includes only
   the four confirmed sentences, verbatim, with no added author-voice text.
-  Progress is 3 of 19 chapters (about 16%).
+  Progress was 3 of 19 chapters (about 16%) at the time this feature shipped;
+  the Nov 16 count update below supersedes it.
 - Source trace passed for all 29 displayed chapter text lines: Ch 1–2 are
   traced to their chapter records and Ch 3 to the approved brief. Artifact:
   `/tmp/vihaan-authors-room-ch3/sentence-source-trace.json`.
