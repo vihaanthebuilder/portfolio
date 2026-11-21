@@ -1799,3 +1799,9 @@ Four briefs written and staged in this folder on Nov 16, 2026 (VM copies in ~/wo
 - Open question for Vidhu: Deck 3 and Deck 4 each name a hot dog stand and lemonade stand. Does each deck have its own stands? Until answered, show the stands on both decks as named.
 - Applying the new deck facts as a contents-only correction; no prices anywhere on the Cruise Ship page. Local commit only; no push or publish.
 - Browser checks passed on 2026-11-17 at desktop 1280×800 and mobile 390×844 with Playwright at `/Users/Nishant/dev-tools/browser-check/node_modules/playwright` and Chromium headless shell. Verified Deck 1 sleeping rooms, bathrooms, phone chargers and TVs with no lounges; Level 2 three lounges; Deck 3 both stands and no TVs; Deck 4 front-deck fun, both stands, a little food, captain’s home on number 4, and no security. Also checked no prices, no horizontal overflow, and zero page/console errors. Screenshots: `/tmp/vihaan-cruise-ship-decks/desktop.png` and `mobile.png`.
+
+## Cruise Ship deck corrections — PUBLISHED (Nov 20, 2026, driver)
+
+- Published by the driver (kids' publish, driver-authorized Nov 19 evening): feature commit edeff07 ("Correct cruise ship deck contents") on `feature/cruise-ship-deck-corrections`. Merge 4478b7c (one HANDOFF.md conflict, resolved by keeping main's queue/dispatch records and appending the branch's cruise-ship active-work section; HANDOFF content verified after merge — 0 conflict markers). Push 1e520bc..4478b7c.
+- GitHub Pages run 44872237021 completed SUCCESS (20s).
+- Live verification: https://vihaanthebuilder.github.io/portfolio/cruise-ship.html (200, 8,075 bytes, byte-identical size to local; "hot dog" x2, "lemonade" x2 — stands on both Deck 3 and Deck 4 as named).
