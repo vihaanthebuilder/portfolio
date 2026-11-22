@@ -811,6 +811,8 @@
 @keyframes sblvl-blink{50%{opacity:0}}
 #hint{position:absolute;left:50%;bottom:66px;transform:translateX(-50%);font-family:var(--mono);font-size:11px;line-height:16px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;color:var(--w1);background:rgba(0,0,0,.76);border:1px solid rgba(255,213,0,.35);padding:7px 16px;border-radius:9999px;pointer-events:none;opacity:0;transition:opacity .35s,bottom .25s ease;white-space:normal;text-align:center;max-width:min(680px,calc(100% - 24px));box-shadow:0 8px 24px rgba(0,0,0,.55);z-index:4}
 #hint.show{opacity:1}
+#hint.jetpack-hint{top:72px;bottom:auto;z-index:20;text-transform:none;font-family:inherit;font-size:13px;line-height:18px;background:rgba(18,24,34,.92);border-color:rgba(255,173,72,.65)}
+.flight-rise-touch{touch-action:none;user-select:none;-webkit-user-select:none}
 #canvas-container.arcade-active #hint{bottom:114px}
 @media (max-width:640px){
   #hint{font-size:10px;padding:6px 12px;bottom:64px;border-radius:12px;line-height:1.35}
@@ -875,6 +877,7 @@
   .aab-label{display:none}
   .aab-btn{font-size:11px;line-height:1.05;padding:4px 6px;min-height:32px;min-width:0;white-space:normal;justify-content:center;text-align:center}
   #world-interaction{grid-column:1/-1;justify-self:center;max-width:100%}
+  .flight-rise-touch:not([hidden]){display:block;background:#274f9a;border-color:#7daaff;color:#fff;}
 }
 
 /* ---------- Interactive Chess Match HUD vs Robo-Pawn (Sally UX Lead) ---------- */
@@ -1519,6 +1522,8 @@ body.machine #topnav,body.machine #layout{display:none}
     <button type="button" class="aab-btn" id="btn-action-arcade" title="Walk to arcade cabinet">🕹️ ARCADE</button>
     <button type="button" class="aab-btn" id="btn-flight-vihaan" aria-pressed="false">🚀 VIHAAN FLIGHT: OFF</button>
     <button type="button" class="aab-btn" id="btn-flight-ahaan" aria-pressed="false" hidden>🚀 AHAAN FLIGHT: OFF</button>
+    <button type="button" class="aab-btn flight-rise-touch" id="btn-rise-vihaan" aria-label="Hold to fly higher as Vihaan" hidden>⬆️ HOLD TO RISE · VIHAAN</button>
+    <button type="button" class="aab-btn flight-rise-touch" id="btn-rise-ahaan" aria-label="Hold to fly higher as Ahaan" hidden>⬆️ HOLD TO RISE · AHAAN</button>
     <button type="button" class="aab-btn" id="btn-action-trophies" title="Explore both chess trophies on the left rack">🏆 TROPHIES</button>
     <span class="aab-hint">WASD / Arrows walk · Enter rides · Shift flight / Q for Ahaan</span>
     <button id="world-interaction" type="button" hidden></button>
@@ -2835,7 +2840,8 @@ const vihaanState = {
   walkT: 0,
   queue: [],
   keys: { left: false, right: false, up: false, down: false },
-  stepSoundTimer: 0
+  stepSoundTimer: 0,
+  flight: false, flightAltitude: 0, flightRiseHeld: false, wasFlying: false
 };
 let twoPlayerMode = false;
 
@@ -3247,7 +3253,7 @@ const ahaanRig = {
   leftArm: ahaanNodeMap.get(vihaanRig.leftArm),
   rightArm: ahaanNodeMap.get(vihaanRig.rightArm),
   phone: ahaanNodeMap.get(vihaanRig.phone),
-  feet: vihaanRig.feet.map(foot => ({ side: foot.side, sitting: ahaanNodeMap.get(foot.sitting), walking: ahaanNodeMap.get(foot.walking) }))
+  feet: vihaanRig.feet.map(foot => ({ side: foot.side, sitting: ahaanNodeMap.get(foot.sitting), walking: ahaanNodeMap.get(foot.walking), thigh: ahaanNodeMap.get(foot.thigh), shin: ahaanNodeMap.get(foot.shin), joint: ahaanNodeMap.get(foot.joint), shoe: ahaanNodeMap.get(foot.shoe) }))
 };
 ahaanGroup.traverse(node => {
   if (!node.isMesh || !node.material) return;
@@ -3279,7 +3285,7 @@ function makePlayerLabel(text, color) {
 const vihaanNameLabel = makePlayerLabel('VIHAAN', '#ffd500');
 const ahaanNameLabel = makePlayerLabel('AHAAN', '#68e0b0');
 personGroup.add(vihaanNameLabel); ahaanGroup.add(ahaanNameLabel);
-const ahaanState = { x: 0.5, y: BASE + 0.015, z: -1.05, yaw: -0.28, velocity: 0, walkT: 0, keys: { left: false, right: false, up: false, down: false } };
+const ahaanState = { x: 0.5, y: BASE + 0.015, z: -1.05, yaw: -0.28, velocity: 0, walkT: 0, flight: false, flightAltitude: 0, flightRiseHeld: false, wasFlying: false, keys: { left: false, right: false, up: false, down: false } };
 // Load Vihaan's playful puppy dog mesh from local images/dog.bin (with fallback to dogGroup)
 (async () => {
   try {
@@ -4272,6 +4278,8 @@ function resetMovement(clearQueue = true) {
   if(typeof ahaanState!=='undefined')for(const k of Object.keys(ahaanState.keys)) ahaanState.keys[k]=false;
   if (clearQueue) vihaanState.queue = [];
   vihaanState.velocity = 0; vihaanState.isWalking = false;
+  vihaanState.flightRiseHeld = false;
+  if(typeof ahaanState!=='undefined') ahaanState.flightRiseHeld = false;
 }
 function guardedPositionFor(v, x, z) {
   if (onStairs(v.x, v.z) && v.x < -0.12) {
@@ -4307,9 +4315,9 @@ function footDestination(side, lead = 0) {
   }
   return new THREE.Vector3(x, getWalkHeight(x, z), z);
 }
-function poseWalkingLeg(foot) {
+function poseWalkingLeg(foot, ankleWorld=foot.position, group=personGroup, playerState=vihaanState) {
   const hip = new THREE.Vector3(0.04, 0.02, foot.side * 0.105);
-  const ankle = personGroup.worldToLocal(foot.position.clone().add(new THREE.Vector3(0, 0.105 * personGroup.scale.y, 0)));
+  const ankle = group.worldToLocal(ankleWorld.clone().add(new THREE.Vector3(0, 0.105 * group.scale.y, 0)));
   const delta = ankle.clone().sub(hip), distance = delta.length();
   foot.ankleReach = distance;
   const direction = delta.clone().normalize();
@@ -4322,7 +4330,7 @@ function poseWalkingLeg(foot) {
   }
   foot.joint.position.copy(knee);
   // A planted shoe keeps its world heading while the torso turns above it.
-  const shoeYaw = (foot.yaw ?? vihaanState.yaw) - vihaanState.yaw;
+  const shoeYaw = (foot.yaw ?? playerState.yaw) - playerState.yaw;
   foot.shoe.rotation.y = shoeYaw;
   foot.shoe.position.copy(ankle).add(new THREE.Vector3(0.04 * Math.cos(shoeYaw), -0.038, -0.04 * Math.sin(shoeYaw)));
 }
@@ -4553,7 +4561,7 @@ function setTwoPlayerMode(enabled){
   updateWorldInteraction();
 }
 
-function updateAhaanMovement(dt){
+function updateAhaanMovement(dt,t){
   if(!twoPlayerMode||state.mode!=='home'||trophyDialog.open)return;
   const a=ahaanState,keys=a.keys;
   let dx=Number(keys.right)-Number(keys.left),dz=Number(keys.down)-Number(keys.up);
@@ -4569,14 +4577,20 @@ function updateAhaanMovement(dt){
     a.x=next.x;a.z=next.z;
   }
   const moved=Math.hypot(a.x-previousX,a.z-previousZ);
-  a.flightAltitude=THREE.MathUtils.damp(a.flightAltitude||0,a.flight ? 0.72 : 0,3,dt);
+  const groundY=getWalkHeight(a.x,a.z)+BASE+0.015;
+  const ceilingAltitude=Math.max(0,7.6-groundY-1.8);
+  a.flightAltitude=THREE.MathUtils.damp(a.flightAltitude||0,a.flight ? (a.flightRiseHeld?ceilingAltitude:0.72) : 0,a.flightRiseHeld?2.1:(a.flight?3:1.2),dt);
+  if(a.flight)a.flightAltitude=Math.min(a.flightAltitude,ceilingAltitude);
   const flightAhaanButton=document.getElementById('btn-flight-ahaan');if(flightAhaanButton){flightAhaanButton.setAttribute('aria-pressed',String(!!a.flight));flightAhaanButton.textContent=`🚀 AHAAN FLIGHT: ${a.flight?'ON':'OFF'}`;flightAhaanButton.classList.toggle('active',!!a.flight);}
-  a.walkT+=moved*9;a.y=getWalkHeight(a.x,a.z)+BASE+0.015+Math.min(.045,moved*0.18)+a.flightAltitude;
+  document.getElementById('btn-rise-ahaan').hidden=innerWidth>860||!twoPlayerMode||!a.flight;
+  const airborne=a.flight||a.flightAltitude>.035;
+  a.walkT+=airborne?0:moved*9;a.y=groundY+(airborne?a.flightAltitude:Math.min(.045,moved*0.18));
   updateAhaanQuadPose(a.x,a.z,a.yaw);
-  ahaanJetpack.userData.flames.forEach(f=>f.visible=a.flightAltitude>.25);
+  animateJetpackFlames(ahaanJetpack,a.flight,a.flightRiseHeld,t);
   ahaanGroup.position.set(a.x,a.y,a.z);ahaanGroup.rotation.y=a.yaw;
-  const gait=moved>0.0001?Math.sin(a.walkT):0;
-  for(const foot of ahaanRig.feet){foot.sitting.visible=true;foot.walking.visible=false;foot.sitting.rotation.z=gait*.24*(foot.side<0?1:-1);}
+  ahaanGroup.updateMatrixWorld(true);
+  const gait=!airborne&&moved>0.0001?Math.sin(a.walkT):0;
+  for(const foot of ahaanRig.feet){foot.sitting.visible=!airborne;foot.walking.visible=airborne;if(airborne)poseWalkingLeg(foot,ahaanGroup.localToWorld(V3(-.13,-.52,foot.side*.105)),ahaanGroup,a);else foot.sitting.rotation.z=gait*.24*(foot.side<0?1:-1);}
   ahaanRig.torso.rotation.z=-.05+Math.abs(gait)*.025;
   petReachTimer.ahaan=Math.max(0,petReachTimer.ahaan-dt);
   ahaanRig.rightArm.rotation.z=THREE.MathUtils.damp(ahaanRig.rightArm.rotation.z,petReachTimer.ahaan>0?-1.05:-.68+gait*.10,12,dt);
@@ -4633,7 +4647,7 @@ function updateVihaanMovement(dt, t) {
     // Continue the swing while briefly slowing the body if a sharp route change
     // would exceed anatomical reach; the next footfall releases the constraint.
     let allowed = 1;
-    for (const f of riding ? [] : vihaanRig.feet) {
+    for (const f of (riding||v.flight||(v.flightAltitude||0)>.035) ? [] : vihaanRig.feet) {
       if (!f.position || f.swing) continue;
       const reach = Math.hypot(next.x - f.position.x, next.z - f.position.z);
       const limit = onStairs(v.x, v.z) ? 0.67 : 0.58;
@@ -4655,14 +4669,23 @@ function updateVihaanMovement(dt, t) {
     if (!v.queue.length) v.velocity = 0;
   }
   const moved = Math.hypot(v.x - previousX, v.z - previousZ);
-  v.isWalking = !riding && moved > 0.0001; v.walkT += moved * 9;
+  v.isWalking = !riding && moved > 0.0001 && !v.flight; v.walkT += v.flight?0:moved * 9;
   if (v.z < -2.6 && v.x > 0.4 && v.x < 2.4) slider.want = 1;
   if(dogPetTimer>0){const elapsed=1.6-dogPetTimer;dogPetTimer=Math.max(0,dogPetTimer-dt);dogGroup.position.y=Math.abs(Math.sin(elapsed*8))*0.09;dogTail.rotation.z=Math.sin(elapsed*14)*.62;}
   else{dogGroup.position.y=0;dogTail.rotation.z=0;}
   petReachTimer.vihaan=Math.max(0,petReachTimer.vihaan-dt);
   updateWorldInteraction();
-  updateAhaanMovement(dt);
-  if (!trophyDialog.open && !riding) updateFeet(dt, moved);
+  updateAhaanMovement(dt,t);
+  document.getElementById('btn-rise-vihaan').hidden=innerWidth>860||!v.flight;
+  if(v.flight||ahaanState.flight){hintEl.innerHTML=twoPlayerMode?'Hold Space / ↑ VIHAAN · Hold R / ↑ AHAAN · Shift/Q toggles · arrows/WASD steer':innerWidth<=860?'Hold ↑ to fly higher · Shift toggles flight · arrows steer':'Hold Space to fly higher · Shift toggles flight · arrows steer';hintEl.classList.add('show','jetpack-hint');}
+  else{hintEl.classList.remove('jetpack-hint');hintEl.innerHTML=twoPlayerMode?'VIHAAN: Arrows + Enter &nbsp;·&nbsp; AHAAN: WASD + E':'♟️ Play Chess with Bot &nbsp;·&nbsp; WASD / Arrows to Walk &nbsp;·&nbsp; Enter near the quad, skateboard, dog, or trophy';}
+  const vGroundY=getWalkHeight(v.x,v.z)+(quad.riding?.73:skateboard.riding?.34:BASE+0.015);
+  const vCeilingAltitude=Math.max(0,7.6-vGroundY-1.8);
+  v.flightAltitude=THREE.MathUtils.damp(v.flightAltitude||0,v.flight?(v.flightRiseHeld?vCeilingAltitude:0.72):0,v.flightRiseHeld?2.1:(v.flight?3:1.2),dt);
+  if(v.flight)v.flightAltitude=Math.min(v.flightAltitude,vCeilingAltitude);
+  const airborne=v.flight||v.flightAltitude>.035;
+  if(v.wasFlying&&!airborne){for(const f of vihaanRig.feet){f.position=null;f.swing=null;f.standY=null;}v.standY=null;}
+  if (!trophyDialog.open && !riding && !airborne) updateFeet(dt, moved);
   if(skateboard.sequence==='carried'){
     personGroup.updateMatrixWorld(true);const hand=personGroup.localToWorld(V3(.28,.35,-.28));skateboard.group.position.copy(hand);skateboard.group.rotation.set(.15,v.yaw,.3);skateboard.group.visible=true;
   }else if(skateboard.sequence==='stunt'){
@@ -4670,10 +4693,12 @@ function updateVihaanMovement(dt, t) {
     vihaanRig.rightArm.rotation.z=THREE.MathUtils.damp(vihaanRig.rightArm.rotation.z,-2.2,12,dt);
     if(skateboard.sequenceT>1.25){skateboard.sequence='grinding';skateboard.riding=true;skateboard.grinding=false;v.x=-8.5;v.z=-.47;v.keys.right=true;v.keys.left=v.keys.up=v.keys.down=false;v.isSitting=true;v.seat='skateboard';v.velocity=1.5;updateSkateboardPose(v.x,v.z,v.yaw,false);}
   }else if(skateboard.sequence==='grinding'&&skateboard.riding&&!skateboard.grinding&&v.x>-.02){skateboard.sequence='landed';skateboard.riding=false;v.keys.right=false;v.isSitting=false;v.seat='none';skateboard.parked={x:v.x,z:v.z};}
-  v.flightAltitude=THREE.MathUtils.damp(v.flightAltitude||0,v.flight ? 0.72 : 0,3,dt);
   const flightVihaanButton=document.getElementById('btn-flight-vihaan');if(flightVihaanButton){flightVihaanButton.setAttribute('aria-pressed',String(!!v.flight));flightVihaanButton.textContent=`🚀 VIHAAN FLIGHT: ${v.flight?'ON':'OFF'}`;flightVihaanButton.classList.toggle('active',!!v.flight);}
-  if(v.flightAltitude){v.y+=v.flightAltitude;personGroup.position.y=v.y;}
-  vihaanJetpack.userData.flames.forEach(f=>f.visible=v.flightAltitude>.25);
+  if(airborne&&!riding){vihaanRig.sitProgress=0;vihaanRig.phone.visible=false;personGroup.rotation.y=v.yaw;personGroup.updateMatrixWorld(true);for(const f of vihaanRig.feet){f.sitting.visible=false;f.walking.visible=true;poseWalkingLeg(f,personGroup.localToWorld(V3(-.13,-.52,f.side*.105)),personGroup,v);}}
+  v.wasFlying=airborne;
+  v.isWalking=!airborne&&!riding&&moved>0.0001;
+  if(airborne&&!riding){v.y=vGroundY+v.flightAltitude;personGroup.position.set(v.x,v.y,v.z);}
+  animateJetpackFlames(vihaanJetpack,v.flight,v.flightRiseHeld,t);
   if (riding) {
     vihaanRig.sitProgress=1; v.y=getWalkHeight(v.x,v.z)+(quad.riding?.73:.34)+(skateboard.grinding?.9:0)+v.flightAltitude;
     personGroup.position.set(v.x,v.y,v.z);personGroup.rotation.y=v.yaw;
@@ -5298,6 +5323,16 @@ function updateAhaanQuadPose(x,z,yaw=ahaanState.yaw){
   ahaanQuad.group.rotation.set(0,yaw,Math.atan2(front-rear,.68));
   ahaanQuad.wheels.forEach(w=>{w.rotation.x+=ahaanState.velocity*.14;});
 }
+function animateJetpackFlames(pack,enabled,thrust,t){
+  const amount=enabled?(thrust?1:.28):0;
+  for(let i=0;i<pack.userData.flames.length;i++){
+    const flame=pack.userData.flames[i],wave=Math.sin(t*7+i*1.7)*.08+Math.sin(t*3.5+i)*.04;
+    flame.visible=enabled;
+    const size=enabled?(.72+amount*.42+wave):.72;
+    flame.scale.set(size,size+wave,size);
+    flame.material.emissiveIntensity=enabled?(.75+amount*.55+wave*.35):.75;
+  }
+}
 function makeJetpack(owner,color){const g=new THREE.Group();owner.add(g);g.position.set(-.12,.4,0);const tank=std({color,metalness:.25,roughness:.48});rbox(.09,.32,.36,.035,tank,-.04,0,0,g);for(const z of [-.21,.21]){const c=new THREE.Mesh(new THREE.CylinderGeometry(.065,.07,.34,12),tank);c.position.set(-.04,0,z);g.add(c);const nozzle=new THREE.Mesh(new THREE.ConeGeometry(.05,.1,12),std({color:0xffad48,emissive:0xff7618,emissiveIntensity:1}));nozzle.position.set(-.04,-.22,z);nozzle.rotation.z=Math.PI;nozzle.visible=false;g.add(nozzle);g.userData.flames??=[];g.userData.flames.push(nozzle);}return g;}
 const vihaanJetpack=makeJetpack(personGroup,0x34465c),ahaanJetpack=makeJetpack(ahaanGroup,0x2583d8);
 // A small woven rug warms the open lounge without creating a movement obstacle.
@@ -5826,20 +5861,22 @@ function arcadeCam() { const look = arcadeGroup.localToWorld(ARC.screenPos.clone
 function hoopCam() { return [V3(HOOP.x + 0.05, 1.65, 3.0), V3(HOOP.x, HOOP.rimY - 0.2, HOOP.rimZ)]; }
 function tvCam() { const tv = TV[state.tvIndex]; const c = tv.group.localToWorld(tv.screenPos.clone()); const n = V3(Math.sin(tv.group.rotation.y), 0, Math.cos(tv.group.rotation.y)); return [c.clone().addScaledVector(n, 0.5 + tv.w * 0.5), c]; }
 function chessCam() { return [V3(0.52, 1.15, -4.05), V3(1.40, 0.42, -5.0)]; }
+function flightCameraLift(player){const altitude=player.flightAltitude||0;return player.flight?altitude:Math.min(altitude,altitude*altitude*altitude);}
 function targets() {
   if (state.mode === 'arcade') return arcadeCam();
   if (state.mode === 'hoop') return hoopCam();
   if (state.mode === 'tv') return tvCam();
   if (state.mode === 'chess') return chessCam();
   if (state.mode === 'trophy') { const i=state.trophyIndex||0, x=-11.4+(10+i+0.5)*0.815, side=i===0?-0.8:0.8; return [V3(x+side,2.95,-1.65),V3(x+side,2.75,-3.38)]; }
+  const flightLift=twoPlayerMode?(flightCameraLift(vihaanState)+flightCameraLift(ahaanState))*0.5:flightCameraLift(vihaanState);
   if(twoPlayerMode&&state.mode==='home'){
     const cx=(vihaanState.x+ahaanState.x)/2,cz=(vihaanState.z+ahaanState.z)/2,mobile=innerWidth<700;
     const aimX=cx;
     const mobileDistance=10.8+Math.max(0,Math.hypot(vihaanState.x-ahaanState.x,vihaanState.z-ahaanState.z)-1.45)*0.62;
-    return [tmpA.set(aimX+(mobile ? 0.8 : 2.4),mobile?3.25:2.3,cz+(mobile?mobileDistance:9.3)),tmpB.set(aimX,mobile?1.45:1.85,cz-(mobile?1.6:1.4))];
+    return [tmpA.set(aimX+(mobile ? 0.8 : 2.4),(mobile?3.25:2.3)+flightLift,cz+(mobile?mobileDistance:9.3)),tmpB.set(aimX,mobile?1.45:1.85,cz-(mobile?1.6:1.4)).add(V3(0,flightLift,0))];
   }
-  if(innerWidth < 700) return [tmpA.set(-0.4,3.0,9.2),tmpB.set(-0.75,0.85,-3.4)];
-  return [tmpA.copy(camBase), tmpB.copy(camLook)];
+  if(innerWidth < 700) return [tmpA.set(-0.4,3.0+flightLift,9.2),tmpB.set(-0.75,0.85+flightLift,-3.4)];
+  return [tmpA.copy(camBase).add(V3(0,flightLift,0)), tmpB.copy(camLook).add(V3(0,flightLift,0))];
 }
 const HINTS = {
   home: '♟️ Play Chess with Bot &nbsp;·&nbsp; WASD / Arrows to Walk &nbsp;·&nbsp; Enter near the quad, skateboard, dog, or trophy',
@@ -6054,8 +6091,10 @@ window.addEventListener('keydown', (e) => {
   if(state.mode==='home'&&twoPlayerMode&&e.key.toLowerCase()==='e'){
     e.preventDefault();interactNearAhaan();return;
   }
-  if(state.mode==='home'&&e.key==='Shift'&&!e.repeat){vihaanState.flight=!vihaanState.flight;}
-  if(state.mode==='home'&&twoPlayerMode&&e.key.toLowerCase()==='q'&&!e.repeat){ahaanState.flight=!ahaanState.flight;}
+  if(state.mode==='home'&&e.key==='Shift'&&!e.repeat){vihaanState.flight=!vihaanState.flight;if(!vihaanState.flight)vihaanState.flightRiseHeld=false;}
+  if(state.mode==='home'&&twoPlayerMode&&e.key.toLowerCase()==='q'&&!e.repeat){ahaanState.flight=!ahaanState.flight;if(!ahaanState.flight)ahaanState.flightRiseHeld=false;}
+  if(state.mode==='home'&&e.code==='Space'&&vihaanState.flight){e.preventDefault();vihaanState.flightRiseHeld=true;}
+  if(state.mode==='home'&&twoPlayerMode&&e.key.toLowerCase()==='r'&&ahaanState.flight){ahaanState.flightRiseHeld=true;}
   if (e.key === 'Escape' && state.mode !== 'home') { setMode('home'); return; }
   if (state.mode === 'home') {
     if(twoPlayerMode){
@@ -6095,9 +6134,18 @@ window.addEventListener('keydown', (e) => {
 });
 document.getElementById('world-interaction')?.addEventListener('click',e=>{if(e.currentTarget.dataset.player==='ahaan')interactNearAhaan();else if(e.currentTarget.dataset.player==='vihaan')interactNearVihaan();});
 document.getElementById('aab-two-player')?.addEventListener('click',()=>setTwoPlayerMode(!twoPlayerMode));
-document.getElementById('btn-flight-vihaan')?.addEventListener('click',()=>{vihaanState.flight=!vihaanState.flight;});
-document.getElementById('btn-flight-ahaan')?.addEventListener('click',()=>{if(twoPlayerMode)ahaanState.flight=!ahaanState.flight;});
+document.getElementById('btn-flight-vihaan')?.addEventListener('click',()=>{vihaanState.flight=!vihaanState.flight;if(!vihaanState.flight)vihaanState.flightRiseHeld=false;});
+document.getElementById('btn-flight-ahaan')?.addEventListener('click',()=>{if(twoPlayerMode){ahaanState.flight=!ahaanState.flight;if(!ahaanState.flight)ahaanState.flightRiseHeld=false;}});
+function bindTouchRise(buttonId,player){
+  const button=document.getElementById(buttonId);if(!button)return;
+  const release=()=>{player.flightRiseHeld=false;};
+  button.addEventListener('pointerdown',e=>{if(!player.flight)return;e.preventDefault();e.stopPropagation();player.flightRiseHeld=true;if(e.isTrusted)try{button.setPointerCapture?.(e.pointerId);}catch{}});
+  button.addEventListener('pointerup',release);button.addEventListener('pointercancel',release);button.addEventListener('lostpointercapture',release);
+}
+bindTouchRise('btn-rise-vihaan',vihaanState);bindTouchRise('btn-rise-ahaan',ahaanState);
 window.addEventListener('keyup', (e) => {
+  if(e.code==='Space')vihaanState.flightRiseHeld=false;
+  if(e.key.toLowerCase()==='r'&&typeof ahaanState!=='undefined')ahaanState.flightRiseHeld=false;
   if (state.mode === 'home') {
     if(twoPlayerMode){
       if(e.key==='ArrowLeft')vihaanState.keys.left=false;
@@ -6329,7 +6377,7 @@ document.querySelectorAll('.chm-lvl').forEach(btn => {
 
 window.__slider = slider; window.__pend = () => pendants.map(p => ({ x: +p.ax.toFixed(4), z: +p.az.toFixed(4) }));
 window.__sblvl = {
-  scene, camera, renderer, state, game, ball, TV, characters, quad, ahaanQuad, skateboard, roomPlants, largeRoomPlants, dogGroup, dogTail, ahaanGroup, ahaanState, vihaanRightArm:vihaanRig.rightArm, vihaanJetpack, ahaanJetpack, arcadeControls, progressPlaque, startBoardRun, selectArcadeGame,
+  scene, camera, renderer, state, game, ball, TV, characters, quad, ahaanQuad, skateboard, roomPlants, largeRoomPlants, dogGroup, dogTail, ahaanGroup, ahaanState, ahaanRig, vihaanRightArm:vihaanRig.rightArm, vihaanJetpack, ahaanJetpack, arcadeControls, progressPlaque, startBoardRun, selectArcadeGame,
   vihaanState, chessGame, walkVihaanTo, walkVihaanToStairsTop, walkVihaanToStairsBottom, walkVihaanToChessTable, setTwoPlayerMode,
   get twoPlayerMode(){return twoPlayerMode;},
   getWalkHeight, trophyAwards, openTrophy,
