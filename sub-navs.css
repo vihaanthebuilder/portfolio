@@ -38,3 +38,6 @@
 .subnav-card{background:#e88e2e;color:#171717;border-color:#e88e2e}
 @media(max-width:1050px){.gr-nav-links>.subnav-groups,.bee-nav-links>.subnav-groups{justify-content:flex-start;flex-wrap:wrap}.gr-nav-links .subnav-menu,.bee-nav-links .subnav-menu{left:auto}.subnav-standalone{margin:12px 16px;gap:12px}.subnav-standalone .subnav-trigger{padding-inline:8px}}
 @media(max-width:760px){.subnav-standalone{flex-wrap:wrap}.subnav-standalone-links{order:4;flex:0 0 100%}.subnav-standalone .subnav-groups{justify-content:flex-start;flex-wrap:wrap}.subnav-standalone .subnav-right{margin-left:auto}.subnav-standalone .subnav-menu{top:auto;bottom:auto}}
+.subnav-direct{text-decoration:none}
+.subnav-direct.is-current{color:#ffd500;background:rgba(255,213,0,.08)}
+.subnav-new{background:#e44432;color:#fff;border-radius:999px;padding:2px 7px;font:700 .64rem/1.4 monospace;letter-spacing:.06em}
