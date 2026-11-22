@@ -14,10 +14,21 @@
 
 Dispatched to worker 0069 (Room Life worktree). Execute in this order; build, publish, live-verify on driver authority. Fresh Drops standing rule: every publish adds a Fresh Drops entry with its screenshot — no entry without its screenshot.
 
-1. **Fresh Drops page** — `FEATURE-BRIEF-release-notes.md`. TOP OF QUEUE.
-2. **Room Life 2-player + walking improvement pass** — `FEATURE-BRIEF-two-player-walking.md` (Nishant's Nov 20 priority).
+1. **Fresh Drops page** — `FEATURE-BRIEF-release-notes.md`. PUBLISHED Nov 21, 2026; merge `4bd49d1d07b54710b16e4ba780eca21079b6e6a2`; Pages run 44897542008 succeeded; live-verified.
+2. **Room Life 2-player + walking improvement pass** — `FEATURE-BRIEF-two-player-walking.md` (Nishant's Nov 20 priority). ACTIVE Nov 21, 2026 in `feature/room-life-scene`; baseline suites are the first step.
 3. **Cruise Ship Deck 3 tracker** — `FEATURE-BRIEF-cruise-ship-deck3-tracker.md`.
 4. **LEGO instructions button + Build it boats book** — `FEATURE-BRIEF-lego-instructions-boats.md`.
+
+## Room Life 2-player + walking — ACTIVE; baseline (Nov 21, 2026)
+
+- Baseline ran against `feature/room-life-scene` at `996b6fc9682d752a56ee99a283a4a0dd53fe49a1`, served from the dispatched worktree. Evidence reuses the established VQA folders under `/tmp/vihaan-room-life-scene/` and `/tmp/vihaan-room-life-fixes/baseline/`.
+- `walk-and-trophies`: PASS desktop + mobile; both reports `passed: true`, no page errors (one existing duplicate-Three.js warning).
+- `walk-physical-contact`: PASS, 33,968 sampled contacts, `bad: []`.
+- `walk-picking`: PASS desktop + mobile for rack picking and floor click-to-walk.
+- `walk-boundaries`: PASS 13/13 cases.
+- `room-life-feature`: PASS, exit 0; desktop + mobile independent player input, both players, quad, skateboard grind/landing/reset; `errors: []`.
+- `room-life-fixes`: **FAIL baseline, exit 1** at the jetpack lift assertion: Vihaan reached `0.3439390572604829` (required `> 0.35`); Ahaan reached `0.5031401674232143`. Assertions before that point passed; checks after the assertion did not run. Preserve this failure until an actual fix is made and the affected suite is rerun.
+- The first sandboxed Chrome launch for `walk-and-trophies` aborted before the test ran; its escalated rerun passed. No baseline result was overwritten or relabeled.
 
 ## Spelling Bee World Champion — active dispatch (Nov 16, 2026)
 
@@ -1940,3 +1951,10 @@ Four briefs written and staged in this folder on Nov 16, 2026 (VM copies in ~/wo
 - Note: tonight's task labeled this "Ahaan solar planet fact cards", but
   the branch, worker 0041, and brief all belong to Vihaan's site; Ahaan's
   repo has no solar work. Published where the work lives (Vihaan).
+
+## DIGatron real photo + What's New nav — PUBLISHED Nov 21, 2026 (evening CT)
+
+- DIGatron card photo swap: fetched the real LEGO Technic 42199 Monster Jam DIGatron product photo (869x856 JPEG, 130,559 bytes) into `images/set-42199-digatron.jpg` (no hotlink) and pointed the card's `data-img` and photo `<img>` at it in `lego.html` (alt, `class="contain"`, `background:#fff` unchanged). Replaces the `images/build-digatron-42199.svg` placeholder.
+- Top-level "What's New" nav item: added in `sub-navs.js` as a direct link to `fresh-drops.html` between Words and Me (matching `.subnav-trigger` styling in `sub-navs.css`, with the same 7-day NEW badge behavior as the homepage). The existing Fresh Drops link in the Me dropdown is kept. No Fresh Drops entry was added for this nav change itself (deliberate skip — the change only makes Fresh Drops easier to find).
+- Publish: commit `a0e41a2` ("Use real DIGatron photo and add What's New nav item"), pushed `dec312d..a0e41a2`; GitHub Pages run 44976600249 succeeded.
+- Live-verified Nov 21, 2026 on https://vihaanthebuilder.github.io/portfolio/lego.html (desktop 1280x800 + mobile 390x844, durable Playwright harness): DIGatron photo loads (naturalWidth 869, image URL HTTP 200, 130,559 bytes), nav order Chess / LEGO / Play / Words / What's New / Me with What's New linking to `fresh-drops.html`, homepage Me dropdown still lists Fresh Drops, no page/console errors, no horizontal overflow. Screenshots in `/tmp/drv-unlock2-live-shots/`.
