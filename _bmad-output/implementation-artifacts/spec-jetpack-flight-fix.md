@@ -60,16 +60,17 @@ context: []
 ## Implementation Notes
 
 - Investigation: Vihaan's `updateFeet()` owns world-space planted feet and pelvis height; skipping it during flight without a one-time landing reset would preserve stale takeoff anchors. Ahaan uses the shared leg groups and a gait rotation. The ceiling plane is at y=7.6.
-- Implementation: flight draws the articulated leg meshes at a static trailing ankle target, and grounded `updateFeet()` remains authoritative outside flight. The Room Life camera follows active flight altitude so the avatar stays within the desktop/mobile frame, then returns to the room framing as soon as flight is toggled off.
+- Implementation: flight draws the articulated leg meshes at a static trailing ankle target, and grounded `updateFeet()` remains authoritative outside flight. The Room Life camera follows active flight and descent until the avatar nears hover height, then eases back to room framing.
 - Intent gaps: none remain after repository/history inspection. R is selected for Ahaan because WASD moves and E interacts; Q remains his flight toggle. The hint will state the mapping.
 - Irreversibles: publishing to `main` and GitHub Pages is an external side effect, already authorized by the Nov 22 overnight driver instruction and the brief's publish directive. Capture and include a live flight screenshot in Fresh Drops.
-- Footprint: `index.html`, `tests/room-life-fixes.cjs`, and `HANDOFF.md`; no new runtime dependency or page.
+- Footprint: `index.html`, `fresh-drops.html`, one live screenshot under `images/fresh-drops/`, `tests/room-life-fixes.cjs`, and `HANDOFF.md`; no new runtime dependency or page.
 
 ## Verification
 
 **Commands:**
 - Run the durable Playwright suites `room-life-fixes.cjs`, `room-life-feature.cjs`, `walk-and-trophies.cjs`, `walk-physical-contact.cjs`, `walk-picking.cjs`, and `walk-boundaries.cjs` with the existing Playwright module and one persistent VQA folder per suite.
 - Inspect flight and landing screenshots at 1280×800 and 390×844; record altitude samples, the ceiling cap, flame transform/intensity differences, and console/page errors.
+- After publishing, run the same browser acceptance suite against the live GitHub Pages URL and capture the live flight screenshot used by Fresh Drops.
 
 ## Review Triage Log
 
