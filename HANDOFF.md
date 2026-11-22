@@ -19,6 +19,19 @@ Dispatched to worker 0069 (Room Life worktree). Execute in this order; build, pu
 3. **Cruise Ship Deck 3 tracker** — `FEATURE-BRIEF-cruise-ship-deck3-tracker.md`.
 4. **LEGO instructions button + Build it boats book** — `FEATURE-BRIEF-lego-instructions-boats.md`.
 
+## Brief queue — overnight drive, dispatched by Goku (Nov 22, 2026)
+
+Execute in this order (after the Room Life publish above). Build, publish, live-verify on driver authority. Update HANDOFF.md as you go.
+
+Standing rules (Nishant, Nov 21): (a) every publish adds a Fresh Drops entry WITH a screenshot of the live feature — no entry without its screenshot; (b) every new feature/page goes under an existing menu tab at publish time — no orphan/random separate pages — and gets a visible "NEW" tag (nav entry + home card) for its first 7 days so the kids know what to try.
+
+1. **Jetpack flight fix** — `FEATURE-BRIEF-jetpack-flight-fix.md` (no walk-cycle in flight, Space = altitude, animated flame). Execute first, right after the Room Life publish.
+2. **Skateboard wheels + physics, wobbly feet, basketball hoop** — `FEATURE-BRIEF-room-life-skates-feet-hoop.md`.
+3. **Clickable prompt pills** — `FEATURE-BRIEF-room-life-clickable-prompts.md` (click/tap works like Enter; can ship with brief 2).
+4. **Nav organize pages** — `FEATURE-BRIEF-nav-organize-pages.md` (every page under existing menu tabs, NEW tags rule).
+5. **Cruise Ship Deck 3 tracker** — `FEATURE-BRIEF-cruise-ship-deck3-tracker.md` (from the Nov 20 queue above).
+6. **LEGO instructions button + Build it boats book** — `FEATURE-BRIEF-lego-instructions-boats.md` (from the Nov 20 queue above).
+
 ## Room Life 2-player + walking — PUBLISHED (Nov 21, 2026)
 
 - Baseline ran against `feature/room-life-scene` at `996b6fc9682d752a56ee99a283a4a0dd53fe49a1`, served from the dispatched worktree. Evidence reuses the established VQA folders under `/tmp/vihaan-room-life-scene/` and `/tmp/vihaan-room-life-fixes/baseline/`.
