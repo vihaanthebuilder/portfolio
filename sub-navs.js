@@ -95,6 +95,19 @@
       });
       section.append(button, list);
       host.append(section);
+      if (group.name === 'Words') {
+        const whatsNew = make('a', 'subnav-trigger subnav-direct', "What's New");
+        whatsNew.href = 'fresh-drops.html';
+        if (current === 'fresh-drops.html') {
+          whatsNew.setAttribute('aria-current', 'page');
+          whatsNew.classList.add('is-current');
+        }
+        const latestVerifiedPublish = Date.parse('2026-11-20T00:00:00Z');
+        if (Date.now() - latestVerifiedPublish < 7 * 24 * 60 * 60 * 1000) {
+          whatsNew.append(make('span', 'subnav-new', 'NEW'));
+        }
+        host.append(whatsNew);
+      }
     });
     return host;
   }

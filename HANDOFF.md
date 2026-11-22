@@ -1,11 +1,21 @@
 # HANDOFF — Vihaan's Portfolio (Vihaan's World)
 
+## Fresh Drops page — PUBLISHED and live-verified (Nov 21, 2026)
+
+- Implemented on `feature/fresh-drops` from `origin/main` at `5d7cd76a9b89da6e5577c8efde26ea9468303d73`; implementation commit `0314e773b45ad6dad6ec3118535d5e4b2874eeb4`. Added `fresh-drops.html`, 16 newest-first dated entries with live-site screenshots, and Fresh Drops links in the homepage navigation and prominent hero button. NEW badges update for entries within the last seven days.
+- Verified publish dates against HANDOFF. Included Nov 20 (five updates), Nov 19 (Room Life + plant fixes), Nov 18 (Room Life scene), Nov 14 (Spelling Bee Master + Author's Room Ch 3), Nov 11 (Chess Tactics + Road to State), Nov 10 (Cruise Ship Explorer, Author's Room, Spelling Bee Trainer), and Nov 9 (Game Room).
+- Excluded Nov 17 Tactics Pack 2 (HANDOFF says local-only), Robot Chess colors, Build of the Week ladder, and Tulsa trophy (still active dispatches), plus the LEGO Collections 32-build item (no publish date record).
+- Screenshots are checked in under `images/fresh-drops/`; every entry has one. Browser acceptance passed locally and live at 1280×800 and 390×844: all 16 entries newest-first, every screenshot loads, every entry has date/title/Try it, eight entries show NEW, no horizontal overflow, and zero Fresh Drops page errors. All ten distinct Try it destinations returned HTTP 200.
+- Merge `4bd49d1d07b54710b16e4ba780eca21079b6e6a2` (`Merge Fresh Drops page`). Pushed `5d7cd76..4bd49d1` to `origin/main`. GitHub Pages run 44897542008 completed SUCCESS. Live homepage and `fresh-drops.html` both returned HTTP 200; live verification captures: `/tmp/fresh-drops-live-desktop.png` and `/tmp/fresh-drops-live-mobile.png`.
+- The local static homepage check also showed the previously recorded missing `images/dog.bin` request; the live Fresh Drops page had no failed assets or JavaScript errors. No prices or non-generic avatars were added.
+- Standing rule: every future site publish adds a Fresh Drops entry with its screenshot from publish verification.
+
 ## Brief queue — dispatched by Goku (Nov 20, 2026)
 
-Execute in this order. Build, publish, live-verify on driver authority (Nishant's Nov 19 drive instruction). Update HANDOFF.md as you go. Fresh Drops standing rule: every publish adds a Fresh Drops entry with its screenshot (from publish verification) — no entry without its screenshot.
+Dispatched to worker 0069 (Room Life worktree). Execute in this order; build, publish, live-verify on driver authority. Fresh Drops standing rule: every publish adds a Fresh Drops entry with its screenshot — no entry without its screenshot.
 
 1. **Fresh Drops page** — `FEATURE-BRIEF-release-notes.md`. PUBLISHED Nov 21, 2026; merge `4bd49d1d07b54710b16e4ba780eca21079b6e6a2`; Pages run 44897542008 succeeded; live-verified.
-2. **Room Life 2-player + walking improvement pass** — `FEATURE-BRIEF-two-player-walking.md` (Nishant's Nov 20 priority: walking is off — test yourself and fix issues you see). ACTIVE Nov 21, 2026 on `feature/room-life-scene`; baseline suites first.
+2. **Room Life 2-player + walking improvement pass** — `FEATURE-BRIEF-two-player-walking.md` (Nishant's Nov 20 priority). ACTIVE Nov 21, 2026 in `feature/room-life-scene`; baseline suites are the first step.
 3. **Cruise Ship Deck 3 tracker** — `FEATURE-BRIEF-cruise-ship-deck3-tracker.md`.
 4. **LEGO instructions button + Build it boats book** — `FEATURE-BRIEF-lego-instructions-boats.md`.
 
@@ -18,6 +28,8 @@ Execute in this order. Build, publish, live-verify on driver authority (Nishant'
 - `walk-boundaries`: PASS 13/13 cases.
 - `room-life-feature`: PASS, exit 0; desktop + mobile independent player input, both players, quad, skateboard grind/landing/reset; `errors: []`.
 - `room-life-fixes`: **FAIL baseline, exit 1** at the jetpack lift assertion: Vihaan reached `0.3439390572604829` (required `> 0.35`); Ahaan reached `0.5031401674232143`. Assertions before that point passed; checks after the assertion did not run. Preserve this failure until an actual fix is made and the affected suite is rerun.
+- The first sandboxed Chrome launch for `walk-and-trophies` aborted before the test ran; its escalated rerun passed. No baseline result was overwritten or relabeled.
+
 - Re-ran `room-life-fixes` after the camera change: **PASS, exit 0**, with Vihaan at `0.3798960820264693` and Ahaan at `0.46812039585692694`; all later checks ran and `errors: []`. The original jetpack-threshold failure remains recorded as a non-repeatable baseline failure; no jetpack code was changed.
 - Re-ran `room-life-fixes` once more after the final camera adjustment: **PASS, exit 0**, Vihaan `0.39641843599399906`, Ahaan `0.46789360217134823`, board landed, `errors: []`. Baseline failure remains separately recorded.
 - The first sandboxed Chrome launch for `walk-and-trophies` aborted before the test ran; its escalated rerun passed. No baseline result was overwritten or relabeled.
@@ -34,6 +46,50 @@ Execute in this order. Build, publish, live-verify on driver authority (Nishant'
 - Rechecked maximum 4.4-unit separation after the final zoom adjustment: desktop head centers x≈451 and x≈795 at 1280px; mobile x≈50 and x≈331 at 390px. Both player bodies and name tags fit; zero page errors. Updated screenshots/report in `/tmp/vihaan-room-life-scene/persistent/reachable-frame-{desktop,mobile}.png` and `reachable-frame.json`.
 - Affected suite `room-life-feature` rerun after the final camera adjustment: **PASS, exit 0** on desktop and mobile; player input isolation, dog interaction, quad, skateboard grind/landing/reset all passed with `errors: []`. Evidence in the established `/tmp/vihaan-room-life-scene/persistent/` folder.
 - Fresh directional probe: all four cardinal directions and up-right/down-left diagonals moved along their expected axes on desktop and mobile; diagonals advanced x/z equally. `errors: []`; measurements and screenshots in `/tmp/vihaan-room-life-scene/persistent/movement-eyes.{json,png}`.
+
+## Spelling Bee World Champion — active dispatch (Nov 16, 2026)
+
+- Began the newly dispatched `FEATURE-BRIEF-spelling-bee-world-champion.md`
+  on the current `feature/spelling-bee-world-champion` worktree. True app files:
+  `spelling-bee.html`, `spelling-bee.js`, and `assets/spelling-words.js`.
+- Implementation is underway: a dedicated World Champion section and playable
+  round for the brief's 12 exact Scripps winning words, including the 2025
+  accent. Local commit only; no push or publish.
+
+### Spelling Bee World Champion — implementation complete locally (Nov 16, 2026)
+
+- Added the 12 brief-specified championship words with their year and champion
+  in a dedicated section on `spelling-bee.html`. `spelling-bee.js` renders the
+  list from the bank and starts a 12-word round; `assets/spelling-words.js`
+  holds the entries and keeps the 2025 `éclaircissement` spelling intact.
+- Extended `spelling-bee-model.js` to allow World Champion words in Tricky
+  Words, including Unicode letters, so a missed accented word can be replayed.
+  Updated `tests/spelling-bee-model.cjs` to check the 12 entries, metadata, and
+  accented tricky-word storage.
+- `node --check` passed for all three app scripts; the Spelling Bee model
+  regression passed (174 unique entries); `git diff --check` passed.
+- Browser verification limitation: the available Playwright package under
+  `/tmp/vihaan-spelling-bee-tools` is incomplete (missing its package entry
+  point). Chrome headless exited with code 134 before producing a screenshot.
+  So the requested 1280×800 / 390×844 browser interaction and visual checks
+  have not been completed. No screenshots are claimed.
+- Committed locally on `feature/spelling-bee-world-champion` as
+  `c5c9512` (`feat: add spelling bee world champion round`). No push or publish.
+
+## Author's Room count — active dispatch (Nov 16, 2026)
+
+- Started Goku's queued `FEATURE-BRIEF-authors-room-count.md` on
+  `feature/authors-room-count`, based on `origin/main`. Local commits only;
+  no push or publish.
+- First implementation step: updated `authors-room.html` to show 7 of 24,
+  list the seven finished chapter titles, and include 24 map entries. Chapter
+  4 is title-only as required; no draft text was added. Updated the stale
+  Chapter 3 handoff count to point to this newer count update.
+- Static assertions passed for all 24 slots, seven finished titles, and
+  Chapter 4's finished title-only map entry; `git diff --check` passed.
+- Desktop/mobile Chrome verification is pending: the available Playwright
+  directory lacks its package entry point, and local HTTP server binding is
+  denied in this environment. No browser screenshots were produced.
 
 ## Robot chess color choice — active dispatch (Nov 16, 2026)
 
@@ -1331,6 +1387,8 @@ Nishant approved these in the Agent Board Feature Queue. Work them in order, loc
 7. **Solar System — FEATURE-BRIEF-solar-system.md** — Highly detailed animated 3D solar system, modelled on the Science Museum Oklahoma touch exhibit Vihaan used Nov 15, 2026: zoom in/out of every planet, top tabs for Inner Planets / Outer Planets / Asteroids / Comets / Dwarf Planets, fact card per planet (distance, mass, day length, orbit year, axial tilt, orbital speed), system speed control. Brief: FEATURE-BRIEF-solar-system.md (Nov 15, 2026). DISPATCHED Nov 16, 2026 to a Codex worker (Claude not logged in on the Mac — fell back to Codex per the Nov 10 rule) — worktree `.worktrees/feature-solar-system`, branch `feature/solar-system` (from origin/main 76986e7), surface 1000090041.
 8. **Author's Room count — FEATURE-BRIEF-authors-room-count.md** — Fix the book count: 19 total / 3 finished → 24 total / 7 finished; list all seven finished chapters (Ch 4 small intestine finished Nov 16, 2026 — brief corrected from 6 to 7 before dispatch). Asked by Vihaan himself, Nov 15, 2026. DISPATCHED Nov 16, 2026 to a Codex worker — worktree `.worktrees/feature-authors-room-count`, branch `feature/authors-room-count` (from origin/main 76986e7), surface 1000090042.
 9. **Spelling Bee World Champion section — FEATURE-BRIEF-spelling-bee-world-champion.md** — New "World Champion" section on the Spelling Bee page with 12 real Scripps winning words 2026–2014, each with year and champion (verified Nov 16, 2026 vs Spellpundit/Wikipedia). Asked by Vihaan himself, voice call Nov 16, 2026. DISPATCHED Nov 16, 2026 to a Codex worker — worktree `.worktrees/feature-spelling-bee-world-champion`, branch `feature/spelling-bee-world-champion` (from origin/main 76986e7), surface 1000090052 [terminal].
+10. **Room Life scene — FEATURE-BRIEF-room-life-scene.md** — Vihaan's asks Nov 18, 2026: fix the slightly-off walking, connect plants to their planters + add big ficus and palm trees, replace the bike with a red quad, add a skateboard that grinds the stair railing, add pet-the-dog, improve the scene, and add Ahaan as two-player (same concept as Ahaan's park). PUBLISHED Nov 18, 2026 — merge bded0d4, Pages run 44345243287 success, live-verified desktop + mobile (PASS, zero console errors).
+11. **Room Life fixes — FEATURE-BRIEF-room-life-fixes.md** — Nishant's fixes Nov 18, 2026, 22:14 CT on the live Room Life scene: walk straight (not off-course); white artifact on the boot; Vihaan too tall / looks grown-up — kid proportions, check 3D asset with Sally; plants check with Sally (14 small + 3 large); stairs railing broken; quad motorized like the Tesla Cyberquad, not paddling; skateboard sequence — hold in hand, pick up from TV top, up the stairs, stunts at the top, grind the stair railing down; real Vihaan shoots the basketball hoop, not the ball alone; arcade kiosk game switching via cabinet controls (Defender, Pac-Vihaan, Dino Jump, Brick Breaker, Cyber Snake, All Full Games — pill bar must work); Play Together Ahaan's vehicle visible under him, never an invisible cycle; two quads (Ahaan gets his own on entering Play Together) + two jetpacks so both boys can fly, quad colors match t-shirt colors (Vihaan red, Ahaan blue); plant variety — palm, bird of paradise, ficus, etc., distinct shapes/leaves in proper planters, checked with Sally; trophy cabinet — cool plaque or warm light with a motivational quote + gentle pointer that it is waiting to be filled with trophies (motivating, never pushy); windows on blank walls for natural light (warm daylight, visible sky through them). QUEUED Nov 18, 2026 for worker 0069 (surface 1000090069, feature-room-life-scene worktree). PUBLISHED Nov 19, 2026 — merge 807eab5, Pages run 44510023461 success, live-verified desktop + mobile (PASS, zero console errors).
 
 ### Chess Tactics Trainer Pack 2 — complete locally (Nov 15, 2026)
 
@@ -1412,7 +1470,8 @@ Nishant approved these in the Agent Board Feature Queue. Work them in order, loc
   merge, or publish.
 - Corrected Chapter 3 to Tendons in the map; the reading view includes only
   the four confirmed sentences, verbatim, with no added author-voice text.
-  Progress is 3 of 19 chapters (about 16%).
+  Progress was 3 of 19 chapters (about 16%) at the time this feature shipped;
+  the Nov 16 count update below supersedes it.
 - Source trace passed for all 29 displayed chapter text lines: Ch 1–2 are
   traced to their chapter records and Ch 3 to the approved brief. Artifact:
   `/tmp/vihaan-authors-room-ch3/sentence-source-trace.json`.
@@ -1764,6 +1823,29 @@ Four briefs written and staged in this folder on Nov 16, 2026 (VM copies in ~/wo
   `feature/room-life-scene`. The imported Sally guardrail file is kept as
   untracked input; it was not included in the feature commit. No push, merge,
   or publish was performed.
+
+## Room Life fixes — PUBLISHED (Nov 19, 2026)
+
+- Published by the driver (kids' publish, driver-authorized) after the 04:51
+  watch verified item 11 complete locally: feature commits 579a294 + 2024f3d
+  on `feature/room-life-scene`, both Playwright suites passing desktop +
+  mobile, no deferred findings. The untracked Sally guardrail file in the
+  worktree was left alone (reference input, not part of the publish).
+- Queue line committed on main first (cb48911). Merge 807eab5 (one HANDOFF.md
+  conflict at the tail, resolved by keeping both records; HANDOFF content
+  verified after merge — item 11 line, scene publish record, and fixes
+  section all present). Push b34ac62..807eab5.
+- GitHub Pages run 44510023461 completed SUCCESS (21s).
+- Live verification on https://vihaanthebuilder.github.io/portfolio with the
+  durable Playwright harness: `tests/room-life-fixes.cjs` PASS (walk straight
+  with cross-track <= 0.018 m, plant variety incl. palm/bird-of-paradise/ficus,
+  board on TV, Ahaan quad distinct, both jetpacks fly, arcade game switching,
+  live basketball shot, board sequence landed, zero errors) and
+  `tests/room-life-feature.cjs` PASS (desktop 1280x800 + mobile 390x844, dog,
+  two-player, quad, skateboard rail grind, landing, reset, zero console
+  errors). Check output: /tmp/pub-rl-live.txt, /tmp/pub-rl-live2.txt;
+  captures /tmp/vihaan-room-life-fixes/live/ and
+  /tmp/vihaan-room-life-fixes/live-feature/.
 - Re-read the supplied Sally reference on Nov 19: it reviews Ahaan's website
   pages and offers no 3D proportion/plant verdict. Applied its grade-three
   audience context and sensory/readability rules without attributing our scene
@@ -1774,3 +1856,122 @@ Four briefs written and staged in this folder on Nov 16, 2026 (VM copies in ~/wo
   shows its full silhouette. The reference remains untracked input and is not
   part of any feature commit. Sally-guided plant correction and source-scope
   clarification are recorded in local commit `d697ded9d0d13df49732fcd98af03e7513f0f920`.
+
+## Room Life Sally follow-up — PUBLISHED (Nov 19, 2026)
+
+- Published by the driver (kids' publish, driver-authorized) after the 05:51
+  watch verified the follow-up commits recorded locally and worker 0069 idle:
+  feature commits d697ded ("fix: clear the room's plant silhouettes" —
+  bird-of-paradise moved to (11.1, 1.25) in the open floor) + 996b6fc
+  (HANDOFF docs) on `feature/room-life-scene`. Worktree verified clean at
+  996b6fc (only untracked item: the sally-ux-review reference doc).
+- Acceptance records verified from files: sally-reference-review and
+  sally-reference-final interaction-results.json both show desktop 1280x800
+  + mobile 390x844, plants 14 small / 3 large, `errors: []`.
+- Merge 591b85b (one HANDOFF.md tail conflict, resolved by keeping both the
+  item-11 publish record and the Sally follow-up bullet; HANDOFF content
+  verified after merge). Push ef966f4..591b85b.
+- GitHub Pages run 44518939347 completed SUCCESS (22s).
+- Live verification on https://vihaanthebuilder.github.io/portfolio with the
+  durable Playwright harness: `tests/room-life-feature.cjs` PASS (desktop +
+  mobile, two-player, dog, quad, skateboard rail grind, landing, reset,
+  zero errors). `tests/room-life-fixes.cjs` first live run hit a transient
+  503 resource load seconds after deploy; re-run PASS (HTTP 200, walk
+  straight, plant variety, board on TV, Ahaan quad distinct, both jetpacks
+  fly, arcade game switching, live basketball shot, board sequence landed,
+  `errors: []`). Check output: /tmp/pub-rl2-live.txt,
+  /tmp/pub-rl2-live2.txt; captures
+  /tmp/vihaan-room-life-fixes/live-sally-followup/ and
+  /tmp/vihaan-room-life-fixes/live-sally-followup-rerun/.
+
+## Cruise Ship deck corrections — active work (Nov 16, 2026)
+
+- Started the Nov 16 brief on `feature/cruise-ship-deck-corrections`, at `d92401c1e06bf26cda27f05379c64ed58a5be789`, which matches `origin/main`.
+- True page/data files: `cruise-ship.html` (deck content is inline); `cruise-ship.js` is interaction only; `cruise-ship.css` is page styling.
+- Open question for Vidhu: Deck 3 and Deck 4 each name a hot dog stand and lemonade stand. Does each deck have its own stands? Until answered, show the stands on both decks as named.
+- Applying the new deck facts as a contents-only correction; no prices anywhere on the Cruise Ship page. Local commit only; no push or publish.
+- Browser checks passed on 2026-11-17 at desktop 1280×800 and mobile 390×844 with Playwright at `/Users/Nishant/dev-tools/browser-check/node_modules/playwright` and Chromium headless shell. Verified Deck 1 sleeping rooms, bathrooms, phone chargers and TVs with no lounges; Level 2 three lounges; Deck 3 both stands and no TVs; Deck 4 front-deck fun, both stands, a little food, captain’s home on number 4, and no security. Also checked no prices, no horizontal overflow, and zero page/console errors. Screenshots: `/tmp/vihaan-cruise-ship-decks/desktop.png` and `mobile.png`.
+
+## Cruise Ship deck corrections — PUBLISHED (Nov 20, 2026, driver)
+
+- Published by the driver (kids' publish, driver-authorized Nov 19 evening): feature commit edeff07 ("Correct cruise ship deck contents") on `feature/cruise-ship-deck-corrections`. Merge 4478b7c (one HANDOFF.md conflict, resolved by keeping main's queue/dispatch records and appending the branch's cruise-ship active-work section; HANDOFF content verified after merge — 0 conflict markers). Push 1e520bc..4478b7c.
+- GitHub Pages run 44872237021 completed SUCCESS (20s).
+- Live verification: https://vihaanthebuilder.github.io/portfolio/cruise-ship.html (200, 8,075 bytes, byte-identical size to local; "hot dog" x2, "lemonade" x2 — stands on both Deck 3 and Deck 4 as named).
+
+## Author's Room count — PUBLISHED (Nov 20, 2026)
+
+- Published by Goku's driver (Nishant's Nov 19 drive instruction: kids'
+  sites publish on driver authority).
+- Browser check first via the durable harness: desktop 1280x800 and mobile
+  390x844 both show 7 of 24, no 3 of 24, zero console errors.
+- Merge `c0a214b` of `feature/authors-room-count` (feature commit `973ee1b`).
+  One HANDOFF.md conflict resolved by taking main and re-applying the
+  branch's count section plus the stale-progress line update.
+- Push `4806418..c0a214b`; GitHub Pages run 44872512975 success (18s).
+- Live-verified: https://vihaanthebuilder.github.io/portfolio/authors-room.html
+  shows 7 of 24, 13,705 bytes (matches local).
+
+## Spelling Bee World Champion — PUBLISHED (Nov 20, 2026)
+
+- Published by Goku's driver (Nishant's Nov 19 drive instruction: kids'
+  sites publish on driver authority).
+- Checks first via the durable harness: desktop 1280x800 and mobile
+  390x844 both show the World Champion section, zero console errors;
+  Spelling Bee model regression passed (174 unique entries).
+- Merge `4943629` of `feature/spelling-bee-world-champion` (feature commits
+  `c5c9512` + `78e862e`). One HANDOFF.md conflict resolved by taking main
+  and re-applying the branch's World Champion section.
+- Push `bb23763..4943629`. GitHub Pages run 44872887296 first failed with a
+  GitHub-side artifact error (no github-pages artifact found; the prior
+  record-commit run 44872721610 failed the same way). Re-ran 44872887296:
+  success (24s).
+- Live-verified: https://vihaanthebuilder.github.io/portfolio/spelling-bee.html
+  shows the World Champion section, 7,041 bytes (matches local).
+
+## LEGO 42199 Monster Jam DIGatron card — PUBLISHED (Nov 20, 2026)
+
+- Published by Goku's driver (Nishant's Nov 19 drive instruction: kids'
+  sites publish on driver authority; do not block on a photo).
+- Card added to `lego.html` (My Own Creations, first card): Monster Jam
+  DIGatron Pull-Back, set 42199, 218 pieces, build time 1h 11m (Vidhu's
+  words). Placeholder illustration drawn in the site style
+  (`images/build-digatron-42199.svg`, JCB yellow with shovel + grabber) —
+  replace with a photo of Vidhu's built truck when he shares one.
+- Build count note: the brief said 32 -> 33 from the static HTML value, but
+  the page JS recounts actual cards (`cards.length`): 37 before, 38 now.
+  Static fallback set to 38 to match.
+- Browser check via the durable harness: desktop 1280x800 and mobile
+  390x844 both show the card, image loads, count 38, zero console errors.
+- Commit `c954ed0` (lego.html + SVG + brief). Push `829e8a1..c954ed0`.
+  GitHub Pages run 44873199322 first failed with the same GitHub-side
+  artifact error as the World Champion run; re-ran: success (19s).
+- Live-verified: https://vihaanthebuilder.github.io/portfolio/lego.html
+  shows the DIGatron card, 148,687 bytes (matches local).
+
+## Solar System Explorer — PUBLISHED (Nov 20, 2026)
+
+- Published by Goku's driver (Nishant's Nov 19 drive instruction: kids'
+  sites publish on driver authority).
+- The solar work was uncommitted in the `feature/solar-system` worktree
+  (worker 0041): `solar-system.html` + `assets/solar-system-data.js` +
+  `assets/solar-system.css` + `assets/solar-system.js` +
+  `FEATURE-BRIEF-solar-system.md`. Committed as `6d274ef` after a passing
+  browser check (durable harness: desktop 1280x800 and mobile 390x844,
+  canvas present, 8 planets listed, zero console errors).
+- Merge `3d6221f` of `feature/solar-system` (clean; the worktree's
+  uncommitted HANDOFF.md change was left uncommitted to avoid a conflict).
+  Push `26ef9e3..3d6221f`.
+- GitHub Pages run 44873538238 failed twice with the GitHub-side artifact
+  error (no github-pages artifact found); second re-run succeeded (20s).
+- Live-verified: https://vihaanthebuilder.github.io/portfolio/solar-system.html
+  1,897 bytes (matches local).
+- Note: tonight's task labeled this "Ahaan solar planet fact cards", but
+  the branch, worker 0041, and brief all belong to Vihaan's site; Ahaan's
+  repo has no solar work. Published where the work lives (Vihaan).
+
+## DIGatron real photo + What's New nav — PUBLISHED Nov 21, 2026 (evening CT)
+
+- DIGatron card photo swap: fetched the real LEGO Technic 42199 Monster Jam DIGatron product photo (869x856 JPEG, 130,559 bytes) into `images/set-42199-digatron.jpg` (no hotlink) and pointed the card's `data-img` and photo `<img>` at it in `lego.html` (alt, `class="contain"`, `background:#fff` unchanged). Replaces the `images/build-digatron-42199.svg` placeholder.
+- Top-level "What's New" nav item: added in `sub-navs.js` as a direct link to `fresh-drops.html` between Words and Me (matching `.subnav-trigger` styling in `sub-navs.css`, with the same 7-day NEW badge behavior as the homepage). The existing Fresh Drops link in the Me dropdown is kept. No Fresh Drops entry was added for this nav change itself (deliberate skip — the change only makes Fresh Drops easier to find).
+- Publish: commit `a0e41a2` ("Use real DIGatron photo and add What's New nav item"), pushed `dec312d..a0e41a2`; GitHub Pages run 44976600249 succeeded.
+- Live-verified Nov 21, 2026 on https://vihaanthebuilder.github.io/portfolio/lego.html (desktop 1280x800 + mobile 390x844, durable Playwright harness): DIGatron photo loads (naturalWidth 869, image URL HTTP 200, 130,559 bytes), nav order Chess / LEGO / Play / Words / What's New / Me with What's New linking to `fresh-drops.html`, homepage Me dropdown still lists Fresh Drops, no page/console errors, no horizontal overflow. Screenshots in `/tmp/drv-unlock2-live-shots/`.

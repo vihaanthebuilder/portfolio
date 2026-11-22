@@ -6,13 +6,17 @@ const M = require('../spelling-bee-model.js');
 const bank = require('../assets/spelling-words.js');
 
 assert(bank.length >= 120);
-for (const level of M.LEVELS) {
+for (const level of M.LEVELS.filter(level => level !== 'world-champion')) {
   const entries = bank.filter(item => item.level === level);
   assert(entries.length >= 40, `${level} should have at least 40 entries`);
   assert(entries.every(item => item.definition.trim() && item.sentence.trim()), `${level} needs a definition and sentence for every word`);
 }
 assert.equal(new Set(bank.map(item => item.word.toLowerCase())).size, bank.length, 'all practice words must be unique');
-assert(bank.every(item => item.word === item.word.trim() && /^[A-Za-z]+$/.test(item.word)));
+assert(bank.every(item => item.word === item.word.trim() && /^\p{L}+$/u.test(item.word)));
+const champions = bank.filter(item => item.level === 'world-champion');
+assert.equal(champions.length, 12, 'World Champion has the twelve brief-approved winning words');
+assert(champions.every(item => Number.isInteger(item.year) && item.champion && item.definition && item.sentence));
+assert(M.missTrickyWord(M.emptyState(), 'éclaircissement', 'world-champion').trickyWords.some(item => item.word === 'éclaircissement'));
 const indexHtml = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
 const sharedNav = fs.readFileSync(path.join(__dirname, '..', 'sublevel-os.js'), 'utf8');
 assert(indexHtml.includes('href="spelling-bee.html" aria-label="Spelling Bee Trainer"'), 'homepage desktop nav should link the trainer');
