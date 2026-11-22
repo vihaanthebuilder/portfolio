@@ -47,6 +47,13 @@ Dispatched to worker 0069 (Room Life worktree). Execute in this order; build, pu
 - Affected suite `room-life-feature` rerun after the final camera adjustment: **PASS, exit 0** on desktop and mobile; player input isolation, dog interaction, quad, skateboard grind/landing/reset all passed with `errors: []`. Evidence in the established `/tmp/vihaan-room-life-scene/persistent/` folder.
 - Fresh directional probe: all four cardinal directions and up-right/down-left diagonals moved along their expected axes on desktop and mobile; diagonals advanced x/z equally. `errors: []`; measurements and screenshots in `/tmp/vihaan-room-life-scene/persistent/movement-eyes.{json,png}`.
 
+### First publication live verification — Nov 21, 2026
+
+- Fast-forwarded the verified feature to `main` and pushed commit `4c9109bfcafdd0e68559ebf3d4ae49e6c0bd56f2`. GitHub Pages run `44983658279` completed successfully.
+- Live `room-life-feature` suite passed desktop 1280×800 and mobile 390×844, including separate player movement, dog interactions, quad, skateboard grind/landing/reset, and zero page errors.
+- Live max-gap check at 4.4 units: desktop head centers x≈452 and x≈795; mobile x≈50 and x≈331. Both name tags fit; zero page errors. Captures: `/tmp/vihaan-room-life-scene/persistent/live-reachable-frame-desktop.png` and `live-reachable-frame-mobile.png`.
+- Added the live desktop capture as `images/fresh-drops/room-life-two-player-walking.png` and added the required dated Fresh Drops card with a Try it link to the 3D Lobby. This follow-up is pending its Pages run and live card verification.
+
 ## Spelling Bee World Champion — active dispatch (Nov 16, 2026)
 
 - Began the newly dispatched `FEATURE-BRIEF-spelling-bee-world-champion.md`
