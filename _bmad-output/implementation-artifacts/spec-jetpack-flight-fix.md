@@ -2,7 +2,7 @@
 title: 'Room Life jetpack flight controls and pose'
 type: 'feature'
 created: '2026-11-22'
-status: 'in-review'
+status: 'done'
 baseline_commit: '084ded4aadc2a0003b5c0886d90478cf35e567ba'
 route: 'dispatch'
 review_loop_iteration: 0
@@ -48,7 +48,7 @@ context: []
 - [x] `index.html` -- implement held rise, hover, safe cap, gentle landing, responsive hint, and independent two-player inputs while preserving steering and mounted behavior.
 - [x] `index.html` -- suppress the walking pose/foot planting in flight; animate existing exhaust with a calm thrust response and reset foot anchors after landing.
 - [x] `tests/room-life-fixes.cjs` -- add durable flight altitude, leg pose, flame, landing, and two-player input checks.
-- [ ] `HANDOFF.md` -- record baseline, each fix and rerun, publish, Fresh Drops screenshot, and live desktop/mobile verification.
+- [x] `HANDOFF.md` -- record baseline, each fix and rerun, publish, Fresh Drops screenshot, and live desktop/mobile verification.
 
 **Acceptance Criteria:**
 - Given flight is enabled, when either boy moves horizontally, then he glides without a walk cycle or grounded foot stepping.
@@ -61,7 +61,7 @@ context: []
 
 - Investigation: Vihaan's `updateFeet()` owns world-space planted feet and pelvis height; skipping it during flight without a one-time landing reset would preserve stale takeoff anchors. Ahaan uses the shared leg groups and a gait rotation. The ceiling plane is at y=7.6.
 - Implementation: flight draws the articulated leg meshes at a static trailing ankle target, and grounded `updateFeet()` remains authoritative outside flight. The Room Life camera follows active flight and descent until the avatar nears hover height, then eases back to room framing.
-- Intent gaps: none remain after repository/history inspection. R is selected for Ahaan because WASD moves and E interacts; Q remains his flight toggle. The hint will state the mapping.
+- Intent gaps: none remain after repository/history inspection. R is selected for Ahaan because WASD moves and E interacts; Q remains his flight toggle. The on-screen hint states the mapping.
 - Irreversibles: publishing to `main` and GitHub Pages is an external side effect, already authorized by the Nov 22 overnight driver instruction and the brief's publish directive. Capture and include a live flight screenshot in Fresh Drops.
 - Footprint: `index.html`, `fresh-drops.html`, one live screenshot under `images/fresh-drops/`, `tests/room-life-fixes.cjs`, and `HANDOFF.md`; no new runtime dependency or page.
 

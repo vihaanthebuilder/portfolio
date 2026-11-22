@@ -25,14 +25,14 @@ Execute in this order (after the Room Life publish above). Build, publish, live-
 
 Standing rules (Nishant, Nov 21): (a) every publish adds a Fresh Drops entry WITH a screenshot of the live feature — no entry without its screenshot; (b) every new feature/page goes under an existing menu tab at publish time — no orphan/random separate pages — and gets a visible "NEW" tag (nav entry + home card) for its first 7 days so the kids know what to try.
 
-1. **Jetpack flight fix** — `FEATURE-BRIEF-jetpack-flight-fix.md` (no walk-cycle in flight, Space = altitude, animated flame). ACTIVE Nov 22, 2026 on `feature/room-life-scene`; inspect current flight input and movement first.
+1. **Jetpack flight fix** — `FEATURE-BRIEF-jetpack-flight-fix.md` (no walk-cycle in flight, Space = altitude, animated flame). PUBLISHED Nov 22, 2026; feature commit `a2ee63a1a9fa35d257886774c30237d3f13058ae`, Fresh Drops commit `0482ffa652369a6757e161b15097b1adfacdfe30`, Pages run `45035237061` succeeded for the feature and run `45039409873` succeeded for the Fresh Drops update; both live-verified.
 2. **Skateboard wheels + physics, wobbly feet, basketball hoop** — `FEATURE-BRIEF-room-life-skates-feet-hoop.md`.
 3. **Clickable prompt pills** — `FEATURE-BRIEF-room-life-clickable-prompts.md` (click/tap works like Enter; can ship with brief 2).
 4. **Nav organize pages** — `FEATURE-BRIEF-nav-organize-pages.md` (every page under existing menu tabs, NEW tags rule).
 5. **Cruise Ship Deck 3 tracker** — `FEATURE-BRIEF-cruise-ship-deck3-tracker.md` (from the Nov 20 queue above).
 6. **LEGO instructions button + Build it boats book** — `FEATURE-BRIEF-lego-instructions-boats.md` (from the Nov 20 queue above).
 
-## Jetpack flight fix — ACTIVE (Nov 22, 2026)
+## Jetpack flight fix — PUBLISHED (Nov 22, 2026)
 
 - Started the first overnight brief on `feature/room-life-scene` after the Room Life walking publish. Sally's UX review remains an untracked reference and is not part of the feature changes.
 - First source inspection: `Shift`/`Q` toggle fixed-altitude flight (`0.72`, damp rate `3`); there is no Space altitude control. Vihaan still sets `isWalking` from horizontal movement and calls `updateFeet` while airborne; Ahaan still drives both leg rotations from the movement gait. Jetpack nozzles only switch visible and have no animation.
@@ -47,7 +47,7 @@ Standing rules (Nishant, Nov 21): (a) every publish adds a Fresh Drops entry WIT
 - A final `room-life-fixes.cjs` run exposed that its newly added visible-joystick raycast helper used the app's `$` alias, which is not defined in the browser test evaluation context. Replaced it with `document.getElementById('gl')`; the complete suite then passed, including the physical joystick Pac-Man selection assertion. The initial sandbox-only Chrome aborts were repeated outside the sandbox and did not count as test outcomes.
 - Published feature commit `a2ee63a1a9fa35d257886774c30237d3f13058ae` to `origin/main` by fast-forward on Nov 22. The push-triggered Pages run `45031047202` failed twice at the deploy step after artifact upload succeeded (GitHub returned 0 artifacts); a fresh `workflow_dispatch` run `45035237061` succeeded.
 - Live `room-life-fixes.cjs` against `https://vihaanthebuilder.github.io/portfolio` PASS, exit 0, desktop + mobile, cap `5.395`, Vihaan reached `5.3945`, Ahaan `5.2267`, landing at `0.0083` / `0.0033`, animated flames and held mobile rise verified, physical arcade and skateboard checks passed, `errors: []`. Captures/report: `/tmp/vihaan-room-life-scene/jetpack-live/`. `https://vihaanadhikari.com` did not resolve in this browser environment; GitHub Pages hostname served the verified commit.
-- Copied the live 1280×800 thrust capture to `images/fresh-drops/room-life-jetpack-flight.png` and added the dated Nov 22 Fresh Drops card with a lobby Try it link. This card and its screenshot still need their own commit and Pages deployment/live check.
+- Copied the live 1280×800 thrust capture to `images/fresh-drops/room-life-jetpack-flight.png` and added the dated Nov 22 Fresh Drops card with a lobby Try it link. Fresh Drops live check PASS at desktop 1280×800 and mobile 390×844: newest card/title/date, NEW badge, lobby link, screenshot loads, all 18 cards present, no horizontal overflow, and zero console/page/resource errors. Captures/report: `/tmp/vihaan-room-life-scene/jetpack-live/fresh-drops-{desktop,mobile}.png` and `fresh-drops-live.json`. Fresh Drops commit `0482ffa652369a6757e161b15097b1adfacdfe30` deployed in Pages run `45039409873` (success).
 
 ## Room Life 2-player + walking — PUBLISHED (Nov 21, 2026)
 
