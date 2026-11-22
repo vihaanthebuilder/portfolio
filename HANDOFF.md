@@ -27,12 +27,13 @@ Standing rules (Nishant, Nov 21): (a) every publish adds a Fresh Drops entry WIT
 
 1. **Jetpack flight fix** — `FEATURE-BRIEF-jetpack-flight-fix.md` (no walk-cycle in flight, Space = altitude, animated flame). PUBLISHED Nov 22, 2026; feature commit `a2ee63a1a9fa35d257886774c30237d3f13058ae`, Fresh Drops commit `0482ffa652369a6757e161b15097b1adfacdfe30`, Pages run `45035237061` succeeded for the feature and run `45039409873` succeeded for the Fresh Drops update; both live-verified.
 2. **Skateboard wheels + physics, wobbly feet, basketball hoop** — `FEATURE-BRIEF-room-life-skates-feet-hoop.md`.
-3. **Empty 3D grass world (LEGO-style)** — `FEATURE-BRIEF-grass-world.md` (Vihaan, Nov 22 voice call: a new 3D world that starts as just grass, everything LEGO-style, walkable; shops, schools, minifigures, houses and a rideable LEGO bike added on the call — see the brief). QUEUED Nov 22, 2026.
-4. **Homepage indoor/outdoor swipeable switch** — `FEATURE-BRIEF-homepage-indoor-outdoor-switch.md` (Nishant, Nov 22 voice call: Indoor/Outdoor tab + swipe switch on the homepage — Indoor = Room Life, Outdoor = the LEGO grass world; default on load = Outdoor). QUEUED Nov 22, 2026 — right after the grass-world brief (needs the outdoor world to exist).
-5. **Clickable prompt pills** — `FEATURE-BRIEF-room-life-clickable-prompts.md` (click/tap works like Enter; can ship with brief 2).
-6. **Nav organize pages** — `FEATURE-BRIEF-nav-organize-pages.md` (every page under existing menu tabs, NEW tags rule).
-7. **Cruise Ship Deck 3 tracker** — `FEATURE-BRIEF-cruise-ship-deck3-tracker.md` (from the Nov 20 queue above).
-8. **LEGO instructions button + Build it boats book** — `FEATURE-BRIEF-lego-instructions-boats.md` (from the Nov 20 queue above).
+3. **Author's Room — Chapter 5 (large intestine) + Chapter 6 note** — `FEATURE-BRIEF-authors-room-ch5-ch6.md` (Vidhu, Nov 22 voice call: add Ch 5 'big intestine' and Ch 6 healthy food; his words: 'put all the words of my book' — whole chapter verbatim, nothing shortened. WARNING: `chapter-5-large-intestine-draft.md` is a stub (title + first line only); the brief lists the dictated sentences recorded Nov 16–17 and a stop-and-report rule for any wording that cannot be verified as his exact words. Ch 6 has no dictated text yet — record as waiting for Vidhu to dictate it, do not invent.) QUEUED Nov 22, 2026.
+4. **Empty 3D grass world (LEGO-style)** — `FEATURE-BRIEF-grass-world.md` (Vihaan, Nov 22 voice call: a new 3D world that starts as just grass, everything LEGO-style, walkable; shops, schools, minifigures, houses and a rideable LEGO bike added on the call — see the brief). QUEUED Nov 22, 2026.
+5. **Homepage indoor/outdoor swipeable switch** — `FEATURE-BRIEF-homepage-indoor-outdoor-switch.md` (Nishant, Nov 22 voice call: Indoor/Outdoor tab + swipe switch on the homepage — Indoor = Room Life, Outdoor = the LEGO grass world; default on load = Outdoor). QUEUED Nov 22, 2026 — right after the grass-world brief (needs the outdoor world to exist).
+6. **Clickable prompt pills** — `FEATURE-BRIEF-room-life-clickable-prompts.md` (click/tap works like Enter; can ship with brief 2).
+7. **Nav organize pages** — `FEATURE-BRIEF-nav-organize-pages.md` (every page under existing menu tabs, NEW tags rule).
+8. **Cruise Ship Deck 3 tracker** — `FEATURE-BRIEF-cruise-ship-deck3-tracker.md` (from the Nov 20 queue above).
+9. **LEGO instructions button + Build it boats book** — `FEATURE-BRIEF-lego-instructions-boats.md` (from the Nov 20 queue above).
 
 ## Jetpack flight fix — PUBLISHED (Nov 22, 2026)
 
