@@ -15,11 +15,11 @@
 Dispatched to worker 0069 (Room Life worktree). Execute in this order; build, publish, live-verify on driver authority. Fresh Drops standing rule: every publish adds a Fresh Drops entry with its screenshot — no entry without its screenshot.
 
 1. **Fresh Drops page** — `FEATURE-BRIEF-release-notes.md`. PUBLISHED Nov 21, 2026; merge `4bd49d1d07b54710b16e4ba780eca21079b6e6a2`; Pages run 44897542008 succeeded; live-verified.
-2. **Room Life 2-player + walking improvement pass** — `FEATURE-BRIEF-two-player-walking.md` (Nishant's Nov 20 priority). ACTIVE Nov 21, 2026 in `feature/room-life-scene`; baseline suites are the first step.
+2. **Room Life 2-player + walking improvement pass** — `FEATURE-BRIEF-two-player-walking.md` (Nishant's Nov 20 priority). PUBLISHED Nov 21, 2026; feature merge `4c9109bfcafdd0e68559ebf3d4ae49e6c0bd56f2`, Fresh Drops screenshot/card commit `32096bd7a962f46112388bbf359213afd41799d3`, Pages run `44989095413` succeeded; live-verified.
 3. **Cruise Ship Deck 3 tracker** — `FEATURE-BRIEF-cruise-ship-deck3-tracker.md`.
 4. **LEGO instructions button + Build it boats book** — `FEATURE-BRIEF-lego-instructions-boats.md`.
 
-## Room Life 2-player + walking — ACTIVE; baseline (Nov 21, 2026)
+## Room Life 2-player + walking — PUBLISHED (Nov 21, 2026)
 
 - Baseline ran against `feature/room-life-scene` at `996b6fc9682d752a56ee99a283a4a0dd53fe49a1`, served from the dispatched worktree. Evidence reuses the established VQA folders under `/tmp/vihaan-room-life-scene/` and `/tmp/vihaan-room-life-fixes/baseline/`.
 - `walk-and-trophies`: PASS desktop + mobile; both reports `passed: true`, no page errors (one existing duplicate-Three.js warning).
@@ -47,12 +47,13 @@ Dispatched to worker 0069 (Room Life worktree). Execute in this order; build, pu
 - Affected suite `room-life-feature` rerun after the final camera adjustment: **PASS, exit 0** on desktop and mobile; player input isolation, dog interaction, quad, skateboard grind/landing/reset all passed with `errors: []`. Evidence in the established `/tmp/vihaan-room-life-scene/persistent/` folder.
 - Fresh directional probe: all four cardinal directions and up-right/down-left diagonals moved along their expected axes on desktop and mobile; diagonals advanced x/z equally. `errors: []`; measurements and screenshots in `/tmp/vihaan-room-life-scene/persistent/movement-eyes.{json,png}`.
 
-### First publication live verification — Nov 21, 2026
+### Publication and live verification — Nov 21, 2026
 
 - Fast-forwarded the verified feature to `main` and pushed commit `4c9109bfcafdd0e68559ebf3d4ae49e6c0bd56f2`. GitHub Pages run `44983658279` completed successfully.
 - Live `room-life-feature` suite passed desktop 1280×800 and mobile 390×844, including separate player movement, dog interactions, quad, skateboard grind/landing/reset, and zero page errors.
 - Live max-gap check at 4.4 units: desktop head centers x≈452 and x≈795; mobile x≈50 and x≈331. Both name tags fit; zero page errors. Captures: `/tmp/vihaan-room-life-scene/persistent/live-reachable-frame-desktop.png` and `live-reachable-frame-mobile.png`.
-- Added the live desktop capture as `images/fresh-drops/room-life-two-player-walking.png` and added the required dated Fresh Drops card with a Try it link to the 3D Lobby. This follow-up is pending its Pages run and live card verification.
+- Added the live desktop capture as `images/fresh-drops/room-life-two-player-walking.png` and the dated Fresh Drops card with a Try it link to the 3D Lobby. Follow-up commit `32096bd7a962f46112388bbf359213afd41799d3` deployed successfully in Pages run `44989095413`.
+- Final live check on desktop and mobile confirmed the Nov 21 card, `index.html` Try it destination, and 1280px screenshot load. The 4.4-unit maximum-gap frame passed at x≈452/795 desktop and x≈50/331 mobile. Both devices had zero page or console errors. Browser report and Fresh Drops screenshots: `/tmp/vihaan-room-life-scene/persistent/live-final-results.json` and `live-fresh-drops-{desktop,mobile}.png`.
 
 ## Spelling Bee World Champion — active dispatch (Nov 16, 2026)
 
