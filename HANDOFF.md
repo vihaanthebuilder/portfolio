@@ -27,10 +27,12 @@ Standing rules (Nishant, Nov 21): (a) every publish adds a Fresh Drops entry WIT
 
 1. **Jetpack flight fix** — `FEATURE-BRIEF-jetpack-flight-fix.md` (no walk-cycle in flight, Space = altitude, animated flame). Execute first, right after the Room Life publish.
 2. **Skateboard wheels + physics, wobbly feet, basketball hoop** — `FEATURE-BRIEF-room-life-skates-feet-hoop.md`.
-3. **Clickable prompt pills** — `FEATURE-BRIEF-room-life-clickable-prompts.md` (click/tap works like Enter; can ship with brief 2).
-4. **Nav organize pages** — `FEATURE-BRIEF-nav-organize-pages.md` (every page under existing menu tabs, NEW tags rule).
-5. **Cruise Ship Deck 3 tracker** — `FEATURE-BRIEF-cruise-ship-deck3-tracker.md` (from the Nov 20 queue above).
-6. **LEGO instructions button + Build it boats book** — `FEATURE-BRIEF-lego-instructions-boats.md` (from the Nov 20 queue above).
+3. **Empty 3D grass world (LEGO-style)** — `FEATURE-BRIEF-grass-world.md` (Vihaan, Nov 22 voice call: a new 3D world that starts as just grass, everything LEGO-style, walkable; shops, schools, minifigures, houses and a rideable LEGO bike added on the call — see the brief). QUEUED Nov 22, 2026.
+4. **Homepage indoor/outdoor swipeable switch** — `FEATURE-BRIEF-homepage-indoor-outdoor-switch.md` (Nishant, Nov 22 voice call: Indoor/Outdoor tab + swipe switch on the homepage — Indoor = Room Life, Outdoor = the LEGO grass world; default on load = Outdoor). QUEUED Nov 22, 2026 — right after the grass-world brief (needs the outdoor world to exist).
+5. **Clickable prompt pills** — `FEATURE-BRIEF-room-life-clickable-prompts.md` (click/tap works like Enter; can ship with brief 2).
+6. **Nav organize pages** — `FEATURE-BRIEF-nav-organize-pages.md` (every page under existing menu tabs, NEW tags rule).
+7. **Cruise Ship Deck 3 tracker** — `FEATURE-BRIEF-cruise-ship-deck3-tracker.md` (from the Nov 20 queue above).
+8. **LEGO instructions button + Build it boats book** — `FEATURE-BRIEF-lego-instructions-boats.md` (from the Nov 20 queue above).
 
 ## Room Life 2-player + walking — PUBLISHED (Nov 21, 2026)
 
