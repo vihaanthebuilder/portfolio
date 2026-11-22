@@ -158,11 +158,24 @@ fs.mkdirSync(out, { recursive: true });
     await page.goto(`${process.env.VIHAAN_BASE_URL||'http://127.0.0.1:8876'}/index.html`,{waitUntil:'networkidle'});
     await page.waitForFunction(()=>window.__sblvl);
     await page.evaluate(()=>__sblvl.setMode('home'));
+    await page.waitForTimeout(250);
+    const homeBall=await page.evaluate(()=>({visible:__sblvl.ball.mesh.visible,held:__sblvl.ball.held,position:__sblvl.ball.mesh.position.toArray(),home:__sblvl.ball.homeSpot.toArray()}));
+    assert(homeBall.visible&&homeBall.held&&homeBall.position[1]>.05,'basketball is visible and available in the room');
     await page.evaluate(()=>__sblvl.placeVihaan(2.0,1.1));await page.locator('#btn-action-hoop').click();await page.waitForTimeout(180);
     assert.equal(await page.evaluate(()=>__sblvl.state.mode),'hoop','hoop action completes the walk to the court');
+    const shotStart=await page.evaluate(()=>({ball:__sblvl.ball.mesh.position.toArray(),hand:__sblvl.vihaanShotHand().toArray()}));
+    assert(Math.hypot(...shotStart.ball.map((v,i)=>v-shotStart.hand[i]))<.8,`basketball is presented at Vihaan's hand on approach: ${JSON.stringify(shotStart)}`);
     await page.evaluate(()=>__sblvl.throwBall(0,150,250));await page.waitForTimeout(200);
-    const shot=await page.evaluate(()=>({live:__sblvl.ball.live,held:__sblvl.ball.held,shotPose:__sblvl.vihaanRightArm?.rotation.z}));
+    const shot=await page.evaluate(()=>({live:__sblvl.ball.live,held:__sblvl.ball.held,shotPose:__sblvl.vihaanRightArm?.rotation.z,shots:__sblvl.ball.shots,score:__sblvl.ball.score}));
     assert(shot.live&&!shot.held&&shot.shotPose< -1.4,`basketball shot includes Vihaan's follow-through: ${JSON.stringify(shot)}`);
+    await page.evaluate(()=>{for(let i=0;i<150&&!__sblvl.ball.scored;i++)__sblvl.step(1);});
+    const madeShot=await page.evaluate(()=>({live:__sblvl.ball.live,held:__sblvl.ball.held,scored:__sblvl.ball.scored,score:__sblvl.ball.score,shots:__sblvl.ball.shots,message:document.querySelector('#hud .msg').textContent}));
+    assert(madeShot.scored&&madeShot.score===2&&madeShot.message,`ball follows a scoring arc through the hoop: ${JSON.stringify(madeShot)}`);
+    await page.screenshot({path:`${out}/basketball-made-desktop.png`});
+    await page.evaluate(()=>{for(let i=0;i<500&&__sblvl.ball.live;i++)__sblvl.step(1);});
+    assert(await page.evaluate(()=>__sblvl.ball.held&&!__sblvl.ball.live),'scored ball returns ready for another shot');
+    await page.evaluate(()=>__sblvl.throwBall(0,150,250));
+    assert(await page.evaluate(()=>__sblvl.ball.shots===2&&!__sblvl.ball.held),'Vihaan can take a repeat shot');
     await page.evaluate(()=>__sblvl.setMode('home'));
 
     await page.evaluate(()=>{const q=__sblvl;q.setTwoPlayerMode(false);q.placeVihaan(q.TV[0].group.position.x,q.TV[0].group.position.z+1);});
@@ -175,9 +188,9 @@ fs.mkdirSync(out, { recursive: true });
     const boardLanding=await page.evaluate(()=>({phase:__sblvl.skateboard.sequence,grinding:__sblvl.skateboard.grinding,x:__sblvl.vihaanState.x,z:__sblvl.vihaanState.z,queue:__sblvl.vihaanState.queue.map(p=>({x:p.x,z:p.z})),velocity:__sblvl.vihaanState.velocity,mode:__sblvl.state.mode,sitting:__sblvl.vihaanState.isSitting,keys:{...__sblvl.vihaanState.keys},riding:__sblvl.skateboard.riding,debug:__sblvl.vihaanState.debugMove,snapshot:__sblvl.movementSnapshot()}));
     assert.equal(boardLanding.phase,'landed',`board stunt/grind sequence lands safely: ${JSON.stringify({boardProgress,boardLanding})}`);
 
-    fs.writeFileSync(`${out}/walk-baseline.json`, JSON.stringify({ walkTrace, sceneChecks, vFlight, aFlight, beforeRise, vihaanThrust, vihaanCap, ahaanThrust, landedFlight, mobileFlight, flameMotion, selected, shot, boardSequence, boardProgress, boardLanding, errors }, null, 2));
+    fs.writeFileSync(`${out}/walk-baseline.json`, JSON.stringify({ walkTrace, sceneChecks, vFlight, aFlight, beforeRise, vihaanThrust, vihaanCap, ahaanThrust, landedFlight, mobileFlight, flameMotion, selected, shotStart, shot, madeShot, boardSequence, boardProgress, boardLanding, errors }, null, 2));
     assert.equal(errors.length, 0, JSON.stringify(errors));
-    console.log(JSON.stringify({ vFlight, aFlight, vihaanThrust, vihaanCap, ahaanThrust, landedFlight, mobileFlight, flameMotion, selected, shot, boardSequence, boardLanding, errors }, null, 2));
+    console.log(JSON.stringify({ vFlight, aFlight, vihaanThrust, vihaanCap, ahaanThrust, landedFlight, mobileFlight, flameMotion, selected, shotStart, shot, madeShot, boardSequence, boardLanding, errors }, null, 2));
   } finally {
     await browser.close();
   }

@@ -85,6 +85,8 @@ fs.mkdirSync(out, { recursive: true });
       assert.equal(viewport.documentWidth, viewport.width, `${device} page has no horizontal overflow`);
       assert(errors.length === 0, `${device} unexpected browser errors: ${errors.join('; ')}`);
       reports.push({ device, plantCounts, dogHome, dogPoint, joined, beforeAhaan, afterAhaan, beforeVihaan, afterVihaan, errors });
+      await page.evaluate(()=>{const q=__sblvl,b=q.skateboard;b.sequence='idle';b.riding=false;b.grinding=false;b.group.visible=true;b.group.position.set(-2,.02,2);b.group.rotation.set(0,.2,0);b.wheelAngle=1.1;b.wheels.forEach(w=>w.rotation.y=b.wheelAngle);q.characters.forEach(g=>g.visible=false);q.dogGroup.visible=false;for(const s of ['#topnav','#avatar-action-bar','#hero-quick-bar','#hint'])document.querySelector(s)?.style.setProperty('display','none','important');const d=innerWidth<500?2.8:2.2,h=innerWidth<500?4.2:3.2;q.camera.position.set(b.group.position.x+d,b.group.position.y+h,b.group.position.z-d);q.camera.lookAt(b.group.position.x,b.group.position.y,b.group.position.z);q.camera.position.lerp=()=>q.camera.position;q.camera.position.lerpVectors=()=>q.camera.position;q.camera.lookAt=()=>q.camera;q.camera.updateProjectionMatrix();q.renderer.render(q.scene,q.camera);});
+      await page.screenshot({path:path.join(out,`${device}-skateboard-wheels.png`)});
       await page.close();
     }
 
@@ -101,15 +103,22 @@ fs.mkdirSync(out, { recursive: true });
     const quadParked=await page.evaluate(()=>({riding:__sblvl.quad.riding,x:__sblvl.quad.group.position.x,z:__sblvl.quad.group.position.z,parked:__sblvl.quad.parked}));
     assert(!quadParked.riding&&Math.abs(quadParked.x+1.6)<.001&&Math.abs(quadParked.z-.35)<.001,'quad dismount returns to home');
 
-    const boardStart=await page.evaluate(()=>({p:__sblvl.skateboard.group.position.toArray(),tv:__sblvl.TV[0].group.position.toArray(),h:__sblvl.TV[0].h}));
+    const boardStart=await page.evaluate(()=>({p:__sblvl.skateboard.group.position.toArray(),tv:__sblvl.TV[0].group.position.toArray(),h:__sblvl.TV[0].h,wheels:__sblvl.skateboard.wheels.map(w=>({children:w.children.length,visible:w.visible}))}));
     assert(boardStart.p[1]>boardStart.tv[1]+boardStart.h/2,`board starts on the CRT top: ${JSON.stringify(boardStart)}`);
+    assert.equal(boardStart.wheels.length,4,'skateboard has four wheels');
+    assert.equal(boardStart.wheels.map(w=>w.children).join(','),'4,4,4,4',`each wheel has tire, hub and tread: ${JSON.stringify(boardStart.wheels)}`);
+    assert.equal(boardStart.wheels.map(w=>w.visible).join(','),'true,true,true,true','all skateboard wheels are visible');
     await page.evaluate(()=>{const q=__sblvl;q.skateboard.sequence='idle';q.skateboard.parked={x:-8.5,z:-.7};q.skateboard.group.position.set(-8.5,q.getWalkHeight(-8.5,-.7)+.01,-.7);q.placeVihaan(-8.5,-.7);});await page.keyboard.press('Enter');
     assert(await page.evaluate(()=>__sblvl.skateboard.riding),'Enter mounts skateboard');
     await page.evaluate(()=>{const q=__sblvl;q.vihaanState.keys.right=true;q.movementStep(8);});
+    const wheelSpin=await page.evaluate(()=>({angle:__sblvl.skateboard.wheelAngle,rotation:__sblvl.skateboard.wheels.map(w=>w.rotation.y)}));
+    assert(Math.abs(wheelSpin.angle)>.1&&wheelSpin.rotation.every(a=>Math.abs(a-wheelSpin.angle)<1e-8),'wheels spin together as the board rolls');
     const railEntry=await page.evaluate(()=>({x:__sblvl.vihaanState.x,z:__sblvl.vihaanState.z,yaw:__sblvl.vihaanState.yaw,velocity:__sblvl.vihaanState.velocity,keys:{...__sblvl.vihaanState.keys},riding:__sblvl.skateboard.riding}));
     await page.evaluate(()=>{const q=__sblvl;q.movementStep(36);});
     const grinding=await page.evaluate(()=>({grinding:__sblvl.skateboard.grinding,x:__sblvl.vihaanState.x,z:__sblvl.vihaanState.z}));
+    await page.evaluate(()=>{const q=__sblvl,p=q.skateboard.group.position;for(const s of ['#topnav','#avatar-action-bar','#hero-quick-bar','#hint'])document.querySelector(s)?.style.setProperty('display','none','important');q.camera.position.set(p.x+1.1,p.y+1.1,p.z-2);q.camera.lookAt(p.x,p.y,p.z);q.camera.position.lerp=()=>q.camera.position;q.camera.position.lerpVectors=()=>q.camera.position;q.camera.lookAt=()=>q.camera;q.camera.updateProjectionMatrix();q.renderer.render(q.scene,q.camera);});
     await page.screenshot({path:path.join(out,'desktop-skateboard-grind.png')});
+    await page.evaluate(()=>{const q=__sblvl;for(const s of ['#topnav','#avatar-action-bar','#hero-quick-bar','#hint'])document.querySelector(s)?.style.removeProperty('display');delete q.camera.position.lerp;delete q.camera.position.lerpVectors;delete q.camera.lookAt;});
     assert(railEntry.z<=-.45&&railEntry.z>=-.5,`board engages the rail line: ${JSON.stringify(railEntry)}`);
     assert(grinding.grinding,'board enters the stair-rail grind');
     await page.keyboard.press('Enter');
@@ -135,6 +144,9 @@ fs.mkdirSync(out, { recursive: true });
       palm:[ [13.2,3.2,6.6],[9.7,1.6,3.0] ],
       palm2:[[14.6,3.2,4.1],[11.1,1.6,1.25]],
       avatar:[[2.3,1.8,1.5],[-.18,.75,-1.05]],
+      feetStanding:[[3.3,1.5,2.8],[2,.75,1.1]],
+      feetWalking:[[3.3,1.5,2.8],[2,.75,1.1]],
+      feetStairs:[[-8.2,5.4,-3.0],[-9.2,4.1,-1.57]],
       plaque:[[-6.6,2.1,-.4],[-4.6,1.15,-2.78]],
       windows:[[20,5.5,5],[13.48,5.15,1.8]]
     };
@@ -144,6 +156,10 @@ fs.mkdirSync(out, { recursive: true });
     for(const name of Object.keys(focusCameras)){
       await plantPage.goto(`${base}/index.html?plant=${name}`,{waitUntil:'networkidle'});
       await plantPage.waitForFunction(()=>window.__sblvl);await plantPage.waitForTimeout(450);
+      if(name==='feetStanding')await plantPage.evaluate(()=>__sblvl.placeVihaan(2,1.1));
+      if(name==='feetWalking')await plantPage.evaluate(()=>{const q=__sblvl;q.placeVihaan(2,1.1);q.vihaanState.keys.right=true;q.movementStep(10);q.vihaanState.keys.right=false;});
+      if(name==='feetStairs')await plantPage.evaluate(()=>__sblvl.placeVihaan(-9.2,-1.57));
+      if(name.startsWith('feet'))await plantPage.waitForTimeout(250);
       await plantPage.evaluate(()=>{for(const selector of ['#avatar-action-bar','#hero-quick-bar','#topnav','#hint'])document.querySelector(selector)?.style.setProperty('display','none','important');});
       await plantPage.screenshot({path:path.join(out,`${name}-closeup.png`)});
     }
