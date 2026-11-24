@@ -1,5 +1,11 @@
 # HANDOFF — Vihaan's Portfolio (Vihaan's World)
 
+## Grass Fields, Bases, Eggs, and Pet Challenges — local implementation (Nov 23, 2026)
+
+- Implemented the dedicated `grass-fields.html` experience with responsive grass fields, the single shop and fuse machine at the connection, four single-floor bases, treadmill speed training, a three-step water-run challenge with keyboard/touch input and retry, base floor/treadmill upgrades, eight uncut egg spots per floor, timed hatching, and local save recovery. Added the dedicated page to the Play menu and homepage discovery buttons with date-bounded NEW badges.
+- Added `tests/grass-fields-browser.cjs`. Desktop 1280×800 and mobile 390×844 browser gameplay checks passed: incomplete/missed water runs earn nothing, retry completes for one egg, egg placement and hatching, fusion, base upgrades, treadmill speed, cosmetic selection, persistence, compact mobile navigation, no horizontal overflow, and zero page/console errors. Captures: `/tmp/vihaan-grass-fields/desktop.png` and `/tmp/vihaan-grass-fields/mobile.png`.
+- Not published. The Fresh Drops screenshot/card is intentionally pending live publish verification. Set the nav NEW start date to the verified publish date, then add the live screenshot to `images/fresh-drops/grass-fields.png` and the newest Fresh Drops card. Live browser checks and notification to Nishant are also pending publish.
+
 ## Fresh Drops page — PUBLISHED and live-verified (Nov 21, 2026)
 
 - Implemented on `feature/fresh-drops` from `origin/main` at `5d7cd76a9b89da6e5577c8efde26ea9468303d73`; implementation commit `0314e773b45ad6dad6ec3118535d5e4b2874eeb4`. Added `fresh-drops.html`, 16 newest-first dated entries with live-site screenshots, and Fresh Drops links in the homepage navigation and prominent hero button. NEW badges update for entries within the last seven days.

@@ -2,7 +2,7 @@
   const groups = [
     { name: 'Chess', pages: [['chess.html', 'Chess'], ['gameroom.html', 'Game Room']] },
     { name: 'LEGO', pages: [['lego.html', 'LEGO Lab'], ['hall-of-fame.html', 'Hall of Fame'], ['cruise-ship.html', 'Cruise Ship'], ['build-of-the-week.html', 'Build of the Week']] },
-    { name: 'Play', pages: [['games.html', 'Games'], ['comics.html', 'Comics']] },
+    { name: 'Play', pages: [['games.html', 'Games'], ['grass-fields.html', 'Grass Fields'], ['comics.html', 'Comics']] },
     { name: 'Words', pages: [['authors-room.html', "Author's Room"], ['notebook.html', 'Notebook'], ['spelling-bee.html', 'Spelling Bee']] },
     { name: 'Me', pages: [['goals.html', 'Goals'], ['badges.html', 'Badges']] },
   ];
@@ -58,6 +58,10 @@
           link.append(make('span', 'subnav-new', 'NEW'));
         }
         link.href = href;
+        if (href.toLowerCase() === 'grass-fields.html') {
+          const publishedAt = Date.parse('2026-11-23T00:00:00Z');
+          if (Date.now() >= publishedAt && Date.now() - publishedAt < 7 * 24 * 60 * 60 * 1000) link.append(make('span', 'subnav-new', 'NEW'));
+        }
         if (href.toLowerCase() === current) {
           link.setAttribute('aria-current', 'page');
           item.classList.add('is-current');
