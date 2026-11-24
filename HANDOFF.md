@@ -1,10 +1,21 @@
 # HANDOFF — Vihaan's Portfolio (Vihaan's World)
 
-## Grass Fields, Bases, Eggs, and Pet Challenges — local implementation (Nov 23, 2026)
+## Grass Fields initial version — PUBLISHED before brief expansion (Nov 23, 2026 CT)
 
-- Implemented the dedicated `grass-fields.html` experience with responsive grass fields, the single shop and fuse machine at the connection, four single-floor bases, treadmill speed training, a three-step water-run challenge with keyboard/touch input and retry, base floor/treadmill upgrades, eight uncut egg spots per floor, timed hatching, and local save recovery. Added the dedicated page to the Play menu and homepage discovery buttons with date-bounded NEW badges.
-- Added `tests/grass-fields-browser.cjs`. Desktop 1280×800 and mobile 390×844 browser gameplay checks passed: incomplete/missed water runs earn nothing, retry completes for one egg, egg placement and hatching, fusion, base upgrades, treadmill speed, cosmetic selection, persistence, compact mobile navigation, no horizontal overflow, and zero page/console errors. Captures: `/tmp/vihaan-grass-fields/desktop.png` and `/tmp/vihaan-grass-fields/mobile.png`.
-- Not published. The Fresh Drops screenshot/card is intentionally pending live publish verification. Set the nav NEW start date to the verified publish date, then add the live screenshot to `images/fresh-drops/grass-fields.png` and the newest Fresh Drops card. Live browser checks and notification to Nishant are also pending publish.
+- Initial implementation commit `b9e3e79` merged by PR #13 as `af273547ad50ff2410d496ee99cf0e418aa312c0`; GitHub Pages run `45319126827` completed successfully. The page is live at `https://vihaanthebuilder.github.io/portfolio/grass-fields.html`.
+- Durable browser-check passed locally at desktop 1280×800 and mobile 390×844 with zero page/console errors. Captures: `/tmp/vihaan-grass-fields/desktop.png` and `/tmp/vihaan-grass-fields/mobile.png`.
+- The brief now covers Changes 1–47 and is a coordinator input; preserve it and `_bmad/_bmad/`. The original live page does not yet include the expanded build.
+- Nishant has authorized publication after implementation and checks. The expanded Fresh Drops card and live screenshot remain pending until that publish is ready.
+
+## Grass Fields expanded build — Changes 1–51 (LOCAL, NOT PUBLISHED)
+
+- Scope is Vihaan World only. Preserve `FEATURE-BRIEF-game-grass-field-bases.md` and `_bmad/_bmad/`; neither belongs in Ahaan World.
+- The game now includes four bases with eight first-floor egg spaces each; a second floor after eight upgrades, starting with one egg space and filling to eight over seven more upgrades, with a ladder; training boards/mats and timed boosts; trail/aura shop, sell shop, three-companion fusion, pets and brain-rots; the 10-section second strip; two adjacent reserved empty strips; the right-side Guardian branch and eight egg bosses; three sequential kick strips (Multiverse 1–15, Infinity 16–30, Cosmos 31–45); 200/100/50-stage obbies; permitted lobby/inner teleports; and timed good-egg callouts.
+- Kick stages enforce the separate speed and kick-power requirements. Change 47 values are recorded through stage 45. Cosmos section 45 unlocks a rest-area egg and a tsunami chase whose displayed size/speed scale with the completed kick. Catching the tsunami returns the player to the lobby and retains the collected egg.
+- Design fallbacks are documented in `_bmad-output/implementation-artifacts/spec-grass-fields-current-build.md`: egg weights rise by 5 kg per rank from 1 kg (display-only); the second floor shares capacity with pet display slots; third-floor progression is held; distinct green pet money and gold brain-rot money use simple placeholder income rates; and the two empty strips use compact reserved-space placeholders.
+- Still needs Vidhu's word: exact egg weights per rarity and whether they affect gameplay; whether floors repeat and whether pet/egg slots should be separate; exact pet income by section/rarity, brain-rot income variation, payout speeds, shop prices and sale values; empty-strip size/names; what ×10 applies to; the stray “700”; section 15 tier overlap; outcomes if the Lucky Block falls, zombies catch it, or a comet hits; Cosmos rest-space placement/contents and tsunami-catch outcome; eligible timed good-egg sections; the three best obby eggs; Guardian count and boss 1 chase; and confirmation of “Indestructible”. Current local fallbacks keep the game playable. The latest brief confirms section 37 speed (4.8B), section 34 speed (1.2B), and Cosmos naming.
+- Latest durable browser check: desktop 1280×800 and mobile 390×844; zero page/console errors and no horizontal overflow. Captures: `/tmp/vihaan-grass-fields/desktop.png` and `/tmp/vihaan-grass-fields/mobile.png`.
+- Not yet published. After final checks, deploy to Vihaan World, add the Fresh Drops entry with a screenshot from the live feature, set the seven-day NEW epoch to the verified deployment date, and run live desktop/mobile checks.
 
 ## Fresh Drops page — PUBLISHED and live-verified (Nov 21, 2026)
 

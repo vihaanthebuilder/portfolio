@@ -1,107 +1,204 @@
 (() => {
-  const KEY = 'vihaanGrassFieldsSaveV1';
-  const hatchMs = 60_000;
-  const defaultState = { speed: 1, eggs: [], placed: [], pets: [], floors: [1,1,1,1], treadmill: [1,1,1,1], style: '' };
+  'use strict';
+  const KEY = 'vihaanGrassFieldsSaveV2';
+  const ordinaryEggs = ['Common egg', 'Uncommon egg', 'Rare egg', 'Epic egg', 'Mythic egg', 'Divine egg'];
+  const specialEggs = ['Eternal egg', 'Impossible egg', 'Possible egg'];
+  const second = [
+    {name:'Forest',level:1,difficulty:'Easy',kind:'water'},
+    {name:'Brain Rot',level:6,difficulty:'Medium',kind:'chase'},
+    {name:'Crusher',level:19,difficulty:'Hard',kind:'crusher'},
+    {name:'Tsunami',level:26,difficulty:'Very hard',kind:'lava-gap'},
+    {name:'Prehistoric',level:40,difficulty:'Crazy',kind:'tsunami'},
+    {name:'Temple',level:80,difficulty:'Very crazy',kind:'booster'},
+    {name:'Space',level:108,difficulty:'Madness',kind:'crushers'},
+    {name:'Lava',level:140,difficulty:'Crazy madness',kind:'rising-lava',special:true},
+    {name:'Zeus',level:200,difficulty:'Impossible',kind:'lightning',special:true},
+    {name:'Impossible',level:500,difficulty:'Immortal',kind:'all',special:true}
+  ];
+  const kickLevels = [500,2500,10000,50000,100000,250000,500000,1000000,2000000,5000000,20000000,100000000,1000000000,100000000000,1000000000000];
+  const kickNames = ['Level 1','Level 2','Level 3','Level 4','Level 5','Level 6','Level 7','Level 8','Level 9','Level 10','God','Devil','Earth','Sun','Universe'];
+  const thirdNames = ['Milky Way Galaxy','Kepler 22b','Humanity','Robots','The Army','Sea Force','Space Force','Indestructible','The International','Asteroid','Zombie Apocalypse','Comets','The Universe','Everything','Space'];
+  const thirdPowers = [8e18,16e18,20e18,40e18,60e18,80e18,100e18,120e18,140e18,160e18,300e18,500e18,1e21,5e21,25e21];
+  const givenSpeedRequirements = [200,400,800,1600,3200,6400,10000,20000,30000,50000,70000,90000,130000,150000,180000,360000,580000,670000,1000000,1500000,3500000,5000000,6000000,18000000,20000000,30000000,40000000,60000000,100000000,200000000,400000000,600000000,800000000,1200000000,1600000000,2400000000,4800000000,9600000000,20000000000,40000000000,80000000000,160000000000,320000000000,640000000000,1300000000000];
+  const speedRequirements = givenSpeedRequirements;
+  const multiverseNames = ['Nebula','Galaxy','Cosmos','Starfield','Comet','Asteroid','Meteor','Eclipse','Aurora','Black Hole','Supernova','Quasar','Pulsar','Andromeda','Milky Way'];
+  const infinityNames = ['Monstrous','Poison','Lava Monster','Marathon','Hell','Heaven','Secret','Impossible','Superman','Batman','Spider-Man','Miles','Invincible','Incredible','The Galaxy'];
+  const infinityPowers = [10e12,50e12,100e12,500e12,1e15,10e15,20e15,40e15,80e15,160e15,320e15,640e15,1e18,2e18,4e18];
+  const defaultState = {speed:0.1,strength:0.1,luck:1,money:0,gold:0,eggs:[],placed:[],companions:[],floors:[1,1,1,1],baseUpgrades:[0,0,0,0],floor2Slots:[0,0,0,0],treadmill:[1,1,1,1],dumbbell:[1,1,1,1],barbell:[1,1,1,1],luckBoard:[1,1,1,1],style:'',ownedStyles:[],selectedFuse:[],activeBoosts:{},cooldowns:{},lastDaily:0,thirdUnlocked:false,obbyProgress:[0,0,0],obbyRewards:[],bossesWon:[],kickProgress:{multiverse:0,infinity:0,cosmos:0},goodEggNextAt:Date.now()+300000,goodEgg:null,cosmosRestEgg:false,cosmosTsunamiDone:false};
+  const $ = id => document.getElementById(id);
+  const clamp = (value,min,max) => Math.max(min,Math.min(max,Number(value)||min));
+  const clone = value => JSON.parse(JSON.stringify(value));
   const safeLoad = () => {
     try {
-      const raw = JSON.parse(localStorage.getItem(KEY) || 'null');
-      if (!raw || !Array.isArray(raw.eggs) || !Array.isArray(raw.pets)) return structuredClone(defaultState);
-      const floors = Array.isArray(raw.floors) ? defaultState.floors.map((_,i) => Math.max(1, Math.min(5, Number(raw.floors[i]) || 1))) : [...defaultState.floors];
-      return { ...structuredClone(defaultState), ...raw, speed: Math.max(1, Math.min(999, Number(raw.speed) || 1)), eggs: raw.eggs.filter(e => e && typeof e === 'object' && typeof e.id === 'string' && typeof e.kind === 'string').slice(0, 128), placed: Array.isArray(raw.placed) ? raw.placed.filter(e => e && typeof e === 'object' && typeof e.id === 'string' && Number.isFinite(e.hatchAt) && Number.isInteger(e.base) && e.base>=0 && e.base<4 && Number.isInteger(e.slot) && e.slot>=0 && e.slot<floors[e.base]*8).slice(0,128) : [], pets: raw.pets.filter(p => typeof p === 'string').slice(0, 128), floors, treadmill: Array.isArray(raw.treadmill) ? defaultState.treadmill.map((_,i) => Math.max(1, Math.min(10, Number(raw.treadmill[i]) || 1))) : defaultState.treadmill, style: typeof raw.style === 'string' ? raw.style : '' };
-    } catch { return structuredClone(defaultState); }
+      let raw=JSON.parse(localStorage.getItem(KEY)||'null');
+      if(!raw){
+        const legacy=JSON.parse(localStorage.getItem('vihaanGrassFieldsSaveV1')||'null');
+        if(!legacy)return clone(defaultState);
+        raw=clone(defaultState);raw.speed=legacy.speed||0.1;raw.eggs=Array.isArray(legacy.eggs)?legacy.eggs.map((egg,i)=>({...egg,id:egg.id||`legacy-egg-${i}`,kind:egg.kind==='upgraded egg'?'Divine egg':egg.kind||'Common egg'})):[];
+        raw.companions=Array.isArray(legacy.pets)?legacy.pets.map((name,i)=>({id:`legacy-companion-${i}`,type:/brain rot/i.test(name)?'brainrot':'pet',name:String(name),rarity:'Common',size:1,base:null,incomePerSecond:1})):[];
+        raw.floors=Array.isArray(legacy.floors)?legacy.floors.map(value=>Math.max(1,Number(value)||1)):[1,1,1,1];
+        raw.treadmill=Array.isArray(legacy.treadmill)?legacy.treadmill:[1,1,1,1];raw.style=legacy.style||'';raw.ownedStyles=legacy.style?[legacy.style]:[];
+      }
+      if(!Array.isArray(raw.companions)||!Array.isArray(raw.eggs)) return clone(defaultState);
+      const state={...clone(defaultState),...raw};
+      for(const key of ['floors','treadmill','dumbbell','barbell','luckBoard']) state[key]=Array.isArray(raw[key])?defaultState[key].map((_,i)=>clamp(raw[key][i],1,100)): [...defaultState[key]];
+      state.baseUpgrades=Array.isArray(raw.baseUpgrades)?defaultState.baseUpgrades.map((_,i)=>clamp(raw.baseUpgrades[i],0,15)):defaultState.baseUpgrades.slice();state.floor2Slots=Array.isArray(raw.floor2Slots)?defaultState.floor2Slots.map((_,i)=>clamp(raw.floor2Slots[i],0,8)):defaultState.floor2Slots.slice();state.floors=state.floors.map((_,i)=>state.floor2Slots[i]>0?2:1);
+      state.speed=clamp(raw.speed,0.1,1e30);state.strength=clamp(raw.strength,0.1,1e30);state.luck=clamp(raw.luck,1,100);state.money=clamp(raw.money,0,1e30);state.gold=clamp(raw.gold,0,1e30);
+      state.eggs=raw.eggs.filter(e=>e&&typeof e.id==='string'&&typeof e.kind==='string').slice(0,300);
+      state.placed=Array.isArray(raw.placed)?raw.placed.filter(e=>e&&typeof e.id==='string'&&Number.isFinite(e.hatchAt)&&Number.isInteger(e.base)&&e.base>=0&&e.base<4&&Number.isInteger(e.slot)&&e.slot>=0&&e.slot<8).map(e=>({...e,floor:e.floor===1?1:0})).slice(0,64):[];
+      state.companions=raw.companions.filter(c=>c&&typeof c.id==='string'&&['pet','brainrot'].includes(c.type)&&typeof c.name==='string').slice(0,400);
+      state.selectedFuse=Array.isArray(raw.selectedFuse)?raw.selectedFuse.filter(id=>typeof id==='string').slice(0,3):[];
+      state.ownedStyles=Array.isArray(raw.ownedStyles)?raw.ownedStyles.filter(s=>['Rainbow trail','Star aura'].includes(s)):[];
+      state.cooldowns=raw.cooldowns&&typeof raw.cooldowns==='object'?raw.cooldowns:{};state.activeBoosts=raw.activeBoosts&&typeof raw.activeBoosts==='object'?raw.activeBoosts:{};
+      state.obbyProgress=Array.isArray(raw.obbyProgress)?raw.obbyProgress.map((v,i)=>clamp(v,0,[200,100,50][i]||0)):[0,0,0];state.obbyRewards=Array.isArray(raw.obbyRewards)?raw.obbyRewards:[];state.bossesWon=Array.isArray(raw.bossesWon)?raw.bossesWon:[];state.kickProgress=raw.kickProgress&&typeof raw.kickProgress==='object'?raw.kickProgress:{multiverse:0,infinity:0,cosmos:0};if(!Number.isFinite(state.kickProgress.multiverse))state.kickProgress.multiverse=Number(state.kickProgress.base)||0;if(!Number.isFinite(state.kickProgress.infinity))state.kickProgress.infinity=0;if(!Number.isFinite(state.kickProgress.cosmos))state.kickProgress.cosmos=0;state.goodEggNextAt=Number(raw.goodEggNextAt)||Date.now()+300000;state.goodEgg=raw.goodEgg||null;state.cosmosRestEgg=!!raw.cosmosRestEgg;state.cosmosTsunamiDone=!!raw.cosmosTsunamiDone;
+      return state;
+    } catch { return clone(defaultState); }
   };
-  let state = safeLoad();
-  let running = false;
-  let interval;
-  let activeTrainingBase = -1;
-  let waterSteps = 0;
-  let longRunTimer;
-  let longRunProgress = 0;
-  const $ = id => document.getElementById(id);
+  const state=safeLoad();
+  let training=null,waterStep=0;
   const menuToggle=document.querySelector('.gf-menu-toggle'),menuLinks=$('gf-nav-links');
   menuToggle?.addEventListener('click',()=>{const open=menuToggle.getAttribute('aria-expanded')!=='true';menuToggle.setAttribute('aria-expanded',String(open));menuLinks.classList.toggle('is-open',open);});
   menuLinks?.addEventListener('keydown',event=>{if(event.key==='Escape'){menuLinks.classList.remove('is-open');menuToggle?.setAttribute('aria-expanded','false');menuToggle?.focus();}});
-  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); $('save-note').textContent = 'Saved on this device ✓'; } catch { $('save-note').textContent = 'Saving is unavailable in this browser.'; } };
-  const render = () => {
-    [$('water-runner'),$('long-runner')].forEach(runner=>{
-      runner.classList.toggle('has-trail',state.style==='Rainbow trail');
-      runner.classList.toggle('has-aura',state.style==='Star aura');
-    });
-    $('speed').textContent = state.speed;
-    $('egg-count').textContent = state.eggs.length;
-    $('pet-count').textContent = state.pets.length;
-    const bases = $('bases'); bases.replaceChildren();
-    for (let i=0; i<4; i++) {
-      const base = document.createElement('article'); base.className='gf-base';
-      const title = document.createElement('h2'); title.textContent=`Base ${i+1} · ${state.floors[i]} floor${state.floors[i]>1?'s':''}`;
-      const treadmill = document.createElement('small'); treadmill.textContent=`Treadmill level ${state.treadmill[i]} · +${state.treadmill[i]} speed / second`;
-      const actions=document.createElement('div'); actions.className='gf-base-actions';
-      const train=document.createElement('button'); train.type='button'; train.dataset.base=i; train.textContent='Start treadmill'; train.setAttribute('aria-label',`Start training on Base ${i+1} treadmill`); train.addEventListener('click',()=>startTraining(train,state.treadmill[i],i));
-      const floor=document.createElement('button'); floor.type='button'; floor.textContent='Add a floor'; floor.setAttribute('aria-label',`Add a floor to Base ${i+1}`); floor.disabled=state.floors[i]>=5; floor.addEventListener('click',()=>{stopTraining();if(state.floors[i]<5){state.floors[i]++;save();render();}});
-      const faster=document.createElement('button'); faster.type='button'; faster.textContent='Faster treadmill'; faster.setAttribute('aria-label',`Upgrade Base ${i+1} treadmill`); faster.disabled=state.treadmill[i]>=10; faster.addEventListener('click',()=>{stopTraining();if(state.treadmill[i]<10){state.treadmill[i]++;save();render();}});
-      actions.append(train,floor,faster);
-      const slots=document.createElement('div'); slots.className='gf-eggs'; slots.setAttribute('aria-label',`Egg spots on Base ${i+1}`);
-      for(let floorIndex=0;floorIndex<state.floors[i];floorIndex++){
-        const floorGroup=document.createElement('div');floorGroup.className='gf-floor';
-        const floorLabel=document.createElement('small');const occupied=state.placed.filter(e=>e.base===i&&e.slot>=floorIndex*8&&e.slot<(floorIndex+1)*8).length;floorLabel.textContent=`Floor ${floorIndex+1} · ${occupied}/8 egg spots${occupied===8?' · FULL — no open spots':''}`;
-        const floorSpots=document.createElement('div');floorSpots.className='gf-floor-spots';
-        for(let position=0;position<8;position++){const j=floorIndex*8+position,spot=document.createElement('button');spot.type='button';spot.className='gf-spot';spot.setAttribute('aria-label',`Base ${i+1}, floor ${floorIndex+1}, egg spot ${position+1}`);const egg=state.placed.find(e=>e.base===i&&e.slot===j);if(egg){spot.textContent='🥚';spot.title=`Hatches in ${Math.max(0,Math.ceil((egg.hatchAt-Date.now())/1000))} seconds`;spot.disabled=true;}else{spot.textContent='＋';spot.addEventListener('click',()=>placeEgg(i,j));}floorSpots.append(spot);}
-        floorGroup.append(floorLabel,floorSpots);slots.append(floorGroup);
-      }
-      base.append(title,treadmill,actions,slots);bases.append(base);
+  const say=text=>{$('run-message').textContent=text;};
+  const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(state));$('save-note').textContent='Saved on this device ✓';}catch{$('save-note').textContent='Saving is unavailable.';}};
+  const levelFor=value=>Math.max(1,Math.floor(Math.log(Math.max(0.1,value)/0.1)/Math.log(5))+1);
+  const nextThreshold=value=>0.1*Math.pow(5,levelFor(value));
+  function setTraining(kind,base,gain,multiplier=1,label=''){
+    if(training){clearInterval(training.timer);training=null;}
+    if(kind==='stop'){render();say('Training stopped.');return;}
+    training={kind,base,gain,multiplier,label,timer:setInterval(()=>{
+      const key=kind==='treadmill'?'speed':'strength';
+      state[key]=Math.min(1e30,state[key]+gain*multiplier*activeMultiplier(kind));
+      save();renderStats();
+    },1000)};
+    say(`${label||kind} training started. Your bar fills as you train.`);render();
+  }
+  function renderStats(){
+    $('speed').textContent=Number(state.speed.toPrecision(4));$('strength').textContent=Number(state.strength.toPrecision(4));$('luck').textContent=Number(state.luck.toFixed(1));
+    $('egg-count').textContent=state.eggs.length;$('pet-count').textContent=state.companions.filter(c=>c.type==='pet').length;$('brainrot-count').textContent=state.companions.filter(c=>c.type==='brainrot').length;$('money').textContent=Math.floor(state.money).toLocaleString();$('gold-money').textContent=Math.floor(state.gold).toLocaleString();
+    const speedLevel=levelFor(state.speed),strengthLevel=levelFor(state.strength);$('speed-level').textContent=speedLevel;$('strength-level').textContent=strengthLevel;
+    const speedProgress=(state.speed-0.1)/(nextThreshold(state.speed)-0.1)*100;const strengthProgress=(state.strength-0.1)/(nextThreshold(state.strength)-0.1)*100;
+    $('speed-bar').value=Math.max(0,Math.min(100,speedProgress));$('strength-bar').value=Math.max(0,Math.min(100,strengthProgress));
+  }
+  function makeButton(text,action,disabled=false,aria=''){const button=document.createElement('button');button.type='button';button.textContent=text;button.disabled=disabled;if(aria)button.setAttribute('aria-label',aria);button.addEventListener('click',action);return button;}
+  function renderBases(){
+    const root=$('bases');root.replaceChildren();
+    for(let i=0;i<4;i++){
+      const base=document.createElement('article');base.className='gf-base';
+      const title=document.createElement('h2');title.textContent=`Base ${i+1} · ${state.floor2Slots[i]?2:1} floor${state.floor2Slots[i]?'s':''}`;base.append(title);
+      const board=document.createElement('div');board.className='gf-boards';
+      const petCount=state.companions.filter(c=>c.type==='pet'&&c.base===i).length;
+      const upgradeCount=state.baseUpgrades[i],floorSlots=state.floor2Slots[i];
+      const petBoard=makeButton(upgradeCount<8?`Base upgrade · ${upgradeCount}/8 to Floor 2`:`Floor 2 egg spaces · ${floorSlots}/8`,()=>{if(upgradeCount<8){state.baseUpgrades[i]++;if(state.baseUpgrades[i]===8){state.floors[i]=2;state.floor2Slots[i]=1;say(`Base ${i+1} gained Floor 2, one egg spot, and a ladder.`);}else say(`Base ${i+1} upgrade ${state.baseUpgrades[i]}/8.`);}else if(floorSlots<8){state.baseUpgrades[i]++;state.floor2Slots[i]++;say(`Base ${i+1} Floor 2 now has ${state.floor2Slots[i]} egg spots.`);}save();render();},upgradeCount>=15,`Upgrade Base ${i+1} floor`);petBoard.title='Eight upgrades unlock Floor 2 with one egg space; seven more add seven spaces.';
+      const tRead=document.createElement('small');tRead.textContent=`Treadmill +${state.treadmill[i]} speed/sec`;
+      const tread=makeButton(training?.kind==='treadmill'&&training.base===i?'Stop treadmill':'Treadmill: train',()=>{if(training?.kind==='treadmill'&&training.base===i)setTraining('stop');else setTraining('treadmill',i,state.treadmill[i],1,'Treadmill');},false,training?.kind==='treadmill'&&training.base===i?'Stop treadmill':`Start training on Base ${i+1} treadmill`);
+      const tUp=makeButton(`Treadmill board · level ${state.treadmill[i]}`,()=>{state.treadmill[i]++;save();render();},false,`Upgrade Base ${i+1} treadmill`);
+      const dRead=document.createElement('small');dRead.textContent=`Dumbbells +${state.dumbbell[i]} strength/sec`;
+      const dumbbells=makeButton(training?.kind==='dumbbell'&&training.base===i?'Stop dumbbells':'Lift dumbbells',()=>{if(training?.kind==='dumbbell'&&training.base===i)setTraining('stop');else setTraining('dumbbell',i,state.dumbbell[i],1,'Dumbbells');},false,training?.kind==='dumbbell'&&training.base===i?'Stop dumbbells':`Lift Base ${i+1} dumbbells`);
+      const dUp=makeButton(`Dumbbell board · level ${state.dumbbell[i]}`,()=>{state.dumbbell[i]++;save();render();},false,`Upgrade Base ${i+1} dumbbells`);
+      const bRead=document.createElement('small');bRead.textContent=`Barbell +${state.barbell[i]} strength/sec`;
+      const barbell=makeButton(training?.kind==='barbell'&&training.base===i?'Stop barbell':'Lift barbell',()=>{if(training?.kind==='barbell'&&training.base===i)setTraining('stop');else setTraining('barbell',i,state.barbell[i],1,'Barbell');},false,training?.kind==='barbell'&&training.base===i?'Stop barbell':`Lift Base ${i+1} barbell`);
+      const luckUp=makeButton(`Luck board · level ${state.luckBoard[i]}`,()=>{state.luckBoard[i]++;state.luck=Math.min(100,state.luck+0.1);save();render();},false,`Upgrade Base ${i+1} luck`);
+      const assignment=document.createElement('div');assignment.className='gf-pet-assignment';
+      const freePets=state.companions.filter(c=>c.type==='pet'&&c.base===null);
+      if(freePets.length&&petCount<8+floorSlots) freePets.forEach(pet=>assignment.append(makeButton(`Place ${pet.name}`,()=>{pet.base=i;save();render();say(`${pet.name} placed at Base ${i+1}.`);} )));
+      else if(petCount) state.companions.filter(c=>c.type==='pet'&&c.base===i).forEach(pet=>assignment.append(makeButton(`Return ${pet.name}`,()=>{pet.base=null;save();render();say(`${pet.name} returned to the pet side.`);} )));
+      board.append(petBoard,tRead,tread,tUp,dRead,dumbbells,dUp,bRead,barbell,luckUp);base.append(board,assignment);
+      const mat=document.createElement('div');mat.className='gf-mat';mat.append(document.createTextNode('Push-up mat · '));mat.append(makeButton(training?.kind==='pushup'&&training.base===i?'Stop push-ups':'Do push-ups',()=>{if(training?.kind==='pushup'&&training.base===i)setTraining('stop');else setTraining('pushup',i,1,1,'Push-ups');},false,`Do push-ups at Base ${i+1}`));base.append(mat);
+      for(let floor=0;floor<(floorSlots?2:1);floor++){const count=floor===0?8:floorSlots;const spots=document.createElement('div');spots.className='gf-eggs';spots.setAttribute('aria-label',`${count} egg spots at Base ${i+1}, Floor ${floor+1}`);const eggsOnFloor=state.placed.filter(egg=>egg.base===i&&egg.floor===floor);const label=document.createElement('small');label.textContent=`Floor ${floor+1} egg spaces · ${eggsOnFloor.length}/${count}${eggsOnFloor.length===count?' · full':''}`;spots.append(label);for(let slot=0;slot<count;slot++){const egg=state.placed.find(e=>e.base===i&&e.floor===floor&&e.slot===slot);const weight=egg?egg.weight||eggWeight(egg.kind):0;const spot=makeButton(egg?`🥚 ${egg.kind} · ${weight} kg`:'＋ Egg spot',()=>placeEgg(i,slot,undefined,floor),!!egg,`Base ${i+1} Floor ${floor+1} egg spot ${slot+1}${egg?`, ${egg.kind}, weight ${weight} kilograms`:''}`);spot.className='gf-spot';if(egg)spot.title=`Weight: ${weight} kg. Hatches in ${Math.max(0,Math.ceil((egg.hatchAt-Date.now())/1000))} seconds`;spots.append(spot);}base.append(spots);if(floor===1){const ladder=makeButton('🪜 Climb ladder to Floor 2',()=>spots.scrollIntoView({behavior:'smooth',block:'center'}));ladder.className='gf-ladder';base.append(ladder);}}
+      root.append(base);
     }
-    const list=$('collection');list.replaceChildren();if(!state.pets.length){const p=document.createElement('p');p.textContent='No pets yet. Hatch an egg to meet your first one!';list.append(p);} else state.pets.forEach(pet=>{const item=document.createElement('span');item.className='gf-pet';item.textContent=pet;list.append(item);});
-    $('cosmetic-status').textContent=state.style?`Wearing: ${state.style}`:'No style selected';$('fuse-status').textContent=state.eggs.length>=2?'Ready to fuse two earned eggs!':'You need 2 earned eggs';$('fuse').disabled=state.eggs.length<2;
-  };
-  function stopTraining(){
-    if(interval)clearInterval(interval);interval=undefined;running=false;activeTrainingBase=-1;
-    document.querySelectorAll('.gf-base-actions button[data-base]').forEach(button=>{button.textContent='Start treadmill';button.setAttribute('aria-label',`Start training on Base ${Number(button.dataset.base)+1} treadmill`);});
   }
-  function startTraining(button,gain,base){
-    if(running&&activeTrainingBase===base){stopTraining();return;}
-    if(running)stopTraining();
-    running=true;activeTrainingBase=base;button.textContent='Stop training';button.setAttribute('aria-label','Stop training');
-    interval=setInterval(()=>{state.speed=Math.min(999,state.speed+gain);save();$('speed').textContent=state.speed;},1000);
+  function makeCompanion(type,egg,scale=1){
+    const names=type==='pet'?['Puppy','Bunny','Kitten','Fox']:['Brain rot','Wiggle brain','Meme buddy','Silly rot'];
+    const rarity=typeof egg==='string'?egg.replace(' egg',''):typeof egg?.kind==='string'?egg.kind.replace(' egg',''):'Fused';const rank=Math.max(0,ordinaryEggs.findIndex(item=>item.toLowerCase().startsWith(rarity.toLowerCase())));const incomePerSecond=type==='brainrot'?1:Math.max(1,(rank+1)*(1+Math.floor((Number(egg?.sectionIndex)||0)/5)));
+    return {id:`comp-${Date.now()}-${Math.random().toString(36).slice(2,7)}`,type,name:names[Math.floor(Math.random()*names.length)],rarity,size:scale,base:null,earnedAt:Date.now(),incomePerSecond};
   }
-  function placeEgg(base,slot){ stopTraining();if(!state.eggs.length){announce('You need an earned egg first. Complete the water run!');return;}if(state.placed.some(e=>e.base===base&&e.slot===slot)){announce('That spot is already full.');return;}const egg=state.eggs.shift();egg.base=base;egg.slot=slot;egg.hatchAt=Date.now()+hatchMs;state.placed.push(egg);save();render();announce('Egg placed! It will hatch in one minute.'); }
-  function announce(text){$('run-message').textContent=text;}
-  function stepAcrossWater(){
-    if(waterSteps>=3)return;
-    if(waterSteps===0)stopTraining();
-    waterSteps++;
-    $('water-runner').style.transform=`translateX(${(waterSteps-1)*28}px)`;
-    if(waterSteps<3){$('water-run-hint').textContent=`Step ${waterSteps}/3 — keep going!`;announce(`Step ${waterSteps} of 3. Keep running!`);return;}
-    state.eggs.push({id:`egg-${Date.now()}`,kind:'water egg',hatchAt:0,base:-1,slot:-1});
-    $('water-run-hint').textContent='You crossed the water! You earned one egg.';
-    $('water-run').disabled=true;$('water-retry').hidden=false;
-    save();render();announce('You made it across the water! You earned one egg. Try again any time.');
+  function eggWeight(kind){const index=['Common egg','Uncommon egg','Rare egg','Epic egg','Mythic egg','Divine egg','Eternal egg','Possible egg','Impossible egg','Secrets egg','Brain Rot Gods egg','Legendaries egg'].indexOf(kind);return Math.min(1000,1+Math.max(0,index)*5);}
+  function renderCollections(){
+    for(const type of ['pet','brainrot']){
+      const root=$(type==='pet'?'pets':'brainrots');root.replaceChildren();const items=state.companions.filter(c=>c.type===type);
+      if(!items.length){const p=document.createElement('p');p.textContent=type==='pet'?'No pets yet. Hatch an egg to meet one!':'No brain rots yet. Complete a challenge to find one!';root.append(p);continue;}
+      for(const companion of items){const card=document.createElement('span');card.className='gf-companion';card.textContent=`${companion.name} · ${companion.rarity}${companion.size>1?` · size ${companion.size}`:''}`;root.append(card);}
+    }
   }
-  function resetWaterRun(message='Ready! Press → three times to cross.'){
-    waterSteps=0;$('water-runner').style.transform='translateX(0)';$('water-run').disabled=false;$('water-retry').hidden=true;$('water-run-hint').textContent=message;announce(message);
+  function renderInventory(){
+    const root=$('inventory');root.replaceChildren();if(!state.eggs.length){root.textContent='No eggs yet. Try a challenge!';return;}
+    for(const egg of state.eggs){const item=document.createElement('div');item.className='gf-egg-item';const name=document.createElement('strong');name.textContent=egg.kind;const weight=document.createElement('small');weight.textContent=`Weight: ${egg.weight||eggWeight(egg.kind)} kg`;const select=document.createElement('label');select.textContent='Place at ';const chooser=document.createElement('select');chooser.setAttribute('aria-label',`Choose base and floor for ${egg.kind}`);for(let i=0;i<4;i++){for(let floor=0;floor<(state.floor2Slots[i]?2:1);floor++){for(let slot=0;slot<(floor?state.floor2Slots[i]:8);slot++){if(state.placed.some(p=>p.base===i&&p.floor===floor&&p.slot===slot))continue;const option=document.createElement('option');option.value=`${i}:${floor}:${slot}`;option.textContent=`Base ${i+1} · Floor ${floor+1} · Spot ${slot+1}`;chooser.append(option);}}}const place=makeButton('Place egg',()=>{if(!chooser.value){say('All egg spaces are full. Upgrade a base or choose another.');return;}const [base,floor,slot]=chooser.value.split(':').map(Number);placeEgg(base,slot,egg.id,floor);});select.append(chooser);item.append(name,weight,select,place);root.append(item);}
   }
-  $('water-run').addEventListener('click',stepAcrossWater);
-  $('water-retry').addEventListener('click',()=>resetWaterRun());
-  document.addEventListener('keydown',event=>{
-    const focusedControl=event.target.closest?.('a,button,input,select,textarea,[contenteditable="true"]');
-    if(focusedControl&&!focusedControl.closest('.gf-water'))return;
-    if(event.key==='ArrowRight'&&!event.repeat){event.preventDefault();stepAcrossWater();}
-    else if(event.key==='ArrowLeft'&&waterSteps>0&&waterSteps<3){event.preventDefault();resetWaterRun('Oops! You slipped. Try again from the edge — no egg was lost.');$('water-retry').hidden=false;}
-  });
-  function startLongRun(){
-    stopTraining();
-    if(waterSteps>0&&waterSteps<3)resetWaterRun('You left the water run. Press → three times to try again.');
-    $('run-long').disabled=true;announce('Running down the long field!');
-    longRunTimer=setInterval(()=>{
-      longRunProgress=Math.min(100,longRunProgress+20);
-      $('long-runner').style.bottom=`${longRunProgress}%`;
-      if(longRunProgress>=100){clearInterval(longRunTimer);longRunTimer=undefined;$('run-long').hidden=true;$('run-long').disabled=false;$('reset-long').hidden=false;announce('You reached the end of the long field! Reset to run again.');}
-    },400);
+  function placeEgg(base,slot,id,floor=0){const index=id?state.eggs.findIndex(e=>e.id===id):0;if(index<0||!state.eggs[index]){say('Earn an egg from a challenge first.');return;}if(state.placed.some(e=>e.base===base&&e.floor===floor&&e.slot===slot)){say('That egg spot is full.');return;}const egg=state.eggs.splice(index,1)[0];state.placed.push({...egg,weight:egg.weight||eggWeight(egg.kind),base,floor,slot,hatchAt:Date.now()+60000});save();render();say(`${egg.kind} placed on Floor ${floor+1}. It hatches after one minute.`);}
+  function earnEgg(section){
+    const rank=clamp(section.rank||0,0,14)/14;
+    const pool=section.special?specialEggs:ordinaryEggs;
+    const luckBonus=Math.min(10,Math.max(0,(state.luck-1)*0.2));
+    const impossibleChance=Math.min(10,2+3*rank+luckBonus*0.25);
+    const eternalChance=18+12*rank;
+    const weights=section.special?[eternalChance,impossibleChance,100-eternalChance-impossibleChance]:[Math.max(1,55-48*rank-luckBonus),24-17*rank,11+2*rank,6+10*rank,3+26*rank+luckBonus/2,1+27*rank+luckBonus/2];
+    const total=weights.reduce((a,b)=>a+b,0);let roll=Math.random()*total;let egg=pool[0];
+    for(let i=0;i<pool.length;i++){roll-=weights[i];if(roll<=0){egg=pool[i];break;}}
+    state.eggs.push({id:`egg-${Date.now()}-${Math.random().toString(36).slice(2,5)}`,kind:egg,sectionIndex:Number(section.rank)||0,earnedAt:Date.now()});return egg;
   }
-  function resetLongRun(){if(longRunTimer)clearInterval(longRunTimer);longRunTimer=undefined;longRunProgress=0;$('long-runner').style.bottom='0%';$('run-long').hidden=false;$('run-long').disabled=false;$('reset-long').hidden=true;announce('Back at the start. Run the long field again whenever you like.');}
-  $('run-long').addEventListener('click',startLongRun);
-  $('reset-long').addEventListener('click',resetLongRun);
-  document.querySelectorAll('[data-cosmetic]').forEach(button=>button.addEventListener('click',()=>{stopTraining();state.style=button.dataset.cosmetic;save();render();}));
-  $('fuse').addEventListener('click',()=>{stopTraining();if(state.eggs.length<2){$('fuse-status').textContent='You need 2 earned eggs. Nothing was used.';return;}state.eggs.splice(0,2);state.eggs.push({id:`fused-${Date.now()}`,kind:'upgraded egg',hatchAt:0,base:-1,slot:-1,upgraded:true});save();render();announce('Two eggs became one upgraded egg!');});
-  setInterval(()=>{let changed=false;const now=Date.now();state.placed=state.placed.filter(e=>{if(e.hatchAt>0&&e.hatchAt<=now){state.pets.push(Math.random()<.5?'🧠 Brain rot':'🐶 Pet');changed=true;return false;}return true;});if(changed){save();render();announce('An egg hatched! Meet your new friend in the collection.');}},1000);
+  function sectionAction(section,index){
+    const button=makeButton(`Play · level ${section.level}`,()=>{
+      if(section.locked){say('This section is waiting for the obstacle mapping to be confirmed.');return;}
+      if(levelFor(state.speed)<section.level){say(`${section.name} needs speed level ${section.level}. Train at a treadmill first.`);return;}
+      const challenge=document.createElement('div');challenge.className='gf-challenge';challenge.setAttribute('role','group');challenge.setAttribute('aria-label',`${section.name} challenge`);
+      const p=document.createElement('p');p.textContent=`${section.name}: ${challengeText(section.kind)} Your speed level is ${levelFor(state.speed)}.`;
+      let steps=0;const hint=document.createElement('small');hint.textContent='Complete three run steps to pass.';const run=makeButton('Run →',()=>{steps++;hint.textContent=`Run ${steps}/3`;if(steps===3){const egg=earnEgg(section);if(section.kind==='all'){state.companions.push({...makeCompanion('pet',egg),incomePerSecond:1e12});}say(section.kind==='all'?`You beat all ten sections and earned a pet that makes 1 trillion coins per second, plus a ${egg}.`:`${section.name} complete! You earned a ${egg}.`);save();render();challenge.remove();}},false,`Run through ${section.name}`);const fail=makeButton('I fell · return to lobby',()=>{challenge.remove();say('Challenge failed. You returned to the lobby.');document.querySelector('.gf-main-field').scrollIntoView({behavior:'smooth',block:'center'});});challenge.append(p,hint,run,fail);const old=document.querySelector('.gf-challenge');old?.remove();$('second-sections').insertBefore(challenge,$('second-sections').firstChild);
+    },!!section.locked,`${section.name} challenge, level ${section.level}`);button.dataset.special=String(!!section.special);if(section.locked){button.textContent='Mechanic mapping pending';button.title='The brief assigns conflicting mechanics to sections 4 and 5.';}const card=document.createElement('article');card.className='gf-section-card';const h=document.createElement('h3');h.textContent=`${index+1}. ${section.name}`;const small=document.createElement('small');small.textContent=section.locked?`Level ${section.level} · obstacle conflict to resolve`:`Level ${section.level} · ${section.difficulty}${section.special?' · Special eggs':''}`;card.append(h,small,button);return card;
+  }
+  function challengeText(kind){return ({water:'run across the water without falling.',chase:'a brain rot follows you. Keep running.',crusher:'two closing crushers leave a moving gap. Time your run.', 'lava-gap':'use the booster to clear the gap above lava.',tsunami:'run before the tsunami reaches you.',booster:'use the booster to cross a huge gap.',crushers:'pass about 500 slow-moving crushers before they close.', 'rising-lava':'run along the road while lava rises.',lightning:'dodge Zeus’s lightning strikes.','all':'complete all of the first nine challenges.'})[kind]||'run to the finish.';}
+  function renderSecond(){const root=$('second-sections');root.replaceChildren();second.forEach((section,i)=>root.append(sectionAction({...section,rank:i},i)));}
+  let selectedKick=null,selectedKickGroup='base',kickPending=false,chaseSteps=0;
+  const kickGroups=[{key:'multiverse',title:'Multiverse · levels 1–15',names:multiverseNames,powers:kickLevels.map(v=>v*10),first:1},{key:'infinity',title:'Infinity · levels 16–30',names:infinityNames,powers:infinityPowers,first:16},{key:'cosmos',title:'Cosmos · levels 31–45',names:thirdNames,powers:thirdPowers,first:31}];
+  const powerLabel=n=>n>=1e21?`${Number((n/1e21).toPrecision(4))} sextillion`:n>=1e18?`${Number((n/1e18).toPrecision(4))} quintillion`:n>=1e15?`${Number((n/1e15).toPrecision(4))} quadrillion`:n>=1e12?`${Number((n/1e12).toPrecision(4))} trillion`:n.toLocaleString();
+  function startKick(group,index){const def=kickGroups.find(g=>g.key===group),power=def?.powers[index],progress=state.kickProgress[group]||0,level=(def?.first||1)+index,requiredSpeed=speedRequirements[level-1];if(!def||index<0){say(`Train strength to ${powerLabel(def?.powers[0]||500)} to start this kick strip.`);return;}if(group==='infinity'&&(state.kickProgress.multiverse||0)<15||group==='cosmos'&&(state.kickProgress.infinity||0)<15){say('Finish the previous kick strip from its start before entering this one.');return;}if(index>progress){say('Kick each stone in order from the start of this strip.');return;}if(state.speed<requiredSpeed){say(`Section ${level} needs speed ${requiredSpeed.toLocaleString()}. Train on a treadmill first.`);return;}if(state.strength<power){say(`Train strength to ${powerLabel(power)} to kick this Lucky Block.`);return;}selectedKick={group,index,def,power,level};selectedKickGroup=group;kickPending=true;chaseSteps=0;$('kick-ball').classList.add('is-kicking');const name=def.names[index];let mechanic='The Lucky Block flies farther. Run back before the chaser catches you.';if(name==='Asteroid')mechanic='An asteroid hits and stops the Lucky Block. Kick again to keep it from falling.';if(name==='Zombie Apocalypse')mechanic='Jumping zombies reach for the block. Kick it high above them.';if(name==='Comets')mechanic='Comets fall toward you and the Lucky Block. Dodge them as you drive it forward.';if(name==='The Universe')mechanic='Everything in the universe falls toward you and the Lucky Block. Dodge the falling universe.';if(name==='Everything')mechanic='Every obstacle from every stage combines. Dodge each one as you kick and run.';if(name==='Space')mechanic='Space tries to control the Lucky Block. Move fast enough to break its control.';const fallbackSpeed='';$('kick-hint').textContent=`${name} · Speed ${requiredSpeed.toLocaleString()} · Kick ${powerLabel(power)}${fallbackSpeed}. ${mechanic}`;$('chase-button').textContent='Dodge / run → (0/3)';$('chase-button').hidden=false;$('chase-fail').hidden=false;$('kick-button').disabled=true;setTimeout(()=>$('kick-ball').classList.remove('is-kicking'),600);}
+  function finishKick(){if(!selectedKick)return;const {group,index,def,level}=selectedKick;state.kickProgress[group]=Math.max(state.kickProgress[group]||0,index+1);const special=(group==='cosmos'&&index>=12);const egg=earnEgg({special,rank:index});const companion=makeCompanion(Math.random()<.5?'pet':'brainrot',egg);state.companions.push(companion);kickPending=false;$('chase-button').hidden=true;$('chase-fail').hidden=true;$('kick-button').disabled=false;$('kick-hint').textContent=`You escaped ${def.names[index]} and earned ${egg}.`;save();render();say(`You escaped and won ${egg} plus a ${companion.type}!`);if(group==='cosmos'&&level===45)unlockCosmosRest(level);}
+  function unlockCosmosRest(level){$('cosmos-rest').hidden=false;const scale=(level/15).toFixed(1);$('cosmos-tsunami-note').textContent=`A rest egg waits here. The tsunami scales with your farthest kick: about ${scale}× size and ${scale}× speed. If caught, the fallback returns you to the lobby and keeps the egg.`;}
+  function renderCosmosRest(){const unlocked=(state.kickProgress.cosmos||0)>=15;$('cosmos-rest').hidden=!unlocked;if(!unlocked)return;unlockCosmosRest(45);$('cosmos-egg').disabled=state.cosmosRestEgg;$('cosmos-egg').textContent=state.cosmosRestEgg?'Rest egg collected ✓':'Take one Possible egg';$('cosmos-tsunami').disabled=!state.cosmosRestEgg||state.cosmosTsunamiDone;$('cosmos-tsunami').textContent=state.cosmosTsunamiDone?'Tsunami escaped ✓':'Start tsunami chase';}
+  let tsunamiSteps=0;
+  $('cosmos-egg').addEventListener('click',()=>{if(state.cosmosRestEgg)return;state.eggs.push({id:`cosmos-rest-${Date.now()}`,kind:'Possible egg',earnedAt:Date.now()});state.cosmosRestEgg=true;save();renderInventory();renderStats();renderCosmosRest();say('You collected one Possible egg in the Cosmos rest area.');});
+  $('cosmos-tsunami').addEventListener('click',()=>{if(!state.cosmosRestEgg||state.cosmosTsunamiDone)return;tsunamiSteps=0;$('cosmos-dodge').hidden=false;$('cosmos-fail').hidden=false;$('cosmos-dodge').textContent='Dodge the tsunami → (0/3)';say('A tsunami is coming. Its size and speed scale with the distance of your kick.');});
+  $('cosmos-dodge').addEventListener('click',()=>{tsunamiSteps++;$('cosmos-dodge').textContent=`Dodge the tsunami → (${tsunamiSteps}/3)`;if(tsunamiSteps>=3){state.cosmosTsunamiDone=true;$('cosmos-dodge').hidden=true;$('cosmos-fail').hidden=true;save();renderCosmosRest();say('You escaped the tsunami!');}});
+  $('cosmos-fail').addEventListener('click',()=>{$('cosmos-dodge').hidden=true;$('cosmos-fail').hidden=true;document.querySelector('.gf-main-field').scrollIntoView({behavior:'smooth',block:'center'});say('The tsunami caught you. Back at the lobby; your collected egg is safe. Retry when ready.');});
+  function renderThird(){const root=$('kick-strips');root.replaceChildren();for(const group of kickGroups){const wrap=document.createElement('section');wrap.className='gf-kick-strip';const title=document.createElement('h3');title.textContent=group.title;const note=document.createElement('p');note.textContent=`Progress ${state.kickProgress[group.key]||0}/${group.names.length}. Finish each section in order from the start of the strip.`;const cards=document.createElement('div');cards.className='gf-kick-cards';group.names.forEach((name,i)=>{const level=group.first+i,power=group.powers[i],card=document.createElement('article');card.className='gf-section-card';const h=document.createElement('h4');h.textContent=`${level}. ${name}`;const tier=level<=14?'Easy':level===15?'Easy / Medium · using Easy':level<=30?'Medium':'Hard';const tierNote=level===15?' · tier overlap noted':'';const speedUnclear=level===16?' · stray “700” unresolved':'';const info=document.createElement('small');info.textContent=`${tier} · Speed ${speedRequirements[level-1].toLocaleString()}${speedUnclear}${tierNote} · ${powerLabel(power)} kick power${group.key==='cosmos'&&i>=12?' · Special eggs':''}`;const b=makeButton(`Kick · ${powerLabel(power)}`,()=>startKick(group.key,i),false,`Kick ${name}, speed ${speedRequirements[level-1]}, kick power ${powerLabel(power)}`);b.disabled=i>(state.kickProgress[group.key]||0)||state.strength<power||state.speed<speedRequirements[level-1]||(group.key==='infinity'&&(state.kickProgress.multiverse||0)<15)||(group.key==='cosmos'&&(state.kickProgress.infinity||0)<15);card.append(h,info,b);cards.append(card);});wrap.append(title,note,cards);root.append(wrap);}}
+  $('chase-button').addEventListener('click',()=>{if(!kickPending)return;chaseSteps++;$('chase-button').textContent=`Dodge / run → (${chaseSteps}/3)`;if(chaseSteps<3)return;finishKick();});
+  $('chase-fail').addEventListener('click',()=>{kickPending=false;$('chase-button').hidden=true;$('chase-fail').hidden=true;$('kick-button').disabled=false;$('kick-hint').textContent='The Lucky Block fell or was caught. Back at the lobby; retry with no reward.';say('Challenge failed. You returned to the lobby and can retry.');document.querySelector('.gf-main-field').scrollIntoView({behavior:'smooth',block:'center'});});
+  $('kick-button').addEventListener('click',()=>startKick('multiverse',state.kickProgress.multiverse||0));
+  function renderFuse(){
+    const root=$('fuse-choices');root.replaceChildren();const chosen=new Set(state.selectedFuse);const available=state.companions.filter(c=>!c.base);
+    for(const c of available){const label=document.createElement('label');label.className='gf-fuse-choice';const input=document.createElement('input');input.type='checkbox';input.checked=chosen.has(c.id);input.disabled=!chosen.has(c.id)&&chosen.size>=3;input.addEventListener('change',()=>{if(input.checked){if(state.selectedFuse.length<3)state.selectedFuse.push(c.id);}else state.selectedFuse=state.selectedFuse.filter(id=>id!==c.id);save();renderFuse();});label.append(input,document.createTextNode(`${c.name} · ${c.type}`));root.append(label);}
+    $('fuse').disabled=state.selectedFuse.length!==3;$('fuse-status').textContent=state.selectedFuse.length===3?'Three selected. Ready to fuse.':`${state.selectedFuse.length}/3 companions selected.`;
+  }
+  $('fuse').addEventListener('click',()=>{if(state.selectedFuse.length!==3)return;const inputs=state.companions.filter(c=>state.selectedFuse.includes(c.id));if(inputs.length!==3){state.selectedFuse=[];render();return;}const fused=makeCompanion('pet',{replace:()=>{}},Math.max(...inputs.map(c=>c.size))+1);fused.rarity=inputs.sort((a,b)=>ordinaryEggs.indexOf(`${a.rarity} egg`)-ordinaryEggs.indexOf(`${b.rarity} egg`)).at(-1).rarity;state.companions=state.companions.filter(c=>!state.selectedFuse.includes(c.id));state.companions.push(fused);state.selectedFuse=[];save();render();say('Three companions fused into one bigger pet.');});
+  function renderSell(){const root=$('sell-list');root.replaceChildren();for(const c of state.companions){const currency=c.type==='pet'?'money':'gold';const button=makeButton(`Sell ${c.name} · ${c.type}`,()=>{state.companions=state.companions.filter(item=>item.id!==c.id);state[currency]+=1;save();render();say(`${c.name} sold for 1 ${currency==='money'?'green':'gold'} dollar.`);});root.append(button);}}
+  function renderShop(){const root=$('style-products');root.replaceChildren();for(const [style,icon] of [['Rainbow trail','🌈'],['Star aura','✨']]){const owned=state.ownedStyles.includes(style);const button=makeButton(owned?`Equip ${icon} ${style}`:`Buy ${icon} ${style} · 10 coins`,()=>{if(!owned){if(state.money<10){say('You need 10 coins to buy this style.');return;}state.money-=10;state.ownedStyles.push(style);}state.style=style;save();render();say(`${style} selected.`);},!owned&&state.money<10);button.dataset.cosmetic=style;root.append(button);}}
+  const cooldownKey=key=>key.startsWith('pushup-')?'pushup-machine':key;
+  function cooldownReady(key,duration){const until=Number(state.cooldowns[cooldownKey(key)]||0);return Date.now()>=until;}
+  const hour=3600000,day=86400000;
+  function renderBoosts(){const root=$('boost-controls');root.replaceChildren();const defs=[['special-treadmill','Special treadmill · 3× speed for 5 min',300000,hour,'speed'],['special-barbell','Special barbell · 3× strength for 5 min',300000,hour,'strength'],['pushup-3','Push-up machine · 3× strength for 5 min',300000,hour,'strength'],['pushup-6','Push-up machine · 6× strength for 2 min 30 sec',150000,hour,'strength'],['daily-24','24× all training for 2 min',120000,day,'all']];for(const [key,label,duration,cooldown,target] of defs){const active=state.activeBoosts[key]||0;const groupActive=key.startsWith('pushup-')?Math.max(state.activeBoosts['pushup-3']||0,state.activeBoosts['pushup-6']||0):active;const remain=Math.max(0,groupActive-Date.now());const on=remain>0;const ready=cooldownReady(key,cooldown);const cooldownUntil=state.cooldowns[cooldownKey(key)]||0;const b=makeButton(on?`${label} · active ${Math.ceil(remain/1000)}s`:ready?label:`${label} · ready in ${Math.ceil((cooldownUntil-Date.now())/60000)}m`,()=>activate(key,duration,cooldown,target),!on&&!ready);root.append(b);}}
+  function renderExtras(){
+    const lobby=$('lobby-teleports');lobby.replaceChildren();[['second-strip','second grass strip'],['brain-rot-branch','Brain Rot branch'],['pets','pet side'],['brainrots','brain-rot side']].forEach(([id,label])=>lobby.append(makeButton(`Go to ${label}`,()=>document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'}))));
+    const select=$('second-teleport-select');select.replaceChildren();second.forEach((section,i)=>{const option=document.createElement('option');option.value=`section-${i+1}`;option.textContent=`${i+1}. ${section.name}`;select.append(option);});select.add(new Option('Brain Rot branch','branch'));
+    $('second-teleport').onclick=()=>{const value=select.value;if(value==='branch')$('brain-rot-branch').scrollIntoView({behavior:'smooth',block:'start'});else document.querySelectorAll('#second-sections .gf-section-card')[Number(value.split('-')[1])-1]?.scrollIntoView({behavior:'smooth',block:'center'});};
+    const guards=$('guards');guards.replaceChildren();['Guardian 1','Guardian 2','Guardian 3'].forEach(name=>{const span=document.createElement('span');span.className='gf-guard';span.textContent=`🧠 ${name}`;guards.append(span);});
+    const bosses=$('bosses');bosses.replaceChildren();const levels=[1,30,50,60,80,90,100,130];for(let i=0;i<8;i++){const card=document.createElement('article');card.className='gf-boss-card';const h=document.createElement('h4');h.textContent=`👑 Egg Boss ${i+1}`;const p=document.createElement('small');p.textContent=`Level ${levels[i]} · ${i===0?'no chase on first boss (fallback)':'steal an egg, then escape the chase'}`;const b=makeButton(state.bossesWon.includes(i)?'Egg taken ✓':`Steal egg · level ${levels[i]}`,()=>startBoss(i,levels[i]),state.bossesWon.includes(i)||levelFor(state.speed)<levels[i]);card.append(h,p,b);bosses.append(card);}
+    const obbyRoot=$('obbys');obbyRoot.replaceChildren();const obbyDefs=[['Longest obby',200,10000,'Divine egg'],['Middle obby',100,5000,'Mythic egg'],['Shortest obby',50,2500,'Epic egg']];obbyDefs.forEach(([name,total,prize,egg],i)=>{const card=document.createElement('article');card.className='gf-obby-card';const progress=state.obbyProgress[i]||0;const h=document.createElement('h3');h.textContent=`${name} · ${total} easy stages`;const bar=document.createElement('progress');bar.max=total;bar.value=progress;bar.setAttribute('aria-label',`${name} progress`);const p=document.createElement('p');p.textContent=progress>=total?`Complete · prize $${prize.toLocaleString()} · ${egg}`:`Stage ${progress+1} of ${total} · prize $${prize.toLocaleString()} + ${egg}`;const b=makeButton(progress>=total?'Prize claimed ✓':`Complete stage ${progress+1}`,()=>{state.obbyProgress[i]++;if(state.obbyProgress[i]>=total&&!state.obbyRewards.includes(i)){state.money+=prize;state.eggs.push({id:`obby-${i}-${Date.now()}`,kind:egg,earnedAt:Date.now()});state.obbyRewards.push(i);say(`${name} complete! You earned $${prize.toLocaleString()} and a ${egg}.`);}save();render();},progress>=total);card.append(h,bar,p,b);obbyRoot.append(card);});
+    renderGoodEgg();renderCosmosRest();
+  }
+  function startBoss(index,level){if(levelFor(state.speed)<level)return;if(index===0){const egg=earnEgg({rank:index});state.eggs.push({id:`boss-egg-${Date.now()}`,kind:egg,earnedAt:Date.now()});state.bossesWon.push(index);save();render();say(`First boss has no chase (fallback). You collected a ${egg}.`);return;}const run=$('boss-run');run.hidden=false;run.replaceChildren();let steps=0;const p=document.createElement('p');p.textContent=`Egg Boss ${index+1} is guarding an egg. Grab it, then escape the chase.`;const hint=document.createElement('small');hint.textContent='Complete three steps to escape.';const b=makeButton('Grab egg and dodge →',()=>{steps++;hint.textContent=`Escape ${steps}/3`;if(steps===3){const egg=earnEgg({rank:index});state.eggs.push({id:`boss-egg-${Date.now()}`,kind:egg,earnedAt:Date.now()});state.bossesWon.push(index);save();say(`You escaped with a ${egg}!`);render();}},false);const fail=makeButton('Caught · return to lobby',()=>{run.hidden=true;say('Boss caught you. Back to lobby; try again.');});run.append(p,hint,b,fail);run.scrollIntoView({behavior:'smooth',block:'center'});}
+  $('guardian-run-start').addEventListener('click',()=>{if(levelFor(state.speed)<6){say('The Guardian strip branches from Brain Rot and needs speed level 6.');return;}const root=$('guardian-run');root.hidden=false;root.replaceChildren();const p=document.createElement('p');p.textContent='Steal an egg from the Guardian strip to start the chase. The Guardians chase to the safe zone, but cannot cross it.';const steal=makeButton('Steal Guardian egg',()=>{const egg=earnEgg({rank:1});state.eggs.push({id:`guardian-egg-${Date.now()}`,kind:egg,earnedAt:Date.now()});save();renderStats();renderInventory();p.textContent=`You took a ${egg}. The Guardians are chasing you to the safe zone.`;let step=0;const hint=document.createElement('small');hint.textContent='Escape 0/3';const run=makeButton('Run to the safe zone →',()=>{step++;hint.textContent=`Escape ${step}/3`;if(step===3){root.hidden=true;say(`You reached the safe zone with your ${egg}. The Guardians cannot follow past it.`);}},false);const fail=makeButton('Caught · return to lobby',()=>{root.hidden=true;say('A Guardian caught you. Back at the lobby; the egg stays in your inventory.');document.querySelector('.gf-main-field').scrollIntoView({behavior:'smooth',block:'center'});});root.append(hint,run,fail);steal.disabled=true;},false);root.append(p,steal);});
+  function renderGoodEgg(){const banner=$('good-egg-banner');if(!banner)return;banner.replaceChildren();if(state.goodEgg){banner.hidden=false;banner.append(document.createTextNode(`✨ Good egg: ${state.goodEgg.kind} · ${state.goodEgg.area} · ${state.goodEgg.strip} `));const claim=makeButton('Claim egg at this section',()=>{state.eggs.push({id:`good-${Date.now()}`,kind:state.goodEgg.kind,earnedAt:Date.now()});state.goodEgg=null;state.goodEggNextAt=Date.now()+300000;save();renderStats();renderInventory();renderGoodEgg();say('Good egg claimed!');});banner.append(claim);}else banner.hidden=true;}
+  function tickGoodEgg(){if(state.goodEgg||Date.now()<state.goodEggNextAt)return;const options=[['Secrets egg','Lava','Second strip'],['Brain Rot Gods egg','Zeus','Second strip'],['Legendaries egg','Universe','Lucky Block strip']];const pick=options[Math.floor(Math.random()*options.length)];state.goodEgg={kind:pick[0],area:pick[1],strip:pick[2]};state.goodEggNextAt=Date.now()+300000;save();renderGoodEgg();}
+  $('good-egg-banner').addEventListener('click',event=>{if(event.target.closest('button'))return;});
+  function activate(key,duration,cooldown,target){if(!cooldownReady(key,cooldown))return;const now=Date.now();state.cooldowns[cooldownKey(key)]=now+cooldown;if(key.startsWith('pushup-')){delete state.activeBoosts['pushup-3'];delete state.activeBoosts['pushup-6'];}state.activeBoosts[key]=now+duration;save();renderBoosts();$('boost-status').textContent='Boost started. Train before its timer ends.';}
+  function activeMultiplier(kind){let multiplier=1;const now=Date.now();for(const [key,until] of Object.entries(state.activeBoosts)){if(until<=now)continue;if(key==='daily-24')multiplier*=24;else if(key==='special-treadmill'&&kind==='treadmill')multiplier*=3;else if(key==='special-barbell'&&kind==='barbell')multiplier*=3;else if(key.startsWith('pushup-')&&kind==='pushup')multiplier*=Number(key.slice(-1));}return multiplier;}
+  document.addEventListener('keydown',event=>{if(event.key==='ArrowRight'&&!event.repeat&&!event.target.closest?.('a,button,input,select,textarea')){event.preventDefault();waterStep++;$('water-runner').style.transform=`translateX(${Math.min(3,waterStep)*26}px)`;if(waterStep>=3)completeWater();}});
+  function completeWater(){waterStep=0;$('water-runner').style.transform='translateX(0)';const egg=earnEgg({special:false});save();render();say(`You crossed the water and earned a ${egg}!`);$('water-run-hint').textContent='You crossed! Run again whenever you like.';}
+  $('water-run').addEventListener('click',()=>{waterStep++;$('water-runner').style.transform=`translateX(${Math.min(3,waterStep)*26}px)`;if(waterStep>=3)completeWater();else $('water-run-hint').textContent=`Step ${waterStep}/3 — keep running!`;});
+  $('water-retry').addEventListener('click',()=>{waterStep=0;$('water-runner').style.transform='translateX(0)';$('water-run-hint').textContent='Cross the water to earn an egg.';});
+  $('water-fail').addEventListener('click',()=>{waterStep=0;$('water-runner').style.transform='translateX(0)';$('water-run-hint').textContent='You slipped and returned to the lobby. Try the water run again.';say('You slipped and returned to the lobby. No egg was lost.');});
+  function render(){renderStats();renderBases();renderCollections();renderInventory();renderSecond();renderThird();renderFuse();renderSell();renderShop();renderBoosts();renderExtras();$('cosmetic-status').textContent=state.style?`Wearing ${state.style}`:'No style selected';document.querySelectorAll('.gf-runner').forEach(el=>{el.classList.toggle('has-trail',state.style==='Rainbow trail');el.classList.toggle('has-aura',state.style==='Star aura');});}
+  setInterval(()=>{let changed=false;const now=Date.now();state.placed=state.placed.filter(egg=>{if(egg.hatchAt<=now){const type=Math.random()<.5?'pet':'brainrot';state.companions.push(makeCompanion(type,egg));changed=true;return false;}return true;});for(const [key,until] of Object.entries(state.activeBoosts))if(until<=now){delete state.activeBoosts[key];changed=true;}if(state.companions.length){state.money+=state.companions.filter(c=>c.type==='pet').reduce((sum,c)=>sum+(Number(c.incomePerSecond)||1),0);state.gold+=state.companions.filter(c=>c.type==='brainrot').reduce((sum,c)=>sum+(Number(c.incomePerSecond)||1),0);changed=true;}if(changed){save();render();say('An egg hatched, a boost ended, or your companions earned money.');}tickGoodEgg();renderBoosts();},1000);
   render();
 })();
