@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#b9e76f">
+  <meta name="description" content="Run the grass fields, train at your bases, and hatch challenge eggs in Vihaan's World.">
+  <title>Grass Fields — Vihaan's World</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="sub-navs.css">
+  <link rel="stylesheet" href="grass-fields.css">
+  <script defer src="sub-navs.js"></script>
+  <script defer src="grass-fields.js"></script>
+</head>
+<body class="grass-game">
+  <nav class="gr-nav" aria-label="Main navigation"><a class="gr-wordmark" href="index.html">vihaan<span>.</span></a><button type="button" class="gf-menu-toggle" aria-expanded="false" aria-controls="gf-nav-links">☰ Menu</button><div class="gr-nav-links" id="gf-nav-links"><a href="games.html">Games</a><a href="comics.html">Comics</a></div></nav>
+  <main class="gf-shell" id="main">
+    <header class="gf-header"><p class="gf-eyebrow">PLAY / VIHAAN'S WORLD</p><h1>Grass Fields</h1><p>Run, train, and grow your egg collection!</p><div class="gf-stats" aria-label="Your game stats"><span>⚡ Speed <b id="speed">1</b></span><span>🥚 Eggs <b id="egg-count">0</b></span><span>🐾 Pets <b id="pet-count">0</b></span></div></header>
+    <section class="gf-world" aria-label="Grass fields game world">
+      <div class="gf-main-field"><div class="gf-field-title">BIG GRASS FIELD</div><div class="gf-water" aria-label="Water run challenge"><div class="gf-water-info"><strong>🌊 WATER RUN</strong><span id="water-run-hint">Press → three times to cross.</span></div><span id="water-runner" class="gf-runner" aria-hidden="true">🏃</span><button type="button" id="water-run">Step right →</button><button type="button" id="water-retry" hidden>Try again</button></div>
+        <div class="gf-bases" id="bases" aria-label="Your one-floor bases"></div>
+      </div>
+      <div class="gf-connection" aria-label="Connection between fields"><span>CONNECTED PATH</span><div class="gf-stores"><article class="gf-building"><strong>🛍️ Shop</strong><p>Choose a trail or aura</p><button type="button" data-cosmetic="Rainbow trail">🌈 Rainbow trail</button><button type="button" data-cosmetic="Star aura">✨ Star aura</button><small id="cosmetic-status" role="status">No style selected</small></article><article class="gf-building"><strong>⚙️ Fuse machine</strong><p>Fuse 2 earned eggs into 1 upgraded egg</p><button type="button" id="fuse">Fuse two eggs</button><small id="fuse-status" role="status">You need 2 eggs</small></article></div></div>
+      <div class="gf-long-field"><div class="gf-field-title">LONG GRASS FIELD</div><p>Run all the way to the end!</p><div class="gf-path" aria-label="Long field running path"><span id="long-runner" class="gf-runner" aria-hidden="true">🏃</span><span class="gf-path-plants" aria-hidden="true">🌼　🌱　🌼　🌱　🌼　🌱　🌼　🌱　🌼　🌱　🌼　🌱　🌼　🌱　🌼　🌱</span></div><button type="button" id="run-long">Start long run</button><button type="button" id="reset-long" hidden>Reset run</button><output id="run-message" role="status">Ready when you are!</output></div>
+    </section>
+    <section class="gf-collection" aria-labelledby="collection-title"><h2 id="collection-title">Your collection</h2><div id="collection" class="gf-collection-list"><p>No pets yet. Hatch an egg to meet your first one!</p></div></section>
+    <p class="gf-save-note" id="save-note" role="status">Your game saves on this device.</p>
+  </main>
+</body>
+</html>
