@@ -2,7 +2,7 @@
 title: "Author's Room: Chapter 5 — The Large Intestine"
 type: 'feature'
 created: '2026-11-22'
-status: 'in-progress'
+status: 'done'
 route: 'dispatch'
 baseline_commit: '3795745dc05ea2125ce477efa790c27f13fc5849'
 review_loop_iteration: 0
@@ -55,7 +55,7 @@ context:
 - [x] `authors-room.html`, `authors-room.css` -- present exactly one accessible composition of the kid standing next to the large intestine; keep it separate from chapter text.
 - [x] `sub-navs.js`, `tests/authors-room-browser.cjs` -- show NEW beside Author's Room in the existing Words menu through day seven, then remove it.
 - [x] `tests/authors-room-browser.cjs` -- update stale expectations and verify chapter word-for-word, map/hash route, all counts, one picture, desktop/mobile layout, and zero page/resource errors.
-- [ ] `HANDOFF.md` -- retain the Chapter 6 wait-for-dictation note and record build, live screenshot, Fresh Drops, and publication results.
+- [x] `HANDOFF.md` -- retain the Chapter 6 wait-for-dictation note and record build, live screenshot, Fresh Drops, and publication results.
 - [x] `fresh-drops.html`, `images/fresh-drops/authors-room-chapter-5.png` -- after live capture, add the dated card linking to the existing Author's Room.
 
 **Acceptance Criteria:**
@@ -71,7 +71,7 @@ context:
 - The authoritative full text was verified in the main checkout's `chapter-5-large-intestine-draft.md`, read aloud by Vidhu Nov 22, including the additional confirmed final sentence. Chapter 6 has no text.
 - The implementation branch is `feature/authors-room-ch5-ch6`, created cleanly from `origin/main` at `3795745dc05ea2125ce477efa790c27f13fc5849`. The pre-existing Author's Room spec describes the original page; its source-only rules remain useful, but its old 19-chapter counts do not apply.
 - No unresolved intent gap remains. Nishant's map decision fixes slot 11 while keeping Body Systems 05 and all 24 map cards unchanged. His Nov 24 direction also requests the existing Words menu item's seven-day NEW tag. The brief explicitly authorizes merge/push and live publication after checks; this is the only external side effect. Footprint is the existing Author's Room page/style, shared menu badge logic, browser suite, HANDOFF/spec, and the Fresh Drops card plus captured image. No new dependency or navigation destination is needed.
-- The review found and fixed the pre-publication NEW badge boundary, and the browser suite now tests it. Its route assertions account for the repository's `/portfolio` base path. Chapter 5 main deploy ultimately succeeded via workflow dispatch run `45354512062`; live Chapter 5 suite passed. The Fresh Drops card and live screenshot are now ready in the worktree; publish and live Fresh Drops verification remain.
+- The review found and fixed the pre-publication NEW badge boundary, and the browser suite now tests it. Its route assertions account for the repository's `/portfolio` base path. Chapter 5 main deploy succeeded in workflow-dispatch run `45354512062`; the Fresh Drops commit deployed in run `45360230348`. Final live desktop/mobile verification passed for both the chapter and Fresh Drops, with zero browser/resource errors.
 
 ## Verification
 
