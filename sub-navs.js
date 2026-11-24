@@ -52,6 +52,11 @@
       group.pages.concat(extras.get(group.name).map(item => [item.href, item.label])).forEach(([href, label]) => {
         const item = make('li', '');
         const link = make('a', 'subnav-link', label);
+        const latestAuthorsRoomPublish = Date.parse('2026-11-24T00:00:00Z');
+        const authorsRoomPublishAge = Date.now() - latestAuthorsRoomPublish;
+        if (href.toLowerCase() === 'authors-room.html' && authorsRoomPublishAge >= 0 && authorsRoomPublishAge < 7 * 24 * 60 * 60 * 1000) {
+          link.append(make('span', 'subnav-new', 'NEW'));
+        }
         link.href = href;
         if (href.toLowerCase() === current) {
           link.setAttribute('aria-current', 'page');

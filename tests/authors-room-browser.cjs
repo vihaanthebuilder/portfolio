@@ -14,6 +14,15 @@ const sourceRecords = {
   brief: fs.readFile(path.join(root, 'FEATURE-BRIEF-authors-room.md'), 'utf8'),
   chapter3: fs.readFile(path.join(root, 'FEATURE-BRIEF-authors-room-ch3.md'), 'utf8'),
 };
+const chapter5VerifiedText = `Chapter five, the large intestine. Did you know the large intestine is taller than a 12 year old? The main job of the large intestine is to soak water and salt. In this chapter you will learn what the large intestine does, what would happen without it, what it works with and how it helps the body.
+
+The large intestine does three different things. The first way is by soaking water. The second way is by keeping waste. The third way is by helping good bacteria. This is what the large intestine does.
+
+Three main bad things will happen without the large intestine. The first bad thing is that the body would not be able to soak water and salt. The second thing is that good bacteria will lose their homes. The third thing is that the body could not store waste. This is what would happen without the large intestine.
+
+The large intestine works with three things. First the liver which supports digestion. Second the small intestine which passes things along. Third the muscles which moves and holds the waste. This is what the three helpers that the large intestine uses.
+
+Without the large intestine you would not be alive.`;
 const normalize = text => text.replace(/[“”]/g, '"').replace(/\s+/g, ' ').trim();
 const errors = [];
 const checks = [];
@@ -37,6 +46,7 @@ async function sourceTrace(page) {
   const ch1 = normalize(rendered[0]);
   const ch2 = normalize(rendered[1]);
   const ch3 = normalize(rendered[2]);
+  const ch5 = normalize(rendered[3]);
   const traces = [
     { chapter: 1, kind: 'his words', file: 'book-chapter-1-record.md', pageText: 'Chapter One, The Skeletal System', sourceText: 'Chapter One, The Skeletal System' },
     { chapter: 1, kind: 'his words', file: 'book-chapter-1-record.md', pageText: 'There are many different types of bones.', sourceText: 'There are many different types of bones.' },
@@ -80,6 +90,15 @@ async function sourceTrace(page) {
     assert(ch3.includes(normalize(line)), 'Chapter 3 text missing: ' + line);
     traces.push({ chapter: 3, kind: 'his words', file: 'FEATURE-BRIEF-authors-room-ch3.md', pageText: line, sourceText: line });
   }
+  const chapter5Expected = normalize(chapter5VerifiedText);
+  const chapter5Rendered = normalize([
+    await page.locator('#chapter-5-title').innerText(),
+    ...await page.locator('#chapter-5 .ar-chapter-copy p').allTextContents(),
+    await page.locator('#chapter-5 .ar-conclusion').innerText(),
+  ].join(' '));
+  assert.equal(chapter5Rendered, chapter5Expected, 'Chapter 5 title, all passage text, and confirmed final line match Vidhu\'s draft exactly');
+  assert.equal(normalize(await page.locator('#chapter-5 .ar-conclusion').innerText()), 'Without the large intestine you would not be alive.');
+  traces.push({ chapter: 5, kind: 'complete verbatim passage plus confirmed ending', file: 'chapter5VerifiedText in tests/authors-room-browser.cjs', pageText: chapter5Rendered, sourceText: chapter5Expected });
   const tracePath = path.join(OUT, 'sentence-source-trace.json');
   await fs.writeFile(tracePath, JSON.stringify(traces, null, 2) + '\n');
   return traces;
@@ -96,37 +115,60 @@ async function openPage(browser, width, height, label) {
 
 async function main() {
   await fs.mkdir(OUT, { recursive: true });
+  const sourcePage = await fs.readFile(path.join(root, 'authors-room.html'), 'utf8');
+  assert(!sourcePage.includes('id="chapter-6"'), 'Chapter 6 remains unpublished until it is dictated');
+  const handoff = await fs.readFile(path.join(root, 'HANDOFF.md'), 'utf8');
+  assert(handoff.includes('Chapter 6 (healthy food) is waiting for Vidhu to dictate it.'), 'HANDOFF records the Chapter 6 wait');
+  checks.push('Chapter 6: no article is present and HANDOFF records that text is waiting for Vidhu');
   browser = await chromium.launch({ channel: process.env.CHROME_CHANNEL || 'chrome', headless: true });
   const results = { checks, errors, captures: [], trace: path.join(OUT, 'sentence-source-trace.json'), browser: browser.version() };
 
   const desktop = await openPage(browser, 1440, 1000, 'authors-room desktop');
   const page = desktop.page;
-  assert.equal(await page.locator('.ar-chapter').count(), 19);
-  assert.equal(await page.locator('.ar-chapter.finished').count(), 3);
+  assert.equal(await page.locator('.ar-chapter').count(), 24);
+  assert.equal(await page.locator('.ar-chapter.finished').count(), 8);
   assert.equal(await page.locator('.ar-chapter.next').count(), 0);
   assert.equal(await page.locator('.ar-chapter.planned').count(), 16);
-  assert.equal(await page.locator('.ar-chapter-reading').count(), 3);
+  assert.equal(await page.locator('.ar-chapter-reading').count(), 4);
+  assert.equal(await page.locator('.ar-art-grid').count(), 2);
+  assert.equal(await page.locator('#chapter-5 .ar-art-card').count(), 1);
+  assert.equal(await page.locator('#chapter-5 .ar-intestine-scene[role="img"]').getAttribute('aria-label'), 'A kid standing right next to a large intestine');
+  assert.equal(await page.locator('#chapter-5 .ar-intestine-scene img').count(), 2);
   assert.equal(await page.locator('.ar-muscle-grid .ar-art-card').count(), 3);
   assert.equal(await page.locator('.ar-stomach').count(), 1);
   assert.equal(await page.locator('.ar-muscle-grid [aria-label*="intestine" i]').count(), 0);
   assert.deepEqual(await page.locator('.ar-muscle-grid figcaption').allTextContents(), ['voluntary', 'involuntary', 'cardiac']);
-  assert.equal(await page.locator('.ar-cover progress').getAttribute('value'), '3');
-  assert.equal(await page.locator('.ar-cover progress').getAttribute('max'), '19');
-  assert.equal(await page.locator('.ar-progress-label span').innerText(), 'about 16%');
-  assert(await page.locator('.ar-parts').innerText().then(t => t.includes('Part 1 — Body Systems') && t.includes('7 chapters') && t.includes('Part 2 — Organs') && t.includes('12 chapters')));
+  assert.equal(await page.locator('.ar-cover progress').getAttribute('value'), '8');
+  assert.equal(await page.locator('.ar-cover progress').getAttribute('max'), '24');
+  assert.equal(await page.locator('.ar-progress-label strong').innerText(), '8 of 24 chapters written');
+  assert.equal(await page.locator('.ar-progress-label span').innerText(), 'about 33%');
+  assert.equal(await page.locator('#map-title').innerText(), '24 chapters. Eight are finished.');
+  assert.equal(await page.locator('#chapter-map .ar-tag').innerText(), '8 / 24 written');
+  assert(await page.locator('.ar-parts').innerText().then(t => t.includes('Body Systems') && t.includes('12 chapters') && t.includes('Organs') && t.includes('12 chapters')));
   assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'No desktop horizontal overflow');
   assert.equal(await page.locator('.ar-chapter.planned').filter({ hasText: 'Planned' }).count(), 16);
   const plannedNames = await page.locator('.ar-chapter.planned .ar-chapter-name').allTextContents();
-  assert.deepEqual(plannedNames.slice(0, 4), Array(4).fill('A body system — the author will pick'));
-  assert.deepEqual(plannedNames.slice(4), Array(12).fill('Organs'));
-  checks.push('desktop: 19 chapter slots, statuses, three readable chapters, estimate, three muscle panels, and no horizontal overflow');
+  assert.deepEqual(plannedNames.slice(0, 6), Array(6).fill('A body system — the author will pick'));
+  assert.deepEqual(plannedNames.slice(6), Array(10).fill('Organs'));
+  const mapSystem05 = page.locator('.ar-map-part').nth(0).locator('.ar-chapter').nth(6);
+  assert.equal(await mapSystem05.locator('.ar-chapter-num').innerText(), '05');
+  assert.equal(await mapSystem05.locator('.ar-chapter-name').innerText(), 'A body system — the author will pick');
+  const mapOrganSlot11 = page.locator('.ar-map-part').nth(1).locator('.ar-chapter').nth(1);
+  assert.equal(await mapOrganSlot11.locator('.ar-chapter-num').innerText(), '11');
+  assert.equal(await mapOrganSlot11.locator('.ar-chapter-name').innerText(), 'Large Intestine');
+  assert.equal(await mapOrganSlot11.locator('a').getAttribute('href'), '#chapter-5');
+  assert(await mapOrganSlot11.locator('.ar-status').innerText().then(t => t.includes('Finished')));
+  const mapOrganSlot04 = page.locator('.ar-map-part').nth(1).locator('.ar-chapter').nth(0);
+  assert.equal(normalize(await mapOrganSlot04.innerText()), '04 Small Intestine Finished · read', 'Chapter 4 remains title-only and unchanged');
+  assert.equal(await page.locator('#chapter-4').count(), 0, 'Chapter 4 remains title-only with no reading article');
+  checks.push('desktop: 24 map slots, 8 finished, Chapter 5 uses Organs slot 11, Body Systems 05 unchanged, exact chapter text, single composed picture, progress, and no overflow');
 
-  for (const chapter of ['chapter-1', 'chapter-2', 'chapter-3']) {
+  for (const chapter of ['chapter-1', 'chapter-2', 'chapter-3', 'chapter-5']) {
     await page.locator(`#chapter-map a[href="#${chapter}"]`).click();
     await page.waitForFunction(id => location.hash === `#${id}` && document.querySelector(`#${id}`).getBoundingClientRect().top < innerHeight, chapter);
     assert(await page.locator(`#${chapter}-title`).isVisible(), `Chapter map link reaches ${chapter}`);
   }
-  checks.push('chapter map: both finished chapter links reach their matching chapters');
+  checks.push('chapter map: finished chapter links reach their matching chapters');
 
   await page.goto(BASE_URL + '/authors-room.html#chapter-1', { waitUntil: 'domcontentloaded' });
   await page.waitForFunction(() => location.hash === '#chapter-1' && document.querySelector('#chapter-1').getBoundingClientRect().top < innerHeight);
@@ -148,10 +190,17 @@ async function main() {
   assert.equal(normalize(await page.locator('#chapter-3 .ar-conclusion').innerText()), 'you will not be alive without your tendons');
   checks.push('chapter-3: native hash opens Tendons and the final confirmed sentence closes the section');
 
-  const traces = await sourceTrace(page);
-  checks.push('sentence trace: ' + traces.length + ' chapter text lines map to the two chapter records and approved Chapter 3 brief');
+  await page.goto(BASE_URL + '/authors-room.html#chapter-5', { waitUntil: 'domcontentloaded' });
+  await page.waitForFunction(() => location.hash === '#chapter-5' && document.querySelector('#chapter-5').getBoundingClientRect().top < innerHeight);
+  assert(await page.locator('#chapter-5-title').isVisible());
+  assert.equal(normalize(await page.locator('#chapter-5 .ar-conclusion').innerText()), 'Without the large intestine you would not be alive.');
+  assert.equal(await page.locator('#chapter-5 .ar-art-card').count(), 1);
+  checks.push('chapter-5: native hash opens the full verified chapter; final line and one kid-beside-intestine illustration are present');
 
-  for (const [name, locator] of [['cover', page.locator('.ar-cover')], ['chapter-map', page.locator('#chapter-map')], ['chapter-1', page.locator('#chapter-1')], ['chapter-2', page.locator('#chapter-2')], ['chapter-3', page.locator('#chapter-3')]]) {
+  const traces = await sourceTrace(page);
+  checks.push('sentence trace: ' + traces.length + ' chapter text lines map to the approved chapter records and briefs');
+
+  for (const [name, locator] of [['cover', page.locator('.ar-cover')], ['chapter-map', page.locator('#chapter-map')], ['chapter-1', page.locator('#chapter-1')], ['chapter-2', page.locator('#chapter-2')], ['chapter-3', page.locator('#chapter-3')], ['chapter-5', page.locator('#chapter-5')]]) {
     await locator.scrollIntoViewIfNeeded();
     const file = path.join(OUT, name + '.png');
     await locator.screenshot({ path: file }); results.captures.push(file);
@@ -172,7 +221,9 @@ async function main() {
   await mobile.page.locator('#ar-menu').click();
   assert.equal(await mobile.page.locator('#ar-menu').getAttribute('aria-expanded'), 'true');
   await mobile.page.locator('#ar-nav-links .subnav-trigger').filter({ hasText: 'Words' }).click();
-  assert(await mobile.page.locator('#ar-nav-links .subnav-link[href="authors-room.html"]').isVisible());
+  const mobileAuthorsLink = mobile.page.locator('#ar-nav-links .subnav-link[href="authors-room.html"]');
+  assert(await mobileAuthorsLink.isVisible());
+  assert.equal(await mobileAuthorsLink.locator('.subnav-new').innerText(), 'NEW');
   const mobileFile = path.join(OUT, 'mobile.png');
   await mobile.page.screenshot({ path: mobileFile, fullPage: true }); results.captures.push(mobileFile);
   checks.push('mobile 390px: layout fits, chapter panels stack, and accessible navigation menu opens');
@@ -190,12 +241,32 @@ async function main() {
     }
     const navRoot = mobileNav ? '#mobile-nav-drawer' : '#topnav';
     await navPage.locator(`${navRoot} .subnav-trigger`).filter({ hasText: 'Words' }).click();
+    const authorsRoomLink = navPage.locator(`${navRoot} .subnav-menu a[href="authors-room.html"]`);
+    assert.equal(await authorsRoomLink.locator('.subnav-new').innerText(), 'NEW', 'Chapter 5 NEW tag appears in the existing Words menu during its first week');
     await navPage.locator(selector).click();
     await navPage.waitForURL(/authors-room\.html$/);
     assert.equal(new URL(navPage.url()).pathname, '/authors-room.html');
     checks.push(file + ' ' + width + 'px: Authors\' Room navigation reaches authors-room.html');
     await context.close();
   }
+
+  const expiredContext = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+  await expiredContext.addInitScript(() => { Date.now = () => Date.parse('2026-12-02T00:00:00Z'); });
+  const expiredPage = await expiredContext.newPage();
+  await expiredPage.goto(BASE_URL + '/authors-room.html', { waitUntil: 'domcontentloaded' });
+  await expiredPage.locator('#ar-nav-links .subnav-trigger').filter({ hasText: 'Words' }).click();
+  assert.equal(await expiredPage.locator('#ar-nav-links .subnav-link[href="authors-room.html"] .subnav-new').count(), 0, 'Chapter 5 NEW tag expires after seven days');
+  checks.push('Words menu: Chapter 5 NEW tag is visible through its first week and expires on day eight');
+  await expiredContext.close();
+
+  const prereleaseContext = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+  await prereleaseContext.addInitScript(() => { Date.now = () => Date.parse('2026-11-23T23:59:59Z'); });
+  const prereleasePage = await prereleaseContext.newPage();
+  await prereleasePage.goto(BASE_URL + '/authors-room.html', { waitUntil: 'domcontentloaded' });
+  await prereleasePage.locator('#ar-nav-links .subnav-trigger').filter({ hasText: 'Words' }).click();
+  assert.equal(await prereleasePage.locator('#ar-nav-links .subnav-link[href="authors-room.html"] .subnav-new').count(), 0, 'Chapter 5 NEW tag is absent before its publish date');
+  checks.push('Words menu: Chapter 5 NEW tag is absent before publication');
+  await prereleaseContext.close();
 
   assert.deepEqual(errors, [], 'No page, console, or local-resource errors: ' + JSON.stringify(errors));
   results.errors = errors;

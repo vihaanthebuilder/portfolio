@@ -13,3 +13,7 @@
 @media(max-width:390px){.ar-panel{padding:22px 16px}.authors-room h1{font-size:47px}.ar-chapter{grid-template-columns:30px minmax(0,1fr);gap:8px}.ar-status{grid-column:2;justify-self:start}.ar-muscle-grid{grid-template-columns:1fr}.ar-muscle-scene{height:170px}.ar-art-card figcaption{font-size:12px}.ar-parts span{display:grid;gap:1px}.ar-parts b{text-align:left}}
 @media(prefers-reduced-motion:reduce){html:has(.authors-room){scroll-behavior:auto}}
 body.authors-room{overflow-x:hidden}
+.ar-intestine-art{grid-template-columns:minmax(0,1fr);max-width:760px}
+.ar-intestine-scene{height:190px;display:flex;align-items:flex-end;justify-content:center;gap:20px;padding:14px 22px;background:#fffaf0}
+.ar-intestine-scene img{width:42%;height:160px;max-width:235px;object-fit:contain;mix-blend-mode:multiply}
+@media(max-width:760px){.ar-intestine-scene{height:165px;gap:10px;padding:12px 14px}.ar-intestine-scene img{height:135px;width:44%}}
