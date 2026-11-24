@@ -6,6 +6,7 @@ const path = require('node:path');
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 
 const BASE_URL = process.env.AUTHORS_ROOM_BASE_URL || 'http://127.0.0.1:8876';
+const SITE_BASE_PATH = new URL(BASE_URL).pathname.replace(/\/$/, '');
 const OUT = process.env.AUTHORS_ROOM_VQA_DIR || '/tmp/vihaan-authors-room';
 const root = path.join(__dirname, '..');
 const sourceRecords = {
@@ -212,7 +213,7 @@ async function main() {
   await quickPage.goto(BASE_URL + '/index.html', { waitUntil: 'domcontentloaded' });
   await quickPage.locator('#hero-quick-bar a[href="authors-room.html"]').click();
   await quickPage.waitForURL(/authors-room\.html$/);
-  assert.equal(new URL(quickPage.url()).pathname, '/authors-room.html');
+  assert.equal(new URL(quickPage.url()).pathname, SITE_BASE_PATH + '/authors-room.html');
   checks.push('homepage quick bar: Authors\' Room link reaches authors-room.html');
   await quickContext.close();
 
@@ -245,7 +246,7 @@ async function main() {
     assert.equal(await authorsRoomLink.locator('.subnav-new').innerText(), 'NEW', 'Chapter 5 NEW tag appears in the existing Words menu during its first week');
     await navPage.locator(selector).click();
     await navPage.waitForURL(/authors-room\.html$/);
-    assert.equal(new URL(navPage.url()).pathname, '/authors-room.html');
+    assert.equal(new URL(navPage.url()).pathname, SITE_BASE_PATH + '/authors-room.html');
     checks.push(file + ' ' + width + 'px: Authors\' Room navigation reaches authors-room.html');
     await context.close();
   }
@@ -267,6 +268,23 @@ async function main() {
   assert.equal(await prereleasePage.locator('#ar-nav-links .subnav-link[href="authors-room.html"] .subnav-new').count(), 0, 'Chapter 5 NEW tag is absent before its publish date');
   checks.push('Words menu: Chapter 5 NEW tag is absent before publication');
   await prereleaseContext.close();
+
+  for (const width of [1440, 390]) {
+    const dropsContext = await browser.newContext({ viewport: { width, height: width < 700 ? 844 : 1000 }, isMobile: width < 700, hasTouch: width < 700 });
+    const dropsPage = await dropsContext.newPage();
+    watch(dropsPage, `Fresh Drops ${width}px`);
+    const response = await dropsPage.goto(BASE_URL + '/fresh-drops.html', { waitUntil: 'domcontentloaded' });
+    assert.equal(response.status(), 200, 'Fresh Drops loads at ' + width + 'px');
+    const firstDrop = dropsPage.locator('.drop').first();
+    assert.equal(await firstDrop.locator('time').getAttribute('datetime'), '2026-11-24');
+    assert.match(await firstDrop.locator('h3').innerText(), /Chapter Five: The Large Intestine/);
+    assert(await firstDrop.locator('.new-badge').isVisible(), 'Fresh Drops chapter card is visibly NEW');
+    assert.equal(await firstDrop.locator('.try a').getAttribute('href'), 'authors-room.html#chapter-5');
+    assert(await firstDrop.locator('img').evaluate(img => img.complete && img.naturalWidth > 0), 'Live chapter screenshot loads');
+    assert(await dropsPage.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'Fresh Drops has no horizontal overflow at ' + width + 'px');
+    checks.push(`Fresh Drops ${width}px: newest Chapter 5 card, date, NEW badge, live screenshot, chapter link, and no overflow`);
+    await dropsContext.close();
+  }
 
   assert.deepEqual(errors, [], 'No page, console, or local-resource errors: ' + JSON.stringify(errors));
   results.errors = errors;
