@@ -15,6 +15,12 @@
 
 # HANDOFF — Vihaan's Portfolio (Vihaan's World)
 
+## LEGO instructions + Build it boats — ACTIVE (Nov 25, 2026)
+
+- First source check: `lego.html` already has the DIGatron 42199 card and a “Mini Builds & Boats” tab with nine existing boat cards under “Build It! Things That Float.” Their inspect data contains boat names, build descriptions, and approximate piece counts, so the new book feature should reuse these entries instead of inventing or duplicating boat facts.
+- Verified the official set instructions page: `https://www.lego.com/en-us/service/building-instructions/42199`.
+- Next: add an Instructions control to the 42199 card using a reusable pattern; present the existing nine boat entries as a friendly “Build it boats” book feature in LEGO Collections. No manual scans, prices, or invented details.
+
 ## Grass Fields initial version — published before the brief expansion (Nov 23, 2026 CT)
 
 - Initial implementation commit `b9e3e79` merged by PR #13 as `af273547ad50ff2410d496ee99cf0e418aa312c0`; GitHub Pages run `45319126827` completed successfully. The page is live at `https://vihaanthebuilder.github.io/portfolio/grass-fields.html`.
@@ -75,6 +81,8 @@ Standing rules (Nishant, Nov 21): (a) every publish adds a Fresh Drops entry WIT
 - BMad workflow rendered at `_bmad/render/bmad-build/feature-room-life-clickable-prompts-a4f121ec3dd9/f79963740a650d5e3044/`. Review caught a frame-stale prompt owner window and missing prompt-level assertions; click dispatch now recalculates current ownership and ignores a hidden prompt.
 - Kept the existing native prompt button and actor-owned click routing. Focused Enter/Space now rely on native button activation instead of also reaching global gameplay handling, the dog feedback state clears prompt ownership, and the prompt has a 44px minimum height, subtle press feedback, and visible focus styling.
 - `tests/room-life-feature.cjs` PASS desktop 1280×800 and mobile 390×844: prompt click/tap for dog, quad, and trophy; Ahaan ownership and “Good dog!” feedback; focused Enter/Space single activation; hidden-button guard; mobile target height; existing vehicle/walk/two-player regressions; and zero browser errors. Final local captures: `/tmp/vihaan-room-life-clickable-prompts/review-fixes/`.
+- Review-only badge finding: the pending 3D Lobby NEW markup is flattened by the shared menu renderer into plain “3D Lobby NEW” text, so it lacks badge styling and does not honor the seven-day expiry. Proposed patch is at `/private/tmp/room-life-release-fix.patch`. Nishant directed this worker to leave the active brief and patch untouched; the assigned worker owns that fix.
+- Review-only badge finding: the pending 3D Lobby NEW markup is flattened by the shared menu renderer into plain “3D Lobby NEW” text, so it lacks badge styling and does not honor the seven-day expiry. Proposed patch is at `/private/tmp/room-life-release-fix.patch`. Nishant directed this worker to leave the active brief and patch untouched; the assigned worker owns that fix.
 
 ## Author's Room Chapter 5 + Chapter 6 note — PUBLISHED (Nov 24, 2026)
 
