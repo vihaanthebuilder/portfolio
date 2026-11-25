@@ -66,7 +66,7 @@ context:
 
 - Implemented the playable grass-fields page, Play-menu and homepage discovery, local save state, and focused desktop/mobile browser coverage. Water-crossing runs require three inputs and award one egg only on success; the long path has a separate no-reward run; egg hatching yields a brain rot or pet; two earned eggs fuse into one upgraded egg.
 - Review fixes added visible trails/auras on runners, date-controlled NEW badge coverage, exact treadmill-rate checks at levels 1 and 2, and safe filtering of placements above unlocked floors. Durable harness passed at 1280×800 and 390×844 with no horizontal overflow or page/console errors. Captures: `/tmp/vihaan-grass-fields/desktop.png` and `/tmp/vihaan-grass-fields/mobile.png`.
-- Fresh Drops screenshot/card and live verification remain pending the requested publish; the NEW epoch is currently set to the current date and must match the verified deployment date.
+- The initial scope was published via PR #13 / Pages run `45319126827` after this local implementation and before the brief expanded through Change 36. Its Fresh Drops screenshot/card and live browser verification were not completed. The updated requirements are tracked in `spec-grass-fields-changes-1-36.md`; this original spec remains in review until its follow-up release record is complete.
 
 ## Spec Change Log
 
