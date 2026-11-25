@@ -41,6 +41,13 @@
 - Latest durable browser check: desktop 1280×800 and mobile 390×844; zero page/console errors and no horizontal overflow. Captures: `/tmp/vihaan-grass-fields/desktop.png` and `/tmp/vihaan-grass-fields/mobile.png`.
 - Published via PR #14; Pages run `45439262458` succeeded. Live desktop/mobile browser-check passed with zero page/console errors. A live screenshot is captured at `/tmp/vihaan-grass-fields/grass-fields-live.png`; the Fresh Drops card and screenshot are being added in the follow-up publication. The Play-menu NEW window starts at the verified deploy time, Nov 24, 2026 16:38 UTC, and runs seven days.
 
+## LEGO instructions + Build it boats — ACTIVE (Nov 25, 2026)
+
+- `lego.html` has the DIGatron 42199 card and nine existing boat cards under “Build It! Things That Float.” Their inspect data contains boat names, descriptions, and approximate piece counts. The book feature reuses these entries without inventing facts.
+- Official 42199 instructions: `https://www.lego.com/en-us/service/building-instructions/42199`.
+- Implementation: 42199 card links to official LEGO instructions; the nine boats appear through a “Build it boats” library-book feature retaining their metadata. The Instructions link is excluded from the inspector click handler. Added a seven-day LEGO NEW badge. Local browser acceptance passed at 1280×800 and 390×844, including link behavior, all nine entries, inspector details, no prices/overflow, and zero console/page errors. Scoped book panel styling to override a shared global section background rule.
+- Room Life review-only badge finding (owned by the other worker): pending “3D Lobby NEW” markup is flattened into plain text, lacks badge styling, and ignores seven-day expiry. Proposed patch is `/private/tmp/room-life-release-fix.patch`; leave it untouched.
+
 ## Fresh Drops page — PUBLISHED and live-verified (Nov 21, 2026)
 
 - Implemented on `feature/fresh-drops` from `origin/main` at `5d7cd76a9b89da6e5577c8efde26ea9468303d73`; implementation commit `0314e773b45ad6dad6ec3118535d5e4b2874eeb4`. Added `fresh-drops.html`, 16 newest-first dated entries with live-site screenshots, and Fresh Drops links in the homepage navigation and prominent hero button. NEW badges update for entries within the last seven days.
