@@ -11,14 +11,14 @@
 
 # HANDOFF — Vihaan's Portfolio (Vihaan's World)
 
-## Grass Fields initial version — PUBLISHED before brief expansion (Nov 23, 2026 CT)
+## Grass Fields initial version — published before the brief expansion (Nov 23, 2026 CT)
 
 - Initial implementation commit `b9e3e79` merged by PR #13 as `af273547ad50ff2410d496ee99cf0e418aa312c0`; GitHub Pages run `45319126827` completed successfully. The page is live at `https://vihaanthebuilder.github.io/portfolio/grass-fields.html`.
 - Durable browser-check passed locally at desktop 1280×800 and mobile 390×844 with zero page/console errors. Captures: `/tmp/vihaan-grass-fields/desktop.png` and `/tmp/vihaan-grass-fields/mobile.png`.
-- The brief now covers Changes 1–47 and is a coordinator input; preserve it and `_bmad/_bmad/`. The original live page does not yet include the expanded build.
+- The brief is a coordinator input; preserve it and `_bmad/_bmad/`. The original live page mentioned in this historical section has since been replaced by the expanded build.
 - Nishant has authorized publication after implementation and checks. The expanded Fresh Drops card and live screenshot remain pending until that publish is ready.
 
-## Grass Fields expanded build — Changes 1–51 (LOCAL, NOT PUBLISHED)
+## Grass Fields expanded build — Changes 1–51 (PUBLISHED Nov 24, 2026 CT)
 
 - Scope is Vihaan World only. Preserve `FEATURE-BRIEF-game-grass-field-bases.md` and `_bmad/_bmad/`; neither belongs in Ahaan World.
 - The game now includes four bases with eight first-floor egg spaces each; a second floor after eight upgrades, starting with one egg space and filling to eight over seven more upgrades, with a ladder; training boards/mats and timed boosts; trail/aura shop, sell shop, three-companion fusion, pets and brain-rots; the 10-section second strip; two adjacent reserved empty strips; the right-side Guardian branch and eight egg bosses; three sequential kick strips (Multiverse 1–15, Infinity 16–30, Cosmos 31–45); 200/100/50-stage obbies; permitted lobby/inner teleports; and timed good-egg callouts.
@@ -26,7 +26,7 @@
 - Design fallbacks are documented in `_bmad-output/implementation-artifacts/spec-grass-fields-current-build.md`: egg weights rise by 5 kg per rank from 1 kg (display-only); the second floor shares capacity with pet display slots; third-floor progression is held; distinct green pet money and gold brain-rot money use simple placeholder income rates; and the two empty strips use compact reserved-space placeholders.
 - Still needs Vidhu's word: exact egg weights per rarity and whether they affect gameplay; whether floors repeat and whether pet/egg slots should be separate; exact pet income by section/rarity, brain-rot income variation, payout speeds, shop prices and sale values; empty-strip size/names; what ×10 applies to; the stray “700”; section 15 tier overlap; outcomes if the Lucky Block falls, zombies catch it, or a comet hits; Cosmos rest-space placement/contents and tsunami-catch outcome; eligible timed good-egg sections; the three best obby eggs; Guardian count and boss 1 chase; and confirmation of “Indestructible”. Current local fallbacks keep the game playable. The latest brief confirms section 37 speed (4.8B), section 34 speed (1.2B), and Cosmos naming.
 - Latest durable browser check: desktop 1280×800 and mobile 390×844; zero page/console errors and no horizontal overflow. Captures: `/tmp/vihaan-grass-fields/desktop.png` and `/tmp/vihaan-grass-fields/mobile.png`.
-- Not yet published. After final checks, deploy to Vihaan World, add the Fresh Drops entry with a screenshot from the live feature, set the seven-day NEW epoch to the verified deployment date, and run live desktop/mobile checks.
+- Published via PR #14; Pages run `45439262458` succeeded. Live desktop/mobile browser-check passed with zero page/console errors. A live screenshot is captured at `/tmp/vihaan-grass-fields/grass-fields-live.png`; the Fresh Drops card and screenshot are being added in the follow-up publication. The Play-menu NEW window starts at the verified deploy time, Nov 24, 2026 16:38 UTC, and runs seven days.
 
 ## Fresh Drops page — PUBLISHED and live-verified (Nov 21, 2026)
 
@@ -56,14 +56,23 @@ Standing rules (Nishant, Nov 21): (a) every publish adds a Fresh Drops entry WIT
 1. **Jetpack flight fix** — `FEATURE-BRIEF-jetpack-flight-fix.md` (no walk-cycle in flight, Space = altitude, animated flame). PUBLISHED Nov 22, 2026; feature commit `a2ee63a1a9fa35d257886774c30237d3f13058ae`, Fresh Drops commit `0482ffa652369a6757e161b15097b1adfacdfe30`, Pages run `45035237061` succeeded for the feature and run `45039409873` succeeded for the Fresh Drops update; both live-verified.
 2. **Skateboard wheels + physics, wobbly feet, basketball hoop** — `FEATURE-BRIEF-room-life-skates-feet-hoop.md`. PUBLISHED Nov 22, 2026. Feature merge `ffa6927d186c2d684736c66cd286ce76061c5fe3` passed Pages run `45067722110`; Fresh Drops card/screenshot commit `078465c30e1477201b1c326fbfaa0199baf0b372` passed run `45074538253`. Live scene and Fresh Drops passed desktop/mobile verification.
 3. **Author's Room — Chapter 5 (large intestine) + Chapter 6 note** — `FEATURE-BRIEF-authors-room-ch5-ch6.md`. PUBLISHED Nov 24, 2026; implementation merge `5fb083c172d8c422ca98611e055362f7eb0a21c9`, Fresh Drops commit `fdec2ceabb7893923b4d5522fe511add0cc5a358`; Pages run `45354512062` succeeded for Chapter 5 and run `45360230348` succeeded for the Fresh Drops card; both live-verified. Chapter 6 remains waiting for Vidhu to dictate it.
-4. **Empty 3D grass world (LEGO-style)** — `FEATURE-BRIEF-grass-world.md` (Vihaan, Nov 22 voice call: a new 3D world that starts as just grass, everything LEGO-style, walkable; shops, schools, minifigures, houses and a rideable LEGO bike added on the call — see the brief). QUEUED Nov 22, 2026.
-5. **Homepage indoor/outdoor swipeable switch** — `FEATURE-BRIEF-homepage-indoor-outdoor-switch.md` (Nishant, Nov 22 voice call: Indoor/Outdoor tab + swipe switch on the homepage — Indoor = Room Life, Outdoor = the LEGO grass world; default on load = Outdoor). QUEUED Nov 22, 2026 — right after the grass-world brief (needs the outdoor world to exist).
-6. **Clickable prompt pills** — `FEATURE-BRIEF-room-life-clickable-prompts.md` (click/tap works like Enter; can ship with brief 2).
+4. **Clickable prompt pills** — `FEATURE-BRIEF-room-life-clickable-prompts.md`. ACTIVE Nov 24, 2026 on `feature/room-life-clickable-prompts`, per Nishant's direction after Chapter 5 publishes.
+5. **Empty 3D grass world (LEGO-style)** — `FEATURE-BRIEF-grass-world.md` (Vihaan, Nov 22 voice call: a new 3D world that starts as just grass, everything LEGO-style, walkable; shops, schools, minifigures, houses and a rideable LEGO bike added on the call — see the brief). QUEUED Nov 22, 2026.
+6. **Homepage indoor/outdoor swipeable switch** — `FEATURE-BRIEF-homepage-indoor-outdoor-switch.md` (Nishant, Nov 22 voice call: Indoor/Outdoor tab + swipe switch on the homepage — Indoor = Room Life, Outdoor = the LEGO grass world; default on load = Outdoor). QUEUED Nov 22, 2026 — right after the grass-world brief (needs the outdoor world to exist).
 7. **Nav organize pages** — `FEATURE-BRIEF-nav-organize-pages.md` (every page under existing menu tabs, NEW tags rule).
 8. **Cruise Ship Deck 3 tracker** — `FEATURE-BRIEF-cruise-ship-deck3-tracker.md` (from the Nov 20 queue above).
 9. **LEGO instructions button + Build it boats book** — `FEATURE-BRIEF-lego-instructions-boats.md` (from the Nov 20 queue above).
 
-## Author's Room Chapter 5 + Chapter 6 note — ACTIVE (Nov 22, 2026)
+## Room Life clickable prompt pills — ACTIVE (Nov 24, 2026)
+
+- Nishant directed this as the next dispatched brief after Chapter 5. Created a clean worktree on `feature/room-life-clickable-prompts` from the just-published `origin/main` commit `b4ffb02`.
+- Read `FEATURE-BRIEF-room-life-clickable-prompts.md`. Scope: make each Room Life interaction prompt activate its matching action by click/tap while retaining keyboard behavior, including player-specific controls in Play Together. Use gentle pressed feedback and mobile targets at least 44px high.
+- Nishant clarified Nov 24: cover existing prompts only; do not add a Storybook action. The ready-for-development spec records this decision.
+- BMad workflow rendered at `_bmad/render/bmad-build/feature-room-life-clickable-prompts-a4f121ec3dd9/f79963740a650d5e3044/`. Review caught a frame-stale prompt owner window and missing prompt-level assertions; click dispatch now recalculates current ownership and ignores a hidden prompt.
+- Kept the existing native prompt button and actor-owned click routing. Focused Enter/Space now rely on native button activation instead of also reaching global gameplay handling, the dog feedback state clears prompt ownership, and the prompt has a 44px minimum height, subtle press feedback, and visible focus styling.
+- `tests/room-life-feature.cjs` PASS desktop 1280×800 and mobile 390×844: prompt click/tap for dog, quad, and trophy; Ahaan ownership and “Good dog!” feedback; focused Enter/Space single activation; hidden-button guard; mobile target height; existing vehicle/walk/two-player regressions; and zero browser errors. Final local captures: `/tmp/vihaan-room-life-clickable-prompts/review-fixes/`.
+
+## Author's Room Chapter 5 + Chapter 6 note — PUBLISHED (Nov 24, 2026)
 
 - Reconciled the stale Robot Chess worktree handoff against `origin/main`: the first unfinished overnight brief is Author's Room Chapter 5/6. Created a clean worktree at `.worktrees/feature-authors-room-ch5-ch6` on `feature/authors-room-ch5-ch6`, from origin/main commit `3795745dc05ea2125ce477efa790c27f13fc5849`.
 - Read `FEATURE-BRIEF-authors-room-ch5-ch6.md` and verified the complete Chapter 5 source at the main checkout's `chapter-5-large-intestine-draft.md`. Use its child-authored text exactly, including the confirmed final sentence. The brief is an input file and remains untracked.

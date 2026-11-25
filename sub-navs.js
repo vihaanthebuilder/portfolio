@@ -64,7 +64,7 @@
         }
         link.href = href;
         if (href.toLowerCase() === 'grass-fields.html') {
-          const publishedAt = Date.parse('2026-11-24T00:00:00Z');
+          const publishedAt = Date.parse('2026-11-24T16:38:00Z');
           if (Date.now() >= publishedAt && Date.now() - publishedAt < 7 * 24 * 60 * 60 * 1000) link.append(make('span', 'subnav-new', 'NEW'));
         }
         if (href.toLowerCase() === current) {
