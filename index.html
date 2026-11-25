@@ -1641,7 +1641,7 @@ body.machine #topnav,body.machine #layout{display:none}
       <a href="index.html" class="mnd-link active">
         <span class="mnd-icon">🏠</span>
         <div class="mnd-info">
-          <span class="mnd-title">3D Lobby</span>
+          <span class="mnd-title">3D Lobby <span id="room-life-prompts-new" class="subnav-new" hidden>NEW</span></span>
           <span class="mnd-desc">Arcade games, hoop &amp; CRT TVs</span>
         </div>
       </a>
@@ -7747,6 +7747,10 @@ window.__sheet = {group, mat, uni, renderer, scene, camera, mesh,
   const grassFieldsPublishDate = Date.parse('2026-11-23T00:00:00Z');
   if (Date.now() >= grassFieldsPublishDate && Date.now() - grassFieldsPublishDate < 7 * 24 * 60 * 60 * 1000) {
     document.querySelector('#grass-fields-home-new')?.removeAttribute('hidden');
+  }
+  const roomLifePromptsPublishDate = Date.parse('2026-11-25T00:00:00Z');
+  if (Date.now() >= roomLifePromptsPublishDate && Date.now() - roomLifePromptsPublishDate < 7 * 24 * 60 * 60 * 1000) {
+    document.querySelector('#room-life-prompts-new')?.removeAttribute('hidden');
   }
 })();
 </script>
