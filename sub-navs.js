@@ -58,13 +58,13 @@
           link.append(make('span', 'subnav-new', 'NEW'));
         }
         if (href.toLowerCase() === 'cruise-ship.html') {
-          const cruiseShipPublishDate = Date.parse('2026-11-24T00:00:00Z');
+          const cruiseShipPublishDate = Date.parse('2026-11-25T00:00:00Z');
           const publishAge = Date.now() - cruiseShipPublishDate;
           if (publishAge >= 0 && publishAge < 7 * 24 * 60 * 60 * 1000) link.append(make('span', 'subnav-new', 'NEW'));
         }
         link.href = href;
         if (href.toLowerCase() === 'grass-fields.html') {
-          const publishedAt = Date.parse('2026-11-24T00:00:00Z');
+          const publishedAt = Date.parse('2026-11-24T16:38:00Z');
           if (Date.now() >= publishedAt && Date.now() - publishedAt < 7 * 24 * 60 * 60 * 1000) link.append(make('span', 'subnav-new', 'NEW'));
         }
         if (href.toLowerCase() === current) {

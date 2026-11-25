@@ -17,7 +17,7 @@ async function assertNoOverflow(page){const result=await page.evaluate(()=>{cons
       const mobile=width===390,context=await browser.newContext({viewport:{width,height:mobile?844:800},isMobile:mobile,hasTouch:mobile});
       const page=await context.newPage();await routeLocalFiles(page);
       page.on('pageerror',e=>errors.push(`page ${width}: ${e.message}`));page.on('console',m=>{if(m.type()==='error')errors.push(`console ${width}: ${m.text()}`);});
-      await page.goto(`${origin}/grass-fields.html`);await page.evaluate(()=>localStorage.clear());await page.reload();
+      await page.goto(`${origin}/grass-fields.html`);await page.evaluate(()=>localStorage.clear());await page.reload();if(liveCheck&&!mobile){await page.evaluate(()=>{const rect=document.querySelector('.gf-bases').getBoundingClientRect();window.scrollTo(0,window.scrollY+rect.top-70);});await page.screenshot({path:path.join(out,'grass-fields-live.png')});await page.evaluate(()=>window.scrollTo(0,0));}
       assert.equal(await page.locator('.gf-base').count(),4,'four bases');
       assert.equal(await page.locator('.gf-spot').count(),32,'eight egg spaces on every single-floor base');
       assert.equal(await page.locator('.gf-empty-strip').count(),2,'two reserved empty strips sit beside the second strip');
