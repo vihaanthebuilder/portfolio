@@ -19,7 +19,8 @@
 
 - First source check: `lego.html` already has the DIGatron 42199 card and a “Mini Builds & Boats” tab with nine existing boat cards under “Build It! Things That Float.” Their inspect data contains boat names, build descriptions, and approximate piece counts, so the new book feature should reuse these entries instead of inventing or duplicating boat facts.
 - Verified the official set instructions page: `https://www.lego.com/en-us/service/building-instructions/42199`.
-- Next: add an Instructions control to the 42199 card using a reusable pattern; present the existing nine boat entries as a friendly “Build it boats” book feature in LEGO Collections. No manual scans, prices, or invented details.
+- Implementation underway: 42199 card now has an official LEGO instructions link; the existing nine boat entries are introduced through a “Build it boats” library-book feature and retain their recorded metadata. The Instructions link is excluded from the card inspector click handler. Added a seven-day LEGO NEW badge. Local browser acceptance passed at 1280×800 and 390×844, including official-link behavior, all nine entries, inspector details, no prices/overflow, and zero console/page errors. Initial visual review found the shared global section background rule obscuring the book panel; scoped the book panel styling to restore its light background. Review final screenshots before publish.
+- Room Life review-only badge finding (owned by the other worker): pending “3D Lobby NEW” markup is flattened into plain text, lacks badge styling, and ignores seven-day expiry. Leave `/private/tmp/room-life-release-fix.patch` untouched.
 
 ## Grass Fields initial version — published before the brief expansion (Nov 23, 2026 CT)
 
