@@ -22,8 +22,22 @@ async function assertNoOverflow(page){const result=await page.evaluate(()=>{cons
       assert.equal(await page.locator('.gf-spot').count(),32,'eight egg spaces on every single-floor base');
       assert.equal(await page.locator('.gf-empty-strip').count(),2,'two reserved empty strips sit beside the second strip');
       assert.match(await page.locator('.gf-stats').textContent(),/Green money.*Gold money/,'pets and brain rots have separate currencies');
-      assert.equal(await page.locator('.gf-building').count(),3,'shop, one fuse machine, and sell shop at the connection');
-      assert.equal(await page.locator('#second-sections .gf-section-card').count(),10,'10 second-strip challenges');
+      assert.equal(await page.locator('.gf-building').count(),5,'style, fuse, sell, gear, and VIP shops');
+      assert.equal(await page.locator('#second-sections .gf-section-card').count(),15,'15 second-strip challenges');
+      assert.match(await page.locator('#second-strip-title').textContent(),/15 CHALLENGES/);
+      assert(await page.locator('#gf-world-canvas').isVisible(),'3D walkable solo world is present');
+      assert.equal(await page.locator('#pools .gf-pool-card').count(),9,'all nine strength pools');
+      assert.equal(await page.locator('[data-key-shape]').count(),3,'three speed keyboard shapes');
+      assert.equal(await page.locator('#rebirth-open').count(),1,'rebirth has a confirmation flow');
+      assert.match(await page.locator('#pools').textContent(),/100,000 strength.*Common egg/);
+      assert.match(await page.locator('#pools').textContent(),/−580°C/);
+      assert.match(await page.locator('#pools').textContent(),/600°C.*800°F/);
+      assert.match(await page.locator('#pools').textContent(),/200 billion strength.*Impossible egg/);
+      assert.match(await page.locator('#pools').textContent(),/Possible \+ Secrets \+ Brain Rot Gods \+ Legendaries/);
+      await page.waitForFunction(()=>!document.querySelector('#gf-world-interact').disabled,{timeout:5000});
+      await page.keyboard.press('e');
+      assert.match(await page.locator('#run-message').textContent(),/walked to Lobby/,'3D world supports interaction from the starting zone');
+      if(mobile)assert(await page.locator('[data-walk="forward"]').isVisible(),'mobile has touch walking controls');
       assert(await page.locator('#second-sections .gf-section-card').nth(7).textContent().then(text=>/Special eggs/.test(text)),'Section 8 has special eggs');
       assert(await page.locator('#second-sections .gf-section-card').nth(8).textContent().then(text=>/Special eggs/.test(text)),'Section 9 has special eggs');
       assert(await page.locator('#second-sections .gf-section-card').nth(9).textContent().then(text=>/Special eggs/.test(text)),'Section 10 has special eggs');
@@ -49,8 +63,8 @@ async function assertNoOverflow(page){const result=await page.evaluate(()=>{cons
       assert.match(await page.locator('#second-sections .gf-section-card').nth(4).textContent(),/Prehistoric/,'section 5 keeps the brief name');
       assert.equal(await page.locator('#speed').textContent(),'0.1','starting speed');
       assert.equal(await page.locator('.gf-mat').count(),4,'push-up mat at each base');
-      assert.equal(await page.locator('#style-products [data-cosmetic]').count(),2,'shop sells trail and aura');
-      assert.match(await page.locator('#style-products').textContent(),/Buy.*10 coins/,'shop items are sold for game money');
+      assert.equal(await page.locator('#style-products [data-cosmetic]').count(),15,'shop sells all five trails and seven auras, plus styles');
+      assert.match(await page.locator('#style-products').textContent(),/Buy.*\$10\b/,'shop items use visible green-money prices');
       assert.equal(await page.locator('#boost-controls button').count(),5,'special treadmill, barbell, push-up choices, and daily boost');
       assert.doesNotMatch(await page.locator('#boost-controls').textContent(),/watch ads|rewarded ads|advert/i,'Change 36 removed ads');
       assert(await page.getByText('THREE KICK-POWER STRIPS · LUCKY BLOCK START').isVisible());
@@ -80,15 +94,15 @@ async function assertNoOverflow(page){const result=await page.evaluate(()=>{cons
       await page.evaluate(()=>{const key='vihaanGrassFieldsSaveV2',s=JSON.parse(localStorage.getItem(key));s.placed[0].hatchAt=Date.now()+1000;localStorage.setItem(key,JSON.stringify(s));});
       await page.reload();
       await page.waitForFunction(()=>Number(document.querySelector('#pet-count').textContent)+Number(document.querySelector('#brainrot-count').textContent)===1,null,{timeout:3000});
-      const earned=await page.evaluate(()=>{const key='vihaanGrassFieldsSaveV2',s=JSON.parse(localStorage.getItem(key));s.money=50;s.companions.push({id:'test-pet-a',type:'pet',name:'Buddy A',rarity:'Common',size:1,base:null,incomePerSecond:1},{id:'test-brain-b',type:'brainrot',name:'Buddy B',rarity:'Rare',size:1,base:null,incomePerSecond:1},{id:'test-pet-c',type:'pet',name:'Buddy C',rarity:'Epic',size:1,base:null,incomePerSecond:1});localStorage.setItem(key,JSON.stringify(s));return s.eggs.length;});
+      const earned=await page.evaluate(()=>{const key='vihaanGrassFieldsSaveV2',s=JSON.parse(localStorage.getItem(key));s.money=1000000;s.rebirths=3;s.companions.push({id:'test-pet-a',type:'pet',name:'Buddy A',rarity:'Common',size:1,base:null,incomePerSecond:1},{id:'test-brain-b',type:'brainrot',name:'Buddy B',rarity:'Rare',size:1,base:null,incomePerSecond:1},{id:'test-pet-c',type:'pet',name:'Buddy C',rarity:'Epic',size:1,base:null,incomePerSecond:1});localStorage.setItem(key,JSON.stringify(s));return s.eggs.length;});
       await page.reload();assert.equal(await page.locator('.gf-base').count(),4);
       for(let i=0;i<8;i++)await page.locator('.gf-base').first().locator('.gf-boards button').first().click();
       assert.match(await page.locator('.gf-base').first().locator('h2').textContent(),/2 floors/,'eight upgrades unlock a second floor');
       assert.equal(await page.locator('.gf-base').first().locator('.gf-eggs').count(),2,'new floor has its own egg spaces');
-      assert.equal(await page.locator('.gf-base').first().locator('.gf-eggs').nth(1).locator('.gf-spot').count(),1,'second floor starts with one egg spot');
+      assert.equal(await page.locator('.gf-base').first().locator('.gf-eggs').nth(1).locator('.gf-spot').count(),2,'rebirth upgrades award two egg spaces');
       assert.match(await page.locator('.gf-base').first().textContent(),/Climb ladder to Floor 2/,'new floor includes a ladder');
-      for(let i=0;i<7;i++)await page.locator('.gf-base').first().locator('.gf-boards button').first().click();
-      assert.equal(await page.locator('.gf-base').first().locator('.gf-eggs').nth(1).locator('.gf-spot').count(),8,'seven further upgrades add seven egg spots');
+      for(let i=0;i<3;i++)await page.locator('.gf-base').first().locator('.gf-boards button').first().click();
+      assert.equal(await page.locator('.gf-base').first().locator('.gf-eggs').nth(1).locator('.gf-spot').count(),8,'later upgrades fill floor two');
       const choices=page.locator('.gf-fuse-choice input');assert.equal(await choices.count(),4,'fuse can select pets and brain rots together');
       for(let i=0;i<3;i++)await choices.nth(i).check();await page.locator('#fuse').click();
       assert.match(await page.locator('#run-message').textContent(),/bigger pet/);
@@ -111,11 +125,17 @@ async function assertNoOverflow(page){const result=await page.evaluate(()=>{cons
       const boostSpeed=Number(await page.locator('#speed').textContent());
       const boostedTick=page.waitForFunction(value=>Number(document.querySelector('#speed').textContent)>value,boostSpeed,{timeout:2500});
       await page.locator('.gf-base').first().getByRole('button',{name:'Start training on Base 1 treadmill'}).click();await boostedTick;
-      assert.equal(Number(await page.locator('#speed').textContent()),boostSpeed+3,'special treadmill is three times normal training');
+      assert.equal(Number(await page.locator('#speed').textContent()),boostSpeed+24,'special treadmill is three times normal with three rebirth doublings');
       await page.locator('.gf-base').first().getByRole('button',{name:'Stop treadmill'}).click();
       await page.evaluate(()=>{const key='vihaanGrassFieldsSaveV2',s=JSON.parse(localStorage.getItem(key));delete s.activeBoosts['special-treadmill'];localStorage.setItem(key,JSON.stringify(s));});await page.reload();
       await page.locator('[data-cosmetic="Rainbow trail"]').click();assert.match(await page.locator('#cosmetic-status').textContent(),/Rainbow trail/);
       await page.locator('[data-cosmetic="Star aura"]').click();assert.match(await page.locator('#cosmetic-status').textContent(),/Star aura/);
+      const keyboardSpeed=Number(await page.locator('#speed').textContent());
+      await page.locator('[data-key-shape="circle"]').click();
+      assert.equal(Number(await page.locator('#speed').textContent()),keyboardSpeed+36,'circle speed stacks trail, aura, and three rebirth doublings');
+      await page.locator('#rebirth-open').click();assert(await page.locator('#rebirth-dialog').isVisible());
+      assert.match(await page.locator('#rebirth-rules').textContent(),/keep trails and auras/);
+      await page.locator('#rebirth-cancel').click();assert.equal(await page.locator('#rebirth-dialog').isVisible(),false,'rebirth X cancels');
 
       // Timed good egg appears in the header, can be claimed, and keeps its strip/location label.
       await page.evaluate(()=>{const key='vihaanGrassFieldsSaveV2',s=JSON.parse(localStorage.getItem(key));s.goodEggNextAt=Date.now()-1;s.speed=1e30;s.strength=1e30;s.kickProgress={multiverse:15,infinity:15,cosmos:14};localStorage.setItem(key,JSON.stringify(s));});await page.reload();
@@ -130,10 +150,10 @@ async function assertNoOverflow(page){const result=await page.evaluate(()=>{cons
 
       // Boss egg theft, the last Cosmos stage, the rest egg, and a size/speed-scaled tsunami.
       await page.locator('#bosses .gf-boss-card').first().getByRole('button',{name:/Steal egg/}).click();
-      assert.match(await page.locator('#run-message').textContent(),/no chase/,'first boss uses the no-chase fallback');
+      assert.match(await page.locator('#run-message').textContent(),/no-chase/,'first boss uses the no-chase fallback');
       await page.locator('#bosses .gf-boss-card').nth(1).getByRole('button',{name:/Steal egg/}).click();
       for(let i=0;i<3;i++)await page.locator('#boss-run').getByRole('button',{name:'Grab egg and dodge →'}).click();
-      assert.match(await page.locator('#run-message').textContent(),/escaped with/,'boss egg can be stolen and brought back');
+      assert.match(await page.locator('#run-message').textContent(),/escaped Egg Boss 2/,'boss egg can be stolen and brought back');
       const lastCosmos=page.locator('.gf-kick-strip').nth(2).locator('.gf-section-card').nth(14);
       assert.match(await lastCosmos.textContent(),/45\. Space/);
       await lastCosmos.getByRole('button',{name:/Kick/}).click();
@@ -145,6 +165,22 @@ async function assertNoOverflow(page){const result=await page.evaluate(()=>{cons
       assert.match(await page.locator('#run-message').textContent(),/escaped the tsunami/,'player can escape the post-stage tsunami');
       await page.locator('.gf-obby-card').nth(2).getByRole('button',{name:/Complete stage 1/}).click();
       assert.match(await page.locator('.gf-obby-card').nth(2).textContent(),/Stage 2 of 50/,'obby progress advances one easy stage');
+
+      // Pools check strength-gated egg rewards and the derived four-egg ninth prize.
+      await page.evaluate(()=>{const key='vihaanGrassFieldsSaveV2',s=JSON.parse(localStorage.getItem(key));s.strength=1e12;localStorage.setItem(key,JSON.stringify(s));});await page.reload();
+      const beforePoolOne=Number(await page.locator('#egg-count').textContent());
+      await page.locator('#pools .gf-pool-card').first().getByRole('button',{name:/Enter/}).click();
+      for(let i=0;i<4;i++)await page.locator('#pool-run').getByRole('button',{name:/Swim through/}).click();
+      assert.equal(Number(await page.locator('#egg-count').textContent()),beforePoolOne+1,'first pool rewards one Common egg');
+      assert.match(await page.locator('#inventory').textContent(),/Common egg/);
+      const beforePoolNine=Number(await page.locator('#egg-count').textContent());
+      await page.locator('#pools .gf-pool-card').nth(8).getByRole('button',{name:/Enter/}).click();
+      for(let i=0;i<4;i++)await page.locator('#pool-run').getByRole('button',{name:/Swim through/}).click();
+      assert.equal(Number(await page.locator('#egg-count').textContent()),beforePoolNine+4,'ninth pool awards all four remaining egg types');
+      assert.match(await page.locator('#inventory').textContent(),/Possible egg/);
+      assert.match(await page.locator('#inventory').textContent(),/Secrets egg/);
+      assert.match(await page.locator('#inventory').textContent(),/Brain Rot Gods egg/);
+      assert.match(await page.locator('#inventory').textContent(),/Legendaries egg/);
 
       if(mobile){const toggle=page.locator('.gf-menu-toggle');assert(await toggle.isVisible());assert(!(await page.locator('#gf-nav-links').isVisible()));await toggle.tap();assert.equal(await toggle.getAttribute('aria-expanded'),'true');}
       await assertNoOverflow(page);await page.screenshot({path:path.join(out,`${mobile?'mobile':'desktop'}.png`),fullPage:true});
