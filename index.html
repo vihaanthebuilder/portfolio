@@ -869,7 +869,9 @@
 .aab-btn.aab-stairs{background:linear-gradient(135deg,rgba(30,80,200,.25),rgba(42,95,224,.4));border-color:#6ea8ff;color:#dce8ff}
 .aab-btn.aab-stairs:hover{background:linear-gradient(135deg,#1e50c8,#2a5fe0);color:#fff}
 .aab-hint{font-family:var(--mono);font-size:10px;color:#a0b2cc;padding:0 6px;white-space:nowrap}
-#world-interaction{font:700 12px 'Baloo 2',var(--sans);color:#fff;background:rgba(30,80,200,.92);border:1px solid #8eb5ff;border-radius:999px;padding:8px 13px;min-height:38px;cursor:pointer}
+#world-interaction{font:700 12px 'Baloo 2',var(--sans);color:#fff;background:rgba(30,80,200,.92);border:1px solid #8eb5ff;border-radius:999px;padding:8px 13px;min-height:44px;cursor:pointer;touch-action:manipulation;transition:transform .12s ease,filter .12s ease}
+#world-interaction:active{transform:scale(.98);filter:brightness(.92)}
+#world-interaction:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
 #world-interaction[hidden]{display:none!important}
 @media (max-width:860px){
   #avatar-action-bar{bottom:62px;border-radius:14px;padding:6px 8px;gap:4px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:min(360px,calc(100vw - 24px))}
@@ -1639,7 +1641,7 @@ body.machine #topnav,body.machine #layout{display:none}
       <a href="index.html" class="mnd-link active">
         <span class="mnd-icon">🏠</span>
         <div class="mnd-info">
-          <span class="mnd-title">3D Lobby</span>
+          <span class="mnd-title">3D Lobby <span id="room-life-prompts-new" class="subnav-new" hidden>NEW</span></span>
           <span class="mnd-desc">Arcade games, hoop &amp; CRT TVs</span>
         </div>
       </a>
@@ -3089,7 +3091,7 @@ function petDog(player='vihaan'){
   actor.yaw=Math.atan2(-(dogGroup.position.z-actor.z),dogGroup.position.x-actor.x);
   (player==='ahaan'?ahaanGroup:personGroup).rotation.y=actor.yaw;
   const prompt=document.getElementById('world-interaction');
-  if(prompt){prompt.textContent='Good dog!';prompt.hidden=false;}
+  if(prompt){prompt.textContent='Good dog!';prompt.dataset.player='none';prompt.hidden=false;}
 }
 
 /* ---------- photoreal characters: image-to-3D meshes generated with Higgsfield (Tripo/Hunyuan), embedded as GLB ---------- */
@@ -6099,6 +6101,8 @@ window.addEventListener('pointerup', (e) => {
 });
 window.addEventListener('keydown', (e) => {
   if (trophyDialog.open || /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
+  const interactionPrompt=document.getElementById('world-interaction');
+  if(e.target===interactionPrompt&&(e.key==='Enter'||e.key===' '))return;
   if (state.mode === 'home' && ['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','w','a','s','d','W','A','S','D'].includes(e.key)) e.preventDefault();
   if (state.mode === 'home' && e.key === 'Enter') {
     e.preventDefault();
@@ -6148,7 +6152,7 @@ window.addEventListener('keydown', (e) => {
   if (state.mode === 'hoop' && e.key === ' ') { e.preventDefault(); if (ball.held) throwBall(0, 150, 250); }
   if (state.mode === 'tv') { if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); showTV(state.tvIndex + 1); } if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); showTV(state.tvIndex - 1); } }
 });
-document.getElementById('world-interaction')?.addEventListener('click',e=>{if(e.currentTarget.dataset.player==='ahaan')interactNearAhaan();else if(e.currentTarget.dataset.player==='vihaan')interactNearVihaan();});
+document.getElementById('world-interaction')?.addEventListener('click',e=>{const prompt=e.currentTarget;updateWorldInteraction();if(prompt.hidden)return;if(prompt.dataset.player==='ahaan')interactNearAhaan();else if(prompt.dataset.player==='vihaan')interactNearVihaan();});
 document.getElementById('aab-two-player')?.addEventListener('click',()=>setTwoPlayerMode(!twoPlayerMode));
 document.getElementById('btn-flight-vihaan')?.addEventListener('click',()=>{vihaanState.flight=!vihaanState.flight;if(!vihaanState.flight)vihaanState.flightRiseHeld=false;});
 document.getElementById('btn-flight-ahaan')?.addEventListener('click',()=>{if(twoPlayerMode){ahaanState.flight=!ahaanState.flight;if(!ahaanState.flight)ahaanState.flightRiseHeld=false;}});
@@ -7743,6 +7747,10 @@ window.__sheet = {group, mat, uni, renderer, scene, camera, mesh,
   const grassFieldsPublishDate = Date.parse('2026-11-23T00:00:00Z');
   if (Date.now() >= grassFieldsPublishDate && Date.now() - grassFieldsPublishDate < 7 * 24 * 60 * 60 * 1000) {
     document.querySelector('#grass-fields-home-new')?.removeAttribute('hidden');
+  }
+  const roomLifePromptsPublishDate = Date.parse('2026-11-25T00:00:00Z');
+  if (Date.now() >= roomLifePromptsPublishDate && Date.now() - roomLifePromptsPublishDate < 7 * 24 * 60 * 60 * 1000) {
+    document.querySelector('#room-life-prompts-new')?.removeAttribute('hidden');
   }
 })();
 </script>
