@@ -58,7 +58,7 @@
           link.append(make('span', 'subnav-new', 'NEW'));
         }
         if (href.toLowerCase() === 'cruise-ship.html') {
-          const cruiseShipPublishDate = Date.parse('2026-11-24T00:00:00Z');
+          const cruiseShipPublishDate = Date.parse('2026-11-25T00:00:00Z');
           const publishAge = Date.now() - cruiseShipPublishDate;
           if (publishAge >= 0 && publishAge < 7 * 24 * 60 * 60 * 1000) link.append(make('span', 'subnav-new', 'NEW'));
         }
