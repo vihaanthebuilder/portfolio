@@ -68,7 +68,7 @@
           if (publishAge >= 0 && publishAge < 7 * 24 * 60 * 60 * 1000) link.append(make('span', 'subnav-new', 'NEW'));
         }
         if (href.toLowerCase() === 'chess.html') {
-          const battleChessPublishDate = Date.parse('2026-11-26T04:42:00Z');
+          const battleChessPublishDate = Date.parse('2026-11-26T05:42:15Z');
           const publishAge = Date.now() - battleChessPublishDate;
           if (publishAge >= 0 && publishAge < 7 * 24 * 60 * 60 * 1000) link.append(make('span', 'subnav-new', 'NEW'));
         }
@@ -126,7 +126,7 @@
           whatsNew.setAttribute('aria-current', 'page');
           whatsNew.classList.add('is-current');
         }
-        const latestVerifiedPublish = Date.parse('2026-11-26T04:42:00Z');
+        const latestVerifiedPublish = Date.parse('2026-11-26T05:42:15Z');
         if (Date.now() >= latestVerifiedPublish && Date.now() - latestVerifiedPublish < 7 * 24 * 60 * 60 * 1000) {
           whatsNew.append(make('span', 'subnav-new', 'NEW'));
         }
