@@ -2118,7 +2118,7 @@ Four briefs written and staged in this folder on Nov 16, 2026 (VM copies in ~/wo
 - Publish: commit `a0e41a2` ("Use real DIGatron photo and add What's New nav item"), pushed `dec312d..a0e41a2`; GitHub Pages run 44976600249 succeeded.
 - Live-verified Nov 21, 2026 on https://vihaanthebuilder.github.io/portfolio/lego.html (desktop 1280x800 + mobile 390x844, durable Playwright harness): DIGatron photo loads (naturalWidth 869, image URL HTTP 200, 130,559 bytes), nav order Chess / LEGO / Play / Words / What's New / Me with What's New linking to `fresh-drops.html`, homepage Me dropdown still lists Fresh Drops, no page/console errors, no horizontal overflow. Screenshots in `/tmp/drv-unlock2-live-shots/`.
 
-## 3D battle chess — active implementation (Nov 25, 2026)
+## 3D battle chess — PUBLISHED (Nov 25, 2026 CT)
 - Began by tracing `chessGame.makeMove`, the existing 2D HUD, and Three.js ownership in `index.html`. The legal move engine and three difficulty values are independent of board rendering, so the 3D presentation can be added without replacing chess rules or Robo-Pawn behavior.
 - UX review direction (Sally): keep the board camera fixed and angled for square recognition; provide a persistent, large Skip Battle control; keep capture animations brief with soft bonk, topple, and bright stars only; avoid screen shake, gore, loud auto-play audio, and long camera cuts; keep a 2D fallback toggle available; preserve 44px+ mobile controls and resize the board to the viewport.
 - First build step: add a 3D/2D board switch within the existing chess HUD, with the 2D board kept available, then wire 3D pieces to the existing board state and move/capture flow.
@@ -2128,4 +2128,6 @@ Four briefs written and staged in this folder on Nov 16, 2026 (VM copies in ~/wo
 - Added the newest Fresh Drops card and seven-day Chess/What's New NEW indicators. NEW begins at the actual merge timestamp, `2026-11-26T05:42:15Z`.
 - PR #20 merged as `2877a13b6bb47c3a9978aa28c386c1760ca2e59b`. GitHub Pages run `45763321887` completed SUCCESS.
 - Live browser verification against `https://vihaanthebuilder.github.io/portfolio` passed at desktop 1280×800 and mobile 390×844: 3D e4 and legal Pawn-bot reply, all three bot levels, 2D fallback moves, short Pawn-bot checkmate, pawn/knight/rook capture animations and Skip controls, Fresh Drops first card/NEW badge/screenshot, and zero page errors. Live captures are in `/tmp/vihaan-chess-battle-live/`.
-- The initial Fresh Drops image has now been replaced with a screenshot captured from the live game at `/tmp/vihaan-chess-battle-live/fresh-drops-battle-chess.png`; follow-up commit and live verification are in progress.
+- PR #21 merged as `0b228a5a016c5542886a27db255b53d88620fca2`. Pages run `45767249054` completed SUCCESS; it publishes the live-captured Fresh Drops image and exact seven-day NEW dates.
+- Final live browser verification after PR #21: `tests/chess-robot-input.cjs` PASS at 1280×800 and 390×844. The Fresh Drops card image loads from `images/fresh-drops/battle-chess.png`, the NEW badge is visible, all chess flows still pass, and there are zero page errors. Final captures are in `/tmp/vihaan-chess-battle-final-live/`; source screenshot was captured from the deployed game at `/tmp/vihaan-chess-battle-live/fresh-drops-battle-chess.png`.
+- No feature work remains in this brief.
