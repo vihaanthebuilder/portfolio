@@ -67,6 +67,11 @@
           const publishAge = Date.now() - cruiseShipPublishDate;
           if (publishAge >= 0 && publishAge < 7 * 24 * 60 * 60 * 1000) link.append(make('span', 'subnav-new', 'NEW'));
         }
+        if (href.toLowerCase() === 'chess.html') {
+          const battleChessPublishDate = Date.parse('2026-11-26T04:42:00Z');
+          const publishAge = Date.now() - battleChessPublishDate;
+          if (publishAge >= 0 && publishAge < 7 * 24 * 60 * 60 * 1000) link.append(make('span', 'subnav-new', 'NEW'));
+        }
         link.href = href;
         if (href.toLowerCase() === 'grass-fields.html') {
           const publishedAt = Date.parse('2026-11-25T10:54:08Z');
@@ -121,8 +126,8 @@
           whatsNew.setAttribute('aria-current', 'page');
           whatsNew.classList.add('is-current');
         }
-        const latestVerifiedPublish = Date.parse('2026-11-20T00:00:00Z');
-        if (Date.now() - latestVerifiedPublish < 7 * 24 * 60 * 60 * 1000) {
+        const latestVerifiedPublish = Date.parse('2026-11-26T04:42:00Z');
+        if (Date.now() >= latestVerifiedPublish && Date.now() - latestVerifiedPublish < 7 * 24 * 60 * 60 * 1000) {
           whatsNew.append(make('span', 'subnav-new', 'NEW'));
         }
         host.append(whatsNew);
