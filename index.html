@@ -883,11 +883,11 @@
 }
 
 /* ---------- Interactive Chess Match HUD vs Robo-Pawn (Sally UX Lead) ---------- */
-#chess-hud-modal{position:absolute;inset:16px;z-index:25;display:flex;align-items:center;justify-content:center;pointer-events:none}
+#chess-hud-modal{position:absolute;inset:72px 16px 16px;z-index:25;display:flex;align-items:center;justify-content:center;pointer-events:none}
 #chess-hud-modal[hidden]{display:none !important}
-.chm-panel{pointer-events:auto;width:min(860px,calc(100vw - 24px));max-height:calc(100vh - 32px);overflow-y:auto;background:rgba(13,20,34,.94);border:2px solid rgba(255,213,0,.65);border-radius:18px;box-shadow:0 24px 60px rgba(0,0,0,.85),0 0 35px rgba(30,80,200,.4);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:18px 22px;color:#fff;animation:chm-pop .25s cubic-bezier(.16,1,.3,1)}
+.chm-panel{pointer-events:auto;width:min(860px,calc(100vw - 24px));max-height:calc(100vh - 88px);overflow-y:auto;background:rgba(13,20,34,.94);border:2px solid rgba(255,213,0,.65);border-radius:18px;box-shadow:0 24px 60px rgba(0,0,0,.85),0 0 35px rgba(30,80,200,.4);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:18px 22px;color:#fff;animation:chm-pop .25s cubic-bezier(.16,1,.3,1)}
 @keyframes chm-pop{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}
-.chm-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;border-bottom:1px solid rgba(255,255,255,.12);padding-bottom:12px;margin-bottom:14px}
+.chm-header{position:relative;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;border-bottom:1px solid rgba(255,255,255,.12);padding:0 42px 12px 0;margin-bottom:14px}
 .chm-players{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .chm-pbadge{display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);font-family:'Baloo 2',var(--sans);font-size:14px}
 .chm-pbadge.p-vihaan{border-color:rgba(255,213,0,.5);background:rgba(255,213,0,.12);color:#ffd500}
@@ -897,7 +897,7 @@
 .chm-lvl{appearance:none;border:none;cursor:pointer;font-family:var(--mono);font-size:10px;font-weight:700;padding:5px 9px;border-radius:6px;background:rgba(255,255,255,.08);color:#ccc;border:1px solid rgba(255,255,255,.15);transition:all .15s}
 .chm-lvl:hover{background:rgba(255,213,0,.18);color:#fff}
 .chm-lvl.active{background:#ffd500;color:#10243f;border-color:#ffd500;font-weight:800}
-.chm-close{appearance:none;background:none;border:none;color:#aaa;font-size:22px;cursor:pointer;width:34px;height:34px;border-radius:8px;display:grid;place-items:center;transition:all .15s}
+.chm-close{position:absolute;right:0;top:0;appearance:none;background:none;border:none;color:#aaa;font-size:22px;cursor:pointer;width:36px;height:36px;border-radius:8px;display:grid;place-items:center;transition:all .15s}
 .chm-close:hover{color:#fff;background:rgba(255,255,255,.15)}
 
 .chm-robot-bubble{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:12px;background:rgba(45,197,161,.14);border:1.5px solid rgba(45,197,161,.45);margin-bottom:14px}
@@ -914,8 +914,18 @@
   .chm-body{grid-template-columns:1fr}
 }
 .chm-board-wrap{display:flex;flex-direction:column;align-items:center;gap:8px}
+.chm-board-tools{display:flex;justify-content:center;gap:8px;width:100%}
+.chm-board-tools button{min-height:44px;padding:8px 14px;border:1px solid rgba(255,213,0,.55);border-radius:10px;background:#182a45;color:#fff;font:700 14px 'Baloo 2',var(--sans);cursor:pointer}
+.chm-board-tools button:focus-visible{outline:3px solid #ffd500;outline-offset:2px}
+.chm-3d-wrap{position:relative;width:min(100%,440px);aspect-ratio:1;overflow:hidden;border:3px solid #3e2415;border-radius:10px;background:#182a45;touch-action:none}
+.chm-3d-wrap[hidden]{display:none!important}
+.chm-3d-wrap canvas{display:block;width:100%;height:100%}
+.chm-3d-wrap .chm-3d-hint{position:absolute;left:8px;bottom:6px;padding:3px 7px;border-radius:6px;background:rgba(0,0,0,.65);color:#fff;font:600 11px var(--sans);pointer-events:none}
+.chm-battle-skip{position:absolute;right:8px;top:8px;min-height:44px;padding:8px 14px;border:2px solid #ffd500;border-radius:12px;background:#12233d;color:#fff;font:800 15px 'Baloo 2',var(--sans);cursor:pointer;box-shadow:0 3px 14px #0009}
+.chm-battle-skip[hidden]{display:none!important}
+.chm-board[hidden]{display:none!important}
 .chm-captures{display:flex;align-items:center;gap:4px;min-height:24px;font-size:18px;color:#ffd500;flex-wrap:wrap}
-.chm-board{display:grid;grid-template-columns:repeat(8,minmax(32px,52px));grid-template-rows:repeat(8,minmax(32px,52px));border:3px solid #3e2415;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.6);overflow:hidden;background:#3e2415;user-select:none}
+.chm-board{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));grid-template-rows:repeat(8,minmax(0,1fr));width:min(100%,416px);aspect-ratio:1;border:3px solid #3e2415;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.6);overflow:hidden;background:#3e2415;user-select:none}
 .chm-sq{display:grid;place-items:center;font-size:clamp(22px,4vw,36px);cursor:pointer;position:relative;transition:background .15s}
 .chm-sq.light{background:#e2cca6;color:#111}
 .chm-sq.dark{background:#8a5933;color:#fff}
@@ -1559,6 +1569,8 @@ body.machine #topnav,body.machine #layout{display:none}
         <div class="chm-board-wrap">
           <div class="chm-color-note" id="chm-color-label" aria-live="polite"></div>
           <div class="chm-captures" id="chm-black-captures" title="Captured Black Pieces"></div>
+          <div class="chm-board-tools"><button type="button" id="chm-view-toggle" aria-pressed="true">▦ Switch to 2D board</button></div>
+          <div class="chm-3d-wrap" id="chm-3d-wrap" role="application" aria-label="Interactive 3D chessboard"><canvas id="chm-3d-canvas" tabindex="0" aria-label="3D chessboard. Click your piece, then a highlighted square."></canvas><span class="chm-3d-hint">Tap a piece, then a square</span><button type="button" class="chm-battle-skip" id="chm-battle-skip" hidden>Skip battle</button></div>
           <div class="chm-board" id="chm-board" role="grid" aria-label="Chess Board"></div>
           <div class="chm-captures" id="chm-white-captures" title="Captured White Pieces"></div>
         </div>
@@ -3699,13 +3711,13 @@ function playChessSound(type) {
     } else if (type === 'capture') {
       const osc = chessAudioCtx.createOscillator();
       const gain = chessAudioCtx.createGain();
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(260, t);
-      osc.frequency.exponentialRampToValueAtTime(60, t + 0.11);
-      gain.gain.setValueAtTime(0.32, t);
-      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.11);
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(230, t);
+      osc.frequency.exponentialRampToValueAtTime(120, t + 0.13);
+      gain.gain.setValueAtTime(0.18, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.13);
       osc.connect(gain); gain.connect(chessAudioCtx.destination);
-      osc.start(t); osc.stop(t + 0.11);
+      osc.start(t); osc.stop(t + 0.13);
     } else if (type === 'check') {
       [ [440, 0], [660, 0.09] ].forEach(([freq, delay]) => {
         const osc = chessAudioCtx.createOscillator();
@@ -3762,6 +3774,132 @@ const PIECE_GLYPHS = {
 
 const PIECE_VALUES = { P: 100, N: 320, B: 330, R: 500, Q: 900, K: 20000 };
 
+/* ---------- 3D chess presentation; chessGame remains the rules source ---------- */
+const chess3D = { renderer:null, scene:null, camera:null, boardGroup:null, pieces:new Map(), raycaster:new THREE.Raycaster(), pointer:new THREE.Vector2(), active:false, battle:null, lastPly:0 };
+function createChess3DPiece(code, row, col) {
+  const group = new THREE.Group();
+  const white = code[0] === 'w';
+  const stone = new THREE.MeshStandardMaterial({ color:white ? 0xf4e8ca : 0x27374b, roughness:.68, metalness:.12 });
+  const trim = new THREE.MeshStandardMaterial({ color:white ? 0xc79743 : 0x53c9bd, roughness:.45, metalness:.42 });
+  const dark = new THREE.MeshStandardMaterial({ color:white ? 0x493920 : 0x101722, roughness:.6 });
+  const type = code[1];
+  const base = new THREE.Mesh(new THREE.CylinderGeometry(.36,.43,.15,24), trim); base.position.y=.075; group.add(base);
+  const body = new THREE.Mesh(type==='P' ? new THREE.CylinderGeometry(.16,.28,.4,16) : new THREE.CylinderGeometry(.23,.31,.55,20), stone); body.position.y=.39; group.add(body);
+  const headGeo = type==='N' ? new THREE.BoxGeometry(.38,.34,.27) : type==='R' ? new THREE.BoxGeometry(.35,.2,.35) : type==='B' ? new THREE.ConeGeometry(.23,.43,8) : type==='Q' ? new THREE.IcosahedronGeometry(.27,0) : type==='K' ? new THREE.CylinderGeometry(.22,.18,.32,8) : new THREE.SphereGeometry(.2,16,12);
+  const head = new THREE.Mesh(headGeo, type==='P' ? trim : stone); head.position.y= type==='P' ? .72 : .79; group.add(head);
+  if (type==='R') { for(let i=0;i<4;i++){const tooth=new THREE.Mesh(new THREE.BoxGeometry(.09,.12,.09),trim);tooth.position.set(Math.cos(i*Math.PI/2)*.12,.95,Math.sin(i*Math.PI/2)*.12);group.add(tooth);} }
+  if (type==='B') {const staff=new THREE.Mesh(new THREE.CylinderGeometry(.025,.035,.78,8),trim);staff.position.set(.31,.57,0);group.add(staff);const orb=new THREE.Mesh(new THREE.SphereGeometry(.09,12,10),trim);orb.position.set(.31,1.01,0);group.add(orb);}
+  if (type==='K') { const cross=new THREE.Mesh(new THREE.BoxGeometry(.07,.29,.07),trim);cross.position.y=1.1;group.add(cross);const arm=new THREE.Mesh(new THREE.BoxGeometry(.22,.07,.07),trim);arm.position.y=1.13;group.add(arm); }
+  if (type==='N') {const snout=new THREE.Mesh(new THREE.ConeGeometry(.09,.24,8),trim);snout.rotation.x=Math.PI/2;snout.position.set(0,.77,.19);group.add(snout);}
+  const eyeMat = new THREE.MeshBasicMaterial({color:white?0x30291f:0x6cf5e7});
+  for(const side of [-1,1]){const eye=new THREE.Mesh(new THREE.SphereGeometry(.035,8,6),eyeMat);eye.position.set(side*.075,.79,.19);group.add(eye);}
+  group.position.set(col-3.5,0,row-3.5);
+  group.userData.square=[row,col];
+  return group;
+}
+function ensureChess3D() {
+  if(chess3D.renderer) return true;
+  const canvas=document.getElementById('chm-3d-canvas');
+  try {
+    chess3D.renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false});
+    chess3D.renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.5));
+    chess3D.renderer.outputColorSpace=THREE.SRGBColorSpace;
+    chess3D.scene=new THREE.Scene(); chess3D.scene.background=new THREE.Color(0x182a45);
+    chess3D.camera=new THREE.PerspectiveCamera(40,1,.1,50); chess3D.camera.position.set(7.2,10.5,11.8); chess3D.camera.lookAt(0,0,0);
+    chess3D.scene.add(new THREE.HemisphereLight(0xffffff,0x52617b,2.1));
+    const key=new THREE.DirectionalLight(0xffe6b8,3);key.position.set(-4,9,6);chess3D.scene.add(key);
+    chess3D.boardGroup=new THREE.Group();chess3D.scene.add(chess3D.boardGroup);
+    const squares=[];
+    for(let r=0;r<8;r++)for(let c=0;c<8;c++){
+      const tile=new THREE.Mesh(new THREE.BoxGeometry(.98,.15,.98),new THREE.MeshStandardMaterial({color:(r+c)%2?0x80502f:0xe4cda3,roughness:.78}));
+      tile.position.set(c-3.5,-.09,r-3.5);tile.userData.square=[r,c];chess3D.boardGroup.add(tile);squares.push(tile);
+    }
+    chess3D.boardGroup.userData.squares=squares;
+    chess3D.renderer.domElement.addEventListener('pointerup',onChess3DPointer);
+    new ResizeObserver(resizeChess3D).observe(document.getElementById('chm-3d-wrap'));
+    chess3D.active=true;resizeChess3D();return true;
+  } catch(error) {
+    console.warn('3D chess unavailable; keeping the 2D board.',error);
+    document.getElementById('chm-3d-wrap').hidden=true;
+    document.getElementById('chm-board').hidden=false;
+    document.getElementById('chm-view-toggle').hidden=true;
+    return false;
+  }
+}
+function resizeChess3D(){
+  if(!chess3D.renderer)return;
+  const wrap=document.getElementById('chm-3d-wrap'),w=wrap.clientWidth,h=wrap.clientHeight;
+  if(!w||!h)return;
+  chess3D.renderer.setSize(w,h,false);chess3D.camera.aspect=w/h;chess3D.camera.updateProjectionMatrix();chess3D.renderer.render(chess3D.scene,chess3D.camera);
+}
+function renderChess3D(game){
+  if(!chess3D.renderer||!chess3D.active)return;
+  const newMove=game.history.length>chess3D.lastPly?game.history[game.history.length-1]:null;
+  chess3D.lastPly=game.history.length;
+  for(const [key,obj] of chess3D.pieces){chess3D.scene.remove(obj);obj.traverse(n=>{if(n.geometry)n.geometry.dispose();if(n.material)n.material.dispose();});}
+  chess3D.pieces.clear();
+  for(let r=0;r<8;r++)for(let c=0;c<8;c++){
+    const piece=game.board[r]?.[c];if(!piece)continue;
+    const group=createChess3DPiece(piece,r,c);group.userData.square=[r,c];group.userData.piece=piece;chess3D.scene.add(group);chess3D.pieces.set(`${r},${c}`,group);
+  }
+  for(const tile of chess3D.boardGroup.userData.squares){
+    const [r,c]=tile.userData.square,legal=game.legalMoves.some(m=>m.to[0]===r&&m.to[1]===c);
+    const selected=game.selectedSquare&&game.selectedSquare[0]===r&&game.selectedSquare[1]===c;
+    const hinted=game.hintSquares&&([game.hintSquares.from,game.hintSquares.to].some(s=>s[0]===r&&s[1]===c));
+    tile.material.color.set(selected?0xffd500:hinted?0xffb52e:legal?0x57c9a6:((r+c)%2?0x80502f:0xe4cda3));
+  }
+  if(game.pendingBattle){const battle=game.pendingBattle;game.pendingBattle=null;startChessBattle(battle);}
+  else if(newMove){
+    const mover=chess3D.pieces.get(`${newMove.to[0]},${newMove.to[1]}`);
+    if(mover){const from=newMove.from,to=newMove.to,start=performance.now(),duration=matchMedia('(prefers-reduced-motion: reduce)').matches?1:260;const step=now=>{const p=Math.min(1,(now-start)/duration),ease=p*p*(3-2*p);mover.position.set((from[1]-3.5)*(1-ease)+(to[1]-3.5)*ease,Math.sin(p*Math.PI)*.11,(from[0]-3.5)*(1-ease)+(to[0]-3.5)*ease);chess3D.renderer.render(chess3D.scene,chess3D.camera);if(p<1)requestAnimationFrame(step);};requestAnimationFrame(step);}
+  }
+  resizeChess3D();
+}
+function finishChessBattle(){
+  if(!chess3D.battle)return;
+  const {attacker,defender,stars}=chess3D.battle;
+  chess3D.scene.remove(attacker);chess3D.scene.remove(defender);chess3D.scene.remove(stars);
+  chess3D.battle=null;document.getElementById('chm-battle-skip').hidden=true;renderChess3D(chessGame);
+}
+function startChessBattle({piece,captured,from,to}){
+  if(!chess3D.renderer)return;
+  if(chess3D.battle)finishChessBattle();
+  const attacker=chess3D.pieces.get(`${to[0]},${to[1]}`),defender=createChess3DPiece(captured,to[0],to[1]);
+  if(!attacker)return;
+  defender.position.x+=.2;defender.position.z-=.2;chess3D.scene.add(defender);
+  const starGeo=new THREE.BufferGeometry(),coords=[];
+  for(let i=0;i<24;i++){const a=i/24*Math.PI*2;coords.push(to[1]-3.5+Math.cos(a)*(.28+Math.random()*.22),.65+Math.random()*.65,to[0]-3.5+Math.sin(a)*(.28+Math.random()*.22));}
+  starGeo.setAttribute('position',new THREE.Float32BufferAttribute(coords,3));
+  const type=piece[1],color=type==='Q'?0x9c7bff:type==='B'?0x72e9da:type==='R'?0xff934f:type==='N'?0x68b8ff:0xffdf58;
+  const stars=new THREE.Points(starGeo,new THREE.PointsMaterial({color,size:.14,transparent:true,opacity:1}));chess3D.scene.add(stars);
+  chess3D.battle={attacker,defender,stars,start:performance.now(),from,to,type};
+  document.getElementById('chm-battle-skip').hidden=false;
+  const tick=now=>{
+    if(!chess3D.battle)return;
+    const b=chess3D.battle,duration=matchMedia('(prefers-reduced-motion: reduce)').matches?1:950,p=Math.min(1,(now-b.start)/duration),ease=p*p*(3-2*p);
+    const bump=b.type==='P'?Math.sin(p*Math.PI)*.43:b.type==='N'?Math.sin(p*Math.PI)*.31:b.type==='R'?Math.sin(p*Math.PI)*.08:b.type==='B'?Math.sin(p*Math.PI*2)*.14:b.type==='Q'?Math.sin(p*Math.PI)*.2:Math.sin(p*Math.PI)*.36;
+    b.attacker.position.set((b.from[1]-3.5)*(1-ease)+(b.to[1]-3.5)*ease,bump,(b.from[0]-3.5)*(1-ease)+(b.to[0]-3.5)*ease);
+    if(b.type==='N')b.attacker.rotation.y=Math.sin(p*Math.PI)*.65;
+    if(b.type==='B')b.attacker.rotation.z=Math.sin(p*Math.PI*2)*.22;
+    if(b.type==='Q')b.attacker.rotation.y=p*Math.PI*3;
+    if(b.type==='K')b.attacker.rotation.x=Math.sin(p*Math.PI)*.16;
+    b.defender.rotation.z=ease*(b.type==='R'?1.75:1.35);b.defender.position.y=-ease*.25;
+    b.stars.material.opacity=1-p;
+    chess3D.renderer.render(chess3D.scene,chess3D.camera);
+    if(p<1)requestAnimationFrame(tick);else finishChessBattle();
+  };
+  requestAnimationFrame(tick);
+}
+function onChess3DPointer(event){
+  if(!chess3D.renderer||!chessGame.board.length)return;
+  const rect=event.currentTarget.getBoundingClientRect();chess3D.pointer.set((event.clientX-rect.left)/rect.width*2-1,-((event.clientY-rect.top)/rect.height)*2+1);
+  chess3D.raycaster.setFromCamera(chess3D.pointer,chess3D.camera);
+  const hits=chess3D.raycaster.intersectObjects([...chess3D.pieces.values(),...chess3D.boardGroup.userData.squares],true);
+  if(!hits.length)return;
+  let node=hits[0].object;while(node&&!node.userData.square)node=node.parent;
+  if(node?.userData.square)chessGame.onSquareClick(...node.userData.square);
+}
+
 const chessGame = {
   board: [],
   turn: 'w',
@@ -3777,6 +3915,7 @@ const chessGame = {
   gameOver: false,
   status: "Vihaan's turn! Make your move.",
   hintSquares: null,
+  pendingBattle: null,
 
   showColorChoice() {
     document.getElementById('chm-color-picker').hidden = false;
@@ -3784,6 +3923,8 @@ const chessGame = {
   },
 
   init(humanColor = 'w') {
+    if(chess3D.battle)finishChessBattle();
+    chess3D.lastPly=0;
     this.humanColor = humanColor;
     this.botColor = humanColor === 'w' ? 'b' : 'w';
     this.board = [
@@ -3802,9 +3943,16 @@ const chessGame = {
     this.isThinking = false;
     this.gameOver = false;
     this.hintSquares = null;
+    this.pendingBattle = null;
     this.status = humanColor === 'w' ? "Your turn! Make your move." : "Robo-Pawn is calculating...";
     document.getElementById('chm-color-picker').hidden = true;
     document.getElementById('chm-game-body').hidden = false;
+    ensureChess3D();
+    document.getElementById('chm-3d-wrap').hidden = false;
+    document.getElementById('chm-board').hidden = true;
+    document.getElementById('chm-view-toggle').hidden = false;
+    document.getElementById('chm-view-toggle').textContent = '▦ Switch to 2D board';
+    document.getElementById('chm-view-toggle').setAttribute('aria-pressed','true');
     document.getElementById('chm-color-label').textContent = `You play ${humanColor === 'w' ? 'White' : 'Black'}, robot plays ${humanColor === 'w' ? 'Black' : 'White'}.`;
     drawRoboFace('happy');
     this.updateSpeech("Beep boop! Ready for a friendly match, Vihaan? Show me your Crowder College Open tactics!");
@@ -3961,6 +4109,7 @@ const chessGame = {
     if (!piece) return;
     const destPiece = this.board[toR][toC];
     const isW = piece[0] === 'w';
+    if(destPiece)this.pendingBattle={piece,captured:destPiece,from:[fromR,fromC],to:[toR,toC]};
 
     // Promotion
     let finalPiece = piece;
@@ -4233,10 +4382,11 @@ const chessGame = {
         histEl.scrollTop = histEl.scrollHeight;
       }
     }
+    renderChess3D(this);
   },
 
   onSquareClick(r, c) {
-    if (this.gameOver || this.turn !== this.humanColor || this.isThinking) return;
+    if (this.gameOver || this.turn !== this.humanColor || this.isThinking || chess3D.battle) return;
     const p = this.board[r][c];
 
     if (this.selectedSquare) {
@@ -6376,6 +6526,15 @@ document.getElementById('chm-btn-stand')?.addEventListener('click', () => {
 document.getElementById('chm-btn-new')?.addEventListener('click', () => {
   if (typeof chessGame !== 'undefined') chessGame.showColorChoice();
 });
+document.getElementById('chm-view-toggle')?.addEventListener('click', (event) => {
+  const button=event.currentTarget,show3D=document.getElementById('chm-3d-wrap').hidden;
+  document.getElementById('chm-3d-wrap').hidden=!show3D;
+  document.getElementById('chm-board').hidden=show3D;
+  button.textContent=show3D?'▦ Switch to 2D board':'🧊 Switch to 3D board';
+  button.setAttribute('aria-pressed',String(show3D));
+  if(show3D){resizeChess3D();renderChess3D(chessGame);}
+});
+document.getElementById('chm-battle-skip')?.addEventListener('click', finishChessBattle);
 document.querySelectorAll('[data-player-color]').forEach(btn => {
   btn.addEventListener('click', () => {
     let color = btn.dataset.playerColor;
@@ -6397,7 +6556,7 @@ document.querySelectorAll('.chm-lvl').forEach(btn => {
     document.querySelectorAll('.chm-lvl').forEach(b => b.classList.remove('active'));
     e.currentTarget.classList.add('active');
     if (typeof chessGame !== 'undefined') {
-      chessGame.botTier = parseInt(e.currentTarget.dataset.tier || '2', 10);
+      chessGame.botLevel = parseInt(e.currentTarget.dataset.lvl || '750', 10);
       playChessSound('step');
     }
   });
@@ -6405,7 +6564,8 @@ document.querySelectorAll('.chm-lvl').forEach(btn => {
 
 window.__slider = slider; window.__pend = () => pendants.map(p => ({ x: +p.ax.toFixed(4), z: +p.az.toFixed(4) }));
 window.__sblvl = {
-  scene, camera, renderer, state, game, ball, TV, characters, quad, ahaanQuad, skateboard, roomPlants, largeRoomPlants, dogGroup, dogTail, ahaanGroup, ahaanState, ahaanRig, vihaanRightArm:vihaanRig.rightArm, vihaanJetpack, ahaanJetpack, arcadeControls, progressPlaque, startBoardRun, selectArcadeGame,
+  scene, camera, renderer, state, game, ball, TV, characters, quad, ahaanQuad, skateboard, roomPlants, largeRoomPlants, dogGroup, dogTail, ahaanGroup, ahaanState, ahaanRig, vihaanRightArm:vihaanRig.rightArm, vihaanJetpack, ahaanJetpack, arcadeControls, progressPlaque, startBoardRun, selectArcadeGame, chess3D,
+  projectChess3DSquare(row,col,y=0){const point=new THREE.Vector3(col-3.5,y,row-3.5).project(chess3D.camera),rect=chess3D.renderer.domElement.getBoundingClientRect();return {x:rect.left+(point.x+1)*rect.width/2,y:rect.top+(1-point.y)*rect.height/2};},
   vihaanState, chessGame, walkVihaanTo, walkVihaanToStairsTop, walkVihaanToStairsBottom, walkVihaanToChessTable, setTwoPlayerMode,
   get twoPlayerMode(){return twoPlayerMode;},
   getWalkHeight, trophyAwards, openTrophy,
@@ -7739,8 +7899,8 @@ window.__sheet = {group, mat, uni, renderer, scene, camera, mesh,
   <script defer src="sub-navs.js"></script>
 <script>
 (() => {
-  const latestVerifiedPublish = Date.parse('2026-11-20T00:00:00Z');
-  if (Date.now() - latestVerifiedPublish < 7 * 24 * 60 * 60 * 1000) {
+  const latestVerifiedPublish = Date.parse('2026-11-26T04:42:00Z');
+  if (Date.now() >= latestVerifiedPublish && Date.now() - latestVerifiedPublish < 7 * 24 * 60 * 60 * 1000) {
     document.querySelector('#fresh-drops-home-new')?.removeAttribute('hidden');
     document.querySelector('#fresh-drops-mobile-new')?.removeAttribute('hidden');
   }

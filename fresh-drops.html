@@ -32,6 +32,10 @@
     </section>
     <div class="intro"><h2>Hot off the build bench</h2><p>Newest first · pick a picture to find your update</p></div>
     <section class="drops" aria-label="Latest updates">
+      <article class="drop" data-publish-date="2026-11-25" data-publish-at="2026-11-26T04:42:00Z">
+        <figure class="drop-visual"><img src="images/fresh-drops/battle-chess.png" alt="Live 3D chessboard in Vihaan's World, with character pieces ready for a friendly match"><figcaption>Battle Chess · make your move, then watch the pieces bonk and topple</figcaption></figure>
+        <div class="drop-body"><div class="entry-meta"><time class="entry-date" datetime="2026-11-25">November 25, 2026</time><span class="new-badge" hidden>NEW</span></div><h3>Play 3D Battle Chess</h3><p>Move real 3D characters across the board. When a piece is captured, it gets a short, silly battle with bright stars. Skip it any time or switch to the classic 2D board.</p><p class="try"><span class="try-label">Try it:</span><a href="index.html">Open the 3D Lobby and choose PLAY CHESS WITH BOT.</a></p></div>
+      </article>
       <article class="drop" data-publish-date="2026-11-25">
         <figure class="drop-visual"><img src="images/fresh-drops/grass-fields-changes-52-61.png" alt="Live 3D screenshot from Grass Fields, with the player walking through the big grass-field lobby"><figcaption>Grass Fields · walk the 3D world, train, and explore new challenges</figcaption></figure>
         <div class="drop-body"><div class="entry-meta"><time class="entry-date" datetime="2026-11-25">November 25, 2026</time><span class="new-badge" hidden>NEW</span></div><h3>Grass Fields grows into a 3D world</h3><p>Walk through a huge solo world, take on 15 grass-strip challenges, and try nine strength pools. Rebirths, new shops, and the second floor help you grow your base.</p><p class="try"><span class="try-label">Try it:</span><a href="grass-fields.html">Open Grass Fields from the Play menu.</a></p></div>
@@ -134,9 +138,9 @@
   <script>
     (() => {
       const freshFor = 7 * 24 * 60 * 60 * 1000;
-      const isFresh = date => Date.now() - Date.parse(`${date}T00:00:00Z`) < freshFor;
+      const isFresh = date => { const age = Date.now() - Date.parse(date.includes('T') ? date : `${date}T00:00:00Z`); return age >= 0 && age < freshFor; };
       document.querySelectorAll('.drop[data-publish-date]').forEach(card => {
-        if (isFresh(card.dataset.publishDate)) card.querySelector('.new-badge')?.removeAttribute('hidden');
+        if (isFresh(card.dataset.publishAt || card.dataset.publishDate)) card.querySelector('.new-badge')?.removeAttribute('hidden');
       });
     })();
   </script>
