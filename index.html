@@ -804,6 +804,7 @@
 
 /* ---------- 3D Hero Canvas ---------- */
 #canvas-container{position:fixed;top:0;left:0;width:100%;height:var(--canvas-offset);z-index:0;background:#000;overflow:hidden;font-family:var(--sans)}
+#canvas-container.chess-fullscreen{z-index:1001}
 #gl{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
 #loader{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--mono);font-size:13px;font-weight:600;color:var(--o);letter-spacing:.02em;text-transform:uppercase;pointer-events:none;transition:opacity .6s ease}
 #loader.done{opacity:0}
@@ -883,24 +884,24 @@
 }
 
 /* ---------- Interactive Chess Match HUD vs Robo-Pawn (Sally UX Lead) ---------- */
-#chess-hud-modal{position:absolute;inset:72px 16px 16px;z-index:25;display:flex;align-items:center;justify-content:center;pointer-events:none}
+#chess-hud-modal{position:fixed;inset:0;z-index:1002;display:flex;align-items:stretch;justify-content:stretch;pointer-events:none}
 #chess-hud-modal[hidden]{display:none !important}
-.chm-panel{pointer-events:auto;width:min(860px,calc(100vw - 24px));max-height:calc(100vh - 88px);overflow-y:auto;background:rgba(13,20,34,.94);border:2px solid rgba(255,213,0,.65);border-radius:18px;box-shadow:0 24px 60px rgba(0,0,0,.85),0 0 35px rgba(30,80,200,.4);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:18px 22px;color:#fff;animation:chm-pop .25s cubic-bezier(.16,1,.3,1)}
+.chm-panel{pointer-events:auto;width:100%;height:100vh;height:100dvh;max-height:100dvh;overflow-y:auto;overflow-x:hidden;background:rgba(13,20,34,.97);border:0;border-radius:0;box-shadow:none;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:12px clamp(12px,2vw,28px) max(12px,env(safe-area-inset-bottom));color:#fff;display:flex;flex-direction:column;animation:chm-pop .25s cubic-bezier(.16,1,.3,1)}
 @keyframes chm-pop{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}
-.chm-header{position:relative;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;border-bottom:1px solid rgba(255,255,255,.12);padding:0 42px 12px 0;margin-bottom:14px}
+.chm-header{position:relative;flex:none;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;border-bottom:1px solid rgba(255,255,255,.12);padding:0 48px 8px 0;margin-bottom:8px}
 .chm-players{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .chm-pbadge{display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);font-family:'Baloo 2',var(--sans);font-size:14px}
 .chm-pbadge.p-vihaan{border-color:rgba(255,213,0,.5);background:rgba(255,213,0,.12);color:#ffd500}
 .chm-pbadge.p-bot{border-color:rgba(45,197,161,.5);background:rgba(45,197,161,.12);color:#2dc5a1}
 .chm-vs{font-family:var(--mono);font-size:11px;font-weight:800;color:#ff8800}
 .chm-levels{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.chm-lvl{appearance:none;border:none;cursor:pointer;font-family:var(--mono);font-size:10px;font-weight:700;padding:5px 9px;border-radius:6px;background:rgba(255,255,255,.08);color:#ccc;border:1px solid rgba(255,255,255,.15);transition:all .15s}
+.chm-lvl{appearance:none;border:none;cursor:pointer;font-family:var(--mono);font-size:10px;font-weight:700;min-height:44px;padding:7px 10px;border-radius:8px;background:rgba(255,255,255,.08);color:#ccc;border:1px solid rgba(255,255,255,.15);transition:all .15s}
 .chm-lvl:hover{background:rgba(255,213,0,.18);color:#fff}
 .chm-lvl.active{background:#ffd500;color:#10243f;border-color:#ffd500;font-weight:800}
 .chm-close{position:absolute;right:0;top:0;appearance:none;background:none;border:none;color:#aaa;font-size:22px;cursor:pointer;width:36px;height:36px;border-radius:8px;display:grid;place-items:center;transition:all .15s}
 .chm-close:hover{color:#fff;background:rgba(255,255,255,.15)}
 
-.chm-robot-bubble{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:12px;background:rgba(45,197,161,.14);border:1.5px solid rgba(45,197,161,.45);margin-bottom:14px}
+.chm-robot-bubble{flex:none;display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:12px;background:rgba(45,197,161,.14);border:1.5px solid rgba(45,197,161,.45);margin-bottom:8px}
 .chm-rb-avatar{font-size:28px;line-height:1}
 .chm-rb-text{font-family:'Baloo 2',var(--sans);font-size:14px;color:#d4fbf1;line-height:1.35;flex:1}
 .chm-rb-text b{color:#ffd500}
@@ -909,15 +910,15 @@
 .chm-color-choice button:hover,.chm-color-choice button:focus-visible{background:rgba(255,213,0,.2);border-color:#ffd500;outline:none}
 .chm-color-note{text-align:center;color:#d4fbf1;font:600 15px 'Baloo 2',var(--sans);margin:0 0 6px}
 
-.chm-body{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start}
+.chm-body{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,min(65vh,44vw)) minmax(0,1fr);gap:clamp(14px,2vw,28px);align-items:center;justify-content:center;overflow:auto}
 @media (max-width:760px){
-  .chm-body{grid-template-columns:1fr}
+  .chm-body{flex:none;grid-template-columns:minmax(0,1fr);gap:8px;align-content:start;overflow:visible}
 }
-.chm-board-wrap{display:flex;flex-direction:column;align-items:center;gap:8px}
+.chm-board-wrap{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0}
 .chm-board-tools{display:flex;justify-content:center;gap:8px;width:100%}
 .chm-board-tools button{min-height:44px;padding:8px 14px;border:1px solid rgba(255,213,0,.55);border-radius:10px;background:#182a45;color:#fff;font:700 14px 'Baloo 2',var(--sans);cursor:pointer}
 .chm-board-tools button:focus-visible{outline:3px solid #ffd500;outline-offset:2px}
-.chm-3d-wrap{position:relative;width:min(100%,440px);aspect-ratio:1;overflow:hidden;border:3px solid #3e2415;border-radius:10px;background:#182a45;touch-action:none}
+.chm-3d-wrap{position:relative;width:100%;aspect-ratio:1;overflow:hidden;border:3px solid #3e2415;border-radius:10px;background:#182a45;touch-action:none}
 .chm-3d-wrap[hidden]{display:none!important}
 .chm-3d-wrap canvas{display:block;width:100%;height:100%}
 .chm-3d-wrap .chm-3d-hint{position:absolute;left:8px;bottom:6px;padding:3px 7px;border-radius:6px;background:rgba(0,0,0,.65);color:#fff;font:600 11px var(--sans);pointer-events:none}
@@ -925,7 +926,7 @@
 .chm-battle-skip[hidden]{display:none!important}
 .chm-board[hidden]{display:none!important}
 .chm-captures{display:flex;align-items:center;gap:4px;min-height:24px;font-size:18px;color:#ffd500;flex-wrap:wrap}
-.chm-board{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));grid-template-rows:repeat(8,minmax(0,1fr));width:min(100%,416px);aspect-ratio:1;border:3px solid #3e2415;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.6);overflow:hidden;background:#3e2415;user-select:none}
+.chm-board{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));grid-template-rows:repeat(8,minmax(0,1fr));width:100%;aspect-ratio:1;border:3px solid #3e2415;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.6);overflow:hidden;background:#3e2415;user-select:none}
 .chm-sq{display:grid;place-items:center;font-size:clamp(22px,4vw,36px);cursor:pointer;position:relative;transition:background .15s}
 .chm-sq.light{background:#e2cca6;color:#111}
 .chm-sq.dark{background:#8a5933;color:#fff}
@@ -935,20 +936,45 @@
 .chm-sq.capture::after{content:"";width:26px;height:26px;border-radius:50%;background:transparent;border:3px solid rgba(255,77,0,.9);box-shadow:0 0 10px rgba(255,77,0,.8);pointer-events:none}
 
 .chm-info-panel{display:flex;flex-direction:column;gap:12px}
+.chm-info-panel{min-width:0}
 .chm-status-card{padding:10px 14px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:space-between}
 .chm-turn{font-family:'Baloo 2',var(--sans);font-size:15px;font-weight:700;display:flex;align-items:center;gap:6px}
 .chm-turn.w{color:#ffd500}
 .chm-turn.b{color:#2dc5a1}
 .chm-eval{font-family:var(--mono);font-size:11px;color:#a0b2cc}
 
-.chm-moves-box{height:120px;overflow-y:auto;padding:8px 10px;border-radius:8px;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.08);font-family:var(--mono);font-size:11px;color:#ccc;display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start}
+.chm-moves-box{height:clamp(72px,12vh,120px);flex:none;overflow-y:auto;padding:8px 10px;border-radius:8px;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.08);font-family:var(--mono);font-size:11px;color:#ccc;display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start}
 .chm-move-chip{padding:2px 6px;border-radius:4px;background:rgba(255,255,255,.06);color:#fff}
 
 .chm-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
-.chm-act-btn{appearance:none;border:none;cursor:pointer;font-family:'Baloo 2',var(--sans);font-size:13px;font-weight:700;padding:8px 14px;border-radius:10px;background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);display:inline-flex;align-items:center;gap:6px;transition:all .15s}
+.chm-act-btn{appearance:none;border:none;cursor:pointer;font-family:'Baloo 2',var(--sans);font-size:13px;font-weight:700;min-height:44px;padding:8px 14px;border-radius:10px;background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);display:inline-flex;align-items:center;gap:6px;transition:all .15s}
 .chm-act-btn:hover{background:rgba(255,213,0,.22);border-color:var(--yellow);color:#ffd500}
 .chm-act-btn.primary{background:linear-gradient(135deg,#1e50c8,#2a5fe0);border-color:#6ea8ff}
 .chm-act-btn.primary:hover{background:linear-gradient(135deg,#2a5fe0,#1e50c8);color:#fff}
+@media(max-width:760px){
+  .chm-panel{padding:8px 10px max(8px,env(safe-area-inset-bottom))}
+  .chm-header{gap:5px;margin-bottom:6px;padding:0 46px 6px 0}
+  .chm-players{gap:5px}
+  .chm-pbadge{gap:5px;padding:4px 7px;font-size:12px}
+  .chm-levels{gap:4px}
+  .chm-lvl{min-height:44px;padding:5px 7px;font-size:9px}
+  .chm-close{width:44px;height:44px}
+  .chm-robot-bubble{gap:8px;padding:6px 9px;margin-bottom:6px}
+  .chm-rb-avatar{font-size:24px}
+  .chm-rb-text{font-size:13px}
+  .chm-body{gap:7px}
+  .chm-board-wrap{width:min(100%,min(30vh,calc(100vw - 32px)));justify-self:center;gap:4px}
+  .chm-color-note{font-size:13px;margin-bottom:0}
+  .chm-captures{min-height:18px;font-size:16px}
+  .chm-board-tools button{min-height:44px;padding:6px 10px;font-size:13px}
+  .chm-info-panel{gap:7px}
+  .chm-status-card{gap:6px;padding:6px 9px}
+  .chm-turn{font-size:13px}
+  .chm-eval{font-size:9px}
+  .chm-moves-box{height:clamp(56px,8vh,72px);padding:6px 8px}
+  .chm-actions{gap:6px}
+  .chm-act-btn{padding:6px 9px;font-size:12px}
+}
 
 /* ---------- top nav: floating glass pill ---------- */
 #topnav{position:fixed;top:12px;left:0;right:0;z-index:1000;display:flex;flex-direction:column;align-items:center;pointer-events:none;font-family:var(--sans);font-size:.75rem;line-height:1rem;font-weight:600;perspective:1300px}
@@ -3805,7 +3831,8 @@ function ensureChess3D() {
     chess3D.renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.5));
     chess3D.renderer.outputColorSpace=THREE.SRGBColorSpace;
     chess3D.scene=new THREE.Scene(); chess3D.scene.background=new THREE.Color(0x182a45);
-    chess3D.camera=new THREE.PerspectiveCamera(40,1,.1,50); chess3D.camera.position.set(7.2,10.5,11.8); chess3D.camera.lookAt(0,0,0);
+    chess3D.camera=new THREE.OrthographicCamera(-4.55,4.55,4.55,-4.55,.1,50);
+    chess3D.camera.position.set(0,12,0);chess3D.camera.up.set(0,0,-1);chess3D.camera.lookAt(0,0,0);
     chess3D.scene.add(new THREE.HemisphereLight(0xffffff,0x52617b,2.1));
     const key=new THREE.DirectionalLight(0xffe6b8,3);key.position.set(-4,9,6);chess3D.scene.add(key);
     chess3D.boardGroup=new THREE.Group();chess3D.scene.add(chess3D.boardGroup);
@@ -3830,7 +3857,9 @@ function resizeChess3D(){
   if(!chess3D.renderer)return;
   const wrap=document.getElementById('chm-3d-wrap'),w=wrap.clientWidth,h=wrap.clientHeight;
   if(!w||!h)return;
-  chess3D.renderer.setSize(w,h,false);chess3D.camera.aspect=w/h;chess3D.camera.updateProjectionMatrix();chess3D.renderer.render(chess3D.scene,chess3D.camera);
+  chess3D.renderer.setSize(w,h,false);
+  const view=4.55,aspect=w/h;chess3D.camera.left=-view*aspect;chess3D.camera.right=view*aspect;chess3D.camera.top=view;chess3D.camera.bottom=-view;chess3D.camera.updateProjectionMatrix();
+  chess3D.renderer.render(chess3D.scene,chess3D.camera);
 }
 function renderChess3D(game){
   if(!chess3D.renderer||!chess3D.active)return;
@@ -4906,12 +4935,14 @@ function updateVihaanMovement(dt, t) {
 function startChessMatch() {
   const modal = document.getElementById('chess-hud-modal');
   if (modal) modal.hidden = false;
+  document.getElementById('canvas-container')?.classList.add('chess-fullscreen');
   chessGame.showColorChoice();
 }
 
 function closeChessMatch() {
   const modal = document.getElementById('chess-hud-modal');
   if (modal) modal.hidden = true;
+  document.getElementById('canvas-container')?.classList.remove('chess-fullscreen');
   setMode('home');
 }
 
@@ -6088,6 +6119,7 @@ function setMode(m, arg) {
   if (m === 'tv') showTV(arg === undefined ? state.tvIndex : arg); else tvcap.hidden = true;
 
   const chessHud = document.getElementById('chess-hud-modal');
+  document.getElementById('canvas-container')?.classList.toggle('chess-fullscreen',m==='chess');
   const actionBar = document.getElementById('avatar-action-bar');
   if (actionBar) {
     actionBar.hidden = (m !== 'home');
