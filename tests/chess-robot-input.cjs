@@ -94,7 +94,7 @@ fs.mkdirSync(outputDir, {recursive:true});
    await page.locator('#btn-action-chess').click();await page.locator('[data-player-color="w"]').click();await page.locator('#chm-btn-hint').click();
    await page.locator('#chm-btn-stand').click();assert.equal(await page.locator('#chess-hud-modal').isVisible(),false,'Stand Up & Explore exits full-screen chess');
    await page.goto((process.env.VIHAAN_BASE_URL||'http://127.0.0.1:8876')+'/fresh-drops.html',{waitUntil:'networkidle'});
-   assert.match(await page.locator('.drop h3').first().textContent(),/3D Battle Chess/);
+   assert.match(await page.locator('.drop h3').first().textContent(),/Chess gets a full-screen board/);
    assert.equal(await page.locator('.drop').first().locator('.new-badge').isVisible(),true,'Fresh Drops card has its 7-day NEW badge');
    assert.equal(await page.locator('.drop').first().locator('img').evaluate(img=>img.complete&&img.naturalWidth>0),true,'Fresh Drops screenshot loads');
    assert.equal(errors.length,0,errors.join('\n'));
